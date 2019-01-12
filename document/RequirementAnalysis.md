@@ -1,4 +1,4 @@
-### [四川师范大学安全考试求说明](#top) :speech_balloon: <b id="top"></b>
+### [四川师范大学安全考试需求说明](#top) :speech_balloon: <b id="top"></b>
 
 -----
 `版本`:`1.0.0`
