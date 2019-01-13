@@ -9,6 +9,21 @@
     - [x] [`1.4 专业表`](#tabpro)  
     - [x] [`1.4 学生表`](#tabstu)  
 - [x] [`2.管理员模块设计`](#admin)
+    - [x] [`2.1 管理员表`](#tabadm)    
+- [x] [`3.课程模块设计`](#cources)
+    - [x] [`3.1 课程表`](#cour)
+    - [x] [`3.2 资源表`](#res)
+    - [x] [`3.4 学习课程表`](#learing)
+    - [x] [`3.5 学习进度记录表`](#study)
+- [x] [`4.题库管理权限`](#bank)
+    - [x] [`4.1 单选题表`](#only)
+    - [x] [`4.2 多选题表`](#many)
+    - [x] [`4.3 判断题表`](#judge)
+    - [x] [`4.4 试卷表`](#paper)
+    - [x] [`4.5 单选题仓库`](#onlyStore)
+    - [x] [`4.6 多选题仓库`](#manyStore)
+    - [x] [`4.7 判断题仓库`](#judgeStore)
+    
 -----
 #####  :octocat: [1.学生模块表设计](#top) <b id="stu"></b> 
 `核心信息为教务处发送过来的信息！保持不变`
@@ -74,9 +89,12 @@
 #####  :octocat: [2.管理员模块设计](#top) <b id="admin"></b> 
 `管理员复制后台管理,具有权限配置 json文件`
 
+
+##### [管理员表 Principal](#top)  <b id="tabadm"></b>
+
 |`字段`|`类型`|`说明`|
 |:----|:-----|:------|
-|`PrincipalID`|`int`|`管理员【又称为负责人】ID [主键]`|
+|`PrincipalID`|`varchar(200)`|`管理员【又称为负责人】ID [主键]`|
 |`Password`|`varchar(600)`|`密码 加密使用 MD5 反复加密`|
 |`JobNumber`|`varchar(800)`|`工号`|
 |`Name`|`varchar(100)`|`姓名`|
@@ -100,10 +118,180 @@
 }
 ```
 
+#####  :octocat: [3.课程模块设计](#top) <b id="cources"></b>
+`课程资源学习有关的表`
+
+##### [课程表 Cource](#top)  <b id="cour"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`CourceId`|`int`|`课程ID [主键]`|
+|`Name`|`varchar(300)`|`课程名称`|
+|`PrincipalID`|`varchar(200)`|`添加人员`|
+|`AddTime`|`DateTime`|`添加时间`|
+|`Introduction`|`varchar(1000)`|`课程简介`|
+|`Credit`|`float`|`学分`|
+|`ModuleID`|`int`|`模块ID [外键]`|
+|`CourceStatus`|`int`|`课程状态 映射为 [枚举]`|
+
+```c#
+public enum CourceStatus{
+  Using = 0, //使用中
+  Normal = 1 //未使用正常状态
+}
+```
+    
+##### [资源表 Resource](#top)  <b id="res"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ResourceId`|`int`|`资源ID [主键]`|
+|`Name`|`int`|`资源名称`|
+|`CourceId`|`int`|`所属课程`|
+|`ResourceType`|`int`|`资源类型 枚举`|
+|`Link`|`varchar(600)`|`资源链接`|
+|`Description`|`text`|`资源描述`|
+|`LengthOfStudy`|`float`|`学习时长`|
+|`ResourceStatus`|`int`|`资源状态`|
+
+```c#
+public enum ResourceType{
+  Link = 0, //链接文件 
+  Vedio = 1 //视频文件
+}
+
+public enum ResourceStatus{
+  Using = 0, //使用中
+  Normal = 1 //未使用正常状态
+}
+```
+
+##### [学习课程表 Learing](#top)  <b id="learing"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`LearingID`|`int`|`自动增加 主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`CourceId`|`int`|`课程号`|
+|`AddTime`|`DateTime`|`添加时间`|
+
+##### [学习进度记录表 Progress](#top)  <b id="study"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ProgressID`|`int`|`自动增加 主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`ResourceId`|`int`|`资源ID `|
+|`StudyTime`|`float`|`已经学习的时长`|
+|`NeedTime`|`float`|`需要的学习时间`|
+|`AddTime`|`DateTime`|`学习任务安排时间`|
+
+#####  :octocat: [4.题库管理权限](#top) <b id="bank"></b>
+
+##### [单选题表 SingleChoices](#top)  <b id="only"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`SingleId`|`int`|`单选题ID [主键]`|
+|`ModuleId`|`int`|`模块ID 所属模块`|
+|`Content`|`text`|`题干`|
+|`Answer`|`varchar(10)`|`答案`|
+|`DegreeOfDifficulty`|`float?`|`难度系数`|
+|`AddTime`|`DateTime`|`添加时间`|
+|`PrincipalID`|`varchar(200)`|`题目添加人`|
+|`Count`|`int`|`选项数量 最多八个`|
+|`A`|`varchar(1000)`|`选项内容`|
+|`B`|`varchar(1000)`|`选项内容`|
+|`C`|`varchar(1000)`|`选项内容`|
+|`D`|`varchar(1000)`|`选项内容`|
+|`E`|`varchar(1000)`|`选项内容`|
+|`F`|`varchar(1000)`|`选项内容`|
+|`G`|`varchar(1000)`|`选项内容`|
+|`H`|`varchar(1000)`|`选项内容`|
 
 
+##### [多选题表 MultipleChoices](#top)  <b id="many"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`MultipleId`|`int`|`单选题ID [主键]`|
+|`ModuleId`|`int`|`模块ID 所属模块`|
+|`Content`|`text`|`题干`|
+|`Answer`|`varchar(10)`|`答案`|
+|`DegreeOfDifficulty`|`float?`|`难度系数`|
+|`AddTime`|`DateTime`|`添加时间`|
+|`PrincipalID`|`varchar(200)`|`题目添加人`|
+|`Count`|`int`|`选项数量 最多八个`|
+|`A`|`varchar(1000)`|`选项内容`|
+|`B`|`varchar(1000)`|`选项内容`|
+|`C`|`varchar(1000)`|`选项内容`|
+|`D`|`varchar(1000)`|`选项内容`|
+|`E`|`varchar(1000)`|`选项内容`|
+|`F`|`varchar(1000)`|`选项内容`|
+|`G`|`varchar(1000)`|`选项内容`|
+|`H`|`varchar(1000)`|`选项内容`|
+
+##### [判断题表 JudgeChoices](#top)  <b id="judge"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`JudgeId`|`int`|`判断题ID [主键]`|
+|`ModuleId`|`int`|`模块ID 所属模块`|
+|`Content`|`text`|`题干`|
+|`Answer`|`varchar(10)`|`答案`|
+|`DegreeOfDifficulty`|`float?`|`难度系数`|
+|`AddTime`|`DateTime`|`添加时间`|
+|`PrincipalID`|`varchar(200)`|`题目添加人`|
+|`A`|`varchar(1000)`|`选项内容`|
+|`B`|`varchar(1000)`|`选项内容`|
 
 
+##### [试卷表 ExaminationPaper](#top)  <b id="paper"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`PaperId`|`int`|`试卷ID`|
+|`StudentId`|`varchar(40)`|`学生学号 那个学生的试卷 not null`|
+|`PassScore`|`float`|`通过分数`|
+|`ExamTime`|`float`|`考试时间`|
+|`LeaveExamTime`|`float`|`剩余考试时间`|
+|`TotleScore`|`float`|`总分`|
+|`AddTime`|`DateTime`|`添加时间`|
+|`ModuleId`|`int`|`模块ID 所属模块`|
+
+##### [单选题仓库 ExamSingleChoices](#top)  <b id="onlyStore"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ExamSingleChoicesId`|`int`|`主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`SingleId`|`int`|`单选题ID`|
+|`StudentAnswer`|`varchar(40)`|`学生的答案`|
+|`RealAnswer`|`varchar(40)`|`题目答案`|
+|`Score`|`float`|`题目分数`|
+ 
+
+##### [多选题仓库 ExamMultipleChoices](#top)  <b id="manyStore"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ExamSingleChoicesId`|`int`|`主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`MultipleId`|`int`|`单选题ID`|
+|`StudentAnswer`|`varchar(40)`|`学生的答案`|
+|`RealAnswer`|`varchar(40)`|`题目答案`|
+|`Score`|`float`|`题目分数`|
+
+##### [判断题仓库 ExamJudgeChoices](#top)  <b id="judgeStore"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ExamSingleChoicesId`|`int`|`主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`JudgeId`|`int`|`学号`|
+|`StudentAnswer`|`varchar(40)`|`学生的答案`|
+|`RealAnswer`|`varchar(40)`|`题目答案`|
+|`Score`|`float`|`题目分数`|
 
 
 
