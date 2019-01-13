@@ -8,16 +8,42 @@
     - [x] [`1.4 学院表`](#tabins)  
     - [x] [`1.4 专业表`](#tabpro)  
     - [x] [`1.4 学生表`](#tabstu)  
+- [x] [`2.管理员模块设计`](#admin)
 -----
 #####  :octocat: [1.学生模块表设计](#top) <b id="stu"></b> 
 `核心信息为教务处发送过来的信息！保持不变`
 
 
-##### [模块表 Module](#top)  <b id="tabstu"></b>
+##### [模块表 Module](#top)  <b id="tabmod"></b>
+
 |`字段`|`类型`|`说明`|
 |:----|:-----|:------|
-|`ModuleID`|`int`|`模块ID 主键`|
+|`ModuleId`|`int`|`模块ID 主键`|
 |`Name`|`varchar(80)`|`模块名称`|
+|`AddTime`|`DateTime`|`添加时间`|
+|`PrincipalId`|`varchar(200)`|`添加人员`|
+
+* `系统的基本单位是模块,每个模块学习资源不同,考试内容不同,达标要求不同`
+* `学院分属在不同的模块内部,并且开发考试学习期间不允许修改学院所属模块`
+
+##### [学院表 Institute](#top)  <b id="tabins"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`InstituteId`|`int`|`学院ID 主键`|
+|`Name`|`varchar(80)`|`学院名称`|
+|`ModuleId`|`int`|`所属模块 [外键]`|
+
+
+##### [专业表 Profession](#top)  <b id="tabpro"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ProfessionId`|`int`|`专业ID 主键`|
+|`ProfessionType`|`int`|`专业类型 研究生或者本科生 映射为枚举`|
+|`Name`|`varchar(80)`|`专业名称`|
+|`InstituteId`|`int`|`所属学院ID [外键]`|
+
 
 ##### [学生表 Student](#top)  <b id="tabstu"></b> 
 
@@ -31,7 +57,7 @@
 |`ProfessionId`|`int`|`专业ID [外键]`|
 |`BirthDate`|`DateTime`|`出生日期`|
 |`Sex`|`bit`|`性别`|
-|`Identity`|`int`|`研究生/本科生`|
+|`StudentType`|`int`|`研究生/本科生 映射为枚举`|
 |`Email`|`varchar(300)`|`QQ邮件`|
 |`IsPassExam`|`bit`|`是否已经通过考试 不允许通过非法方式修改`|
 |`MaxExamScore`|`float`|`考试最高分数`|
@@ -44,3 +70,7 @@
 
 * `IsPassExam 只有通过了考试才能设置为 true 不能够手动修改`
 * `研究生本科生只是在统计的时候有用,其他情况下本条信息无用,系统对于研究生本科生一视同仁！`
+
+#####  :octocat: [2.管理员模块设计](#top) <b id="admin"></b> 
+`管理员复制后台管理,具有权限配置 json文件`
+
