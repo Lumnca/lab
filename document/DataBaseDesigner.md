@@ -74,3 +74,37 @@
 #####  :octocat: [2.管理员模块设计](#top) <b id="admin"></b> 
 `管理员复制后台管理,具有权限配置 json文件`
 
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`PrincipalID`|`int`|`管理员【又称为负责人】ID [主键]`|
+|`Password`|`varchar(600)`|`密码 加密使用 MD5 反复加密`|
+|`JobNumber`|`varchar(800)`|`工号`|
+|`Name`|`varchar(100)`|`姓名`|
+|`Phone`|`varchar(100)`|`电话号码`|
+|`PrincipalStatus`|`int`|`用户状态`|
+|`PrincipalConfige`|`varchar(360)`|`用户配置文件路径`|
+
+`默认权限配置文件内容`
+```json
+{
+   "PrincipalId":"200204156",
+   "power":{
+     "StudentManager":true,
+     "ExamManager":false,
+     "CourcesManager":false,
+     "QuestionBankManager":false,
+     "SystemSettingManager":false,
+     "SystemInfoManager":false
+   },
+   "SettingTime":"2018-5-6 15:45"
+}
+```
+
+
+
+
+
+
+
+
+
