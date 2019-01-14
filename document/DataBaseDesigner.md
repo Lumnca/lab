@@ -15,7 +15,7 @@
     - [x] [`3.2 资源表`](#res)
     - [x] [`3.4 学习课程表`](#learing)
     - [x] [`3.5 学习进度记录表`](#study)
-- [x] [`4.题库管理权限`](#bank)
+- [x] [`4.题库管理设计`](#bank)
     - [x] [`4.1 单选题表`](#only)
     - [x] [`4.2 多选题表`](#many)
     - [x] [`4.3 判断题表`](#judge)
@@ -23,6 +23,9 @@
     - [x] [`4.5 单选题仓库`](#onlyStore)
     - [x] [`4.6 多选题仓库`](#manyStore)
     - [x] [`4.7 判断题仓库`](#judgeStore)
+- [x] [`5.申请管理设计`](#appli)
+    - [x] [5.1 `重考申请表`](#examagainapp)
+    - [x] [5.2 `加入考试计划申请表`](#again)
     
 -----
 #####  :octocat: [1.学生模块表设计](#top) <b id="stu"></b> 
@@ -293,6 +296,31 @@ public enum ResourceStatus{
 |`RealAnswer`|`varchar(40)`|`题目答案`|
 |`Score`|`float`|`题目分数`|
 
+#####  :octocat: [5.申请管理设计](#top) <b id="appli"></b>
+* `数据库中已经有信息的往届学生,不用申请重考！再次加入考试重新安排学习任务,删除以往信息记录`
 
+##### [重考申请表 ApplicationForReExamination](#top)  <b id="examagainapp"></b>
+`申请重新考试`
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ApplicationExamId`|`int`|`主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`ModuleId`|`int`|`所属模块`|
+|`InstituteId`|`int`|`所属学院`|
+|`Reason`|`text`|`申请原因 不少于一百字`|
+|`ApplicationStatus`|`int`|`枚举映射`|
+|`Email`|`varchar(500)`|`通过邮箱`|
+
+
+```c#
+public enum ApplicationStatus{
+  Submit = 0, //已经提交
+  Pass = 1, // 申请成功
+  Fail = 2 // 申请失败
+}
+```
+
+##### [加入考试计划申请表 ExamJudgeChoices](#top)  <b id="again"></b>
 
 
