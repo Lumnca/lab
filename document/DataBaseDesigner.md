@@ -24,9 +24,10 @@
     - [x] [`4.6 多选题仓库`](#manyStore)
     - [x] [`4.7 判断题仓库`](#judgeStore)
 - [x] [`5.申请管理设计`](#appli)
-    - [x] [5.1 `重考申请表`](#examagainapp)
-    - [x] [5.2 `加入考试计划申请表`](#again)
-    
+    - [x] [`5.1 重考申请表`](#examagainapp)
+    - [x] [`5.2 加入考试计划申请表`](#again)
+- [x] [`6.系统信息设计`](#system)
+    - [x] [`6.1 系统开发信息配置`](#sysopen)
 -----
 #####  :octocat: [1.学生模块表设计](#top) <b id="stu"></b> 
 `核心信息为教务处发送过来的信息！保持不变`
@@ -71,6 +72,8 @@
 |`Password`|`varchar(440)`|`学生密码,使用MD5 反复加密`|
 |`IDNumber`|`varchar(800)`|`身份证号码 对称加密`|
 |`InstituId`|`int`|`学院ID [外键]`|
+|`Name`|`varchat(80)`|`学生姓名`|
+|`Grade`|`int`|`学生年级 判断是否本届`|
 |`Phone`|`varchar(200)`|`手机号码`|
 |`ProfessionId`|`int`|`专业ID [外键]`|
 |`BirthDate`|`DateTime`|`出生日期`|
@@ -80,7 +83,7 @@
 |`IsPassExam`|`bit`|`是否已经通过考试 不允许通过非法方式修改`|
 |`MaxExamScore`|`float`|`考试最高分数`|
 |`MaxExamCount`|`float`|`最大考试次数`|
-|`Grade`|`int`|`学生年级 判断是否本届`|
+
 
 * `最大考试次数初始化为系统规定数量,可以通过申请重考增加最大考试次数,对于重修学生,即非本届学生,如果其最大考试超过正常数量,那么全部重置,重修学生
 重制除了教务处信息的所有信息`
@@ -321,6 +324,97 @@ public enum ApplicationStatus{
 }
 ```
 
-##### [加入考试计划申请表 ExamJudgeChoices](#top)  <b id="again"></b>
+##### [加入考试计划申请表 ApplicationJoinTheExamination](#top)  <b id="again"></b>
 
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`ApplicationJoinId`|`int`|`主键`|
+|`StudentId`|`varchar(40)`|`学号`|
+|`ModuleId`|`int`|`所属模块`|
+|`Reason`|`text`|`申请原因 不少于一百字`|
+|`Email`|`varchar(500)`|`通过邮箱`|
+|`IDNumber`|`varchar(800)`|`身份证号码 对称加密`|
+|`InstituId`|`int`|`学院ID [外键]`|
+|`Grade`|`int`|`学生年级 判断是否本届`|
+|`Phone`|`varchar(200)`|`手机号码`|
+|`ProfessionId`|`int`|`专业ID [外键]`|
+|`Name`|`varchat(80)`|`学生姓名`|
+|`BirthDate`|`DateTime`|`出生日期`|
+|`Sex`|`bit`|`性别`|
+|`StudentType`|`int`|`研究生/本科生 映射为枚举`|
+|`ApplicationStatus`|`int`|`枚举映射`|
 
+`每一次申请结果要以邮件的形式通知申请者`
+
+#####  :octocat: [6.系统信息设计](#top) <b id="system"></b>
+`系统信息用于json配置 我们将配置开放设置,版本 `
+##### [系统开放信息配置 SystemSetting](#top)  <b id="sysopen"></b>
+```node
+{
+  "loginSetting":{
+     "studentLogin":true, /*是否允许学生登录*/
+     "principalLogin":true, //允许管理员登录
+     "openExam":false, //允许学生可以考试
+     "allowPastJoinExam":false //允许往届学习考试
+  },
+  "version":"2019.0.0.1859.12", //系统版本
+  "footer":"© All Right Reserved . 四川师范大学 版权所有 (四川师范大学计算机科学学院505实验室制) 长期维护",
+  "maintenanceStaff":[  //系统维护人员信息
+    {
+       "name":"蒋星",
+       "phone":"15982690985",
+       "qq":"1427035242"
+    },
+    {
+       "name":"Jking",
+       "phone":"15982690985",
+       "qq":"1427035242"
+    }
+  ],
+  "examMoudleSetting":[  //每一个模块的考试设置
+      {
+         "moduleId":1,
+         "moduleName":"模块名称1",  //模块名称
+         "passScore":60,    //通过分数
+         "ExamTime":100,    //考试时长
+         "IsOpen":false,    //是否开放考试
+         "AlgorithmNumber":1, //算法编号
+         "single":{
+            "count": 30,
+            "score":1
+         },
+         "multiple":{
+            "count": 20,
+            "score":2
+         },
+         "judge":{
+            "count": 30,
+            "score":1
+         },
+         "TotalScore":100
+      }, 
+      {
+         "moduleId":2,
+         "moduleName":"模块名称2",
+         "passScore":70,
+         "ExamTime":100,
+         "IsOpen":false,
+         "AlgorithmNumber":1,
+         "single":{
+            "count": 30,
+            "score":1
+         },
+         "multiple":{
+            "count": 20,
+            "score":2
+         },
+         "judge":{
+            "count": 30,
+            "score":1
+         },
+         "TotalScore":100
+      }
+    ]
+}
+
+```
