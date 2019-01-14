@@ -1,4 +1,4 @@
-### [四川师范大学安全考试数据库设计](#top) :speech_balloon: <b id="top"></b>
+### [四川师范大学安全考试数据库和中间数据设计](#top) :speech_balloon: <b id="top"></b>
 
 -----
 `版本`:`1.0.0`
@@ -28,6 +28,10 @@
     - [x] [`5.2 加入考试计划申请表`](#again)
 - [x] [`6.系统信息设计`](#system)
     - [x] [`6.1 系统开发信息配置`](#sysopen)
+- [x] [`7.系统日志设计`](#log)
+    - [x] [`7.1 学生操作日志记录`](#logstu)
+    - [x] [`7.2 管理员操作日志记录`](#logpri)
+    - [x] [`7.3 用户登录日志记录`](#loglogin)
 -----
 #####  :octocat: [1.学生模块表设计](#top) <b id="stu"></b> 
 `核心信息为教务处发送过来的信息！保持不变`
@@ -100,7 +104,7 @@
 
 |`字段`|`类型`|`说明`|
 |:----|:-----|:------|
-|`PrincipalID`|`varchar(200)`|`管理员【又称为负责人】ID [主键]`|
+|`PrincipalID`|`varchar(100)`|`管理员【又称为负责人】ID [主键]`|
 |`Password`|`varchar(600)`|`密码 加密使用 MD5 反复加密`|
 |`JobNumber`|`varchar(800)`|`工号`|
 |`Name`|`varchar(100)`|`姓名`|
@@ -417,4 +421,90 @@ public enum ApplicationStatus{
     ]
 }
 
+```
+#####  :octocat: [7.系统日志设计](#top) <b id="log"></b>
+
+##### [学生操作日志记录 LogStudentOperation](#top)  <b id="logstu"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`LogStudentOperationId`|`int`|`主键`|
+|`StudentId`|`varchar(100)`|`学号`|
+|`StuOperationCode`|`int`|`枚举`|
+|`StuOperationStatus`|`int`|`操作结果 `|
+|`StuOperationName`|`varchar(30)`|`操作名称`|
+|`StuOperationType`|`int`|`操作类型`|
+|`AddTime`|`DateTime`|`操作时间`|
+|`StuOperationContent`|`varchar(400)`|`操作内容`|
+|`OperationIp`|`varchar(100)`|`操作IP`|
+|`Title`|`varchar(200)`|`操作评语 例如 第一次登录 第一次观看视频 第一次... 达成什么成就`|
+
+```c#
+public enum StuOperationCode{
+  WatchVideo = 0, //观看视频
+  ChangePassword = 1, // 修改密码
+  JoinExam = 2, // 参加考试
+  BindEmail = 4 ,// 绑定邮箱
+  PassExam =8, //通过考试
+}
+
+public enum StuOperationStatus{
+  Fail = 0, //成功
+  Success = 1 //失败
+}
+
+public enum StuOperationType{
+  Normal = 0,  //普通操作
+  Achieved = 1 //成就操作
+}
+```
+
+##### [管理员操作日志记录 LogPricipalOperation](#top)  <b id="logpri"></b>
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`LogPricipalOperationId`|`int`|`主键`|
+|`PrincipalID`|`varchar(100)`|`管理员【又称为负责人】ID`|
+|`OperationIp`|`varchar(100)`|`操作IP`|
+|`AddTime`|`DateTime`|`操作时间`|
+|`PrincpalOperationCode`|`int`|`操作类型`|
+|`PrincpalOperationName`|`varchar(200)`|`操作名称`|
+|`PrincpalOperationContent`|`varchar(700)`|`操作内容`|
+|`PrincpalOperationStatus`|`int`|`操作结果 `|
+
+```c#
+
+public enum PrincpalOperationCode{
+    AddStudent = 0,
+    DelelteStudent = 1,
+    DealApplication = 2,
+    ...
+}
+
+public enum PrincpalOperationStatus{
+  Fail = 0, //成功
+  Success = 1 //失败
+}
+
+```
+
+##### [用户登录日志记录 LogUserLogin](#top)  <b id="loglogin"></b>
+
+
+|`字段`|`类型`|`说明`|
+|:----|:-----|:------|
+|`LogUserLoginId`|`int`|`主键`|
+|`ID`|`varchar(100)`|`登录ID`|
+|`LoginTime`|`DateTime`|`登录时间 只记录到几点`|
+|`LoginDate`|`Date`|`登录日期`|
+|`LoginIp`|`varchar(100)`|`Ip地址`|
+|`Terminal`|`int`|`登录终端`|
+
+
+```c#
+public enum Terminal{
+  Phone = 0,  // 手机
+  TabletPC = 1, //平板
+  PC = 2 //电脑
+}
 ```
