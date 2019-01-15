@@ -3,12 +3,27 @@
 
 ------
 
-- [x] [`1.登录/修改密码模块`](#target1)
-- [x] [`2.系统主页逻辑`](#main)
+- [x] [`1.系统模块`](#module)
+- [x] [`2.登录/修改密码模块`](#target1)
+- [x] [`3.系统主页逻辑`](#main)
 
 ------
+#####  :octocat: [1.系统模块](#top) <b id="module"></b>  :speech_balloon:
 
-#####  :octocat: [1.登录/修改密码模块](#top) <b id="target1"></b>  :speech_balloon:
+##### 学生场景
+
+-----------------
+```
+                                                 [进入申请页面]
+学生进入系统主页  ---> 查看使用帮助 /  申请加入考试计划  --------> 
+|                            |
+| [直接进入]                  |
+↓                            |
+登录页面     ← ← ———————————— ↓
+```
+-------------
+
+#####  :octocat: [2.登录/修改密码模块](#top) <b id="target1"></b>  :speech_balloon:
 `登录使用一些 View csHtml 完成`
 
 ##### 用户登录 :partly_sunny:
@@ -83,7 +98,7 @@
 1.4 修改成功后 修改 Cookie 存储的值
 1.5 返回 Ajax Json 表示是否修改成功
 ```
-#####  :octocat: [2.系统主页逻辑](#top) <b id="main"></b>  :speech_balloon:
+#####  :octocat: [3.系统主页逻辑](#top) <b id="main"></b>  :speech_balloon:
 `系统主页要有如下几个页面` <br/>
 `1.系统主页 提供考试系统主页面`<br/>
 `2.公告页面`<br/>
