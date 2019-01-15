@@ -1,7 +1,7 @@
 ### [四川师范大学安全考试数据库和中间数据设计](#top) :speech_balloon: <b id="top"></b>
 
 -----
-`版本`:`1.0.0`
+`版本`:`1.0.1`
 
 - [x] [`1.学生模块表设计`](#stu)
     - [x] [`1.4 模块表`](#tabmod)  
@@ -122,7 +122,8 @@
      "CourcesManager":false,
      "QuestionBankManager":false,
      "SystemSettingManager":false,
-     "SystemInfoManager":false
+     "SystemInfoManager":false,
+     "SystemManager":false  
    },
    "SettingTime":"2018-5-6 15:45"
 }
