@@ -1,7 +1,7 @@
 ### [四川师范大学安全考试需求说明](#top) :speech_balloon: <b id="top"></b>
 
 -----
-`版本`:`1.0.1`
+`版本`:`1.0.2`
 - [x] [`1.项目说明`](#stu)
 - [x] [`2.需求概述`](#know)
 - [x] [`3.功能需求`](#enable)
@@ -23,6 +23,7 @@
   - [`3.16 考试出题`](#adminquout)
 - [x] [`4. 项目约束`](#yueshu)
 - [x] [`5. 权限设计`](#powerdesigner)
+- [x] [`6. 简单用例图`](#uetmap)
 
 -----
 
@@ -203,6 +204,8 @@
    * `增删改 学院`
    * `增删改 专业`
    * `增删改 模块`
+* `系统管理权限`
+   * `能够配置管理员的权限`
 
 |`Code`|`value [默认值]`|`说明`|
 |:-----|:-----|:-----|
@@ -212,16 +215,12 @@
 |`QuestionBankManager`|`false`|`学生管理权限`|
 |`SystemSettingManager`|`false`|`系统配置权限 `|
 |`SystemInfoManager`|`false`|`信息管理权限 `|
+|`SystemManager`|`false`|`系统管理权限 `|
 
 
+##### [6.简单用例图](#top) <b id="uetmap"></b>
 
-
-
-
-
-
-
-
+![图片](./resources/useMap.jpg)
 
 
 
