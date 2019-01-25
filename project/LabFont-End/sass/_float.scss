@@ -1,0 +1,21 @@
+/* 浮动布局 */
+
+.float{
+    @each $fl in left,right {
+        .float-#{$fl}{
+            float: $fl;
+        }
+    }
+}
+.float::after{
+    //清楚浮动
+    display: block;
+    content: ""; 
+    clear: both;
+}
+
+.clear::after{
+    display: block;
+    content: ""; 
+    clear: both;
+}

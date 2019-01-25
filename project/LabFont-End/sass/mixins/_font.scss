@@ -1,0 +1,10 @@
+@mixin mix-font-style($color, $size, $weight,$family) {
+    color: $color;
+    font-size: $size;
+    font-weight: $weight;
+
+    @if $family != null {
+        font-family: $family;
+    }
+} 
+

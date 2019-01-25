@@ -1,0 +1,9 @@
+/* 定义全局变量 */
+$z-index-top-max:10000;     // 一个页面最多8层 不能使用其他数字 默认为 0 
+$z-index-top:1000; 
+$z-index-center-max:500;
+$z-index-center:250;
+$z-index-bottom-max:125;
+$z-index-Boundary:0;
+$z-index-bottom:-75; 
+$z-index-down:-25;

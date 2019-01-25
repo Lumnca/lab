@@ -1,0 +1,23 @@
+@charset "UTF-8";
+@media screen and (min-width: 768px) {
+  .first-letter-light::first-letter {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .first-letter-light::first-letter {
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+
+/* 流程*/
+.text-one-line-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

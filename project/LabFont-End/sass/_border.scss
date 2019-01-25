@@ -1,0 +1,21 @@
+.border-light-down{
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.border-little-grey-all{
+    border: 1px solid gainsboro;
+}
+
+.border-shadow-down{
+    border: 1px solid rgba(38,38,38,.2);
+    box-shadow: 0px 3px 6px 0px rgba(38,38,38,0.2);
+}
+
+$radius-gap:30;
+
+@while $radius-gap > 0 {
+    .border-radius-#{$radius-gap}{
+        border-radius: $radius-gap + 0px;
+    }
+    $radius-gap : $radius-gap - 2;
+}

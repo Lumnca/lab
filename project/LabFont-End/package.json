@@ -1,0 +1,22 @@
+{
+  "name": "lab",
+  "version": "1.0.0",
+  "description": "四川师范大学实验室安全教育系统前端",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "product": "webpack --mode=production",
+    "dev": "webpack --mode=development",
+    "rollup": "rollup -c"
+  },
+  "keywords": [
+    "lab"
+  ],
+  "author": "kicker",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^1.1.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  }
+}

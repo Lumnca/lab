@@ -1,0 +1,37 @@
+/*控制字体粗细*/
+$weight-max:700;
+@while  $weight-max >= 100 {
+    .font-weight-#{$weight-max}{
+         font-weight:  $weight-max;
+    }
+    $weight-max: $weight-max - 100;
+}
+/*控制字体大小*/
+$font-size-gap:30;
+@while  $font-size-gap>=10 {
+    .font-size-#{$font-size-gap}{
+         font-size:  $font-size-gap + 0px;
+    }
+    $font-size-gap: $font-size-gap - 1;
+}
+
+/*控制 行距*/
+$font-size-gap:60;
+@while  $font-size-gap>=10 {
+    .line-height-#{$font-size-gap}{
+         line-height: $font-size-gap + 0px;
+    }
+    $font-size-gap: $font-size-gap - 2;
+}
+
+/*字间距*/
+$letter-gap:20;
+@while  $letter-gap >= 0 {
+    .letter-space-#{$letter-gap}{
+         letter-spacing: $letter-gap + 0px;
+    }
+    $letter-gap: $letter-gap - 1;
+}
+
+
+

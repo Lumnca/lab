@@ -1,0 +1,20 @@
+@import "./mixins/_font.scss";
+
+
+
+.first-letter-light::first-letter{
+    
+    @media screen and (min-width:768px) {
+        @include mix-font-style(white,22px,700,null);
+    }
+    @media screen and (max-width:768px) {
+        @include mix-font-style(white,16px,700,null);
+    }
+}
+
+/* 流程*/
+.text-one-line-ellipsis{
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

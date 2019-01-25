@@ -1,0 +1,51 @@
+/*弹性布局 采用均分的方式 伸缩 */
+.flex-layout{
+    display: flex;
+    display: -webkit-flex;
+    @each $val in nowrap , wrap , wrap-reverse
+    {
+        .flex-wrap-#{$val}{
+            flex-wrap: $val;
+            -webkit-flex-wrap: $val;
+        }
+    }
+    @for $i from 1 through 12 {
+        .flex-item-#{$i} {
+            flex-basis: 0px;
+            flex-grow: $i;
+            flex-shrink: $i;
+            -webkit-flex-basis:0px;
+            -webkit-flex-grow: $i;
+            -webkit-flex-shrink: $i;
+        }
+    }
+    @each $var in row,row-reverse,column,column-reverse
+    {   
+        
+        .flex-direction-#{$var}{
+            flex-direction: $var;
+            -webkit-flex-direction: $var;
+        }
+    }
+    /*设置 弹性盒子里的一行的所有子元素 在 横轴的对其方式*/
+    @each $var in flex-start , flex-end , center , space-between , space-around {
+        .flex-justify-content-#{$var}{
+            justify-content:$var;
+            -webkit-justify-content:$var;
+        }
+    }
+    /*定义flex 子项在flex容器中的当前行的纵轴方向上的对齐方式*/
+    @each $var in flex-start , flex-end , center , baseline , stretch {
+        .align-items-#{$var}{
+            align-items: $var;
+            -webkit-align-items: $var;
+        }
+    }
+    /*设置每一个 弹性布局快[flex 子项] 的对其方式*/
+    @each $var in auto, flex-start , flex-end , center,baseline,stretch {
+        .align-self-#{$var}{
+            align-self: $var;
+            -webkit-align-self:$var;
+        }
+    }
+}
