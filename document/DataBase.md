@@ -106,7 +106,7 @@
 |:----|:-----|:------|
 |`PrincipalID`|`varchar(100)`|`管理员【又称为负责人】ID [主键]`|
 |`Password`|`varchar(600)`|`密码 加密使用 MD5 反复加密`|
-|`JobNumber`|`varchar(800)`|`工号`|
+|`JobNumber`|`varchar(50)`|`工号`|
 |`Name`|`varchar(100)`|`姓名`|
 |`Phone`|`varchar(100)`|`电话号码`|
 |`PrincipalStatus`|`int`|`用户状态`|
