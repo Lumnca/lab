@@ -29,7 +29,6 @@ namespace LabExam
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<LabContext>(options => options.UseSqlServer(connectionString));
 
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
