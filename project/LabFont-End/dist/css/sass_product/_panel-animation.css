@@ -1,0 +1,8 @@
+.hover-shadow-light {
+  transition: 1s;
+}
+
+.hover-shadow-light:hover {
+  padding: 5px;
+  box-shadow: 1px 1px 2px 0px gray;
+}

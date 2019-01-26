@@ -1,7 +1,9 @@
+@import "./_panel-animation.scss";
+
 .hover-text-center{
-    transition: 1.2s;
-}
-.hover-text-center:hover{
+    transition: 1.2s; 
+} 
+.hover-text-center:hover{ 
     padding-left: 40px;
 } 
 
