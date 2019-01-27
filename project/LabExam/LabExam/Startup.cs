@@ -52,6 +52,7 @@ namespace LabExam
                 app.UseHsts();
             }
 
+            app.UseWelcomePage("/welcome");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

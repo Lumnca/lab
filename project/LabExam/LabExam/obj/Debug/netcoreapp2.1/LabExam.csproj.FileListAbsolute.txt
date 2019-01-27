@@ -14,10 +14,6 @@ F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\LabExam.TagHelpers.input.cache
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\LabExam.TagHelpers.output.cache
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\LabExam.RazorCoreGenerate.cache
-F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
-F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
-F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
-F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
@@ -30,3 +26,4 @@ F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\LabExam.dll
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\LabExam.pdb
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\LabExam.csproj.CopyComplete
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs

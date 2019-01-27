@@ -26,5 +26,6 @@ namespace LabExam.Models.Entities
 
         [MaxLength(300)]
         public  String PrincipalConfig { get; set; }
+
     }
 }

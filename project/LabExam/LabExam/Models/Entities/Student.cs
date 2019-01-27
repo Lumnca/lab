@@ -42,12 +42,13 @@ namespace LabExam.Models.Entities
 
         public  StudentType StudentType { get; set; }
 
-        [MaxLength(300)]
+        [MaxLength(300), EmailAddress]
         public String Email { get; set; }
         public Boolean  IsPassExam { get; set; }
 
         public  float MaxExamScore { get; set; }
 
         public  float MaxExamCount { get; set; }
+
     }
 }
