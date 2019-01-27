@@ -274,6 +274,7 @@ public enum ResourceStatus{
 |`字段`|`类型`|`说明`|
 |:----|:-----|:------|
 |`ExamSingleChoicesId`|`int`|`主键`|
+|`PaperId`|`int`|`外键`|
 |`StudentId`|`varchar(40)`|`学号`|
 |`SingleId`|`int`|`单选题ID`|
 |`StudentAnswer`|`varchar(40)`|`学生的答案`|
@@ -286,6 +287,7 @@ public enum ResourceStatus{
 |`字段`|`类型`|`说明`|
 |:----|:-----|:------|
 |`ExamSingleChoicesId`|`int`|`主键`|
+|`PaperId`|`int`|`外键`|
 |`StudentId`|`varchar(40)`|`学号`|
 |`MultipleId`|`int`|`单选题ID`|
 |`StudentAnswer`|`varchar(40)`|`学生的答案`|
@@ -297,6 +299,7 @@ public enum ResourceStatus{
 |`字段`|`类型`|`说明`|
 |:----|:-----|:------|
 |`ExamSingleChoicesId`|`int`|`主键`|
+|`PaperId`|`int`|`外键`|
 |`StudentId`|`varchar(40)`|`学号`|
 |`JudgeId`|`int`|`学号`|
 |`StudentAnswer`|`varchar(40)`|`学生的答案`|
