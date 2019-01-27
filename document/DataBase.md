@@ -268,7 +268,6 @@ public enum ResourceStatus{
 |`LeaveExamTime`|`float`|`剩余考试时间`|
 |`TotleScore`|`float`|`总分`|
 |`AddTime`|`DateTime`|`添加时间`|
-|`ModuleId`|`int`|`模块ID 所属模块`|
 
 ##### [单选题仓库 ExamSingleChoices](#top)  <b id="onlyStore"></b>
 
