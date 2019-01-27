@@ -337,7 +337,6 @@ public enum ApplicationStatus{
 |:----|:-----|:------|
 |`ApplicationJoinId`|`int`|`主键`|
 |`StudentId`|`varchar(40)`|`学号`|
-|`ModuleId`|`int`|`所属模块`|
 |`Reason`|`text`|`申请原因 不少于一百字`|
 |`Email`|`varchar(500)`|`通过邮箱`|
 |`IDNumber`|`varchar(800)`|`身份证号码 对称加密`|
