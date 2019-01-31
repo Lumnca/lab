@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewData["Title"] = "实验室安全教育在线-登录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class=" container" data-min-height="900">
+    <div class=" margin-top-15px padding-15px bc-clr-white border-little-grey-all " data-min-height="70">
+        <h4 class=" border-light-down padding-bottom-5px text-primary ">用户登录</h4>
+        <form id="loginFrom" action="/login" class="form-horizontal margin-top-20px" role="form" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="UserId" class="col-sm-2 control-label">账号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="UserId" name="UserId"
+                           placeholder="请输入你的账号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="UserPassword" class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" data-max-width="400" id="UserPassword" name="UserPassword"
+                           placeholder="请输入你的密码">
+                </div>
+            </div>
+            <div class="form-group ">
+                <label for="Validation" class="col-sm-2 control-label">验证码</label>
+                <div class="col-sm-10">
+                    <input id="num1" type="text" value="5" class="text-center" data-max-width="50" disabled
+                           data-height="25">
+                    <span class=" padding-left-right-normal "> + </span>
+                    <input id="num2" type="text" value="5" class=" text-center" data-max-width="50" disabled
+                           data-height="25">
+                    <span class=" padding-left-right-normal "> = </span>
+                    <input id="num3" type="number" value="" name="yzm" class="text-center border-radius-4 " data-min-width="195"
+                           data-height="25">
+                    <button type="button" id="ApplyNew" class="margin-left-20px btn btn-primary btn-sm ">刷新</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary form-control letter-space-1" data-max-width="400">
+                        <span class=" glyphicon glyphicon-log-in "></span> 立即登录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        function getRandom() {
+            var rand = Math.round(Math.random() * 20);
+            var rand2 = Math.round(Math.random() * 20);
+            $('#num1').val(rand);
+            $('#num2').val(rand2);
+        }
+        getRandom();
+        $(function () {
+            $('#ApplyNew').on('click', null, null, getRandom);
+            $("form").submit(function (jqEvent) {
+                var UserName = parseInt($('#num1').val());
+                var UserPassword = parseInt($('#num2').val());
+                var result = UserName + UserPassword;
+                var valnum3 = $('#num3').val();
+
+                if (valnum3 == "" || valnum3 == null) {
+                    onMask("温馨提示", "请回答这种小学生题目！");
+                    jqEvent.preventDefault();
+                    return;
+                }
+                if (result == parseInt(valnum3)) {
+
+                } else {
+                    onMask("气氛提示", "小学生的题目都不会！ 你还是一个大学生");
+                    jqEvent.preventDefault();
+                }
+            });
+
+        });
+        $(function () {
+            $("form").validate({
+                //错误提示信息
+                messages: {
+                    UserId: {
+                        required: "请填写你的账号", //此方法在username控件上的所有验证规则提示都是设置的这个字符串
+                        rangelength: "学号长度{0}到{1}之间"
+                    },
+                    UserPassword: {
+                        required: "密码不填写吗？",
+
+                    }
+                },
+                //验证规则
+                rules: {
+                    //使用空间 name 名称
+                    UserId: {
+                        required: true,
+                        rangelength: [9, 15]
+                    },
+                    UserPassword: {
+                        required: true,
+                    }
+                },
+                errorClass: "text-warning"
+            });
+        });
+    </script>
+}
