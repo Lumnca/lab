@@ -1,0 +1,224 @@
+﻿@model IEnumerable<LabExam.Models.Entities.Module>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+<div class=" flex-layout">
+    <div class="flex-item-2 border-little-grey-all bc-clr-white margin-5px" data-min-width="200"
+         data-height-all>
+        <h4 data-margin-bottom="0" data-margin-top="0" class="bc-clr-white border-light-down padding-bottom-10px padding-left-10px padding-top-15px ">
+            安全教育模块列表
+        </h4>
+        <div class="admin-module-list">
+            @foreach (var item in Model)
+            {
+                <a href="#" data-moduleId="@item.ModuleId" ><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> @item.Name </a>
+            }
+        </div>
+    </div>
+    <div class=" flex-item-9 bc-clr-white margin-5px border-little-grey-all" data-min-width="600">
+        <div class=" admin—module-tab ">
+            <a href="#moduleInfo" data-toggle="tab">模块信息</a>
+            <a href="#moduleInclude" data-toggle="tab">模块下辖学院</a>
+            <a href="#addModule" data-toggle="tab">添加模块</a>
+        </div>
+        <div class="tab-content margin-top-5px">
+            <div class="tab-pane fade in active" id="moduleInfo">
+                <div class="admin-title-moudle float-layout">
+                    <div class=" float-left">
+                        模块基本信息
+                    </div>
+                    <div class="float-right">
+                        <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
+                                data-target="#deleteModule">
+                            删除模块
+                        </button>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="module-list-item-info">
+                            模块ID:
+                        </span>
+                        <span>
+                            SDC505-5
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="module-list-item-info">
+                            模块名称:
+                        </span>
+                        <span>
+                            文史艺体类
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="module-list-item-info">
+                            添加人:
+                        </span>
+                        <span>
+                            admin
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="module-list-item-info">
+                            添加时间:
+                        </span>
+                        <span>
+                            2018/4/5 18:56:23
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="moduleInclude">
+                <div>
+                    <div class="admin-title-moudle float-layout">
+                        <div class=" float-left">
+                            模块下辖学院列表
+                        </div>
+                        <div class=" float-right">
+                            <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
+                                    data-target="#addInstitute">
+                                添加学院
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>学院名称</th>
+                            <th>人数</th>
+                            <th>学院ID</th>
+                            <th>状态</th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>计算机科学学院</td>
+                            <th>835(人)</th>
+                            <td>56</td>
+                            <td>正常</td>
+                            <td>
+                                <a href="#" class=" btn btn-default btn-sm">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>地理信息科学学院</td>
+                            <th>335(人)</th>
+                            <td>75</td>
+                            <td>正常</td>
+                            <td>
+                                <a href="#" class=" btn btn-default btn-sm">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>物理与信息电子学院</td>
+                            <th>735(人)</th>
+                            <td>75</td>
+                            <td>正常</td>
+                            <td>
+                                <a href="#" class=" btn btn-default btn-sm">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="addModule">
+                <div class="admin-title-moudle float-layout">
+                    <div class=" float-left">
+                        添加模块
+                    </div>
+                    <div class=" float-right">
+
+                    </div>
+                </div>
+                <div class=" padding-10px">
+                    <div class="margin-top-10px">
+                        <label class=" label label-primary padding-10px">模块编号:</label>
+                        <span class="margin-left-20px font-weight-600 font-size-14">自动编号</span>
+                    </div>
+                    <div class=" margin-top-30px">
+                        <label class=" label label-primary padding-10px">模块名称:</label>
+                        <input type="text" id="moduleNewName" name="moduleNewName" class="margin-left-20px padding-left-10px border-radius-6 "
+                               data-width="350" data-height="28" />
+                        <button type="submit" id="create" class="margin-left-15px btn btn-default"> <span class="glyphicon glyphicon-plus"></span>  立即添加</button>
+                    </div>
+                    <div class=" margin-top-30px">
+                        <label class=" label label-primary padding-10px">添加时间:</label>
+                        <span class="margin-left-20px font-weight-600 font-size-14">系统自动判断</span>
+                    </div>
+                    <div class=" margin-top-35px">
+                        <label class=" label label-primary padding-10px">添加人员:</label>
+                        <span class="margin-left-20px font-weight-600 font-size-14">系统自动识别</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template" type="x-tmpl-mustache">
+    {{#modules}}
+    <a href="#"   data-moduleId="{{moduleId}}"  ><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> {{name}} </a>
+    {{/modules}}
+</script>
+
+@section Scripts
+{
+    <script>
+        $('#create').on("click",
+            null,
+            null,
+            function(jqEvent) {
+                var moduleName = $('input[name="moduleNewName"]').val();
+                if (moduleName == "") {
+                    onMask("错误", "你没有填写新模块的名称");
+                }
+                $.ajax({
+                    url: "/Module/Create",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        name: moduleName
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        if (!data.isOk) {
+                            onMask("错误信息", data.error);
+                        } else {
+                            onMask("提示信息", "增加成功！");
+                            loadModule();
+                            $('input[name="moduleNewName"]').val("");
+                        }
+                    }
+                });
+            });
+
+        function loadModule() {
+            $.ajax({
+                url: "/Module/List",
+                type: "post",
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    var moduleList = {
+                        modules: data
+                    };
+                    var template = $('#template').html();
+                    Mustache.parse(template);
+                    var result = Mustache.render(template, moduleList);
+                    console.log(result);
+                    $('.admin-module-list').html(result);
+                }
+            });
+        }
+
+    </script>
+}

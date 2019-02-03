@@ -17,5 +17,10 @@ $radius-gap:30;
     .border-radius-#{$radius-gap}{
         border-radius: $radius-gap + 0px;
     }
+
+    .border-radius-#{$radius-gap}:focus{
+        outline: none;
+        border: 2px solid rgba(87,190,221,1);
+    }
     $radius-gap : $radius-gap - 2;
 }

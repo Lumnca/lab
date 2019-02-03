@@ -9,8 +9,9 @@
 @import "./_theme.scss";     
 @import "./_css.scss";  
 @import "./_text.scss";
-
- 
+@import "./_media.scss";
+  
+  
 .z-index-top-max{
     z-index:  $z-index-top-max; // 一个页面最多8层 不能使用其他数字 默认为 0 
 }
@@ -19,10 +20,10 @@
 } 
 .z-index-center-man{
     z-index: $z-index-center-max; 
-}
+} 
 .z-index-center{
     z-index: $z-index-center;
-}
+} 
 .z-index-bottom-max{
     z-index: $z-index-bottom-max;
 }
@@ -31,4 +32,4 @@
 }
 .z-index-down{
     z-index: $z-index-down;
-} 
+}  

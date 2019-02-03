@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using LabExam.IServices;
 using Microsoft.AspNetCore.Mvc;
 using LabExam.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace LabExam.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHttpRequstAnalysisService _analysis;
+
+        public HomeController(IHttpRequstAnalysisService analysis)
+        {
+            _analysis = analysis;
+        }
+
         [Route("/")]
         [Route("/Index")]
         [AllowAnonymous]
@@ -19,15 +31,13 @@ namespace LabExam.Controllers
             return View();
         }
 
-        [Route("/Mobile/Index")]
         [Route("/Mobile/Home/Index")]
         public IActionResult MobileIndex()
         {
             return View(@"~/Views/Home/Index.Mobile.cshtml");
         }
 
-
-        [Authorize(Roles = "Teacher")]
+        [HttpGet]
         public IActionResult Header()
         {
             var headerDictionary = HttpContext.Request.Headers;
@@ -44,7 +54,6 @@ namespace LabExam.Controllers
             return View();
         }
 
-        [Route("/Mobile/Announcement")]
         [Route("/Mobile/Home/Announcement")]
         public IActionResult MobileAnnouncement()
         {
@@ -56,7 +65,7 @@ namespace LabExam.Controllers
             return View();
         }
 
-        [Route("/Mobile/Help")]
+
         [Route("/Mobile/Home/Help")]
         public IActionResult MobileHelp()
         {

@@ -18,8 +18,6 @@ namespace LabExam.Models.Entities
 
         public DateTime LoginTime { get; set; }
 
-        public DateTime LoginDate { get; set; }
-
         [MaxLength(100)]
         public String LoginIp { get; set; }
 

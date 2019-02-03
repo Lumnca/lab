@@ -1,5 +1,6 @@
 ﻿using LabExam.IServices;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -51,6 +52,10 @@ namespace LabExam.Services
         /// </summary>
         public string EncodeByMd5(string Data)
         {
+            if (String.IsNullOrEmpty(Data))
+            {
+                return "";
+            }
             MD5 md5 = new MD5CryptoServiceProvider();
             byte[] palindata = Encoding.Default.GetBytes(Data);   //将要加密的字符串转换为字节数组
             byte[] encryptdata = md5.ComputeHash(palindata);      //将字符串加密后也转换为字符数组

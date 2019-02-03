@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "实验室安全教育在线-中转页面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="narbar-mobile-fui navbar navbar-default navbar-fixed-top   bc-clr-white" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <span class=" text-primary font-weight-700">SICNU 实验室安全教育</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse " id="example-navbar-collapse">
+            <ul class="nav navbar-nav ">
+                <li role="presentation"><a href="#"> <span class=" text-primary font-weight-500 ">系统公告</span> </a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">使用帮助</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">申请加入考试</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">密码修改</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">用户登录</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class=" container" data-min-height="900">
+    <div class=" margin-top-15px padding-15px bc-clr-white border-little-grey-all " data-min-height="70">
+        <h4 class=" border-light-down padding-bottom-5px text-primary ">提示信息</h4>
+        <div>
+            <h4 class=" text-center font-size-17 font-weight-700 "> @ViewBag.Header</h4>
+            <div class=" text-center margin-top-25px margin-bottom-15px">
+                <a href="@ViewBag.urlLeft" class=" btn  btn-primary "> <span class=" glyphicon glyphicon-ok "></span> @ViewBag.titleLeft</a>
+                <a href="@ViewBag.urlRight" class=" btn btn-default "> <span class="glyphicon glyphicon-user"></span> @ViewBag.titleRight</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $('body').removeClass("bc-clr-grey-little");
+        $('body').addClass("bc-clr-primary");
+    </script>
+}

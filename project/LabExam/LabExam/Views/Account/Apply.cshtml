@@ -1,0 +1,206 @@
+﻿@{
+    ViewData["Title"] = "实验室安全教育在线-申请";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="narbar-mobile-fui navbar navbar-default navbar-fixed-top   bc-clr-white" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <span class=" text-primary font-weight-700">SICNU 实验室安全教育</span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse " id="example-navbar-collapse">
+            <ul class="nav navbar-nav ">
+                <li role="presentation"><a href="#"> <span class=" text-primary font-weight-500 ">系统公告</span> </a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">使用帮助</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">申请加入考试</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">密码修改</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">用户登录</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class=" container margin-top-45px " data-min-height="900">
+    <div class=" margin-top-15px padding-10px bc-clr-white  border-little-grey-all " data-min-height="70">
+        <h4 class=" border-light-down padding-bottom-5px text-primary ">申请加入考试</h4>
+        <form id="loginFrom"  asp-controller="Account" asp-action="Apply" class="form-horizontal margin-top-20px" role="form" method="post">
+            <div class="form-group">
+                <label for="Name" class="col-sm-2 control-label">真实姓名</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="Name" name="Name"
+                           placeholder="请输入你的真实姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StudentId" class="col-sm-2 control-label">学号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="StudentId" name="StudentId"
+                           placeholder="请输入你的学号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="StudentType" class="col-sm-2 control-label">身份类型</label>
+                <div class="col-sm-10">
+                    <select name="StudentType" id="StudentType" class="form-control" data-max-width="400">
+                        <option value="0">本科生</option>
+                        <option value="1">研究生</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Grade" class="col-sm-2 control-label">当前年级</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" data-max-width="400" id="Grade" name="Grade"
+                           placeholder="请输入你的当前年级">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="IDNumber" class="col-sm-2 control-label">身份证号码</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="IDNumber" name="IDNumber"
+                           placeholder="请再次输入你的身份证号">
+                    <span class="help-block text-primary">字母结尾一律小写</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Email" class="col-sm-2 control-label">通知邮件</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" data-max-width="400" id="Email" name="Email"
+                           placeholder="申请结果发送到此邮件">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Phone" class="col-sm-2 control-label">手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="Phone" name="Phone"
+                           placeholder="你的手机号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="InstituteId" class="col-sm-2 control-label">学院</label>
+                <div class="col-sm-10">
+                    <select name="InstituteId" id="InstituteId" class="form-control" data-max-width="400">
+                        <option value="0">计算机科学学院</option>
+                        <option value="1">文学院</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ProfessionId" class="col-sm-2 control-label">专业</label>
+                <div class="col-sm-10">
+                    <select name="ProfessionId" id="ProfessionId" class="form-control" data-max-width="400">
+                        <option value="0">软件工程</option>
+                        <option value="1">网络工程</option>
+                        <option value="2">计算机科学与技术</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BirthDate" class="col-sm-2 control-label">出生日期</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" data-max-width="400" id="BirthDate" name="BirthDate"
+                           placeholder="申请结果发送到此邮件">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Reason" class="col-sm-2 control-label">情况说明:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" name="Reason" id="Reason" data-max-width="400" rows="3"></textarea>
+                    <span class="help-block">请至少填写 二十字的 情况说明！</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary letter-space-1"> <span class=" glyphicon glyphicon-log-in "></span> 立即提交申请 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+<script>
+    $(function () {
+        $('body').removeClass("bc-clr-grey-little");
+        $('body').addClass("bc-clr-primary");
+
+        $("form").validate({
+            //错误提示信息
+            messages: {
+                StudentId: {
+                    required: "请填写你的学号", //此方法在username控件上的所有验证规则提示都是设置的这个字符串
+                    rangelength: "字符长度{0}到{1}之间"
+                },
+                Name: {
+                    required: "填写你的姓名",
+                    rangelength: "字符长度{0}到{1}之间"
+                },
+                IDNumber: {
+                    required:"身份证号码？",
+                    rangelength: "身份证号码为18位"
+                },
+                Reason:{
+                    required:"你还是吧原因说明一下撒！",
+                    minlength:"至少二十字说明情况！"
+                },
+                Grade:{
+                    required:"请填写你的年纪",
+                    range:"非法年纪"
+                },
+                Email: {
+                    required: "请填写你的QQ邮箱最佳",
+                    email:"邮箱格式错误"
+                },
+                Phone:{
+                    required:"请填写你的电话"
+                },
+                BirthDate:{
+                    required:"出生日期"
+                }
+
+            },
+            //验证规则
+            rules: {
+                //使用空间 name 名称
+                StudentId: {
+                    required: true,
+                    rangelength: [10, 14]
+                },
+                Name: {
+                    required: true
+                },
+                IDNumber: {
+                    required: true,
+                    rangelength: [18,18]
+                },
+                Reason: {
+                    required: true,
+                    minlength:20
+                },
+                Grade: {
+                    required: true,
+                    range: [2015,2030]
+                },
+                Email: {
+                    required: true,
+                    email:true
+                },
+                Phone:{
+                    required:true
+                },
+                BirthDate:{
+                    required:true
+                }
+            },
+            errorClass: "text-danger"
+        });
+    });
+</script>
+}

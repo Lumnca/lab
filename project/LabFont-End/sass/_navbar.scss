@@ -6,3 +6,32 @@ $narbar-color : white;
     padding: 15px;
     background-color:$narbar-color ;
 }
+
+@media screen and  (max-width:1000px){
+    .narbar-pc-fui{
+        display: none;
+    }
+    .narbar-mobile-fui{
+        display: block;
+    }
+    .narbar-mobile-fui + div{
+        margin-top: 45px;
+    }
+
+}
+@media screen and  (max-width:500px){
+    #ApplyNew{
+        display: block;
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+}
+
+@media screen and  (min-width:1000px){
+    .narbar-pc-fui{
+        display: block;
+    }
+    .narbar-mobile-fui{
+        display: none;
+    }
+}

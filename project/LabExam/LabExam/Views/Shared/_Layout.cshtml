@@ -16,88 +16,100 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body class=" bc-clr-grey-little">
-<div class=" bc-clr-white border-little-grey-all">
-    <div class=" padding-15px container flex-layout  ">
-        <div class=" flex-item-4 text-one-line-ellipsis  " data-line-height="280%">
-            <a asp-controller="Home" asp-action="Index" >
-                <span class="text-primary  font-size-20 font-weight-700">
-                    SICNU 实验室安全教育
-                </span>
-                <small class=" text-muted font-size-13  ">四川师范大学实验室安全教育在线</small>
-            </a>
-        </div>
-        <div class=" flex-item-7 text-right float  ">
-            <ul class="nav nav-pills float-right ">
-                <li role="presentation"><a  asp-controller="Home" asp-action="Announcement"  >系统公告</a></li>
-                <li role="presentation"><a asp-controller="Home" asp-action="Help">使用帮助</a></li>
-                <li role="presentation"><a href="#">申请加入考试</a></li>
-                <li role="presentation"><a href="#">密码修改</a></li>
-                <li role="presentation" class="dropdown  ">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <span class="glyphicon glyphicon-user"></span>
-                        登录/退出
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class=" padding-top-5px">
-                            <a asp-controller="Account" asp-action="Login" target="_blank" class=" letter-space-2  hover-text-center font-size-13">
-                                <span class="glyphicon glyphicon-log-in"></span>
-                                登录
-                            </a>
-                        </li>
-                        <li class=" padding-top-5px">
-                            <a href="./Person.html" class=" letter-space-1  hover-text-center font-size-13">
-                                <span class="glyphicon glyphicon-home"></span>
-                                学生中心
-                            </a>
-                        </li>
-                        <li class=" padding-top-5px">
-                            <a href="./LoginError.html" class=" letter-space-1  hover-text-center font-size-13 ">
-                                <span class="glyphicon glyphicon-log-out"></span>
-                                退出登陆
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+    <div class="narbar-pc-fui bc-clr-white border-little-grey-all">
+        <div class=" padding-15px container flex-layout  ">
+            <div class=" flex-item-4 text-one-line-ellipsis  " data-line-height="280%">
+                <a asp-controller="Home" asp-action="Index">
+                    <span class="text-primary  font-size-20 font-weight-700">
+                        SICNU 实验室安全教育
+                    </span>
+                    <small class=" text-muted font-size-13  ">四川师范大学实验室安全教育在线</small>
+                </a>
+            </div>
+            <div class=" flex-item-7 text-right float  ">
+                <ul class="nav nav-pills float-right ">
+                    <li role="presentation"><a asp-controller="Home" asp-action="Announcement">系统公告</a></li>
+                    <li role="presentation"><a asp-controller="Home" asp-action="Help">使用帮助</a></li>
+                    <li role="presentation"><a asp-controller="Account" asp-action="Apply" >申请加入考试</a></li>
+                    <li role="presentation"><a asp-controller="Account" asp-action="Alter" >密码修改</a></li>
+                    <li role="presentation" class="dropdown  ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span id="UserInfo" >登录/退出</span> 
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class=" padding-top-5px">
+                                <a asp-controller="Account" asp-action="Login" target="_blank" class=" letter-space-2  hover-text-center font-size-13">
+                                    <span class="glyphicon glyphicon-log-in"></span>
+                                    登录
+                                </a>
+                            </li>
+                            <li class=" padding-top-5px">
+                                <a asp-controller="Student" asp-action="Index" class=" letter-space-1  hover-text-center font-size-13">
+                                    <span class="glyphicon glyphicon-home"></span>
+                                    学生中心
+                                </a>
+                            </li>
+                            <li class=" padding-top-5px">
+                                <a asp-controller="Account" asp-action="LoginOut" class=" letter-space-1  hover-text-center font-size-13 ">
+                                    <span class="glyphicon glyphicon-log-out"></span>
+                                    退出登陆
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
+            </div>
         </div>
     </div>
-</div>
-@RenderBody()
-<div class=" margin-top-5px ">
-    <div class=" bc-clr-white text-center  padding-10px">
-        <a class=" font-weight-600 font-size-12 " href="#">Server Right 2019-2021 Support by 505 mobile lab</a>
-        <a class=" font-weight-600 font-size-12 " href="#">四川师范大学 实验设备处 维护运行 </a>
-        <a href="#" class="font-weight-600 font-size-12"> <span class="glyphicon glyphicon-search"></span> </a>
+    @RenderBody()
+    <div class=" margin-top-5px ">
+        <div class=" bc-clr-white text-center  padding-10px">
+            <a class=" font-weight-600 font-size-12 " href="#">Server Right 2019-2021 Support by 505 mobile lab</a>
+            <a class=" font-weight-600 font-size-12 " href="#">四川师范大学 实验设备处 维护运行 </a>
+            <a href="#" class="font-weight-600 font-size-12"> <span class="glyphicon glyphicon-search"></span> </a>
+        </div>
     </div>
-</div>
-<div class="modal fade mask" id="ShowError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title text-primary" id="myModalLabel">
-                    <span class=" glyphicon glyphicon-cloud-download "></span> <span class="  mask-module-title">提示信息</span>
-                </h4>
+    <div class="modal fade mask" id="ShowError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title text-primary" id="myModalLabel">
+                        <span class=" glyphicon glyphicon-cloud-download "></span> <span class="  mask-module-title">提示信息</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p class=" font-weight-500 font-size-15 text-primary mask-module-content">账户已经存在！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        确定
+                    </button>
+                </div>
             </div>
-            <div class="modal-body">
-                <p class=" font-weight-600 font-size-15 text-primary mask-module-content">账户已经存在！</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<script src="~/js/app.min.js"></script>
-<script src="~/js/animation.min.js"></script>
+        </div>
+    </div>
+    <script src="~/js/app.min.js"></script>
+    <script src="~/js/animation.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/Account/UserInfo",
+                function(json) {
+                    if (json["isLogin"]) {
+                        $('#UserInfo').text(`${json["name"]}&${json["uId"]}`);
+                    }
+                });
+        });
+    </script>
 </body>
 @RenderSection("Scripts", required: false)
 </html>

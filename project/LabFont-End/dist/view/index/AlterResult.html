@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.css" />
+    <script src="../../lib/jquery/dist/jquery.js"></script>
+    <script src="../../lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../css/sass_product/fui.min.css" />
+    <link rel="stylesheet" href="../../css/sass_product/fui-animation.min.css" />
+    <link rel="icon" href="../..//Resources/system/icon/icon.png" />
+    <script src="../../lib/validation/jquery.validate.min.js"></script>
+    <script src="../../lib/validation/messages_zh.js"></script>
+    <script src="../../lib/validation/additional-methods.min.js"></script>
+    <title>实验室安全教育在线-中转页面</title>
+</head>
+<body class=" bc-clr-primary">
+    <div class="narbar-pc-fui bc-clr-white border-little-grey-all">
+        <div class=" padding-15px container flex-layout  ">
+            <div class=" flex-item-4 text-one-line-ellipsis  " data-line-height="280%">
+                <span class="text-primary  font-size-20 font-weight-700">
+                    SICNU 实验室安全教育
+                </span>
+                <small class=" text-muted font-size-13  ">四川师范大学实验室安全教育在线</small>
+            </div>
+            <div class=" flex-item-7 text-right float  ">
+                <ul class="nav nav-pills float-right ">
+                    <li role="presentation"><a href="#">系统公告</a></li>
+                    <li role="presentation"><a href="#">使用帮助</a></li>
+                    <li role="presentation"><a href="#">申请加入考试</a></li>
+                    <li role="presentation"><a href="#">密码修改</a></li>
+                    <li role="presentation" class="dropdown  ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">
+                            <span class="glyphicon glyphicon-user"></span>
+                            登录/退出
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class=" padding-top-5px">
+                                <a href="./Login.html" class=" letter-space-2  hover-text-center font-size-13"> <span
+                                        class="glyphicon glyphicon-log-in"></span>
+                                    登录 </a>
+                            </li>
+                            <li class=" padding-top-5px">
+                                <a href="./Person.html" class=" letter-space-1  hover-text-center font-size-13"><span
+                                        class="glyphicon glyphicon-home"></span>
+                                    学生中心 </a>
+                            </li>
+                            <li class=" padding-top-5px">
+                                <a href="./LoginError.html" class=" letter-space-1  hover-text-center font-size-13 ">
+                                    <span class="glyphicon glyphicon-log-out"></span>
+                                    退出登陆
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <nav class="narbar-mobile-fui navbar navbar-default navbar-fixed-top   bc-clr-white" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <span class=" text-primary font-weight-700">SICNU 实验室安全教育</span></a>
+            </div>
+            <div class="collapse navbar-collapse " id="example-navbar-collapse">
+                <ul class="nav navbar-nav ">
+                    <li role="presentation"><a href="#"> <span class=" text-primary font-weight-500 ">系统公告</span> </a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">使用帮助</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">申请加入考试</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">密码修改</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">用户登录</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class=" container" data-min-height="900">
+        <div class=" margin-top-15px padding-15px bc-clr-white border-little-grey-all " data-min-height="70">
+            <h4 class=" border-light-down padding-bottom-5px text-primary ">提示信息</h4>
+            <div>
+                <h4 class=" text-center font-size-17 font-weight-700 "> 恭喜你,已经修改密码！ 需要重新登录账号..  </h4>
+                <div class=" text-center margin-top-25px margin-bottom-15px">
+                    <a href="http://" class=" btn  btn-primary " > <span class=" glyphicon glyphicon-ok "></span> 前往系统主页</a>
+                    <a href="http://" class=" btn btn-default " > <span class="glyphicon glyphicon-user"></span> 前往登录页面</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade mask" id="ShowError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h5 class="modal-title text-primary" id="myModalLabel">
+                        <span class=" glyphicon glyphicon-cloud-download "></span> <span class="  mask-module-title">提示信息</span>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class=" font-weight-600 font-size-15 text-primary mask-module-content">账户已经存在！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" margin-top-5px ">
+        <div class=" bc-clr-white text-center  padding-10px">
+            <a class=" font-weight-600 font-size-12 " href="#">Server Right 2019-2021 Support by 505 mobile lab</a>
+            <a class=" font-weight-600 font-size-12 " href="#">四川师范大学 实验设备处 维护运行 </a>
+            <a href="#" class="font-weight-600 font-size-12"> <span class="glyphicon glyphicon-search"></span> </a>
+        </div>
+    </div>
+</body>
+<script src="../../js/app.min.js"></script>
+<script src="../../js/animation.min.js"></script>
+</html>

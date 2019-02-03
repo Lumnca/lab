@@ -99,6 +99,14 @@
   overflow-x: auto;
 }
 
+.box-sizing-content {
+  box-sizing: content-box;
+}
+
+.box-sizing-border {
+  box-sizing: border-box;
+}
+
 /* 重写 checkbox 样式 */
 /*没有 bootstrap 版本*/
 .ban-bootsrap > input[type="checkbox"] + label::before {

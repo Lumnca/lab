@@ -1,0 +1,14 @@
+/* 实现图片选择 360度 */
+.Img-center-rotation{
+    animation-name: Circle-rotation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-play-state: running;  
+    animation-timing-function:linear; //线性过渡
+}
+
+@keyframes Circle-rotation{
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+/* 实现div 动画移动效果*/

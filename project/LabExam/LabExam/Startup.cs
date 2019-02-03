@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace LabExam
 {
@@ -37,15 +39,16 @@ namespace LabExam
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {                
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(3);
-                options.LoginPath = "/Login";
-                options.LogoutPath = "/LoginOut";
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/LoginOut";
             });
 
             services.AddDistributedMemoryCache();
@@ -53,6 +56,7 @@ namespace LabExam
 
             /* 注册自己的服务 */
             services.AddTransient<IEncryptionDataService, EncryptionDataService>();
+            services.AddTransient<IHttpRequstAnalysisService, HttpRequstAnalysisService>();
 
         }
 
@@ -68,13 +72,13 @@ namespace LabExam
                 app.UseHsts();
             }
 
-            //app.UseWelcomePage("/welcome");
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
 
             app.UseSession();
+            app.UseStatusCodePagesWithReExecute("/error/{0}"); //用于状态错误的中间件
 
             app.UseMvc(routes =>
             {

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +13,10 @@
     <script src="../../lib/validation/jquery.validate.min.js"></script>
     <script src="../../lib/validation/messages_zh.js"></script>
     <script src="../../lib/validation/additional-methods.min.js"></script>
-    <title>实验室安全教育在线-公告</title>
+    <title>实验室安全教育在线-申请</title>
 </head>
-
-<body class=" bc-clr-grey-little">
-    <div class=" bc-clr-white border-little-grey-all">
+<body class=" bc-clr-primary">
+    <div class="narbar-pc-fui bc-clr-white border-little-grey-all">
         <div class=" padding-15px container flex-layout  ">
             <div class=" flex-item-4 text-one-line-ellipsis  " data-line-height="280%">
                 <span class="text-primary  font-size-20 font-weight-700">
@@ -63,89 +61,120 @@
             </div>
         </div>
     </div>
-    <div class=" container" data-min-height="900">
-        <div class=" margin-top-15px padding-15px bc-clr-white border-little-grey-all " data-min-height="70">
+    <nav class="narbar-mobile-fui navbar navbar-default navbar-fixed-top   bc-clr-white" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <span class=" text-primary font-weight-700">SICNU 实验室安全教育</span></a>
+            </div>
+            <div class="collapse navbar-collapse " id="example-navbar-collapse">
+                <ul class="nav navbar-nav ">
+                    <li role="presentation"><a href="#"> <span class=" text-primary font-weight-500 ">系统公告</span> </a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">使用帮助</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">申请加入考试</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">密码修改</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">用户登录</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class=" container margin-top-45px " data-min-height="900">
+        <div class=" margin-top-15px padding-10px bc-clr-white  border-little-grey-all " data-min-height="70">
             <h4 class=" border-light-down padding-bottom-5px text-primary ">申请加入考试</h4>
             <form id="loginFrom" action="register" class="form-horizontal margin-top-20px" role="form" method="post">
                 <div class="form-group">
-                    <label for="RealName" class="col-sm-2 control-label">真实姓名</label>
+                    <label for="Name" class="col-sm-2 control-label">真实姓名</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" data-max-width="400" id="RealName" name="RealName"
-                            placeholder="请输入你的真实姓名">
+                        <input type="text" class="form-control" data-max-width="400" id="Name" name="Name" placeholder="请输入你的真实姓名">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="StudentID" class="col-sm-2 control-label">学号</label>
+                    <label for="StudentId" class="col-sm-2 control-label">学号</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" data-max-width="400" id="UserName" name="UserName"
+                        <input type="text" class="form-control" data-max-width="400" id="StudentId" name="StudentId"
                             placeholder="请输入你的学号">
                     </div>
                 </div>
                 <div class="form-group">
-                        <label for="GradeNow" class="col-sm-2 control-label">当前年级</label>
-                        <div class="col-sm-10">
-                            <input type="GradeNow" class="form-control" data-max-width="400" id="GradeNow" name="GradeNow"
-                                placeholder="请输入你的密码">
-                        </div>
-                    </div>
-                <div class="form-group">
-                    <label for="NumberID" class="col-sm-2 control-label">身份证号码</label>
+                    <label for="StudentType" class="col-sm-2 control-label">身份类型</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" data-max-width="400" id="NumberID" name="NumberID"
-                            placeholder="请再次输入你的密码">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="PasswordAgin" class="col-sm-2 control-label">通知邮件</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" data-max-width="400" id="UserEmail" name="UserEmail"
-                            placeholder="申请结果发送到此邮件">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Insititute" class="col-sm-2 control-label">学院</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" data-max-width="400" id="Insititute" name="Insititute"
-                            placeholder="申请结果发送到此邮件">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Insititute" class="col-sm-2 control-label">专业</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" data-max-width="400" id="Insititute" name="Insititute"
-                            placeholder="申请结果发送到此邮件">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Insititute" class="col-sm-2 control-label">出生日期</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" data-max-width="400" id="Insititute" name="Insititute"
-                            placeholder="申请结果发送到此邮件">
-                    </div>
-                </div>
-                
-                
-                <div class="form-group">
-                    <label for="Insititute" class="col-sm-2 control-label">身份类型</label>
-                <div class="col-sm-10">
-                        <select name="identity" id="identity" class="form-control" data-max-width="400" >
-                            <option value="bks">本科生</option>
-                            <option value="yjs">研究生</option>
+                        <select name="StudentType" id="StudentType" class="form-control" data-max-width="400">
+                            <option value="0">本科生</option>
+                            <option value="1">研究生</option>
                         </select>
                     </div>
                 </div>
-
-
-
                 <div class="form-group">
-                    <label for="Insititute" class="col-sm-2 control-label">情况说明:</label>
+                    <label for="Grade" class="col-sm-2 control-label">当前年级</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="Insititute" id="Insititute" data-max-width="400" rows="3"></textarea>
+                        <input type="number" class="form-control" data-max-width="400" id="Grade" name="Grade"
+                            placeholder="请输入你的当前年级">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="IDNumber" class="col-sm-2 control-label">身份证号码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" data-max-width="400" id="IDNumber" name="IDNumber"
+                            placeholder="请再次输入你的身份证号">
+                        <span class="help-block text-primary">字母结尾一律小写</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="col-sm-2 control-label">通知邮件</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" data-max-width="400" id="Email" name="Email"
+                            placeholder="申请结果发送到此邮件">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Phone" class="col-sm-2 control-label">手机号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" data-max-width="400" id="Phone" name="Phone"
+                            placeholder="你的手机号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InstituteId" class="col-sm-2 control-label">学院</label>
+                    <div class="col-sm-10">
+                        <select name="InstituteId" id="InstituteId" class="form-control" data-max-width="400">
+                            <option value="0">计算机科学学院</option>
+                            <option value="1">文学院</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ProfessionId" class="col-sm-2 control-label">专业</label>
+                    <div class="col-sm-10">
+                        <select name="ProfessionId" id="ProfessionId" class="form-control" data-max-width="400">
+                            <option value="0">软件工程</option>
+                            <option value="1">网络工程</option>
+                            <option value="2">计算机科学与技术</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="BirthDate" class="col-sm-2 control-label">出生日期</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" data-max-width="400" id="BirthDate" name="BirthDate"
+                            placeholder="申请结果发送到此邮件">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Reason" class="col-sm-2 control-label">情况说明:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="Reason" id="Reason" data-max-width="400" rows="3"></textarea>
+                        <span class="help-block">请至少填写 二十字的 情况说明！</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">立即注册！ 不要犹豫</button>
+                        <button type="submit" class="btn btn-primary letter-space-1"> <span class=" glyphicon glyphicon-log-in "></span>
+                            立即提交申请 </button>
                     </div>
                 </div>
             </form>
@@ -174,74 +203,88 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
-
-    <div class=" margin-top-5px ">
+    <div class=" margin-top-5px footer">
         <div class=" bc-clr-white text-center  padding-10px">
             <a class=" font-weight-600 font-size-12 " href="#">Server Right 2019-2021 Support by 505 mobile lab</a>
             <a class=" font-weight-600 font-size-12 " href="#">四川师范大学 实验设备处 维护运行 </a>
             <a href="#" class="font-weight-600 font-size-12"> <span class="glyphicon glyphicon-search"></span> </a>
         </div>
     </div>
-
 </body>
 <script src="../../js/app.min.js"></script>
 <script src="../../js/animation.min.js"></script>
-
 <script>
     $(function () {
+        /* StudentId,Reason,Email,IDNumber,InstituteId,ProfessionId,Grade,Phone,Name,BirthDate,Sex,StudentType */
         $("form").validate({
             //错误提示信息
             messages: {
-                RealName: {
-                    required: "请填写你的真实姓名" //此方法在username控件上的所有验证规则提示都是设置的这个字符串
-                },
-                UserName: {
-                    required: "填写你的学号",
+                StudentId: {
+                    required: "请填写你的学号", //此方法在username控件上的所有验证规则提示都是设置的这个字符串
                     rangelength: "字符长度{0}到{1}之间"
                 },
-                PasswordAgin: {
-                    equalTo: "两次密码不一样"
+                Name: {
+                    required: "填写你的姓名",
+                    rangelength: "字符长度{0}到{1}之间"
+                },
+                IDNumber: {
+                    required: "身份证号码？",
+                    rangelength: "身份证号码为18位"
+                },
+                Reason: {
+                    required: "你还是吧原因说明一下撒！",
+                    minlength: "至少二十字说明情况！"
+                },
+                Grade: {
+                    required: "请填写你的年纪",
+                    range: "非法年纪"
+                },
+                Email: {
+                    required: "请填写你的QQ邮箱最佳",
+                    email: "邮箱格式错误"
+                },
+                Phone: {
+                    required: "请填写你的电话"
+                },
+                BirthDate: {
+                    required: "出生日期"
                 }
 
             },
             //验证规则
             rules: {
                 //使用空间 name 名称
-                RealName: {
+                StudentId: {
+                    required: true,
+                    rangelength: [10, 14]
+                },
+                Name: {
                     required: true
                 },
-                UserName: {
+                IDNumber: {
                     required: true,
-                    rangelength: [10, 12]
+                    rangelength: [18, 18]
                 },
-                UserEmail: {
+                Reason: {
+                    required: true,
+                    minlength: 20
+                },
+                Grade: {
+                    required: true,
+                    range: [2015, 2030]
+                },
+                Email: {
                     required: true,
                     email: true
                 },
-                Password: {
+                Phone: {
                     required: true
                 },
-                PasswordAgin: {
-                    required: true,
-                    equalTo: "#Password"
-                },
-                userInfo: {
+                BirthDate: {
                     required: true
                 }
             },
-            errorClass: "text-danger",
-            submitHandler: function (form) {
-                $.get("Exists", {
-                    AccountID: $('#UserName').val()
-                }, function (data, textstatus, jqXHR) {
-                    console.log(data);
-                    if (data.isHave) {
-                        $('#ShowError').modal("show");
-                    } else {
-                        form.submit();
-                    }
-                }, "json");
-            }
+            errorClass: "text-danger"
         });
     });
 </script>

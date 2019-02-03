@@ -34,3 +34,13 @@ F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.mobile.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\Help.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Home\Help.Mobile.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Account\Apply.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Account\Result.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Account\Alter.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Account\AlteResult.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_BackEnd_Layout.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Principal\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Module\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Error\Error404.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Error\ParameterError.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Error\Error.g.cshtml.cs

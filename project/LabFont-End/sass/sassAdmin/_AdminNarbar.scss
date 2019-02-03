@@ -1,0 +1,169 @@
+.admin-navbar{
+    padding-left: 45px;
+    list-style: none;
+    >li{
+        display: list-item;
+        >ul{
+            padding-left: 35px;
+            list-style: none;
+            display: none;
+            >li{
+                list-style-position: inside;
+                a{
+                    height: 30px;
+                    line-height: 30px;
+                    font-size: 12px;
+                }
+                a:hover{
+                    font-size: 11px;
+                    color: darkorange;
+                }
+            }
+        }
+        >a{
+            padding-left: 5px;
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            font-size: 12px;
+            img:first-of-type{
+                vertical-align: middle;
+                width: 14px;
+                height: 14px;
+            } 
+            span{
+                padding-left: 5px;
+            }
+        }
+        >a:hover{
+            color: RGB(243,191,24);
+        }
+        .narbar-active{
+            background-color: rgba(38,66,116,0.7);
+            border-left: 5px solid RGB(52,160,206);
+            color: white;      
+        }
+    }
+
+    a{
+        color:gainsboro;
+        font-size: 14px;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+    a:active{
+        text-decoration: none;
+    }
+    a:link{
+        text-decoration: none;
+    }
+}
+
+.admin-navbar-down{
+    position: absolute;
+    left: 0px;
+    bottom: 30px;
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    padding-left: 40px;
+}
+
+
+.admin-narbar-top{
+    >ul{
+        margin-bottom: 0px;
+        >li{
+            padding: 20px;
+            position: relative;
+            float: left; 
+            >ul{
+                position: absolute;
+                display: none;
+                list-style: none;
+                padding-left: 0px;
+                top: 50px;
+                li:first-of-type{
+                    border-radius: 5px;
+                    padding: 10px;
+                   // border:1px grey solid;
+                }
+            }
+        }
+        // li:hover ul{
+        //     display: block;
+        // }
+    }
+}
+
+
+.admin-module-list{
+    padding: 5px;
+    a{
+        display: block;
+        color: black;
+        padding: 3px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 13px;
+        text-align:left;
+        text-indent: 10px;
+    }
+    .active{
+        text-decoration: none;
+        color: white;
+        font-weight: 300;
+        background-color: rgba(38,38,38,0.8);
+    }
+    a:hover{
+        text-decoration: none;
+        color: white;
+        font-weight: 300;
+        background-color: rgba(38,38,38,0.8);
+    }
+    a:active{
+        text-decoration: none;
+    }
+    a:link{
+        text-decoration: none;
+    }
+}
+
+.admin—module-tab{
+    border-bottom:1px solid gainsboro; 
+    >a{
+        display: inline-block;
+        background-color: rgba(246,246,246,0.7);;
+        padding: 10px 20px;
+        border-left: 1px solid gainsboro; 
+        border-right:1px solid gainsboro; 
+        border-top:1px solid gainsboro; 
+    }
+}
+.admin-title-moudle{
+    border-left: 5px solid rgba(38,38,38,0.7);
+    border-right: 1px solid gainsboro ;
+    border-top: 1px solid gainsboro ;
+    border-bottom: 1px solid gainsboro ;
+    font-weight: 600;
+    vertical-align: middle;
+    background-color: RGB(245,246,250);
+    >.float-left{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-indent: 10px;
+        height: 40px;
+    }
+    >.float-right{
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.module-list-item-info{
+    font-size: 14px;
+    color: gray;
+    display: inline-block;
+
+}

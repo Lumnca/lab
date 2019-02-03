@@ -383,8 +383,6 @@ namespace LabExam.Migrations
                     b.Property<string>("ID")
                         .HasMaxLength(60);
 
-                    b.Property<DateTime>("LoginDate");
-
                     b.Property<string>("LoginIp")
                         .HasMaxLength(100);
 

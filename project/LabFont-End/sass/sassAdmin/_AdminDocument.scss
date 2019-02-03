@@ -1,0 +1,67 @@
+/*没有 bootstrap 版本*/
+.ban-bootsrap{
+    >input[type="checkbox"] + label::before {
+        content: "\a0";  /*不换行空格*/
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin-right: .2em;
+        background-color: white;
+        border: 1px solid RGB(16,142,233);
+        text-indent: .11em;
+        vertical-align: baseline;
+        line-height: 0.70;  /*行高不加单位，子元素将继承数字乘以自身字体尺寸而非父元素行高*/
+    }
+    >input[type="checkbox"]:checked + label::before {
+        content: "\2713";
+        background-color: RGB(16,142,233);
+        color: white;
+        border: 1px solid RGB(16,142,233);
+    }
+    
+    >input[type="checkbox"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    
+    >input[type="checkbox"]:hover + label::before {
+    background-color: RGB(16,142,233);
+    }
+
+} 
+.bootstrap-checkbox{
+    $br_checkbox :RGB(16,142,233);//RGB(255,40,81)
+    >input[type="checkbox"] + label::before {
+        content: "\a0";  /*不换行空格*/
+        display: inline-block;
+        text-align: center;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        font-weight: 400;
+        background-color: white;
+        vertical-align: baseline;
+        border: 1px solid $br_checkbox;//RGB(16,142,233);
+    }
+    >input[type="checkbox"]:checked + label::before {
+        content: "\2713";
+        background-color:$br_checkbox; //RGB(16,142,233);
+        color: white;
+        line-height: 16px;
+    }
+
+    >input[type="checkbox"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    >.checkout-label{
+        max-width: none;
+        margin-bottom: 0px;
+        font-weight: 500;
+        font-size: 13px;
+    }
+    max-width: none;
+    margin-bottom: 0px;
+    font-weight: 500;
+    font-size: 13px;
+}

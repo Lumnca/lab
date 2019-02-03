@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewData["Title"] = "实验室安全教育在线-后台首页";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+<script src="~/lib/validation/additional-methods.min.js"></script>
+<script src="~/lib/validation/jquery.validate.min.js"></script>
+<script src="~/lib/validation/messages_zh.js"></script>
+<div class=" bc-clr-white border-little-grey-all padding-10px " data-min-height="930">
+    <div class="flex-layout ">
+        <div class=" flex-item-4   bc-clr-primary margin-left-0px border-radius-6" data-min-width="230"
+             data-min-height="200">
+            <h3 class=" text-center">
+                <span class="glyphicon glyphicon-user font-color-white font-size-30">
+                </span>
+            </h3>
+            <ul class=" list-unstyled bc-clr-primary font-color-white">
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">工号: 20020059 </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">姓名:樊向奎</li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">手机号码:15982690985</li>
+            </ul>
+        </div>
+        <div class=" flex-item-4 bc-clr-danger margin-left-25px border-radius-6" data-min-width="230"
+             data-min-height="200">
+            <h3 class=" text-center">
+                <span class="glyphicon glyphicon-list-alt font-color-white font-size-30">
+                </span>
+            </h3>
+            <ul class=" list-unstyled bc-clr-danger font-color-white">
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    新增重考申请[未处理]: <a href="#" class=" font-color-white">10 件</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    新增入申请[未处理]: <a href="#"
+                                   class=" font-color-white">3 件</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px"></li>
+            </ul>
+        </div>
+        <div class=" flex-item-4 bc-clr-warning margin-left-25px border-radius-6" data-min-width="230"
+             data-min-height="200">
+            <h2 class=" text-center">
+                <span class="glyphicon glyphicon-fire font-color-white font-size-30">
+                </span>
+            </h2>
+            <ul class=" list-unstyled bc-clr-warning font-color-white">
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    模块数量: <a href="#"
+                             class=" font-color-white">3 个模块</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    学院总数: <a href="#"
+                             class=" font-color-white">10 个学院</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    专业数量: <a href="#"
+                             class=" font-color-white">3 个专业</a>
+                </li>
+            </ul>
+        </div>
+        <div class=" flex-item-4 bc-clr-info margin-left-25px border-radius-6" data-min-width="230"
+             data-min-height="200">
+            <h2 class=" text-center">
+                <span class="glyphicon glyphicon-send font-color-white font-size-30">
+                </span>
+            </h2>
+            <ul class=" list-unstyled bc-clr-info font-color-white">
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    管理员总数: <a href="#"
+                              class=" font-color-white">23 名管理员</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    本科生总数: <a href="#"
+                              class=" font-color-white">3 个模块</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    研究生总数: <a href="#"
+                              class=" font-color-white">3 个专业</a>
+                </li>
+            </ul>
+        </div>
+        <div class=" flex-item-4 bc-clr-black-web margin-left-25px border-radius-6" data-min-width="230"
+             data-min-height="200">
+            <h2 class=" text-center">
+                <span class="glyphicon glyphicon-education font-color-white font-size-30">
+                </span>
+            </h2>
+            <ul class=" list-unstyled bc-clr-black-web font-color-white">
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    课程总数: <a href="#"
+                             class=" font-color-white">10 个课程</a>
+                </li>
+                <li class=" padding-left-15px padding-top-10px padding-bottom-10px">
+                    资源总数: <a href="#"
+                             class=" font-color-white">30 个资源</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class=" margin-top-20px">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="  ">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">你所拥有的系统权限</a>
+            </li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">修改个人密码</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <ul class="list-group">
+                    <li class="list-group-item padding-left-30px font-size-12">学生管理权限 </li>
+                    <li class="list-group-item padding-left-30px font-size-12">考试出题权限</li>
+                    <li class="list-group-item padding-left-30px font-size-12">课程管理权限</li>
+                    <li class="list-group-item padding-left-30px font-size-12">题库管理权限</li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <form id="loginFrom" action="#" class="form-horizontal " role="form"
+                      method="post">
+                    <div class=" padding-left-20px margin-bottom-10px">
+                        <label for="Password" class="control-label">旧密码</label>
+                        <input type="text" class="form-control" data-max-width="400" id="Password"
+                               name="Password" placeholder="请输入你的旧密码">
+                    </div>
+                    <div class=" padding-left-20px margin-bottom-10px">
+                        <label for="NewPassword1" class="control-label">新密码</label>
+                        <input type="text" class="form-control" data-max-width="400" id="NewPassword1"
+                               name="NewPassword1" placeholder="请输入你的新密码">
+                    </div>
+                    <div class=" padding-left-20px margin-bottom-10px">
+                        <label for="NewPassword2" class="control-label">新密码</label>
+                        <input type="text" class="form-control" data-max-width="400" id="NewPassword2"
+                               name="NewPassword2" placeholder="请输入你的新密码">
+                    </div>
+                    <div class=" padding-left-20px ">
+                        <button type="submit" class="btn btn-primary form-control letter-space-1"
+                                data-max-width="400">
+                            <span class=" glyphicon glyphicon-log-in ">
+                            </span> 立即提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $("#loginFrom").validate({
+            //错误提示信息
+            messages: {
+                Password: {
+                    required: "密码不填写吗？",
+                    minlength:"最小长度为{0}"
+                },
+                NewPassword1: {
+                    required: "填写新密码",
+                    minlength:"最小长度为{0}"
+                },
+                NewPassword2: {
+                    required: "再次填写新密码",
+                    minlength:"最小长度为{0}"
+                }
+            },
+            //验证规则
+            rules: {
+                //使用空间 name 名称
+                NewPassword1: {
+                    required: true,
+                    minlength:6
+                },
+                Password: {
+                    required: true,
+                    minlength:6
+                },
+                NewPassword2:{
+                    required: true,
+                    minlength:6
+                }
+            },
+            errorClass: "text-danger",
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    </script>
+}

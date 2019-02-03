@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "实验室安全教育在线-修改密码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<nav class="narbar-mobile-fui navbar navbar-default navbar-fixed-top   bc-clr-white" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" asp-controller="Home" asp-action="MobileIndex" >
+                <span class=" text-primary font-weight-700">SICNU 实验室安全教育</span></a>
+        </div>
+        <div class="collapse navbar-collapse " id="example-navbar-collapse">
+            <ul class="nav navbar-nav ">
+                <li role="presentation"><a asp-controller="Home" asp-action="MobileAnnouncement"  > <span class=" text-primary font-weight-500 ">系统公告</span> </a></li>
+                <li role="presentation"><a asp-controller="Home" asp-action="MobileHelp"><span class=" text-primary font-weight-500 ">使用帮助</span></a></li>
+                <li role="presentation"><a asp-controller="Account" asp-action="Apply"><span class=" text-primary font-weight-500 ">申请加入考试</span></a></li>
+                <li role="presentation"><a asp-controller="Account" asp-action="Alter"><span class=" text-primary font-weight-500 ">密码修改</span></a></li>
+                <li role="presentation"><a  asp-controller="Account" asp-action="Login"><span class=" text-primary font-weight-500 ">用户登录</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class=" container" data-min-height="900">
+    <div class=" margin-top-15px padding-15px bc-clr-white border-little-grey-all " data-min-height="70">
+        <h4 class=" border-light-down padding-bottom-5px text-primary ">修改密码 <small>管理员不在此修改密码</small> </h4>
+        <form id="loginFrom" asp-controller="Account" asp-action="Alter" class="form-horizontal margin-top-20px" role="form" method="post">
+            <div class="form-group">
+                <label for="StudentId" class="col-sm-2 control-label">学号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="StudentId" name="StudentId"
+                           placeholder="请输入你的学号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Password" class=" col-sm-2 control-label">新密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" data-max-width="400" id="Password" name="Password"
+                           placeholder="请输入你的密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="IDNumber" class=" col-sm-2 control-label">身份证号码</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" data-max-width="400" id="IDNumber" name="IDNumber"
+                           placeholder="请输入你的密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary form-control letter-space-1" data-max-width="400">
+                        <span class=" glyphicon glyphicon-log-in ">
+                        </span> 立即登录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $(function () {
+
+            $('body').removeClass("bc-clr-grey-little");
+            $('body').addClass("bc-clr-primary");
+
+            $("form").validate({
+                //错误提示信息
+                messages: {
+                    StudentId: {
+                        required: "请填写你的学号", //此方法在username控件上的所有验证规则提示都是设置的这个字符串
+                        rangelength: "学号长度{0}到{1}之间"
+                    },
+                    Password: {
+                        required: "密码不填写吗？",
+                        minlength:"密码长度最少{0}位"
+
+                    },
+                    IDNumber:{
+                        required: "请填写身份证号码",
+                        rangelength: "身份证号码是十八位哟"
+                    }
+                },
+                //验证规则
+                rules: {
+                    //使用空间 name 名称
+                    StudentId: {
+                        required: true,
+                        rangelength: [9, 15]
+                    },
+                    Password: {
+                        required: true,
+                        minlength:6
+                    },
+                    IDNumber:{
+                        required: true,
+                        rangelength: [18,18]
+                    }
+                },
+                errorClass: "text-warning",
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+}

@@ -2,11 +2,35 @@
 @{
     ViewData["Title"] = "实验室安全教育在线-登录";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}    
+<script src="~/js/fui.min.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> <!-- 搜狐 地址和IP 信息查询接口 -->
+<nav class="narbar-mobile-fui navbar navbar-default navbar-fixed-top   bc-clr-white" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" asp-controller="Home" asp-action="MobileIndex" >
+                <span class=" text-primary font-weight-700">SICNU 实验室安全教育</span></a>
+        </div>
+        <div class="collapse navbar-collapse " id="example-navbar-collapse">
+            <ul class="nav navbar-nav ">
+                <li role="presentation"><a asp-controller="Home" asp-action="MobileAnnouncement"  > <span class=" text-primary font-weight-500 ">系统公告</span> </a></li>
+                <li role="presentation"><a asp-controller="Home" asp-action="MobileHelp"><span class=" text-primary font-weight-500 ">使用帮助</span></a></li>
+                <li role="presentation"><a asp-controller="Account" asp-action="Apply"><span class=" text-primary font-weight-500 ">申请加入考试</span></a></li>
+                <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">密码修改</span></a></li>
+                <li role="presentation"><a  asp-controller="Account" asp-action="Login"><span class=" text-primary font-weight-500 ">用户登录</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class=" container" data-min-height="900">
     <div class=" margin-top-15px padding-15px bc-clr-white border-little-grey-all " data-min-height="70">
         <h4 class=" border-light-down padding-bottom-5px text-primary ">用户登录</h4>
-        <form id="loginFrom" action="/login" class="form-horizontal margin-top-20px" role="form" method="post">
+        <form id="loginFrom" asp-controller="Account" asp-action="Login" class="form-horizontal margin-top-20px" role="form" method="post">
             @Html.AntiForgeryToken()
             <div class="form-group">
                 <label for="UserId" class="col-sm-2 control-label">账号</label>
@@ -25,15 +49,16 @@
             <div class="form-group ">
                 <label for="Validation" class="col-sm-2 control-label">验证码</label>
                 <div class="col-sm-10">
-                    <input id="num1" type="text" value="5" class="text-center" data-max-width="50" disabled
+                    <input id="num1" type="text" value="5" class="border-radius-14 text-center" data-max-width="40" disabled
                            data-height="25">
-                    <span class=" padding-left-right-normal "> + </span>
-                    <input id="num2" type="text" value="5" class=" text-center" data-max-width="50" disabled
+                    <span class=" font-weight-700 "> + </span>
+                    <input id="num2" type="text" value="5" class=" border-radius-14 text-center" data-max-width="40" disabled
                            data-height="25">
-                    <span class=" padding-left-right-normal "> = </span>
-                    <input id="num3" type="number" value="" name="yzm" class="text-center border-radius-4 " data-min-width="195"
-                           data-height="25">
-                    <button type="button" id="ApplyNew" class="margin-left-20px btn btn-primary btn-sm ">刷新</button>
+                    <span class=" font-weight-700 padding-left-10px "> = </span>
+                    <input id="num3" type="number" value="" name="yzm" class="text-center border-radius-6 " data-min-width="195"
+                           data-height="28">
+                    <button type="button" id="ApplyNew" class="margin-left-10px btn btn-primary btn-sm "> <span class="
+                            glyphicon glyphicon-hand-down"></span> 刷新</button>
                 </div>
             </div>
             <div class="form-group">
@@ -50,36 +75,22 @@
 @section Scripts
 {
     <script>
+
+        $('body').removeClass("bc-clr-grey-little");
+        $('body').addClass("bc-clr-primary");
+
         function getRandom() {
             var rand = Math.round(Math.random() * 20);
             var rand2 = Math.round(Math.random() * 20);
             $('#num1').val(rand);
             $('#num2').val(rand2);
         }
+
         getRandom();
-        $(function () {
+        $(function() {
             $('#ApplyNew').on('click', null, null, getRandom);
-            $("form").submit(function (jqEvent) {
-                var UserName = parseInt($('#num1').val());
-                var UserPassword = parseInt($('#num2').val());
-                var result = UserName + UserPassword;
-                var valnum3 = $('#num3').val();
-
-                if (valnum3 == "" || valnum3 == null) {
-                    onMask("温馨提示", "请回答这种小学生题目！");
-                    jqEvent.preventDefault();
-                    return;
-                }
-                if (result == parseInt(valnum3)) {
-
-                } else {
-                    onMask("气氛提示", "小学生的题目都不会！ 你还是一个大学生");
-                    jqEvent.preventDefault();
-                }
-            });
-
         });
-        $(function () {
+        $(function() {
             $("form").validate({
                 //错误提示信息
                 messages: {
@@ -88,8 +99,7 @@
                         rangelength: "学号长度{0}到{1}之间"
                     },
                     UserPassword: {
-                        required: "密码不填写吗？",
-
+                        required: "密码不填写吗？"
                     }
                 },
                 //验证规则
@@ -103,7 +113,54 @@
                         required: true,
                     }
                 },
-                errorClass: "text-warning"
+                errorClass: "text-warning",
+                submitHandler: function(form) {
+                    var UserName = parseInt($('#num1').val());
+                    var UserPassword = parseInt($('#num2').val());
+                    var result = UserName + UserPassword;
+                    var valnum3 = $('#num3').val();
+
+                    if (valnum3 == "" || valnum3 == null) {
+                        onMask("温馨提示", "请回答这种小学生题目！");
+                        jqEvent.preventDefault();
+                        return;
+                    }
+                    if (result == parseInt(valnum3)) {
+
+                    } else {
+                        onMask("温馨提示", "小学生的题目都不会！ 你还是一个大学生");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "/Account/IsExisit",
+                        data: {
+                            userId: $('#UserId').val()
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (data.isExisit) {
+                                
+                                var os = window.f.Terminal();
+                                var xqXHR = $.post("/Account/Log",
+                                    {
+                                        terminal: os.isPc === true ? 2 : (os.isTablet === true ? 1 : 0),
+                                        uId: $("#UserId").val()
+                                    });
+                                    
+                                form.submit();
+                                
+                            }
+                            else {
+                                console.log(data);
+                                onMask("温馨提示", "你的账号不存在！");
+                                return;
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            onMask("温馨提示", "账号认证错误--当前服务器过于拥挤！！");
+                        }
+                    });
+                }
             });
         });
     </script>

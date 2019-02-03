@@ -1,3 +1,10 @@
+window.onMask = function (title, content) {
+    var target = $(".mask");
+    target.modal("show");
+
+    $(`.mask .mask-module-title`).text(title);
+    $(`.mask .mask-module-content`).text(content);
+}
 $(function(){
     // 全高度
     function set_layout_height_100(){

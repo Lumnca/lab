@@ -1,0 +1,279 @@
+.bc-clr-grey-little{
+    background-color: rgba(246,246,246,0.9);
+}
+.bc-clr-white{
+    background-color: white;
+}
+.bc-clr-black{
+    background-color:RGB(44,44,44);
+}
+
+.bc-clr-defalut{
+    background-color: rgba(244,244,244,1);
+}
+.bc-clr-primary{
+    background-color: rgba(48,115,172,1);
+}
+.bc-clr-success{
+    background-color: rgba(88,178,88,1);
+}
+.bc-clr-info{
+    background-color: rgba(87,190,221,1);
+}
+.bc-clr-warning{
+    background-color: rgba(240,170,70,1);
+}
+.bc-clr-danger{
+    background-color: rgba(211,73,69,1);
+}
+.bc-clr-grey-ali{
+    background-color: rgba(234,237,241,1);
+}
+.bc-clr-black-web{
+    background-color: RGB(54,54,54);
+}
+.border-thumali{ 
+    border-radius: 10px;
+    border: 1px solid rgba(38,38,38,.2);
+    box-shadow: 0px 3px 6px 0px rgba(38,38,38,0.5);
+}
+
+
+.bc-clr-spacial{
+    background-color: RGB(245,246,250);
+}
+
+$radius-gap:30;
+
+@while $radius-gap > 0 {
+    .border-radius-#{$radius-gap}{
+        border-radius: $radius-gap + 0px;
+    }
+    $radius-gap : $radius-gap - 2;
+}
+
+.border-light-down{
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.border-little-grey-all{
+    border: 1px solid gainsboro;
+}
+
+
+.border-shadow-down{
+    border: 1px solid rgba(38,38,38,.2);
+    box-shadow: 0px 3px 6px 0px rgba(38,38,38,0.2);
+}
+.font-color-white{
+    color:white;
+} 
+.font-color-black-153{
+    color:RGB(153,153,153);
+}
+.font-color-black-217{
+    color:RGB(217,217,217);
+}
+.font-color-golden{
+    color: RGB(243,191,24);
+}
+
+.font-color-red-light{
+    color: RGB(255,40,81);
+}
+
+.font-color-link{
+    color: RGB(51,122,183);
+}
+
+
+$weight-max:700;
+@while  $weight-max >= 100 {
+    .font-weight-#{$weight-max}{
+         font-weight:  $weight-max;
+    }
+    $weight-max: $weight-max - 100;
+}
+
+$font-size-gap:30;
+@while  $font-size-gap>=10 {
+    .font-size-#{$font-size-gap}{
+         font-size:  $font-size-gap + 0px;
+    }
+    $font-size-gap: $font-size-gap - 1;
+}
+
+$font-size-gap:60;
+@while  $font-size-gap>=10 {
+    .line-height-#{$font-size-gap}{
+         line-height: $font-size-gap + 0px;
+    }
+    $font-size-gap: $font-size-gap - 2;
+}
+
+
+.icon-vertical{
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+}
+
+.admin-user-title{
+    padding: 5px;
+    background-color:rgba(38,38,38,0.99);
+    font-weight: 300;
+    font-size: 12px;
+    border-radius: 4px;
+    color: white;
+    display: inline-block;
+    width: 70px;
+}
+.admin-user-content{
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(38,38,38,0.5);
+    display: inline-block;
+    width: 200px;
+}
+.border-thumali{ 
+    border-radius: 10px;
+    border: 1px solid rgba(38,38,38,.2);
+    box-shadow: 0px 3px 6px 0px rgba(38,38,38,0.5);
+}
+
+.info-warning{
+    background-color: red;
+    color: white;
+    display: inline-block;
+    margin-left: -15px;
+    width: 15px;
+    height:15px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 50%;
+}
+
+.info-warning-green{
+    background-color: RGB(0,243,0);
+    color: white;
+    display: inline-block;
+    margin-left: -15px;
+    width: 15px;
+    height:15px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 50%;
+}
+.select-default{
+    border-radius: 5px;
+    width: 80px;
+    height: 25px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.select-default:focus{
+    outline: none;
+    border: 1px solid RGB(51,122,183);
+}
+
+.clearStyle{
+    list-style: none;
+    padding-left: 0px;
+}
+.clearStyle ul{
+    list-style: none;
+    padding-left: 0px;
+}
+
+/*对checkbox 的重写*/
+input[type="checkbox"] + label::before {
+    content: "\a0";  /*不换行空格*/
+    display: inline-block;
+    vertical-align: .2em;
+    width: 15px;
+    height: 15px;
+    margin-right: .2em;
+    background-color: white;
+    border: 1px solid RGB(16,142,233);
+    text-indent: .14em;
+    line-height: 0.70;  /*行高不加单位，子元素将继承数字乘以自身字体尺寸而非父元素行高*/
+}
+input[type="checkbox"]:checked + label::before {
+    content: "\2713";
+    background-color: RGB(16,142,233);
+    color: white;
+    border: 1px solid RGB(16,142,233);
+}
+
+input[type="checkbox"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+ input[type="checkbox"]:hover + label::before {
+    background-color: RGB(16,142,233);
+ }
+
+ .input_text:focus{
+     outline: none;
+ }
+
+ .input_text{
+     border-radius: 3px;
+     text-indent: 5px;
+ }
+
+ .outline-none:focus{
+    outline: none;
+ }
+
+.border-only-down{
+    text-indent: 5px;
+    border:none;
+    border-bottom: 1px solid gray;
+}
+
+.ul-li-margin{
+    >li{
+        margin-bottom: 7px;
+    }   
+}
+
+.curcor-pointer{
+   li{
+        cursor: pointer;
+   }
+   label{
+        cursor: pointer;
+   }
+
+   cursor: pointer;
+}
+
+@media screen and (min-width:992px){
+    .student-info-show{
+        margin-top: 2px;
+        .student-info-show-content{
+            padding-top: 10px;
+            .student-info-show-title{
+                display: inline-block;
+                text-align: center;
+                $val : 8px;
+                width: 110px;
+                font-size: 12px;
+                padding-top: $val;
+                padding-bottom: $val;
+                background-color:rgba(243,245,247,0.99);
+                font-weight: 600;
+            }
+            .student-info-show-value{
+                display: inline-block;
+                width: 580px;
+                padding-left: 30px;
+                padding-bottom: 5px;
+                letter-spacing: 1px;
+                font-weight: 500;
+            }
+        }
+    
+    }
+}

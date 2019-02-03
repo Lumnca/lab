@@ -20,6 +20,13 @@
 }
 
 
+.box-sizing-content{
+    box-sizing: content-box;
+}
+.box-sizing-border{
+    box-sizing: border-box;
+}
+
 
 /* 重写 checkbox 样式 */
 /*没有 bootstrap 版本*/

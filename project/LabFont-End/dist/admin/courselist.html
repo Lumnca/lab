@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="../Content/css/AdminEntry.min.css" />
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/App/adminEntry.js"></script>
+    <link rel="icon" href="../Resources/Image/Icon/PageIconOnline.png" />
+    <title>实验室安全教育在线-课程管理</title>
+</head>
+
+<body class=" bc-clr-grey-little">
+    <div class="flex-layout">
+        <div class=" flex-item-2 layout-height-100 bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
+            <div class="font-color-black-153 font-size-12 padding-left-45px margin-bottom-10px " data-margin-top="150">
+                SICNUIE
+            </div>
+            <ul class="admin-navbar ">
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/student2016110418.svg" width="20" />
+                        <span>学生管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学生信息</a></li>
+                        <li><a href="#">2.学生列表</a></li>
+                        <li><a href="#">3.管理学生</a></li>
+                        <li><a href="#">4.总体情况</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam2016110418.svg" width="20" />
+                        <span>考试管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.考试情况</a></li>
+                        <li><a href="#">2.考试试卷</a></li>
+                        <li><a href="#">3.生成试卷</a></li>
+                        <li><a href="#">4.出题历史</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam3.svg" width="20" />
+                        <span>题库管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加题目</a></li>
+                        <li><a href="#">2.题目列表</a></li>
+                        <li><a href="#">3.修改题目</a></li>
+                        <li><a href="#">4.题库使用分析</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam4.svg" width="20" />
+                        <span>模块管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学院列表</a></li>
+                        <li><a href="#">2.专业列表</a></li>
+                        <li><a href="#">3.模块信息</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam5.svg" width="20" />
+                        <span>申请事务</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.处理学生申请</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/question2016110418.svg" width="20" />
+                        <span>课程管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加课程</a></li>
+                        <li><a href="#">2.课程详情</a></li>
+                        <li><a href="#">3.课程资料</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/system2016110418.svg" width="20" />
+                        <span>系统配置</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.系统运行</a></li>
+                        <li><a href="#">2.系统配置</a></li>
+                        <li><a href="#">3.系统管理员</a></li>
+                        <li><a href="#">4.添加管理员</a></li>
+                        <li><a href="#">4.修改个人密码</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/message.svg" width="20" />
+                        <span>系统日志</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.管理员操作日志</a></li>
+                        <li><a href="#">2.学生操作日志</a></li>
+                        <li><a href="#">3.用户登陆日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="admin-navbar-down font-color-white">
+                <img src="../Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" />
+                <img src="../Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
+                <img src="../Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
+            </div>
+        </div>
+        <div class=" flex-item-12">
+            <div class="admin-narbar-top bc-clr-white border-light-down float-layout ">
+                <ul class="list-unstyled float-left  float-layout">
+                    <li>
+                        <a href="javascript:;" class="ban-bootsrap-a-style" id="admin-only-show-505">
+                            <img src="../Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
+                            <span class=" font-color-grey padding-left-25px">
+                                管理员： 蒋廖周
+                            </span>
+                        </a>
+                        <ul class="z-index-top" id="admin-only-show-505-content">
+                            <li class="bc-clr-white border-thumali" data-height="310" data-width="300">
+                                <div class=" border-light-down">
+                                    <h4 class=" text-danger font-size-15 font-weight-600 text-center">
+                                        <img src="../Resources/Admin/login/admin1.svg" width="20" class="icon-vertical" />
+                                        管理员信息
+                                        <a href="#" class="close padding-bottom-15px" id="admin-only-show-505-content-cancel">
+                                            &times;
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">姓名</span>
+                                    <span class="admin-user-content margin-left-15px">酱料周 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">工号</span>
+                                    <span class="admin-user-content margin-left-15px">2016110418 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">用户状态</span>
+                                    <span class="admin-user-content margin-left-15px">正常使用 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">登陆时间</span>
+                                    <span class="admin-user-content margin-left-15px">2018/10/27 17:59 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">操作总数</span>
+                                    <span class="admin-user-content margin-left-15px"> <span>50</span> 项操作 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">权限拥有</span>
+                                    <span class="admin-user-content margin-left-15px"> 部分权限 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">登陆选项</span>
+                                    <button class="margin-left-15px btn btn-sm btn-danger">退出登录</button>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class=" float-right padding-15px">
+                    <a href="#" data-toggle="modal" data-target="#User-warning"><img src="../Resources/Admin/login/message2.svg"
+                            width="25">
+                        <span class="info-warning">1</span> </a>
+                    <a href="#" data-toggle="modal" data-target="#User-danger" class=" margin-left-20px margin-right-10px ">
+                        <img src="../Resources/Admin/login/message.svg" width="22">
+                        <span class="info-warning-green">2</span></a>
+                </div>
+            </div>
+            <!-- 主要内容    -->
+            <div class="margin-5px  ">
+                <div class="admin-searach">
+                    <!-- 搜索栏 -->
+                    <div id="Search-condition" class=" bc-clr-white margin-10px  padding-15px border-little-grey-all"
+                        data-min-width="1250">
+                        <form class="float-layout">
+                            <!-- 模块 -->
+                            <span for="moduleId" class=" font-size-14 text-muted">所属模块：</span>
+                            <select name="modules-name" id="moudle-name" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                                <option id="0" selected>-- 全部 --</option>
+                                <option id="SD1">文史艺体类</option>
+                                <option id="SD2">物理信息类</option>
+                                <option id="SD3">化学生物类</option>
+                            </select>
+                            <!-- 所属学院 -->
+                            <span for="moduleId" class="margin-left-20px font-size-14 text-muted">课程状态</span>
+                            <select name="modules-name" id="moudle-name" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                                <option id="0" selected>-- 全部 --</option>
+                                <option id="SD1">未审核</option>
+                                <option id="SD2">已通过</option>
+                                <option id="SD2">未通过</option>
+                                <option id="SD3">在使用</option>
+                            </select>
+                            <!-- 所属专业 -->
+                            <span for="professionId" class="margin-left-20px font-size-14 text-muted">关键字：</span>
+                            <input value="" type="text" list="profession-list" id="professionId" name="professionId"
+                                data-height="24" data-width="200" class="font-size-12 padding-left-5px ">
+                            <datalist id="profession-list">
+                                <option id="SD1">实验室防盗与信息安全(物理信息类）</option>
+                                <option id="SD2">实验室防盗与信息安全（文史艺体类）</option>
+                                <option id="SD3">实验室防盗与信息安全（化学生物类）</option>
+                                <option id="SD4">实验室防盗与信息安全（其它理工类）</option>
+                                <option id="SD5">实验室中毒事故的预防与环境污染（化学生物类）</option>
+                            </datalist>
+                            <button class="float-right  btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                                立即搜索
+                            </button>
+                        </form>
+
+                    </div>
+                    <div class=" bc-clr-white margin-10px  padding-15px border-little-grey-all" data-min-width="1250">
+                        <label class=" bootstrap-checkbox">
+                            <input type="checkbox" id="shooseAllCode" />
+                            <label for="shooseAllCode" class="checkout-label"> 编号</label>
+                        </label>
+                        <button class="margin-left-20px btn btn-sm btn-primary"> <span class="glyphicon glyphicon-plus"></span>
+                            添加课程</button>
+                        <button class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#delete"> <span class="glyphicon-ok glyphicon glyphicon-remove"></span>
+                            删除选中</button>
+                        <button class=" btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-hand-up"></span>
+                            审核通过</button>
+                        <button class=" btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-hand-down"></span>
+                            审核未通过</button>
+                        <button class=" btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-user"></span>
+                            我的课程</button>
+                        <button class=" btn btn-sm btn-default"> <span class="glyphicon glyphicon-remove-circle"></span>
+                            清空筛选条件</button>
+                    </div>
+                </div>
+                <div class=" bc-clr-white margin-10px  padding-15px border-little-grey-all" data-min-width="1250">
+                    <table class="table table-hover" id="student-list">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>课程名称</th>
+                                <th>所属模块</th>
+                                <th>添加人员</th>
+                                <th>添加时间</th>
+                                <th>课程状态</th>
+                                <th class=" text-right">数据操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label class="margin-left-5px bootstrap-checkbox">
+                                        <input type="checkbox" id="student-1" />
+                                        <label for="student-1" class="checkout-label"> 1</label>
+                                    </label>
+                                </td>
+                                <td>实验室防盗与信息安全(物理信息类）</td>
+                                <td>物理信息类</td>
+                                <td>Admin</td>
+                                <td>
+                                    2018/5/15 15:36
+                                </td>
+                                <td>在使用</td>
+                                <td class=" text-right">
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#arrangeCource">
+                                        <span class="glyphicon glyphicon-calendar"></span> 安排课程</button>
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-search"></span> 详情/修改</button>
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#delete">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                        停用</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="margin-left-5px bootstrap-checkbox">
+                                        <input type="checkbox" id="student-1" />
+                                        <label for="student-1" class="checkout-label"> 2</label>
+                                    </label>
+                                </td>
+                                <td>实验室安全与环保事故的反思（化学生物类）</td>
+                                <td>化学生物类</td>
+                                <td>Admin</td>
+                                <td>
+                                    2018/5/15 12:16
+                                </td>
+                                <td>未通过</td>
+                                <td class=" text-right">
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-search"></span> 详情/修改</button>
+                                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        删除</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="margin-left-5px bootstrap-checkbox">
+                                        <input type="checkbox" id="student-1" />
+                                        <label for="student-1" class="checkout-label"> 3</label>
+                                    </label>
+                                </td>
+                                <td>实验室水电气安全（物理信息类）</td>
+                                <td>物理信息类</td>
+                                <td>Admin</td>
+                                <td>
+                                    2018/1/15 12:16
+                                </td>
+                                <td>已通过</td>
+                                <td class=" text-right">
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-circle-arrow-up"></span> 使用课程</button>
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-search"></span> 详情/修改</button>
+                                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        删除</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="margin-left-5px bootstrap-checkbox">
+                                        <input type="checkbox" id="student-1" />
+                                        <label for="student-1" class="checkout-label"> 4</label>
+                                    </label>
+                                </td>
+                                <td>实验室安全与环保事故的反思（化学生物类）</td>
+                                <td>化学生物类</td>
+                                <td>Admin</td>
+                                <td>
+                                    2018/5/15 12:16
+                                </td>
+                                <td>未审核</td>
+                                <td class=" text-right">
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-hand-up"></span> 审核通过</button>
+
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-hand-down"></span> 审核未通过</button>
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-search"></span> 详情/修改</button>
+                                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class=" float-layout ">
+                        <label class=" float-left">
+                            共 32 个课程
+                        </label>
+                        <div class=" float-right">
+                            <a href="#" class=" btn-default btn btn-sm ">
+                                <span>第</span>
+                                <span class="page-Index">
+                                    1
+                                </span>
+                                <span>
+                                    /
+                                </span>
+                                <span class="page-count">
+                                    12
+                                </span>
+                                <span>
+                                    页
+                                </span>
+                            </a>
+                            <a href="#" class="page-first btn btn-primary btn-sm"> <span class="glyphicon glyphicon-backward"></span>
+                                </span> 首页</a>
+                            <a href="#" class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span>
+                                上一页</a>
+                            <a href="#" class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                            <a href="#" class="page-last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span>
+                            </a>
+                            <select class=" margin-left-10px text-center" data-height="27" data-width="45">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <a href="#" class=" btn btn-sm btn-primary">跳转</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 主要内容 end    -->
+        </div>
+    </div>
+    <div class="modal fade" id="User-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">紧急信息</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class=" font-size-14 text-muted text-danger">
+                                1. 系统异常情况 今天发生异常
+                                <b class=" font-weight-600 font-color-white padding-left-5px padding-right-5px bc-clr-danger ">3</b>
+                                起 请联系技术人员 查看日志系统进行排查
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="User-danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生申请</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <ul class="list-group">
+                            <li class="list-group-item float-layout">
+                                <div class=" float-left">
+                                    当前有 <b class=" text-warning">3</b> 同学申请重新考试,请求老师批准
+                                </div>
+                                <div class=" float-right">
+                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">
+                                        立即查看
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li class="list-group-item float-layout ">
+                                <div class=" float-left">
+                                    新增尚未浏览的建议或投诉信息 <b class=" text-warning">3</b> 条
+                                </div>
+                                <div class=" float-right">
+                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">立即查看 </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="CourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">课程详细信息</h4>
+                </div>
+                <div class="modal-body" data-min-height="300">
+                    <div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">课程名称</span>
+                                
+                                <span class="student-info-show-value border-light-down "> 
+                                    <input type="text" value="实验室防盗与信息安全(物理信息类）" class=" border-radius-2 padding-left-10px" 
+                                     data-width="250" data-height="22"  >
+                                     <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                            <span class="glyphicon glyphicon-hand-down"></span> 保存修改</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">	所属模块</span>
+                                <span class="student-info-show-value border-light-down "> 	物理信息类</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">课程状态</span>
+                                <span class="student-info-show-value border-light-down "> 已提交</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">负责人</span>
+                                <span class="student-info-show-value border-light-down "> 李志明</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">添加时间</span>
+                                <span class="student-info-show-value border-light-down "> 2016/4/5 15:42</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                        <button class=" btn btn-primary btn-sm ">
+                                <span class="glyphicon glyphicon-hand-up"></span> 审核通过</button>
+
+                            <button class=" btn btn-primary btn-sm ">
+                                <span class="glyphicon glyphicon-hand-down"></span> 审核未通过</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">删除提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p class=" text-danger font-size-14">
+                        1. 任何对于数据的删除请都谨慎
+                    </p>
+                    <p class=" text-danger font-size-14">
+                        2. 请确保没有与此相关联的数据
+                    </p>
+                    <p class=" text-danger font-size-14">
+                        3. 请注意相关联数据都会被删除掉
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger">立即删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="CourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生信息详情</h4>
+                </div>
+                <div class="modal-body" data-min-height="300">
+                    <div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">昵称</span>
+                                <span class="student-info-show-value border-light-down "> 李嘉坤</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">年级</span>
+                                <span class="student-info-show-value border-light-down "> 2018 级</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">学号</span>
+                                <span class="student-info-show-value border-light-down "> 2016110423</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">性别</span>
+                                <span class="student-info-show-value border-light-down "> 男</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">成绩</span>
+                                <span class="student-info-show-value border-light-down "> 85.5 [最好成绩]</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">身份</span>
+                                <span class="student-info-show-value border-light-down "> 本科生</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">学院</span>
+                                <span class="student-info-show-value border-light-down "> 计算机科学学院</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">专业</span>
+                                <span class="student-info-show-value border-light-down "> 软件工程</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">考试次数</span>
+                                <span class="student-info-show-value border-light-down "> 2 [次]</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">身份证号码</span>
+                                <span class="student-info-show-value border-light-down "> 5222624499705091755</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">登录次数</span>
+                                <span class="student-info-show-value border-light-down "> 56 [次]</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">申请重考次数</span>
+                                <span class="student-info-show-value border-light-down "> 0 [次]</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">学习时长</span>
+                                <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">异常情况</span>
+                                <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="arrangeCource"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog  modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title font-weight-500 padding-top-10px text-info" id="myModalLabel">安排课程学习</h4>
+                    </div>
+                    <div class="modal-body" data-min-height="400">
+                        <!-- 搜索栏 -->
+                        <div name="Search-content" >
+                                <form class="float-layout  padding-10px  border-little-grey-all">
+                                    <!-- 模块 -->
+                                    <span for="moduleId" class=" font-size-14 text-muted">资源属性：</span>
+                                    <select name="modules-name" id="moudle-name" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                                        <option id="0" selected>-- 全部 --</option>
+                                        <option id="SD1">课程视频</option>
+                                        <option id="SD2">相关链接</option>
+                                        <option id="SD3">推荐书籍</option>
+                                        <option id="SD3">学生下载资源</option>
+                                    </select>
+                                    <span for="moduleId" class="margin-left-20px font-size-14 text-muted">课程状态:</span>
+                                    <select name="modules-name" id="moudle-name" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                                        <option id="0" selected>-- 全部 --</option>
+                                        <option id="SD1">未审核</option>
+                                        <option id="SD2">已通过</option>
+                                        <option id="SD2">未通过</option>
+                                        <option id="SD3">在使用</option>
+                                    </select>
+                                    <button class="float-right  btn btn-sm btn-primary">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                            立即搜索
+                                        </button>
+                                </form>
+
+
+                                <div class="border-little-grey-all padding-10px margin-top-10px margin-bottom-15px table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th>编号</th>
+                                            <th>资源名称</th>
+                                            <th>资源类型</th>
+                                            <th>学习时长</th>
+                                            <th>状态</th>
+                                            <th class=" text-right" >操作</t>
+                                        </thead>
+                                         <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>实验室安全与环保概述 梁文海.mp4</td>
+                                                <td>课程视频</td>
+                                                <td>30</td>
+                                                <td>在使用</td>
+                                                <td class=" text-right"> <button class=" btn btn-sm btn-primary">
+                                                    <span class="glyphicon glyphicon-lock"></span> 停用课程</button> </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>实验室安全与环保概述 梁文海.mp4</td>
+                                                <td>课程视频</td>
+                                                <td>30</td>
+                                                <td>在使用</td>
+                                                <td class=" text-right"> <button class=" btn btn-sm btn-primary">
+                                                    <span class=" glyphicon glyphicon-ok-sign "></span> 使用课程</button> </td>
+                                            </tr>
+                                         </tbody>   
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</body>
+<script>
+
+    $(document).ready(function () {
+        $('.admin-navbar > li>a').on('click', null, null, function () {
+            $('.admin-navbar > li>ul').slideUp();
+            if ($(this).next().css('display') == "block") {
+                $(this).next().slideUp();
+            } else {
+                $(this).next().slideDown();
+            }
+            $('.admin-navbar >li>a>span').removeClass('font-color-golden');
+            $(this).find('span').addClass('font-color-golden');
+        });
+
+        $('#shooseAllCode').on('click', function () {
+            $('#student-list > tbody > tr > td input[type=checkbox]').prop('checked', $(this).prop(
+                'checked'));
+        });
+
+    });
+</script>
+
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="../Content/css/AdminEntry.min.css" />
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/App/adminEntry.js"></script>
+    <link rel="icon" href="../Resources/Image/Icon/PageIconOnline.png" />
+    <title>实验室安全教育在线-添加资源</title>
+</head>
+
+<body class=" bc-clr-grey-little">
+    <div class="flex-layout">
+        <div class=" flex-item-2 layout-height-100 bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
+            <div class="font-color-black-153 font-size-12 padding-left-45px margin-bottom-10px " data-margin-top="150">
+                SICNUIE
+            </div>
+            <ul class="admin-navbar ">
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/student2016110418.svg" width="20" />
+                        <span>学生管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学生信息</a></li>
+                        <li><a href="#">2.学生列表</a></li>
+                        <li><a href="#">3.管理学生</a></li>
+                        <li><a href="#">4.总体情况</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam2016110418.svg" width="20" />
+                        <span>考试管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.考试情况</a></li>
+                        <li><a href="#">2.考试试卷</a></li>
+                        <li><a href="#">3.生成试卷</a></li>
+                        <li><a href="#">4.出题历史</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam3.svg" width="20" />
+                        <span>题库管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加题目</a></li>
+                        <li><a href="#">2.题目列表</a></li>
+                        <li><a href="#">3.修改题目</a></li>
+                        <li><a href="#">4.题库使用分析</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam4.svg" width="20" />
+                        <span>模块管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学院列表</a></li>
+                        <li><a href="#">2.专业列表</a></li>
+                        <li><a href="#">3.模块信息</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam5.svg" width="20" />
+                        <span>申请事务</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.处理学生申请</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/question2016110418.svg" width="20" />
+                        <span>课程管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加课程</a></li>
+                        <li><a href="#">2.课程详情</a></li>
+                        <li><a href="#">3.课程资料</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/system2016110418.svg" width="20" />
+                        <span>系统配置</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.系统运行</a></li>
+                        <li><a href="#">2.系统配置</a></li>
+                        <li><a href="#">3.系统管理员</a></li>
+                        <li><a href="#">4.添加管理员</a></li>
+                        <li><a href="#">4.修改个人密码</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/message.svg" width="20" />
+                        <span>系统日志</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.管理员操作日志</a></li>
+                        <li><a href="#">2.学生操作日志</a></li>
+                        <li><a href="#">3.用户登陆日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="admin-navbar-down font-color-white">
+                <img src="../Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" />
+                <img src="../Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
+                <img src="../Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
+            </div>
+        </div>
+        <div class=" flex-item-12">
+            <div class="admin-narbar-top bc-clr-white border-light-down float-layout ">
+                <ul class="list-unstyled float-left  float-layout">
+                    <li>
+                        <a href="javascript:;" class="ban-bootsrap-a-style" id="admin-only-show-505">
+                            <img src="../Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
+                            <span class=" font-color-grey padding-left-25px">
+                                管理员： 蒋廖周
+                            </span>
+                        </a>
+                        <ul class="z-index-top" id="admin-only-show-505-content">
+                            <li class="bc-clr-white border-thumali" data-height="310" data-width="300">
+                                <div class=" border-light-down">
+                                    <h4 class=" text-danger font-size-15 font-weight-600 text-center">
+                                        <img src="../Resources/Admin/login/admin1.svg" width="20" class="icon-vertical" />
+                                        管理员信息
+                                        <a href="#" class="close padding-bottom-15px" id="admin-only-show-505-content-cancel">
+                                            &times;
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">姓名</span>
+                                    <span class="admin-user-content margin-left-15px">酱料周 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">工号</span>
+                                    <span class="admin-user-content margin-left-15px">2016110418 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">用户状态</span>
+                                    <span class="admin-user-content margin-left-15px">正常使用 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">登陆时间</span>
+                                    <span class="admin-user-content margin-left-15px">2018/10/27 17:59 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">操作总数</span>
+                                    <span class="admin-user-content margin-left-15px"> <span>50</span> 项操作 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">权限拥有</span>
+                                    <span class="admin-user-content margin-left-15px"> 部分权限 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">登陆选项</span>
+                                    <button class="margin-left-15px btn btn-sm btn-danger">退出登录</button>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class=" float-right padding-15px">
+                    <a href="#" data-toggle="modal" data-target="#User-warning"><img src="../Resources/Admin/login/message2.svg"
+                            width="25">
+                        <span class="info-warning">1</span> </a>
+                    <a href="#" data-toggle="modal" data-target="#User-danger" class=" margin-left-20px margin-right-10px ">
+                        <img src="../Resources/Admin/login/message.svg" width="22">
+                        <span class="info-warning-green">2</span></a>
+                </div>
+            </div>
+            <div class="margin-10px bc-clr-defalut">
+
+
+
+                <div class=" bc-clr-white padding-10px  border-little-grey-all" data-height-all>
+                    <h4 class="border-light-down font-size-15 font-weight-500 padding-bottom-10px ">
+                        <span class=" glyphicon glyphicon-plus"></span> 添加课程资源
+                    </h4>
+
+                    <form class="form-horizontal margin-top-30px">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-object-align-bottom"></span>
+                                资源名称
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="number"  min="2015" class="form-control" required data-max-width="500" id="inputPassword3"
+                                    placeholder="资源名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-zoom-in"></span>
+                                所属课程
+                            </label>
+                            <div class="col-sm-10">
+                                <select id="student-sex" class="form-control" data-max-width="500">
+                                    <option value="1"> 实验室防盗与信息安全（文史艺体类）</option>
+                                    <option value="0"> 实验室安全与环保事故的反思（化学生物类）</option>
+                                    <option value="0"> 实验室消防安全（文史艺体类）</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-font"></span>
+                                资源类型</label>
+                            <div class="col-sm-10">
+                                <select id="student-sex" class="form-control" data-max-width="500">
+                                    <option value="1"> 下载资源</option>
+                                    <option value="2"> 视频资源</option>
+                                    <option value="3"> 资源链接</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                资源链接</label>
+                            <div class="col-sm-10">
+                                <input type="text"   class="form-control" id="inputPassword3" data-max-width="500"
+                                    placeholder="资源url链接"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-zoom-in"></span>
+                                学习时长
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="number" required min="20" class="form-control" data-max-width="500" id="studyTime" placeholder="最低学习时长">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                上传文件</label>
+                            <div class="col-sm-10">
+                                <input type="file"  rows="10"   id="inputPassword3" data-max-width="500"
+                                    placeholder="准备信息"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">
+                                <span class="glyphicon glyphicon-eye-close"></span>
+                                资源备注</label>
+                            <div class="col-sm-10">
+                                <textarea type="text"  rows="10"  class="form-control" id="inputPassword3" data-max-width="500"
+                                    placeholder="准备信息"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-success"> <span class="glyphicon glyphicon-send"></span> 返回页面 </button>
+                                <button type="submit" class="  margin-left-25px  btn btn-primary">  <span class="glyphicon glyphicon-floppy-saved"></span> 立即保存 </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="User-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">紧急信息</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class=" font-size-14 text-muted text-danger">
+                                1. 系统异常情况 今天发生异常
+                                <b class=" font-weight-600 font-color-white padding-left-5px padding-right-5px bc-clr-danger ">3</b>
+                                起 请联系技术人员 查看日志系统进行排查
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="User-danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生申请</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <ul class="list-group">
+                            <li class="list-group-item float-layout">
+                                <div class=" float-left">
+                                    当前有 <b class=" text-warning">3</b> 同学申请重新考试,请求老师批准
+                                </div>
+                                <div class=" float-right">
+                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">
+                                        立即查看
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li class="list-group-item float-layout ">
+                                <div class=" float-left">
+                                    新增尚未浏览的建议或投诉信息 <b class=" text-warning">3</b> 条
+                                </div>
+                                <div class=" float-right">
+                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">立即查看 </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="update-inlow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">修改结果</h4>
+                </div>
+                <div class="modal-body">
+                    修改中......
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('.admin-navbar > li>a').on('click', null, null, function () {
+            $('.admin-navbar > li>ul').slideUp();
+            if ($(this).next().css('display') == "block") {
+                $(this).next().slideUp();
+            } else {
+                $(this).next().slideDown();
+            }
+            $('.admin-navbar >li>a>span').removeClass('font-color-golden');
+            $(this).find('span').addClass('font-color-golden');
+        });
+    });
+</script>
+
+</html>

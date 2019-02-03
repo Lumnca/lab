@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/jquery/dist/jquery.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" />
+    <script src="../js/app.min.js"></script>
+    <link rel="stylesheet" href="../css/AdminEntry.min.css" />
+    <link rel="icon" href="../Resources/system/icon/PageIconOnline.png" />
+    <title>安全教育在线-模块管理</title>
+</head>
+<body class=" bc-clr-grey-little">
+    <div class="flex-layout">
+        <div class=" flex-item-2 layout-height-100 bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
+            <div class="font-color-black-153 font-size-12 padding-left-45px margin-bottom-10px " data-margin-top="150">
+                SICNUIE
+            </div>
+            <ul class="admin-navbar ">
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/student2016110418.svg" width="20" />
+                        <span>学生管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学生信息</a></li>
+                        <li><a href="#">2.学生列表</a></li>
+                        <li><a href="#">3.管理学生</a></li>
+                        <li><a href="#">4.总体情况</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam3.svg" width="20" />
+                        <span>题库管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加题目</a></li>
+                        <li><a href="#">2.题目列表</a></li>
+                        <li><a href="#">3.修改题目</a></li>
+                        <li><a href="#">4.题库使用分析</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam4.svg" width="20" />
+                        <span>模块管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学院列表</a></li>
+                        <li><a href="#">2.专业列表</a></li>
+                        <li><a href="#">3.模块信息</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam5.svg" width="20" />
+                        <span>申请事务</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.处理学生申请</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/question2016110418.svg" width="20" />
+                        <span>课程管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加课程</a></li>
+                        <li><a href="#">2.课程详情</a></li>
+                        <li><a href="#">3.课程资料</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/system2016110418.svg" width="20" />
+                        <span>系统配置</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.系统运行</a></li>
+                        <li><a href="#">2.系统配置</a></li>
+                        <li><a href="#">3.系统管理员</a></li>
+                        <li><a href="#">4.添加管理员</a></li>
+                        <li><a href="#">4.修改个人密码</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/message.svg" width="20" />
+                        <span>系统日志</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.管理员操作日志</a></li>
+                        <li><a href="#">2.学生操作日志</a></li>
+                        <li><a href="#">3.用户登陆日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="admin-navbar-down font-color-white">
+                <img src="../Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" />
+                <img src="../Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
+                <img src="../Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
+            </div>
+        </div>
+        <div class=" flex-item-12">
+            <div class="admin-narbar-top bc-clr-white border-light-down float-layout ">
+                <ul class="list-unstyled float-left  float-layout">
+                    <li>
+                        <a href="javascript:;" class="ban-bootsrap-a-style">
+                            <img src="../Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
+                            <span class=" font-color-grey padding-left-25px">
+                                管理员： 蒋廖周
+                            </span>
+                        </a>
+                        <ul class="z-index-top">
+                            <li class="bc-clr-white border-thumali" data-height="310" data-width="300">
+                                <div class=" border-light-down">
+                                    <h4 class=" text-danger font-size-15 font-weight-600 text-center">
+                                        <img src="../Resources/Admin/login/admin1.svg" width="20" class="icon-vertical" />
+                                        管理员信息
+                                    </h4>
+                                </div>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">姓名</span>
+                                    <span class="admin-user-content margin-left-15px">酱料周 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">工号</span>
+                                    <span class="admin-user-content margin-left-15px">2016110418 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">用户状态</span>
+                                    <span class="admin-user-content margin-left-15px">正常使用 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">登陆时间</span>
+                                    <span class="admin-user-content margin-left-15px">2018/10/27 17:59 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">操作总数</span>
+                                    <span class="admin-user-content margin-left-15px"> <span>50</span> 项操作 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">权限拥有</span>
+                                    <span class="admin-user-content margin-left-15px"> 部分权限 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">登陆选项</span>
+                                    <button class="margin-left-15px btn btn-sm btn-danger">退出登录</button>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class=" float-right padding-15px">
+                    <a href="#" data-toggle="modal" data-target="#User-warning"><img src="../Resources/Admin/login/message2.svg"
+                            width="25">
+                        <span class="info-warning">1</span> </a>
+                    <a href="#" data-toggle="modal" data-target="#User-danger" class=" margin-left-20px margin-right-10px ">
+                        <img src="../Resources/Admin/login/message.svg" width="22">
+                        <span class="info-warning-green">2</span></a>
+                </div>
+            </div>
+            <div class="margin-5px ">
+                <div class=" flex-layout">
+                    <div class="flex-item-2 border-little-grey-all bc-clr-white margin-5px" data-min-width="200"
+                        data-height-all>
+                        <h4 data-margin-bottom="0" data-margin-top="0" class="bc-clr-white border-light-down padding-bottom-10px padding-left-10px padding-top-15px ">
+                            安全教育模块列表
+                        </h4>
+                        <div class="admin-module-list">
+                            <a href="#"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> 物理信息类 </a>
+                            <a href="#"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span>其他理工类</a>
+                            <a href="#"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span>文史艺体类</a>
+                            <a href="#"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span>化学生物类</a>
+                            <a href="#"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span>文史艺体[影视]</a>
+                        </div>
+                    </div>
+                    <div class=" flex-item-9 bc-clr-white margin-5px border-little-grey-all" data-min-width="600">
+                        <div class=" admin—module-tab ">
+                            <a href="#moduleInfo" data-toggle="tab">模块信息</a>
+                            <a href="#moduleInclude" data-toggle="tab">模块下辖学院</a>
+                            <a href="#addModule" data-toggle="tab">添加模块</a>
+                        </div>
+                        <div class="tab-content margin-top-5px">
+                            <div class="tab-pane fade in active" id="moduleInfo">
+                                <div class="admin-title-moudle float-layout">
+                                    <div class=" float-left">
+                                        模块基本信息
+                                    </div>
+                                    <div class="float-right">
+                                        <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
+                                            data-target="#deleteModule">删除模块</button>
+                                    </div>
+                                </div>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <span class="module-list-item-info">
+                                            模块ID:
+                                        </span>
+                                        <span>
+                                            SDC505-5
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="module-list-item-info">
+                                            模块名称:
+                                        </span>
+                                        <span>
+                                                文史艺体类
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="module-list-item-info">
+                                            添加人:
+                                        </span>
+                                        <span>
+                                            admin
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="module-list-item-info">
+                                            添加时间:
+                                        </span>
+                                        <span>
+                                            2018/4/5 18:56:23
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="moduleInclude">
+                                <div>
+                                    <div class="admin-title-moudle float-layout">
+                                        <div class=" float-left">
+                                            模块下辖学院列表
+                                        </div>
+                                        <div class=" float-right">
+                                            <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
+                                                data-target="#addInstitute">添加学院</button>
+                                        </div>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>学院名称</th>
+                                                <th>人数</th>
+                                                <th>学院ID</th>
+                                                <th>状态</th>
+                                                <th>
+                                                    操作
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>计算机科学学院</td>
+                                                <th>835(人)</th>
+                                                <td>56</td>
+                                                <td>正常</td>
+                                                <td>
+                                                    <a href="#" class=" btn btn-default btn-sm">删除</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>地理信息科学学院</td>
+                                                <th>335(人)</th>
+                                                <td>75</td>
+                                                <td>正常</td>
+                                                <td>
+                                                    <a href="#" class=" btn btn-default btn-sm">删除</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>物理与信息电子学院</td>
+                                                <th>735(人)</th>
+                                                <td>75</td>
+                                                <td>正常</td>
+                                                <td>
+                                                    <a href="#" class=" btn btn-default btn-sm">删除</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="addModule">
+                                <div class="admin-title-moudle float-layout">
+                                    <div class=" float-left">
+                                        添加模块
+                                    </div>
+                                    <div class=" float-right">
+
+                                    </div>
+                                </div>
+                                <div class=" padding-10px">
+                                    <div class="margin-top-10px">
+                                        <label class=" label label-primary padding-10px">模块编号:</label>
+                                        <span class="margin-left-20px font-weight-600 font-size-14">自动编号</span>
+                                    </div>
+                                    <div class=" margin-top-30px">
+                                        <label class=" label label-primary padding-10px">模块名称:</label>
+                                        <input type="text" id="moduleNewName" name="moduleNewName" class="margin-left-20px padding-left-10px border-radius-6 "
+                                            data-width="350" data-height="28" />
+                                        <button type="submit" id="create" class="margin-left-15px btn btn-default"> <span class="glyphicon glyphicon-plus"></span>  立即添加</button>
+                                    </div>
+                                    <div class=" margin-top-30px">
+                                        <label class=" label label-primary padding-10px">添加时间:</label>
+                                        <span class="margin-left-20px font-weight-600 font-size-14">系统自动判断</span>
+                                    </div>
+                                    <div class=" margin-top-35px">
+                                        <label class=" label label-primary padding-10px">添加人员:</label>
+                                        <span class="margin-left-20px font-weight-600 font-size-14">系统自动识别</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="User-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">紧急信息</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class=" font-size-14 text-muted text-danger">1. 系统异常情况 今天发生异常
+                                <b class=" font-weight-600 font-color-white padding-left-5px padding-right-5px bc-clr-danger ">3</b>
+                                起 请联系技术人员 查看日志系统进行排查</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger">稍后处理</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="User-danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">学生申请</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                当前有 <b class=" text-warning">3</b> 同学申请重新考试,请求老师批准 <a href="/Home/Index" class=" btn btn-sm btn-warning float-right">立即查看
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                新增尚未浏览的建议或投诉信息 <b class=" text-warning">3</b> 条
+                                <a href="/Home/Index" class=" btn btn-sm btn-primary float-right">立即查看 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger">稍后处理</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addInstitute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">尚未归属的学院</h4>
+                </div>
+                <div class="modal-body">
+                    <form class=" margin-bottom-10px">
+                        <span class=" text-info font-size-15 font-weight-600 padding-left-5px">学院名称:</span>
+                        <input list="InstituteName" class=" margin-left-10px border-radius-4 padding-left-5px" type="text" data-height="22" />
+                        <datalist id="InstituteName" class="border-radius-4 padding-left-10px" data-width="200"
+                            data-height="25">
+                            <option value="计算机科学学院">
+                            <option value="地理信息科学学院">
+                            <option value="物理与信息电子学院">
+                            <option value="工学院">
+                        </datalist>
+                        <input class=" btn btn-info btn-sm float-right" type="submit" data-height="16" data-width="50" />
+                    </form>
+                    <div class="overflow-y-scroll" data-height="300">
+                        <table class="table table-hover" >
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>学院名称</th>
+                                    <th>人数</th>
+                                    <th>学院ID</th>
+                                    <th>状态</th>
+                                    <th>
+                                        操作
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>计算机科学学院</td>
+                                    <th>835(人)</th>
+                                    <td>56</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>计算机科学学院</td>
+                                    <th>835(人)</th>
+                                    <td>56</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>计算机科学学院</td>
+                                    <th>835(人)</th>
+                                    <td>56</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>计算机科学学院</td>
+                                    <th>835(人)</th>
+                                    <td>56</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>地理信息科学学院</td>
+                                    <th>335(人)</th>
+                                    <td>75</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>物理与信息电子学院</td>
+                                    <th>735(人)</th>
+                                    <td>75</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>工学院</td>
+                                    <th>735(人)</th>
+                                    <td>75</td>
+                                    <td>正常</td>
+                                    <td>
+                                        <a href="#" class=" btn btn-info btn-sm">添加</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class=" alert alert-danger margin-top-5px margin-bottom-5px">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        添加失败！ 服务器繁忙,请稍后再试，或者联系技术人员处理
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">删除模块--提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p class=" text-danger font-size-14">
+                        1. 请确保此模块不包含任何学院
+                    </p>
+                    <p class=" text-danger font-size-14">
+                        2. 请确保没有任何试卷与之相关联
+                    </p>
+                    <p class=" text-danger font-size-14">
+                        3. 请确保没有任何课程相关联
+                    </p>
+                    <p class=" text-danger font-size-14">
+                        4. 安全教育模块关联许多数据请慎重考虑！一旦删除与之相关的很多数据将无法查找！
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger">立即删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade mask"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h5 class="modal-title text-primary" id="myModalLabel">
+                            <span class=" glyphicon glyphicon-cloud-download "></span> <span class="  mask-module-title">提示信息</span>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class=" font-weight-600 font-size-15 text-primary mask-module-content">账户已经存在！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('.admin-navbar > li>a').on('click', null, null, function () {
+            $('.admin-navbar > li>ul').slideUp();
+            if ($(this).next().css('display') == "block") {
+                $(this).next().slideUp();
+            } else {
+                $(this).next().slideDown();
+            }
+            $('.admin-navbar >li>a>span').removeClass('font-color-golden');
+            $(this).find('span').addClass('font-color-golden');
+        });
+
+        $('#create').on("click",null,null,function(jqEvent){
+            var moduleName = $('input[name="moduleNewName"]').val();
+            if( moduleName == ""){
+                onMask("错误","你没有填写新名称");
+            }
+            $.ajax({
+                url:"/Module/Create",
+                type:"post",
+                dataType:"json",
+                data:{
+                    name:moduleName
+                },
+                success: function(data,textStatus,jqXHR){
+                    if(!data.isOk){
+                        onMask("错误信息",data.error);
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+
+</html>
