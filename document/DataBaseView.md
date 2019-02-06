@@ -15,7 +15,7 @@
 `概括`:`查询类型 vInstituteMap`
 ```sql
 SELECT dbo.Institute.InstituteId, dbo.Institute.Name, CASE WHEN im.Name IS NULL 
-              THEN '暂无所属模块' ELSE im.Name END AS ModuleName
+              THEN '暂无所属模块' ELSE im.Name END AS ModuleName, im.ModuleId
 FROM dbo.Institute LEFT OUTER JOIN
      (SELECT dbo.InstituteToModules.InstituteToModuleId, dbo.Module.ModuleId, 
              dbo.InstituteToModules.InstituteId, 
