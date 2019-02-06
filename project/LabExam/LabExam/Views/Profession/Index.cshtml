@@ -1,4 +1,5 @@
-﻿@model IEnumerable<LabExam.Models.Entities.Profession>
+﻿@using LabExam.Models.Map
+@model IEnumerable<LabExam.Models.EntitiyViews.vProfessionMap>
 
 @{
     ViewData["Title"] = "实验室安全教育在线-专业管理";
@@ -18,8 +19,8 @@
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="professionList">
-            <div class=" float-layout margin-bottom-10px margin-top-10px">
-                <label class=" font-size-15 text-info">专业名称:</label>
+            <div class=" float-layout margin-bottom-10px margin-top-15px padding-10px">
+                <label class="font-size-13 font-weight-500">专业名称:</label>
                 <input type="text" list="InstituteName" class="border-radius-4 padding-left-10px"
                        data-width="200" data-height="25" />
                 <datalist id="InstituteName" class="border-radius-4 padding-left-10px" data-width="200"
@@ -29,123 +30,88 @@
                     <option value="心理学">心理学</option>
                     <option value="哲学">哲学</option>
                 </datalist>
-                <label class=" font-size-15 text-info margin-left-10px">所属学院:</label>
-                <select name="module-list" id="module-list" class="border-radius-4 padding-left-10px select-layout"
+                <label class="font-size-13 font-weight-500 margin-left-10px">所属学院:</label>
+                <select name="module-list" id="institute-list" class="border-radius-4 padding-left-10px select-layout"
                         data-width="200" data-height="28">
-                    <option value="1">所有学院</option>
-                    <option value="2">计算机科学学院</option>
-                    <option value="3">工学院</option>
-                    <option value="4">物理与电子工程学院</option>
-                    <option value="5">数学与软件科学学院</option>
-                    <option value="6">经济与管理学院</option>
-                    <option value="7">体育学院</option>
-                    <option value="8">马克思主义学院</option>
-                    <option value="9">服装与设计艺术学院</option>
-                    <option value="10">教师教育与心理学院</option>
-                    <option value="11">法学院</option>
-                    <option value="12">历史文化与旅游学院</option>
-                    <option value="13">教育科学学院</option>
-                    <option value="14">舞蹈学院</option>
+
                 </select>
                 <a href="#" class=" float-right btn btn-primary btn-sm margin-left-10px">立即查询</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover" data-min-width="700">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>专业名称</th>
-                            <th>专业类型</th>
-                            <th>所属学院</th>
-                            <th>状态</th>
-                            <th class=" text-right">
-                                操作
-                            </th>
-                        </tr>
+                    <tr>
+                        <th  class=" text-center">编号</th>
+                        <th>专业名称</th>
+                        <th>专业类型</th>
+                        <th>所属学院</th>
+                        <th>状态</th>
+                        <th class=" text-right">
+                            操作
+                        </th>
+                    </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>软件工程</td>
-                            <td>本科专业</td>
-                            <th>计算机科学学院</th>
-                            <td>正常</td>
-                            <td class=" text-right">
-                                <a data-toggle="modal" data-target="#deleteprofessionl" href="#deleteprofessionl"
-                                   class=" btn btn-default btn-sm">
-                                    删除
-                                </a>
-                                <a data-toggle="modal" data-target="#updateProfessionl" href="#updateInsititute"
-                                   class=" btn btn-default btn-sm">
-                                    修改
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>网络工程</td>
-                            <td>本科专业</td>
-                            <th>计算机科学学院</th>
-                            <td>正常</td>
-                            <td class=" text-right">
-                                <a href="#" class=" btn btn-default btn-sm" data-toggle="modal"
-                                   data-target="#deleteInstitute">删除</a>
-                                <a href="#" class=" btn btn-default btn-sm">修改</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>计算机科学与技术</td>
-                            <td>本科专业</td>
-                            <th>计算机科学学院</th>
-                            <td>正常</td>
-                            <td class=" text-right">
-                                <a href="#" class=" btn btn-default btn-sm"> 删除</a>
-                                <a href="#" class=" btn btn-default btn-sm">修改</a>
-                            </td>
-                        </tr>
+                    @{
+                        var index = 0;
+                    }
+                    <tbody class="institutes-list-table">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td  class=" text-center">@(++index) </td>
+                                <td>@item.Name</td>
+                                <td>@(item.ProfessionType == ProfessionType.PostGraduate ? "研究生专业" : "本科生专业")</td>
+                                <th>@item.InstituteName</th>
+                                <td>正常</td>
+                                <td class=" text-right">
+                                    <button data-professionId="@item.ProfessionId"  class="buttonDelete btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        删除
+                                    </button>
+                                    <button data-professionId="@item.ProfessionId"  class="buttonUpdate btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        修改
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
                 <div class=" text-center">
                     <div class=" float-layout bc-clr-white padding-10px ">
                         <label class=" float-left">
-                            共 78 个专业
+                            共 @ViewBag.lineCount 个专业
                         </label>
                         <div class=" float-right">
-                            <a href="#" class=" btn-default btn btn-sm ">
+                            <button class=" btn-default btn btn-sm ">
                                 <span>第</span>
-                                <span class="page-Index">
+                                <span class="show-page-Index">
                                     1
                                 </span>
                                 <span>
                                     /
                                 </span>
-                                <span class="page-count">
-                                    12
+                                <span class="show-page-Count">
+                                    @ViewBag.pageCount
                                 </span>
                                 <span>
                                     页
                                 </span>
-                            </a>
-                            <a href="#" class="page-first btn btn-success btn-sm"> <span class="glyphicon glyphicon-backward"></span> </span> 首页</a>
-                            <a href="#" class="Previous btn btn-success btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</a>
-                            <a href="#" class="Next btn btn-success btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </a>
-                            <a href="#" class="page-last btn btn-success btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </a>
-                            <select class=" margin-left-10px" data-height="27" data-width="45">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
+                            </button>
+                            <button class="First btn btn-success btn-sm" > <span class="glyphicon glyphicon-backward"></span>  首页</button>
+                            <button class="Previous btn btn-success btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
+                            <button class="Next btn btn-success btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
+                            <button data-pageLastIndex="@ViewBag.pageCount" class="Last btn btn-success btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
+                            <select id="pageSkipNext" class=" margin-left-10px" data-height="27" data-width="45">
+                                @{
+                                    int _index = 1;
+                                }
+                                @for (; _index <= ViewBag.pageCount; _index++)
+                                {
+                                    <option value="@_index">@_index</option>
+                                }
                             </select>
-                            <a href="#" class=" btn btn-sm btn-primary">跳转</a>
+                            <button class="pageSkip btn btn-sm btn-primary">跳转</button>
                         </div>
                     </div>
                 </div>
@@ -162,20 +128,7 @@
                     <label for="name">所属学院:</label>
                     <select name="InstituteSelect" id="InstituteSelect" class="form-control border-radius-4 padding-left-10px select-layout"
                             data-width="400">
-                        <option value="12">所有学院</option>
-                        <option value="12">计算机科学学院</option>
-                        <option value="12">工学院</option>
-                        <option value="12">物理与电子工程学院</option>
-                        <option value="12">数学与软件科学学院</option>
-                        <option value="12">经济与管理学院</option>
-                        <option value="12">体育学院</option>
-                        <option value="12">马克思主义学院</option>
-                        <option value="12">服装与设计艺术学院</option>
-                        <option value="12">教师教育与心理学院</option>
-                        <option value="12">法学院</option>
-                        <option value="12">历史文化与旅游学院</option>
-                        <option value="12">教育科学学院</option>
-                        <option value="12">舞蹈学院</option>
+
                     </select>
                 </div>
                 <div class="form-group">
@@ -192,49 +145,30 @@
     </div>
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProfessionId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProfessionType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InstituteId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProfessionId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProfessionType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InstituteId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@section Scripts
+{
+    <script>
+        (function loadInstitute() {
+            $.ajax({
+                url: "/Institute/List",
+                type: "post",
+                dataType: "json",
+                success: function(data, textStatus, jqXHR) {
+                    $("#InstituteSelect")
+                        .append('<option value="-1">所有学院</option>');
+                    $("#institute-list")
+                        .append('<option value="-1">所有学院</option>');
+                    for (var index in data) {
+                        $("#InstituteSelect")
+                            .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
+                        $("#institute-list")
+                            .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        })();
+    </script>
+}
