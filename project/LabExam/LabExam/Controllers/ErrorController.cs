@@ -23,6 +23,7 @@ namespace LabExam.Controllers
         [Route("error/{code:int}")]
         public IActionResult Error(int code)
         {
+            ViewBag.Code = code;
             return View();
         }
     }

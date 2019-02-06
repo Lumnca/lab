@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using LabExam.DataSource;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +9,18 @@ namespace LabExam.Controllers
     [Authorize(Roles = "Principal")]
     public class PrincipalController : Controller
     {
+        private readonly LabContext _context;
+
+        public PrincipalController(LabContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
+
 
     }
 }

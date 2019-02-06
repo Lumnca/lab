@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LabExam.Models.Entities.Module>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "实验室安全教育在线-模块管理";
     Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
 }
 <div class=" flex-layout">
@@ -13,126 +13,60 @@
         <div class="admin-module-list">
             @foreach (var item in Model)
             {
-                <a href="#" data-moduleId="@item.ModuleId" ><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> @item.Name </a>
+                <a href="#" data-moduleId="@item.ModuleId"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> @item.Name </a>
             }
         </div>
     </div>
     <div class=" flex-item-9 bc-clr-white margin-5px border-little-grey-all" data-min-width="600">
         <div class=" admin—module-tab ">
+            <a href="#addModule" data-toggle="tab">添加模块</a>
             <a href="#moduleInfo" data-toggle="tab">模块信息</a>
             <a href="#moduleInclude" data-toggle="tab">模块下辖学院</a>
-            <a href="#addModule" data-toggle="tab">添加模块</a>
         </div>
         <div class="tab-content margin-top-5px">
-            <div class="tab-pane fade in active" id="moduleInfo">
+            <div class="tab-pane fade  " id="moduleInfo">
                 <div class="admin-title-moudle float-layout">
                     <div class=" float-left">
                         模块基本信息
                     </div>
                     <div class="float-right">
-                        <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
-                                data-target="#deleteModule">
+                        <button type="button" class="btn btn-sm btn-primary" id="StartAlterName">修改名称</button>
+                        <button class="btn btn-default btn-sm margin-right-10px" id="fuiDeleteModuleButtom">
                             删除模块
                         </button>
                     </div>
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="module-list-item-info">
-                            模块ID:
-                        </span>
-                        <span>
-                            SDC505-5
-                        </span>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="module-list-item-info">
-                            模块名称:
-                        </span>
-                        <span>
-                            文史艺体类
-                        </span>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="module-list-item-info">
-                            添加人:
-                        </span>
-                        <span>
-                            admin
-                        </span>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="module-list-item-info">
-                            添加时间:
-                        </span>
-                        <span>
-                            2018/4/5 18:56:23
-                        </span>
-                    </li>
-                </ul>
+                <ul class="list-group" id="moduleInfoHtml"></ul>
             </div>
             <div class="tab-pane fade" id="moduleInclude">
-                <div>
-                    <div class="admin-title-moudle float-layout">
-                        <div class=" float-left">
-                            模块下辖学院列表
-                        </div>
-                        <div class=" float-right">
-                            <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
-                                    data-target="#addInstitute">
-                                添加学院
-                            </button>
-                        </div>
+                <div class="admin-title-moudle float-layout">
+                    <div class=" float-left">
+                        模块下辖学院列表
                     </div>
-                    <table class="table table-hover">
-                        <thead>
+                    <div class=" float-right">
+                        <button id="addInstituteThanWithModule" class="btn btn-default btn-sm margin-right-10px" 
+                               >
+                            添加学院
+                        </button>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <th>#</th>
+                            <th>编号</th>
                             <th>学院名称</th>
-                            <th>人数</th>
+                            <th>所属模块</th>
                             <th>学院ID</th>
                             <th>状态</th>
                             <th>
                                 操作
                             </th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>计算机科学学院</td>
-                            <th>835(人)</th>
-                            <td>56</td>
-                            <td>正常</td>
-                            <td>
-                                <a href="#" class=" btn btn-default btn-sm">删除</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>地理信息科学学院</td>
-                            <th>335(人)</th>
-                            <td>75</td>
-                            <td>正常</td>
-                            <td>
-                                <a href="#" class=" btn btn-default btn-sm">删除</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>物理与信息电子学院</td>
-                            <th>735(人)</th>
-                            <td>75</td>
-                            <td>正常</td>
-                            <td>
-                                <a href="#" class=" btn btn-default btn-sm">删除</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </thead>
+                    <tbody id="InstituteListHave"></tbody>
+                </table>
             </div>
-            <div class="tab-pane fade" id="addModule">
+            <div class="tab-pane fade in active" id="addModule">
                 <div class="admin-title-moudle float-layout">
                     <div class=" float-left">
                         添加模块
@@ -166,59 +100,397 @@
     </div>
 </div>
 
+<div class="modal fade" id="deleteModule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-primary" id="myModalLabel">删除模块--提示</h4>
+            </div>
+            <div class="modal-body">
+                <p class="font-size-14">
+                    1. 请确保此模块不包含任何学院
+                </p>
+                <p class="font-size-14">
+                    2. 请确保没有任何试卷与之相关联
+                </p>
+                <p class="font-size-14">
+                    3. 请确保没有任何课程相关联
+                </p>
+                <p class="font-size-14">
+                    4. 安全教育模块关联许多数据请慎重考虑！一旦删除与之相关的很多数据将无法查找！
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="fuiDeleteModuleSureNow">立即删除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ChangeModelName" tabindex="-1" role="dialog" aria-labelledby="ChangeModelName">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title">修改模块名称</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rename" class="control-label">新名称:</label>
+                    <input type="text" class="form-control" id="rename">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                <button type="button" class="btn btn-primary" id="alterModuleName">保存修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addInstitute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">尚未归属的学院</h4>
+            </div>
+            <div class="modal-body">
+                <div class="overflow-y-scroll" data-height="300">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>学院名称</th>
+                                <th>人数</th>
+                                <th>学院ID</th>
+                                <th>状态</th>
+                                <th>
+                                    操作
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="WithOutModuleInstitute">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script id="template" type="x-tmpl-mustache">
     {{#modules}}
-    <a href="#"   data-moduleId="{{moduleId}}"  ><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> {{name}} </a>
+    <a href="#" data-moduleId="{{moduleId}}"><span class="glyphicon glyphicon-ok-sign padding-right-10px"> </span> {{name}} </a>
     {{/modules}}
 </script>
 
-@section Scripts
-{
-    <script>
-        $('#create').on("click",
-            null,
-            null,
-            function(jqEvent) {
-                var moduleName = $('input[name="moduleNewName"]').val();
-                if (moduleName == "") {
-                    onMask("错误", "你没有填写新模块的名称");
-                }
+<script id="ModuleInfo" type="x-tmpl-mustache">
+    <li class="list-group-item">
+        <span class="module-list-item-info">
+            模块ID:
+        </span>
+        <span id="ModuleIdListInfo">
+            {{moduleId}}
+        </span>
+    </li>
+    <li class="list-group-item">
+        <span class="module-list-item-info">
+            模块名称:
+        </span>
+        <span>
+            {{name}}
+        </span>
+    </li>
+    <li class="list-group-item">
+        <span class="module-list-item-info">
+            添加人:
+        </span>
+        <span>
+            {{principalId}}
+        </span>
+    </li>
+    <li class="list-group-item">
+        <span class="module-list-item-info">
+            添加时间:
+        </span>
+        <span>
+            {{addTime}}
+        </span>
+    </li>
+</script>
+
+<script id="InstituteInfo" type="x-tmpl-mustache">
+    {{#data}}
+    <tr>
+        <td>{{index}}</td>
+        <td>{{instituteName}}</td>
+        <th>{{moduleName}}</th>
+        <td>{{instituteId}}</td>
+        <td>正常</td>
+        <td>
+            <a href="#" data-moduleId="{{moduleId}}" data-institute="{{instituteId}}" class=" btn btn-default btn-sm">删除</a>
+        </td>
+    </tr>
+    {{/data}}
+</script>
+
+<script id="WithOutModuleInstituteTemplate" type="x-tmpl-mustache">
+    {{#institutes}}
+    <tr>
+        <td>{{index}}</td>
+        <td>{{name}}</td>
+        <th>暂无模块</th>
+        <td>{{id}}</td>
+        <td>正常</td>
+        <td>
+            <button data-institutesId="{{id}}"   class="btnAddInstitute btn btn-info btn-sm"> 添加</button>
+        </td>
+    </tr>
+    {{/institutes}}
+</script>
+    
+
+    @section Scripts
+    {
+        <script>
+            $('#create').on("click",
+                null,
+                null,
+                function(jqEvent) {
+                    var moduleName = $('input[name="moduleNewName"]').val();
+                    if (moduleName == "") {
+                        onMask("错误", "你没有填写新模块的名称");
+                    }
+                    $.ajax({
+                        url: "/Module/Create",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            name: moduleName
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.isOk) {
+                                onMask("错误信息", data.error);
+                            } else {
+                                onMask("提示信息", "增加成功！");
+                                loadModule();
+                                $('input[name="moduleNewName"]').val("");
+                            }
+                        }
+                    });
+                });
+
+            function loadModuleInfo(id) {
                 $.ajax({
-                    url: "/Module/Create",
+                    url: "/Module/ModuleInfoById",
                     type: "post",
                     dataType: "json",
                     data: {
-                        name: moduleName
+                        moduleId: id
                     },
                     success: function(data, textStatus, jqXHR) {
-                        if (!data.isOk) {
-                            onMask("错误信息", data.error);
+                        if (data.isOk) {
+                            var template = $('#ModuleInfo').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, data.module);
+                            $('#moduleInfoHtml').html(result);
+
+                            for (var i = 0; i < data.data.length; i++) {
+                                data.data[i].index = i + 1;
+                            }
+
+
+                            var _template = $('#InstituteInfo').html();
+                            Mustache.parse(_template);
+                            var _result = Mustache.render(_template, data);
+                            $('#InstituteListHave').html(_result);
                         } else {
-                            onMask("提示信息", "增加成功！");
+                            onMask("错误信息", data.error);
+                        }
+                    }
+                });
+            }
+
+            $('#StartAlterName').click(function(event) {
+                if ($("#ModuleIdListInfo").length == 0 || $("#ModuleIdListInfo").text() == "") {
+                    onMask("错误信息", "请选择修改模块");
+                } else {
+                    $('#ChangeModelName').modal('show');
+                }
+            });
+
+            $(".admin-module-list").on("click",
+                "a",
+                null,
+                function(jxEvent) {
+                    var id = $(this).attr("data-moduleId");
+                    loadModuleInfo(id);
+                });
+
+            function loadModule() {
+                $.ajax({
+                    url: "/Module/List",
+                    type: "post",
+                    dataType: "json",
+                    success: function(data, textStatus, jqXHR) {
+                        var moduleList = {
+                            modules: data
+                        };
+                        var template = $('#template').html();
+                        Mustache.parse(template);
+                        var result = Mustache.render(template, moduleList);
+                        $('.admin-module-list').html(result);
+                    }
+                });
+            }
+
+            $('.admin-module-list  a').click(function (event) {
+                $(this).siblings().removeClass("bc-clr-info");
+                $(this).addClass("bc-clr-info");
+                
+                
+            });
+
+            $('#alterModuleName').click(function() {
+                if ($('#rename').val() != "") {
+                    $.ajax({
+                        url: "/Module/ReName",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            moduleId: parseInt($('#ModuleIdListInfo').text().trim()),
+                            newName: $('#rename').val()
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (data.isOk) {
+                                $('#ChangeModelName').modal("hide");
+                                loadModule();
+                            } else {
+                                onMask("错误", data.error);
+                            }
+                        }
+                    });
+                } else {
+                    onMask("提示信息", "请填写新名称");
+                }
+            });
+
+            $('#fuiDeleteModuleButtom').click(function(event) {
+                if ($("#ModuleIdListInfo").length == 0 || $("#ModuleIdListInfo").text() == "") {
+                    onMask("错误信息", "请选择修改模块");
+                } else {
+                    $('#deleteModule').modal("show");
+                }
+            });
+
+            $('#fuiDeleteModuleSureNow').click(function() {
+                $.ajax({
+                    url: "/Module/Delete",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        moduleId: parseInt($('#ModuleIdListInfo').text().trim())
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        if (data.isOk) {
+                            $('#deleteModule').modal('hide');
                             loadModule();
-                            $('input[name="moduleNewName"]').val("");
+                        } else {
+                            onMask("错误", data.error);
                         }
                     }
                 });
             });
 
-        function loadModule() {
-            $.ajax({
-                url: "/Module/List",
-                type: "post",
-                dataType: "json",
-                success: function (data, textStatus, jqXHR) {
-                    var moduleList = {
-                        modules: data
-                    };
-                    var template = $('#template').html();
-                    Mustache.parse(template);
-                    var result = Mustache.render(template, moduleList);
-                    console.log(result);
-                    $('.admin-module-list').html(result);
+            $('#addInstituteThanWithModule').click(function(event) {
+                if ($("#ModuleIdListInfo").length == 0 || $("#ModuleIdListInfo").text() == "") {
+                    onMask("错误信息", "请选择添加模块");
+                } else {
+                    loadInstituteWithModule();
+                    $('#addInstitute').modal('show');
                 }
             });
-        }
 
-    </script>
-}
+            function loadInstituteWithModule() {
+                $.ajax({
+                    url: "/Institute/WithoutModule",
+                    type: "post",
+                    dataType: "json",
+                    success: function(data, textStatus, jqXHR) {
+                        var moduleList = {
+                            institutes: data
+                        };
+
+                        var template = $('#WithOutModuleInstituteTemplate').html();
+                        Mustache.parse(template);
+                        var result = Mustache.render(template, moduleList);
+                        $('#WithOutModuleInstitute').html(result);
+                    }
+                });
+            }
+
+            $('#WithOutModuleInstitute').on('click',
+                'a',
+                null,
+                function() {
+
+                });
+
+            $('#WithOutModuleInstitute').on('click',
+                ".btnAddInstitute",
+                null,
+                function(JqEvent) {
+                    var instId = $(this).attr("data-institutesId");
+                    $.ajax({
+                        url: "/Module/AddInstitute",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            moduleId: parseInt($('#ModuleIdListInfo').text().trim()),
+                            instituteId: instId
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (data.isOk) {
+                                loadInstituteWithModule();
+                                loadModuleInfo(parseInt($('#ModuleIdListInfo').text().trim()));
+                            } else {
+                                onMask("错误", data.error);
+                            }
+                        }
+                    });
+                });
+
+            $('#InstituteListHave').on("click",
+                "a",
+                null,
+                function(jqEvent) {
+                    jqEvent.preventDefault();
+
+                    var mid = $(this).attr("data-moduleId").trim();
+                    var iid = $(this).attr("data-institute").trim();
+
+                    $.ajax({
+                        url: "/Module/DeleteInstitute",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            moduleId: mid,
+                            instituteId: iid
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (data.isOk) {
+                                loadModuleInfo(mid);
+                            } else {
+                                onMask("错误", data.error);
+                            }
+                        }
+                    });
+                });
+        </script>
+    }

@@ -240,16 +240,31 @@ namespace LabExam.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ModuleId");
-
                     b.Property<string>("Name")
                         .HasMaxLength(80);
 
                     b.HasKey("InstituteId");
 
+                    b.ToTable("Institute");
+                });
+
+            modelBuilder.Entity("LabExam.Models.Entities.InstituteToModule", b =>
+                {
+                    b.Property<int>("InstituteToModuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InstituteId");
+
+                    b.Property<int>("ModuleId");
+
+                    b.HasKey("InstituteToModuleId");
+
+                    b.HasIndex("InstituteId");
+
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Institute");
+                    b.ToTable("InstituteToModules");
                 });
 
             modelBuilder.Entity("LabExam.Models.Entities.JudgeChoices", b =>
@@ -734,10 +749,15 @@ namespace LabExam.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LabExam.Models.Entities.Institute", b =>
+            modelBuilder.Entity("LabExam.Models.Entities.InstituteToModule", b =>
                 {
+                    b.HasOne("LabExam.Models.Entities.Institute", "Institute")
+                        .WithMany()
+                        .HasForeignKey("InstituteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("LabExam.Models.Entities.Module", "Module")
-                        .WithMany("Institutes")
+                        .WithMany()
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -780,7 +800,7 @@ namespace LabExam.Migrations
             modelBuilder.Entity("LabExam.Models.Entities.Profession", b =>
                 {
                     b.HasOne("LabExam.Models.Entities.Institute", "Institute")
-                        .WithMany("Professions")
+                        .WithMany()
                         .HasForeignKey("InstituteId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

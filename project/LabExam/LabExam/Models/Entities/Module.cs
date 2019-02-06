@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace LabExam.Models.Entities
 {
-   [Table("Module")]
+    [Table("Module")]
     public class Module
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,10 +17,7 @@ namespace LabExam.Models.Entities
         [ForeignKey("Principal"),MaxLength(100)]
         public String PrincipalId { get; set; }
 
-
         public virtual Principal Principal { get; set; }//导航属性
-
-        public virtual List<Institute> Institutes { get; set; } //所辖学院
 
     }
 }

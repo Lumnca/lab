@@ -110,24 +110,14 @@
         text-align:left;
         text-indent: 10px;
     }
-    .active{
-        text-decoration: none;
-        color: white;
-        font-weight: 300;
-        background-color: rgba(38,38,38,0.8);
-    }
+
     a:hover{
         text-decoration: none;
         color: white;
         font-weight: 300;
         background-color: rgba(38,38,38,0.8);
     }
-    a:active{
-        text-decoration: none;
-    }
-    a:link{
-        text-decoration: none;
-    }
+
 }
 
 .admin—module-tab{

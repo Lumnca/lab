@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link rel="icon" href="../Resources/system/icon/PageIconOnline.png" />
     <title>安全教育在线-模块管理</title>
 </head>
+
 <body class=" bc-clr-grey-little">
     <div class="flex-layout">
         <div class=" flex-item-2 layout-height-100 bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
@@ -192,6 +194,7 @@
                                         模块基本信息
                                     </div>
                                     <div class="float-right">
+                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#ChangeModelName" data-whatever="@mdo">修改名称</button>
                                         <button class="btn btn-default btn-sm margin-right-10px" data-toggle="modal"
                                             data-target="#deleteModule">删除模块</button>
                                     </div>
@@ -210,7 +213,7 @@
                                             模块名称:
                                         </span>
                                         <span>
-                                                文史艺体类
+                                            文史艺体类
                                         </span>
                                     </li>
                                     <li class="list-group-item">
@@ -308,7 +311,8 @@
                                         <label class=" label label-primary padding-10px">模块名称:</label>
                                         <input type="text" id="moduleNewName" name="moduleNewName" class="margin-left-20px padding-left-10px border-radius-6 "
                                             data-width="350" data-height="28" />
-                                        <button type="submit" id="create" class="margin-left-15px btn btn-default"> <span class="glyphicon glyphicon-plus"></span>  立即添加</button>
+                                        <button type="submit" id="create" class="margin-left-15px btn btn-default">
+                                            <span class="glyphicon glyphicon-plus"></span> 立即添加</button>
                                     </div>
                                     <div class=" margin-top-30px">
                                         <label class=" label label-primary padding-10px">添加时间:</label>
@@ -385,20 +389,9 @@
                     <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">尚未归属的学院</h4>
                 </div>
                 <div class="modal-body">
-                    <form class=" margin-bottom-10px">
-                        <span class=" text-info font-size-15 font-weight-600 padding-left-5px">学院名称:</span>
-                        <input list="InstituteName" class=" margin-left-10px border-radius-4 padding-left-5px" type="text" data-height="22" />
-                        <datalist id="InstituteName" class="border-radius-4 padding-left-10px" data-width="200"
-                            data-height="25">
-                            <option value="计算机科学学院">
-                            <option value="地理信息科学学院">
-                            <option value="物理与信息电子学院">
-                            <option value="工学院">
-                        </datalist>
-                        <input class=" btn btn-info btn-sm float-right" type="submit" data-height="16" data-width="50" />
-                    </form>
+
                     <div class="overflow-y-scroll" data-height="300">
-                        <table class="table table-hover" >
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -525,8 +518,7 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade mask"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade mask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -534,7 +526,7 @@
                         &times;
                     </button>
                     <h5 class="modal-title text-primary" id="myModalLabel">
-                            <span class=" glyphicon glyphicon-cloud-download "></span> <span class="  mask-module-title">提示信息</span>
+                        <span class=" glyphicon glyphicon-cloud-download "></span> <span class="  mask-module-title">提示信息</span>
                     </h5>
                 </div>
                 <div class="modal-body">
@@ -549,6 +541,28 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="ChangeModelName" tabindex="-1" role="dialog" aria-labelledby="ChangeModelName">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" >修改模块名称</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rename" class="control-label">新名称:</label>
+                    <input type="text" class="form-control" id="rename">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                <button type="button" class="btn btn-primary">保存修改</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
     $(document).ready(function () {
@@ -563,21 +577,21 @@
             $(this).find('span').addClass('font-color-golden');
         });
 
-        $('#create').on("click",null,null,function(jqEvent){
+        $('#create').on("click", null, null, function (jqEvent) {
             var moduleName = $('input[name="moduleNewName"]').val();
-            if( moduleName == ""){
-                onMask("错误","你没有填写新名称");
+            if (moduleName == "") {
+                onMask("错误", "你没有填写新名称");
             }
             $.ajax({
-                url:"/Module/Create",
-                type:"post",
-                dataType:"json",
-                data:{
-                    name:moduleName
+                url: "/Module/Create",
+                type: "post",
+                dataType: "json",
+                data: {
+                    name: moduleName
                 },
-                success: function(data,textStatus,jqXHR){
-                    if(!data.isOk){
-                        onMask("错误信息",data.error);
+                success: function (data, textStatus, jqXHR) {
+                    if (!data.isOk) {
+                        onMask("错误信息", data.error);
                     }
                 }
             });

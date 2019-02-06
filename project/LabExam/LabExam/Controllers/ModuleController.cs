@@ -27,21 +27,7 @@ namespace LabExam.Controllers
             List<Module> modules = _context.Modules.ToList<Module>();
             return View(modules);
         }
-
-        public IActionResult Encode([Required] String data)
-        {
-            if (ModelState.IsValid)
-            {
-                EncryptionDataService service = new EncryptionDataService(); ;
-                String result = service.EncodeByMd5(data);
-                return Content(service.EncodeByMd5(result));
-            }
-            else
-            {
-                return Content("参数错误");
-            }
-        }
-
+       
         public IActionResult List()
         {
             List<Module> modules = _context.Modules.ToList<Module>();
@@ -88,6 +74,201 @@ namespace LabExam.Controllers
                 throw;
             }
         }
-        
+
+        public IActionResult Delete([Required] int moduleId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_context.InstituteToModules.Any(im => im.ModuleId == moduleId))
+                {
+                    Module module = _context.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
+                    if (module != null)
+                    {
+                        _context.Remove(module); //删除这个模块
+                        _context.SaveChanges();
+                        return Json(new
+                        {
+                            isOk = true
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            Error = "没有这个模块"
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "没有这个模块"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误"
+                });
+            }
+        }
+
+        public IActionResult ReName([Required] int moduleId, [Required] String newName)
+        {
+            if (ModelState.IsValid)
+            {
+                Module module = _context.Modules.Find(moduleId);
+                if (module != null)
+                {
+                    module.Name = newName;
+                    _context.SaveChanges();
+
+                    return Json(new
+                    {
+                        isOk = true
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "没有这个模块"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误"
+                });
+            }
+        } 
+
+        public IActionResult ModuleInfoById([Required] int moduleId)
+        {
+            if (ModelState.IsValid)
+            {
+                Module m = _context.Modules.FirstOrDefault(one => one.ModuleId == moduleId);
+                if (m != null)
+                {
+                    var list = _context.VInstituteToModuleMaps.Where(v => v.ModuleId == moduleId).ToList();
+
+                    return Json(new
+                    {
+                        isOk = true,
+                        module = m,
+                        data = list
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "不存在此模块,或此模块已经被删除了"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误"
+                });
+            }
+        }
+
+        public IActionResult DeleteInstitute([Required] int moduleId, [Required] int instituteId)
+        {
+            if (ModelState.IsValid)
+            {
+                InstituteToModule im = _context.InstituteToModules.FirstOrDefault(val =>
+                    val.InstituteId == instituteId && val.ModuleId == moduleId);
+
+                if (im != null)
+                {
+                    _context.InstituteToModules.Remove(im);
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "没有此条记录,记录着此学院属于此模块"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误"
+                });
+            }
+            
+        }
+
+        public IActionResult AddInstitute([Required] int moduleId,[Required] int instituteId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_context.Modules.Any(val => val.ModuleId == moduleId) && _context.Institute.Any(ins => ins.InstituteId == instituteId))
+                {
+                    if (_context.InstituteToModules.Any(one =>
+                        one.InstituteId == instituteId))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            error = "学院有归属了！ 一个学院不能属于两个模块"
+                        });
+                    }
+                    else
+                    {
+                        InstituteToModule im = new InstituteToModule();
+                        im.InstituteId = instituteId;
+                        im.ModuleId = moduleId;
+                        _context.InstituteToModules.Add(im);
+                        _context.SaveChanges();
+                        return Json(new
+                        {
+                            isOk = true,
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "模块或者学院不存在！ 你不要搞我涩！"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误"
+                });
+            }
+        }
     }
 }
