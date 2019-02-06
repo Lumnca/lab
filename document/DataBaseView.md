@@ -7,6 +7,8 @@
 - [x] [`2.InstituteStudentCountView`](#target2)
 - [x] [`3.InstituteToModuleView`](#target3)
 - [x] [`4.InstituteWithoutModuleView`](#target4)
+- [x] [`5.InstituteStudentNotPassCountView`](#target5)
+- [x] [`6.ProfessionView`](#target6)
 
 
 ------
@@ -60,15 +62,25 @@ WHERE  (InstituteId NOT IN
           (SELECT   InstituteId
            FROM      dbo.InstituteToModules))
 ```
-#####  :octocat: [2.](#top) <b id="target2"></b> 
-`概括`:`查询类型 v Map`
+#####  :octocat: [5.InstituteStudentNotPassCountView](#top) <b id="target5"></b> 
+`概括`:`查询类型 vInstituteStudentNotPassCountMap`:`统计每个学院的没有通过考试的学生数量`
 ```sql
-
+SELECT InstituteId, Name, CASE WHEN Scount IS NULL THEN 0 ELSE Scount END AS StuCount
+FROM  (SELECT   dbo.Institute.InstituteId, dbo.Institute.Name, c.id, c.Scount
+     FROM  dbo.Institute LEFT OUTER JOIN
+       (SELECT   InstituteId AS id, COUNT(*) AS Scount
+        FROM      dbo.Student
+        GROUP BY InstituteId) AS c ON c.id = dbo.Institute.InstituteId) AS D
 ```
-#####  :octocat: [2.](#top) <b id="target2"></b> 
-`概括`:`查询类型 v Map`
+#####  :octocat: [6.ProfessionView](#top) <b id="target6"></b> 
+`概括`:`查询类型 vProfessionMap`
 ```sql
-
+SELECT  dbo.Professions.ProfessionType, dbo.Professions.Name, 
+        dbo.Professions.InstituteId, dbo.Professions.ProfessionId, 
+        dbo.Institute.Name AS Expr1
+FROM    dbo.Institute INNER JOIN
+        dbo.Professions 
+        ON dbo.Institute.InstituteId = dbo.Professions.InstituteId
 ```
 #####  :octocat: [2.](#top) <b id="target2"></b> 
 `概括`:`查询类型 v Map`
