@@ -21,6 +21,10 @@ namespace LabExam.Controllers
             return View();
         }
 
+        public IActionResult Admin()
+        {
+            return View();
+        }
 
     }
 }

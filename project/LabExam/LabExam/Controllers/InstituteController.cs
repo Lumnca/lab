@@ -206,13 +206,24 @@ namespace LabExam.Controllers
                 Institute ins = _context.Institute.FirstOrDefault(one => one.InstituteId == instituteId);
                 if (ins != null)
                 {
-                    _context.Institute.Remove(ins);
-                    await _context.SaveChangesAsync();
-                    return Json(new
+                    if (_context.Professions.Any(pro => pro.InstituteId == instituteId))
                     {
-                        isOk = true,
-                        info = "删除成功！"
-                    });
+                        return Json(new
+                        {
+                            isOk = false,
+                            info = "此学院下具有专业信息！ 请先删除此学院下辖的所有专业后再来删除学院！"
+                        });
+                    }
+                    else
+                    {
+                        _context.Institute.Remove(ins);
+                        await _context.SaveChangesAsync();
+                        return Json(new
+                        {
+                            isOk = true,
+                            info = "删除成功！"
+                        });
+                    }
                 }
                 else
                 {

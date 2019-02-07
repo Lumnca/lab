@@ -56,9 +56,9 @@ namespace LabExam.Controllers
             });
         }
 
-        public IActionResult Update([Required] int professionId, [Required] String name, [Required] int instituteId, ProfessionType type)
+        public IActionResult Update([Required] Int32 professionId, [Required] String newName, [Required] Int32 instituteId,[Required] ProfessionType type)
         {
-            if (ModelState.IsValid && name.Length > 0)
+            if (ModelState.IsValid)
             {
                 if (!_context.Institute.Any(ins => ins.InstituteId == instituteId))
                 {
@@ -73,7 +73,7 @@ namespace LabExam.Controllers
                 if (pro != null)
                 {
                     pro.InstituteId = instituteId;
-                    pro.Name = name;
+                    pro.Name = newName;
                     pro.ProfessionType = type;
                     _context.SaveChanges();
                     return Json(new
@@ -96,19 +96,19 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = false,
-                    error = "参数错误! 传递了错误的参数！"
+                    error = $"参数错误! 传递了错误的参数！"
                 });
             }
         }
 
-        public IActionResult Page([Required] int pageIndex, [Required] String name, [Required] int instituteId)
+        public IActionResult Page([Required] int pageIndex, String name, [Required] int instituteId)
         {
             if (ModelState.IsValid && pageIndex > 0 )
             {
                 String sql = "select * from ProfessionView where ProfessionId > 0";
-                if (name != "")
+                if (name != null && name.Trim() != "")
                 {
-                    sql += $" and InstituteName like '%{name}%'";
+                    sql += $" and Name like '%{name}%'";
                 }
 
                 if (instituteId > 0)
@@ -153,7 +153,7 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     pageCount = pageCount,//总共是多少页
                     pageNowIndex = pageIndex, //当前是第几页
-                    Professions = listResultMaps
+                    professions = listResultMaps
                 });
 
             }
@@ -171,6 +171,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_context.Student.Any(stu => stu.ProfessionId == professionId))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "尚有学生属于此专业,无法删除此专业！"
+                    });
+                }
+
                 Profession pro = _context.Professions.FirstOrDefault(p => p.ProfessionId == professionId);
                 if (pro != null)
                 {
@@ -226,7 +235,7 @@ namespace LabExam.Controllers
                         return Json(new
                         {
                             isOk = true,
-                            error = "添加成功"
+                            info = "添加成功"
                         });
                     }
                 }

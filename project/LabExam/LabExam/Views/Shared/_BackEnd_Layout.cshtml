@@ -5,6 +5,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/js/app.min.js"></script>
     <link href="~/css/AdminEntry.min.css" rel="stylesheet" />
     <link rel="icon" href="~/Resources/system/icon/backEnd.png" />
     <title>@ViewBag.Title</title>
@@ -25,6 +26,18 @@
                         <li><a asp-controller="Module" asp-action="Index">1.模块信息</a></li>
                         <li><a asp-controller="Institute" asp-action="Index">2.学院列表</a></li>
                         <li><a asp-controller="Profession" asp-action="Index">3.专业列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="~/Resources/Admin/login/system2016110418.svg" width="20" />
+                        <span>系统配置</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.系统管理员</a></li>
+                        <li><a href="#">2.添加管理员</a></li>
+                        <li><a href="#">3.系统运行</a></li>
+                        <li><a href="#">4.系统配置</a></li>
                     </ul>
                 </li>
                 <li>
@@ -289,7 +302,6 @@
         </div>
     </div>
     <script src="~/lib/mustache/mustache.min.js"></script>
-    <script src="~/js/app.min.js"></script>
     <script>
         $(document).ready(function () {
             $('.admin-navbar > li>a').on('click', null, null, function () {

@@ -79,6 +79,52 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_context.Cources.Any(cor => cor.ModuleId == moduleId))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "此模块下具有课程信息！ 请先删除此模块下辖的所有课程后再来删除模块！"
+                    });
+                }
+
+                if (_context.MultipleChoices.Any(mul => mul.ModuleId == moduleId))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "此模块下具有多选题信息！ 请先删除此模块下辖的所有多选题后再来删除模块！"
+                    });
+                }
+
+                if (_context.MultipleChoices.Any(mul => mul.ModuleId == moduleId))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "此模块下具有多选题信息！ 请先删除此模块下辖的所有多选题后再来删除模块！"
+                    });
+                }
+
+                if (_context.SingleChoices.Any(sig => sig.ModuleId == moduleId))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "此模块下具有单选题信息！ 请先删除此模块下辖的所有单选题后再来删除模块！"
+                    });
+                }
+
+                if (_context.JudgeChoices.Any(jud => jud.ModuleId == moduleId))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        Error = "此模块下具有判断题信息！ 请先删除此模块下辖的所有判断题后再来删除模块！"
+                    });
+                }
+
+                //判断是否具有学院属于它
                 if (!_context.InstituteToModules.Any(im => im.ModuleId == moduleId))
                 {
                     Module module = _context.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
@@ -105,7 +151,7 @@ namespace LabExam.Controllers
                     return Json(new
                     {
                         isOk = false,
-                        Error = "没有这个模块"
+                        Error = "此模块下具有学院信息！ 请先删除此模块下辖的所有学院后再来删除模块！"
                     });
                 }
             }

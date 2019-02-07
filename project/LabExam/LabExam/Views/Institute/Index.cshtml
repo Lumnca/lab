@@ -239,16 +239,16 @@
     <tr>
         <td class=" text-center">{{index}}</td>
         <td>{{name}} </td>
-        <td>{{institutesId}}</td>
+        <td>{{instituteId}}</td>
         <td>{{moduleName}}</td>
         <td>正常</td>
         <td class=" text-right ">
-            <button data-instituteId="{{id}}" 
+            <button data-instituteId="{{instituteId}}" 
                     class=" buttonDelete btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-remove"></span>
                 删除
             </button>
-            <button data-instituteId="{{id}}"  data-name="{{name}}"
+            <button data-instituteId="{{instituteId}}"  data-name="{{name}}"
                     class="buttonUpdate btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-search"></span>
                 修改
@@ -307,12 +307,10 @@
                 var name = $('#newInstituteName').val();
                 var module = $('#newInstituteModule').val();
 
-                if (name == "") {
+                if (name === "") {
                     onMask("提示信息", "请填写学院名称！");
                     return;
                 }
-
-
                 $.ajax({
                     url: "/Institute/Create",
                     type: "post",
@@ -334,9 +332,7 @@
                     }
                 });
             });
-
-            $('.Previous').prop("disabled", true);
-
+            stateManager();
             function loadPageByIndex(index) {
                 $.ajax({
                     url: "/Institute/Page",
@@ -345,23 +341,23 @@
                     data: {
                         pageIndex: index,
                         moduleId: $('#module-list').val(),
-                        instituteId: $('#InstituteName').val(),
+                        instituteId: $('#InstituteName').val()
                     },
                     success: function(json, textStatus, jqXhr) {
                         if (json.isOk) {
-
                             if (json.institutes == null) {
                                 $('#fuiInstituteList').html("");
-                                return;
-                            }
-                            for (var i = 0; i < json.institutes.length; i++) {
-                                json.institutes[i].index = (i + 1);
+                            } else {
+                                for (var i = 0; i < json.institutes.length; i++) {
+                                    json.institutes[i].index = (i + 1);
+                                }
+
+                                var template = $('#fuiInstituteListTemplate').html();
+                                Mustache.parse(template);
+                                var result = Mustache.render(template, json);
+                                $('#fuiInstituteList').html(result);
                             }
 
-                            var template = $('#fuiInstituteListTemplate').html();
-                            Mustache.parse(template);
-                            var result = Mustache.render(template, json);
-                            $('#fuiInstituteList').html(result);
 
                             $('.InspageCount').text(`共 ${json.lineCount} 个学院`); //学院总数
                             $('.show-page-Count').text(`${json.pageCount}`); //分页总数
@@ -381,7 +377,7 @@
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        onMask("错误", errorThrown);
+                        onMask("错误", "连接失败...网络故障或服务器繁忙" + errorThrown);
                     }
                 });
             }
@@ -433,10 +429,10 @@
                     var insId = $(this).attr("data-instituteId");
                     $('#deleteInstitute').modal('show');
 
-                    $('#deleteInstitute button:first').attr("data-deleteId", insId);
+                    $('#deleteInstitute button:last').attr("data-deleteId", insId);
                 });
 
-            $('#deleteInstitute button:first').click(function(jqEvent) {
+            $('#deleteInstitute button:last').click(function(jqEvent) {
                 var insId = $(this).attr("data-deleteId");
                 $.ajax({
                     url: "/Institute/Delete",
@@ -465,10 +461,13 @@
                     $('#updateInsititute').modal('show');
                     $('#SubmitUpdatebutton').attr("data-deleteId", insId);
 
-                    $('#fuiUpdateName').val( $(this).attr("data-name") );
+                    $('#fuiUpdateName').val($(this).attr("data-name") );
                 });
             $('#SubmitUpdatebutton').click(function(jqevent) {
                 var insId = $(this).attr("data-deleteId");
+
+                console.log($('#fuiUpdateName').val(),insId);
+
                 $.ajax({
                     url: "/Institute/Update",
                     type: "post", 
@@ -494,11 +493,6 @@
     </script>
 
     <script>
-
-        
-
-     
-
         $('#InstituteChart').css('width', $('#tablist-hover').width() + "px");
         var InstituteChart_ = echarts.init(document.getElementById('InstituteChart'));
         InstituteChart_.showLoading();
@@ -603,8 +597,6 @@
                 onMask("错误", errorThrown);
             }
         });
-        
-        
         window.onresize = function() {
             $('#InstituteChart').css('width', $('#tablist-hover').width() + "px");
             InstituteChart_.resize();

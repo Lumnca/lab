@@ -1713,7 +1713,6 @@ input[type="checkbox"]:hover + label::before {
 }
 
 .admin-navbar > li > ul > li a:hover {
-  font-size: 11px;
   color: darkorange;
 }
 
@@ -1810,26 +1809,11 @@ input[type="checkbox"]:hover + label::before {
   text-indent: 10px;
 }
 
-.admin-module-list .active {
-  text-decoration: none;
-  color: white;
-  font-weight: 300;
-  background-color: rgba(38, 38, 38, 0.8);
-}
-
 .admin-module-list a:hover {
   text-decoration: none;
   color: white;
   font-weight: 300;
   background-color: rgba(38, 38, 38, 0.8);
-}
-
-.admin-module-list a:active {
-  text-decoration: none;
-}
-
-.admin-module-list a:link {
-  text-decoration: none;
 }
 
 .admin—module-tab {

@@ -21,7 +21,7 @@
         <div role="tabpanel" class="tab-pane active" id="professionList">
             <div class=" float-layout margin-bottom-10px margin-top-15px padding-10px">
                 <label class="font-size-13 font-weight-500">专业名称:</label>
-                <input type="text" list="InstituteName" class="border-radius-4 padding-left-10px"
+                <input type="text" id="SearchName" list="InstituteName" class="border-radius-4 padding-left-10px"
                        data-width="200" data-height="25" />
                 <datalist id="InstituteName" class="border-radius-4 padding-left-10px" data-width="200"
                           data-height="25">
@@ -32,43 +32,46 @@
                 </datalist>
                 <label class="font-size-13 font-weight-500 margin-left-10px">所属学院:</label>
                 <select name="module-list" id="institute-list" class="border-radius-4 padding-left-10px select-layout"
-                        data-width="200" data-height="28">
-
-                </select>
-                <a href="#" class=" float-right btn btn-primary btn-sm margin-left-10px">立即查询</a>
+                        data-width="200" data-height="28"></select>
+                <button id="searchInstitute" class=" float-right btn btn-primary btn-sm ">
+                    <span class="glyphicon glyphicon-search"></span>
+                    立即查询
+                </button>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover" data-min-width="700">
                     <thead>
-                    <tr>
-                        <th  class=" text-center">编号</th>
-                        <th>专业名称</th>
-                        <th>专业类型</th>
-                        <th>所属学院</th>
-                        <th>状态</th>
-                        <th class=" text-right">
-                            操作
-                        </th>
-                    </tr>
+                        <tr>
+                            <th class=" text-center">编号</th>
+                            <th>专业名称</th>
+                            <th>专业类型</th>
+                            <th>所属学院</th>
+                            <th>ID</th>
+                            <th>状态</th>
+                            <th class=" text-right">
+                                操作
+                            </th>
+                        </tr>
                     </thead>
                     @{
                         var index = 0;
                     }
-                    <tbody class="institutes-list-table">
+                    <tbody id="professions-list-table">
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td  class=" text-center">@(++index) </td>
+                                <td class=" text-center">@(++index) </td>
                                 <td>@item.Name</td>
                                 <td>@(item.ProfessionType == ProfessionType.PostGraduate ? "研究生专业" : "本科生专业")</td>
                                 <th>@item.InstituteName</th>
+                                <th>@item.ProfessionId</th>
                                 <td>正常</td>
                                 <td class=" text-right">
-                                    <button data-professionId="@item.ProfessionId"  class="buttonDelete btn btn-default btn-sm">
+                                    <button data-professionId="@item.ProfessionId" class="buttonDelete btn btn-default btn-sm">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         删除
                                     </button>
-                                    <button data-professionId="@item.ProfessionId"  class="buttonUpdate btn btn-default btn-sm">
+                                    <button data-professionId="@item.ProfessionId" data-name="@item.Name" class="buttonUpdate btn btn-default btn-sm">
                                         <span class="glyphicon glyphicon-search"></span>
                                         修改
                                     </button>
@@ -79,7 +82,7 @@
                 </table>
                 <div class=" text-center">
                     <div class=" float-layout bc-clr-white padding-10px ">
-                        <label class=" float-left">
+                        <label class=" float-left line-Count">
                             共 @ViewBag.lineCount 个专业
                         </label>
                         <div class=" float-right">
@@ -98,7 +101,7 @@
                                     页
                                 </span>
                             </button>
-                            <button class="First btn btn-success btn-sm" > <span class="glyphicon glyphicon-backward"></span>  首页</button>
+                            <button class="First btn btn-success btn-sm"> <span class="glyphicon glyphicon-backward"></span>  首页</button>
                             <button class="Previous btn btn-success btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
                             <button class="Next btn btn-success btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
                             <button data-pageLastIndex="@ViewBag.pageCount" class="Last btn btn-success btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
@@ -119,43 +122,262 @@
 
         </div>
         <div role="tabpanel" class="tab-pane " id="addprofession">
-            <form role="form" class="layout-center margin-top-40px " data-width="400">
+            <div class="layout-center margin-top-40px " data-width="400">
                 <div class="form-group">
                     <label for="name">专业名称:</label>
-                    <input type="text" class="form-control" id="name" placeholder="请输入名称" data-width="400">
+                    <input type="text" id="newProfessionName" class="form-control" placeholder="请输入名称" data-width="400">
                 </div>
                 <div class="form-group">
                     <label for="name">所属学院:</label>
                     <select name="InstituteSelect" id="InstituteSelect" class="form-control border-radius-4 padding-left-10px select-layout"
-                            data-width="400">
-
-                    </select>
+                            data-width="400"></select>
                 </div>
                 <div class="form-group">
-                    <label for="name">专业类型:</label>
-                    <select name="module" id="module" class="form-control border-radius-4 padding-left-10px select-layout"
+                    <label for="ProfessionType">专业类型:</label>
+                    <select name="ProfessionType" id="ProfessionType" class="form-control border-radius-4 padding-left-10px select-layout"
                             data-width="400">
+                        <option value="0">本科生专业</option>
                         <option value="1">研究生专业</option>
-                        <option value="2">本科生专业</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary margin-top-20px form-control" data-width="400">立即提交</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="updateProfessionl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生申请</h4>
+            </div>
+            <div class="modal-body">
+                <div role="form" class="layout-center margin-top-5px " data-width="400">
+                    <div class="form-group">
+                        <label for="fuiUpdateName">专业名称:</label>
+                        <input type="text" class="form-control" name="fuiUpdateName"  id="fuiUpdateName" placeholder="请输入名称" data-width="400">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">所属学院:</label>
+                        <select name="updateProfessionSelect" id="updateProfessionSelect" class="form-control border-radius-4 padding-left-10px select-layout"
+                                data-width="400">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateProfessionType">专业类型:</label>
+                        <select name="updateProfessionType"
+                                id="updateProfessionType"
+                                class="form-control border-radius-4 padding-left-10px select-layout"
+                                data-width="400">
+                            <option value="0">本科生专业</option>
+                            <option value="1">研究生专业</option>
+                        </select>
+                    </div>
+                    <button type="button" id="submit-update-button" class="btn btn-primary margin-top-5px form-control" data-width="400">立即提交</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">立即关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteProfessionl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-primary" id="myModalLabel">删除提示</h4>
+            </div>
+            <div class="modal-body">
+                <p class=" text-primary">
+                    1.你确定要删除吗? 如果删除此专业,将会删除此专业相关的所有学生,和此专业学生的一切相关数据
+                </p>
+                <p class=" text-primary">
+                    2.删除专业是及其危险的事情！ 请一定慎重考虑
+                </p>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-sm btn-primary">
+                    <span class=" glyphicon glyphicon-trash"></span>
+                    立即删除
+                </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="professions-list-table-template" type="x-tmpl-mustache">
+    {{#professions}}
+    <tr>
+        <td class=" text-center">{{index}}</td>
+        <td>{{name}}</td>
+        <td>{{type}}</td>
+        <th>{{instituteName}}</th>
+        <td>{{id}}</td>
+        <td>正常</td>
+        <td class=" text-right">
+            <button data-professionId="{{id}}" class="buttonDelete btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-remove"></span>
+                删除
+            </button>
+            <button data-professionId="{{id}}" data-name="{{name}}" class="buttonUpdate btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-search"></span>
+                修改
+            </button>
+        </td>
+    </tr>
+    {{/professions}}
+</script>
 @section Scripts
-{
+    {
     <script>
+
+        $('#addprofession button[type="submit"]').click(function (jqevent) {
+
+            var _name = $('#newProfessionName').val();
+            if (_name == "" || _name == null) {
+                onMask("温馨提示", "新增的专业名称不能为空！");
+                return;
+            }
+
+            if (_name.length > 40) {
+                onMask("温馨提示", "专业名称长度过长！");
+                return;
+            }
+
+            $.ajax({
+                url: "/Profession/Create",
+                type: "post",
+                dataType: "json",
+                data: {
+                    instituteId: $('#InstituteSelect').val(),
+                    name: _name,
+                    type: $('#ProfessionType').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        onMask("提示信息", json.info);
+                    } else {
+                        onMask("错误", json.error);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        });
+
+        stateManager();
+        function loadPageByIndex(index) {
+            var proName = $('#SearchName').val();
+
+            if (proName == "" || proName == null) {
+                proName = "      ";
+            }
+
+            $.ajax({
+                url: "/Profession/Page",
+                type: "post",
+                dataType: "json",
+                data: {
+                    pageIndex: index,
+                    name: proName,
+                    instituteId: $('#institute-list').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        if (json.professions == null) {
+                            $('#professions-list-table').html("");
+                        } else {
+
+                            for (var i = 0; i < json.professions.length; i++) {
+                                json.professions[i].index = (i + 1);
+                            }
+
+                            var template = $('#professions-list-table-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('#professions-list-table').html(result);
+                        }
+
+
+                        $('.line-Count').text(`共 ${json.lineCount} 个专业`); //学院总数
+                        $('.show-page-Count').text(`${json.pageCount}`); //分页总数
+                        $('.show-page-Index').text(`${json.pageNowIndex}`); //当前页
+                        $('button[data-pageLastIndex]').attr("data-pageLastIndex", json.pageCount); //最后一页 的index
+
+                        //跳转 options
+                        $('#pageSkipNext > option').remove();
+                        for (var opindex = 0; opindex < json.pageCount; opindex++) {
+                            $('#pageSkipNext').append(`<option value="${opindex + 1}">${opindex + 1}</option>`);
+                        }
+
+                        $('#pageSkipNext').val(index);
+                        stateManager();
+                    } else {
+                        onMask("错误", json.error);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        }
+
+        /* 状态管理 */
+        function stateManager() {
+            var pageIndex = parseInt($('.show-page-Index').text().trim()); //当前页
+            var pageCount = parseInt($('.show-page-Count').text().trim()); //总共多少页
+            if (pageIndex >= pageCount) {
+                $('.Next').prop("disabled", true);
+            } else {
+                $('.Next').prop("disabled", false);
+            }
+            if (pageIndex == 1) {
+                $('.Previous').prop("disabled", true);
+            } else {
+                $('.Previous').prop("disabled", false);
+            }
+        }
+
+        $('.Next').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
+        });
+
+        $('.First').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.Previous').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
+        });
+
+        $('.Last').click(function (jqEvent) {
+            loadPageByIndex($('button[data-pageLastIndex]').attr("data-pageLastIndex").trim());
+        });
+
+        $('.pageSkip').click(function (jqEvent) {
+            loadPageByIndex($('#pageSkipNext').val());
+        });
+
+        $('#searchInstitute').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
         (function loadInstitute() {
             $.ajax({
                 url: "/Institute/List",
                 type: "post",
                 dataType: "json",
-                success: function(data, textStatus, jqXHR) {
-                    $("#InstituteSelect")
-                        .append('<option value="-1">所有学院</option>');
+                success: function (data, textStatus, jqXHR) {
                     $("#institute-list")
                         .append('<option value="-1">所有学院</option>');
                     for (var index in data) {
@@ -163,12 +385,86 @@
                             .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
                         $("#institute-list")
                             .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
+                        $("#updateProfessionSelect")
+                            .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        })();
+
+
+        $('#professions-list-table').on("click",
+            "tr>td>.buttonUpdate",
+            null,
+            function (jaEvent) {
+                var insId = $(this).attr("data-professionId");
+                
+                $('#updateProfessionl').modal('show');
+                $('#submit-update-button').attr("data-deleteId", insId);
+                $('#fuiUpdateName').val($(this).attr("data-name"));
+            });
+
+        $('#professions-list-table').on("click",
+            "tr>td>.buttonDelete",
+            null,
+            function (jaEvent) {
+                var insId = $(this).attr("data-professionId");
+                $('#deleteProfessionl button:eq(1)').attr("data-deleteId", insId);
+                $('#deleteProfessionl').modal('show');
+
+            });
+        $('#submit-update-button').click(function (jqevent) {
+            var insId = $(this).attr("data-deleteId");
+            $.ajax({
+                url: "/Profession/Update",
+                type: "post",
+                dataType: "json",
+                data: {
+                    professionId: insId,
+                    newName: $('#fuiUpdateName').val().trim(),
+                    instituteId:$('#updateProfessionSelect').val(),
+                    type: $('#updateProfessionType').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        $('#updateProfessionl').modal('hide');
+                        onMask("提示信息", json.info);
+                    } else {
+                        onMask("错误", json.error);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        });
+
+        $('#deleteProfessionl button:eq(1)').click(function(jqEvent) {
+            var insId = $(this).attr("data-deleteId");
+            $.ajax({
+                url: "/Profession/Delete",
+                type: "post",
+                dataType: "json",
+                data: {
+                    professionId: insId
+                },
+                success: function(json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        $('#deleteProfessionl').modal('hide');
+                        onMask("提示信息", json.info);
+                    } else {
+                        $('#deleteProfessionl').modal('hide');
+                        onMask("错误", json.error);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     onMask("错误", errorThrown);
                 }
             });
-        })();
+        });
     </script>
 }
