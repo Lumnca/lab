@@ -6,6 +6,7 @@
 - [x] [`1.系统模块`](#module)
 - [x] [`2.登录/修改密码模块`](#target1)
 - [x] [`3.系统主页逻辑`](#main)
+- [x] [`4.权限配置`](#power)
 
 ------
 #####  :octocat: [1.系统模块](#top) <b id="module"></b>  :speech_balloon:
