@@ -1,32 +1,30 @@
 ﻿{
-  "loginSetting": {
-    "studentLogin": true,
-    "principalLogin": true,
-    "openExam": false,
-    "allowPastJoinExam": false
-  },
-  "version": "2019.0.0.1859.12",
-  "footer": "© All Right Reserved . 四川师范大学 版权所有 (四川师范大学计算机科学学院505实验室制) 长期维护",
-  "maintenanceStaff": [
+  "staffs": [
     {
       "name": "蒋星",
       "phone": "15982690985",
       "qq": "1427035242"
     },
     {
-      "name": "Jking",
-      "phone": "15982690985",
-      "qq": "1427035242"
+      "name": "刘闽川",
+      "phone": "17721953180",
+      "qq": "1944731504"
     }
   ],
-  "examMoudleSetting": [
-    {
+  "loginSetting": {
+    "studentLogim": true,
+    "principalLogin": true,
+    "isOpenExam": true,
+    "allowPastJoinExam": true
+  },
+  "version": "2019.2.00.00.12",
+  "examModuleSettings": {
+    "1": {
       "moduleId": 1,
-      "moduleName": "模块名称1",
-      "passScore": 60,
-      "ExamTime": 100,
-      "IsOpen": false,
-      "AlgorithmNumber": 1,
+      "moduleName": "其他理工类",
+      "passFloat": 60,
+      "examTime": 100,
+      "totolScore": 100,
       "single": {
         "count": 30,
         "score": 1
@@ -36,18 +34,16 @@
         "score": 2
       },
       "judge": {
-        "count": 30,
+        "count": 20,
         "score": 1
-      },
-      "TotalScore": 100
+      }
     },
-    {
+    "2": {
       "moduleId": 2,
-      "moduleName": "模块名称2",
-      "passScore": 70,
-      "ExamTime": 100,
-      "IsOpen": false,
-      "AlgorithmNumber": 1,
+      "moduleName": "化学生物类",
+      "passFloat": 60,
+      "examTime": 100,
+      "totolScore": 100,
       "single": {
         "count": 30,
         "score": 1
@@ -57,10 +53,9 @@
         "score": 2
       },
       "judge": {
-        "count": 30,
+        "count": 20,
         "score": 1
-      },
-      "TotalScore": 100
+      }
     }
-  ]
+  }
 }

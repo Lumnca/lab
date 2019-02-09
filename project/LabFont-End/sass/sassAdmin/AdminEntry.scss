@@ -6,4 +6,8 @@
                 
 a:hover{
     text-decoration: none;
+}   
+
+.no-focus:focus{
+    outline: none;
 } 

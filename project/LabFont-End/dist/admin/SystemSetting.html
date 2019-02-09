@@ -235,11 +235,13 @@
                             </label>
                         </div>
                         <div class=" float-layout">
-                            <button class=" btn btn-default float-right" data-toggle="modal" data-target="#update-inlow">立即保存</button>
+                            <button class=" btn btn-primary float-right" data-toggle="modal" data-target="#update-inlow">
+                                <span class=" glyphicon  glyphicon-save"></span>
+                                立即保存</button>
                         </div>
                     </div>
                 </div>
-                <div class=" border-little-grey-all bc-clr-white margin-5px" data-min-width="760">
+                <div class=" border-little-grey-all  bc-clr-white margin-5px" data-min-width="760">
                     <div class=" padding-10px ">
                         <h4 class="border-light-down font-size-16 font-weight-600 padding-bottom-10px ">
                             系统维护人员配置
@@ -248,111 +250,91 @@
                             <p><span class="font-size-14 font-weight-600">技术人员:</span> <span></span></p>
                             <p>
                                 <label class=" text-muted  padding-5px  font-size-14">姓名:</label>
-                                <input type="text" data-width="150" data-height="20" class="padding-left-5px font-size-12  border-radius-2"
-                                    placeholder="">
+                                <input type="text" data-width="150" data-height="20" 
+                                class=" padding-left-5px font-size-12  border-down-only no-focus "
+                                    placeholder="填写维护人员姓名">
 
                                 <label class="  text-muted  padding-5px  font-size-14">电话:</label>
-                                <input type="text" data-width="220" data-height="20" class="padding-left-5px font-size-12 border-radius-2"
-                                    placeholder="">
+                                <input type="text" data-width="220" data-height="20"
+                                 class="padding-left-5px font-size-12 border-down-only no-focus"
+                                    placeholder="填写维护人员电话">
 
                                 <label class=" text-muted  padding-5px  font-size-14">QQ:</label>
-                                <input type="text" data-width="220" data-height="20" class="padding-left-5px font-size-12 border-radius-2"
-                                    placeholder="">
-
+                                <input type="text" data-width="220" data-height="20" 
+                                class="padding-left-5px font-size-12 border-down-only no-focus"
+                                    placeholder="填写维护人员QQ">
                             </p>
                             <p>
                                 <label class="text-muted  padding-5px  font-size-14">姓名:</label>
-                                <input type="text" data-width="150" data-height="20" class="padding-left-5px font-size-12 border-radius-2"
-                                    placeholder="">
+                                <input type="text" data-width="150" data-height="20"
+                                 class="padding-left-5px font-size-12 border-down-only no-focus"
+                                    placeholder="填写维护人员姓名">
 
                                 <label class=" text-muted  padding-5px  font-size-14">电话:</label>
-                                <input type="text" data-width="220" data-height="20" class="padding-left-5px font-size-12 border-radius-2"
-                                    placeholder="">
+                                <input type="text" data-width="220" data-height="20" 
+                                class="padding-left-5px font-size-12 border-down-only no-focus"
+                                    placeholder="填写维护人员电话">
 
                                 <label class=" text-muted  padding-5px  font-size-14">QQ:</label>
-                                <input type="text" data-width="220" data-height="20" class="padding-left-5px font-size-12 border-radius-2"
-                                    placeholder="">
+                                <input type="text" data-width="220" data-height="20" 
+                                class="padding-left-5px font-size-12 border-down-only no-focus"
+                                    placeholder="填写维护人员姓名">
                             </p>
                             <div class=" float-layout">
-                                <button class=" btn btn-default float-right">立即保存</button>
+                                <button class=" btn btn-primary float-right">
+                                    <span class=" glyphicon  glyphicon-save"></span>
+                                    立即保存</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=" flex-layout">
-                    <div class=" flex-item-3 border-little-grey-all  bc-clr-white margin-5px">
-                        <div class=" padding-10px">
-                            <h4 class="border-light-down font-size-16 font-weight-600 padding-bottom-10px ">
-                                系统首页配置
-                            </h4>
-                            <div>
-                                <span class=" font-size-15 font-weight-600">系统截止时间:</span>
-                                <input type="date" class="border-only-down outline-none" data-width="200">
-                            </div>
-                            <div class=" margin-top-10px">
-                                <span class=" font-size-15 font-weight-600">系统的版本号:</span>
-                                <input type="text" class="border-only-down outline-none" data-width="200" value="2018.09.01.002">
-                            </div>
-                            <div class=" margin-top-10px">
-                                <span class=" font-size-15 font-weight-600">登录视图</span> <span class=" margin-left-10px text-muted  font-size-12">保存刷新</span>
-                            </div>
-                            <div class=" margin-top-10px">
-                                <span class=" font-size-15 font-weight-600">考试视图</span> <span class=" margin-left-10px text-muted font-size-12">保存刷新</span>
-                            </div>
-                            <div class=" margin-top-10px">
-                                <span class=" font-size-15 font-weight-600">成绩视图</span> <span class=" margin-left-10px text-muted font-size-12">保存刷新</span>
-                            </div>
-                            <div class=" float-layout">
-                                <button class=" btn btn-default float-right">立即保存</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" flex-item-6 border-little-grey-all  bc-clr-white margin-5px">
-                        <div class=" padding-10px">
-                            <h4 class="border-light-down font-size-16 font-weight-600 padding-bottom-10px ">
-                                各模块考试安排
-                            </h4>
-                            <ul class=" clearStyle ul-li-margin curcor-pointer">
-                                <li>
-                                    <label class="bootstrap-checkbox">
-                                        <input type="checkbox" id="val-id-1" />
-                                        <label for="val-id-1" class="checkout-label"> 允许其它理工类考试</label>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="bootstrap-checkbox">
-                                        <input type="checkbox" id="val-id-2" />
-                                        <label for="val-id-2" class="checkout-label"> 允许化学生物类考试</label>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="bootstrap-checkbox">
-                                        <input type="checkbox" id="val-id-3" />
-                                        <label for="val-id-3" class="checkout-label"> 允许文史艺体类考试</label>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="bootstrap-checkbox">
-                                        <input type="checkbox" id="val-id-4" />
-                                        <label for="val-id-4" class="checkout-label"> 允许物理信息类考试</label>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="bootstrap-checkbox">
-                                        <input type="checkbox" id="val-id-5" />
-                                        <label for="val-id-5" class="checkout-label"> 允许文史艺体（影传专用课）考试</label>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="bootstrap-checkbox">
-                                        <input type="checkbox" id="val-id-6" />
-                                        <label for="val-id-6" class="checkout-label"> 允许文史艺体（国教必修补充）考试</label>
-                                    </label>
-                                </li>
-                            </ul>
-                            <div class=" float-layout">
-                                <button class=" btn btn-default float-right">立即保存</button>
-                            </div>
+                <div class=" border-little-grey-all  bc-clr-white margin-5px">
+                    <div class=" padding-10px">
+                        <h4 class="border-light-down font-size-16 font-weight-600 padding-bottom-10px ">
+                            各模块考试安排
+                        </h4>
+                        <ul class=" clearStyle ul-li-margin curcor-pointer">
+                            <li>
+                                <label class="bootstrap-checkbox">
+                                    <input type="checkbox" id="val-id-1" />
+                                    <label for="val-id-1" class="checkout-label"> 允许其它理工类考试</label>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="bootstrap-checkbox">
+                                    <input type="checkbox" id="val-id-2" />
+                                    <label for="val-id-2" class="checkout-label"> 允许化学生物类考试</label>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="bootstrap-checkbox">
+                                    <input type="checkbox" id="val-id-3" />
+                                    <label for="val-id-3" class="checkout-label"> 允许文史艺体类考试</label>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="bootstrap-checkbox">
+                                    <input type="checkbox" id="val-id-4" />
+                                    <label for="val-id-4" class="checkout-label"> 允许物理信息类考试</label>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="bootstrap-checkbox">
+                                    <input type="checkbox" id="val-id-5" />
+                                    <label for="val-id-5" class="checkout-label"> 允许文史艺体（影传专用课）考试</label>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="bootstrap-checkbox">
+                                    <input type="checkbox" id="val-id-6" />
+                                    <label for="val-id-6" class="checkout-label"> 允许文史艺体（国教必修补充）考试</label>
+                                </label>
+                            </li>
+                        </ul>
+                        <div class=" float-layout">
+                            <button class=" btn btn-primary float-right">
+                                <span class=" glyphicon  glyphicon-save"></span>
+                                立即保存</button>
                         </div>
                     </div>
                 </div>

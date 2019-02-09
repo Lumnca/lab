@@ -1,0 +1,604 @@
+@charset "UTF-8";
+.bc-clr-grey-little {
+  background-color: rgba(246, 246, 246, 0.9);
+}
+
+.bc-clr-white {
+  background-color: white;
+}
+
+.bc-clr-black {
+  background-color: RGB(44, 44, 44);
+}
+
+.bc-clr-defalut {
+  background-color: #f4f4f4;
+}
+
+.bc-clr-primary {
+  background-color: #3073ac;
+}
+
+.bc-clr-success {
+  background-color: #58b258;
+}
+
+.bc-clr-info {
+  background-color: #57bedd;
+}
+
+.bc-clr-warning {
+  background-color: #f0aa46;
+}
+
+.bc-clr-danger {
+  background-color: #d34945;
+}
+
+.bc-clr-grey-ali {
+  background-color: #eaedf1;
+}
+
+.bc-clr-black-web {
+  background-color: RGB(54, 54, 54);
+}
+
+.border-thumali {
+  border-radius: 10px;
+  border: 1px solid rgba(38, 38, 38, 0.2);
+  box-shadow: 0px 3px 6px 0px rgba(38, 38, 38, 0.5);
+}
+
+.bc-clr-spacial {
+  background-color: RGB(245, 246, 250);
+}
+
+.border-radius-30 {
+  border-radius: 30px;
+}
+
+.border-radius-30:focus {
+  outline: none;
+}
+
+.border-radius-28 {
+  border-radius: 28px;
+}
+
+.border-radius-28:focus {
+  outline: none;
+}
+
+.border-radius-26 {
+  border-radius: 26px;
+}
+
+.border-radius-26:focus {
+  outline: none;
+}
+
+.border-radius-24 {
+  border-radius: 24px;
+}
+
+.border-radius-24:focus {
+  outline: none;
+}
+
+.border-radius-22 {
+  border-radius: 22px;
+}
+
+.border-radius-22:focus {
+  outline: none;
+}
+
+.border-radius-20 {
+  border-radius: 20px;
+}
+
+.border-radius-20:focus {
+  outline: none;
+}
+
+.border-radius-18 {
+  border-radius: 18px;
+}
+
+.border-radius-18:focus {
+  outline: none;
+}
+
+.border-radius-16 {
+  border-radius: 16px;
+}
+
+.border-radius-16:focus {
+  outline: none;
+}
+
+.border-radius-14 {
+  border-radius: 14px;
+}
+
+.border-radius-14:focus {
+  outline: none;
+}
+
+.border-radius-12 {
+  border-radius: 12px;
+}
+
+.border-radius-12:focus {
+  outline: none;
+}
+
+.border-radius-10 {
+  border-radius: 10px;
+}
+
+.border-radius-10:focus {
+  outline: none;
+}
+
+.border-radius-8 {
+  border-radius: 8px;
+}
+
+.border-radius-8:focus {
+  outline: none;
+}
+
+.border-radius-6 {
+  border-radius: 6px;
+}
+
+.border-radius-6:focus {
+  outline: none;
+}
+
+.border-radius-4 {
+  border-radius: 4px;
+}
+
+.border-radius-4:focus {
+  outline: none;
+}
+
+.border-radius-2 {
+  border-radius: 2px;
+}
+
+.border-radius-2:focus {
+  outline: none;
+}
+
+.border-light-down {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.border-little-grey-all {
+  border: 1px solid gainsboro;
+}
+
+.border-shadow-down {
+  border: 1px solid rgba(38, 38, 38, 0.2);
+  box-shadow: 0px 3px 6px 0px rgba(38, 38, 38, 0.2);
+}
+
+.font-color-white {
+  color: white;
+}
+
+.font-color-black-153 {
+  color: RGB(153, 153, 153);
+}
+
+.font-color-black-217 {
+  color: RGB(217, 217, 217);
+}
+
+.font-color-golden {
+  color: RGB(243, 191, 24);
+}
+
+.font-color-red-light {
+  color: RGB(255, 40, 81);
+}
+
+.font-color-link {
+  color: RGB(51, 122, 183);
+}
+
+.border-down-only {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.font-weight-700 {
+  font-weight: 700;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+.font-weight-400 {
+  font-weight: 400;
+}
+
+.font-weight-300 {
+  font-weight: 300;
+}
+
+.font-weight-200 {
+  font-weight: 200;
+}
+
+.font-weight-100 {
+  font-weight: 100;
+}
+
+.font-size-30 {
+  font-size: 30px;
+}
+
+.font-size-29 {
+  font-size: 29px;
+}
+
+.font-size-28 {
+  font-size: 28px;
+}
+
+.font-size-27 {
+  font-size: 27px;
+}
+
+.font-size-26 {
+  font-size: 26px;
+}
+
+.font-size-25 {
+  font-size: 25px;
+}
+
+.font-size-24 {
+  font-size: 24px;
+}
+
+.font-size-23 {
+  font-size: 23px;
+}
+
+.font-size-22 {
+  font-size: 22px;
+}
+
+.font-size-21 {
+  font-size: 21px;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.font-size-19 {
+  font-size: 19px;
+}
+
+.font-size-18 {
+  font-size: 18px;
+}
+
+.font-size-17 {
+  font-size: 17px;
+}
+
+.font-size-16 {
+  font-size: 16px;
+}
+
+.font-size-15 {
+  font-size: 15px;
+}
+
+.font-size-14 {
+  font-size: 14px;
+}
+
+.font-size-13 {
+  font-size: 13px;
+}
+
+.font-size-12 {
+  font-size: 12px;
+}
+
+.font-size-11 {
+  font-size: 11px;
+}
+
+.font-size-10 {
+  font-size: 10px;
+}
+
+.line-height-60 {
+  line-height: 60px;
+}
+
+.line-height-58 {
+  line-height: 58px;
+}
+
+.line-height-56 {
+  line-height: 56px;
+}
+
+.line-height-54 {
+  line-height: 54px;
+}
+
+.line-height-52 {
+  line-height: 52px;
+}
+
+.line-height-50 {
+  line-height: 50px;
+}
+
+.line-height-48 {
+  line-height: 48px;
+}
+
+.line-height-46 {
+  line-height: 46px;
+}
+
+.line-height-44 {
+  line-height: 44px;
+}
+
+.line-height-42 {
+  line-height: 42px;
+}
+
+.line-height-40 {
+  line-height: 40px;
+}
+
+.line-height-38 {
+  line-height: 38px;
+}
+
+.line-height-36 {
+  line-height: 36px;
+}
+
+.line-height-34 {
+  line-height: 34px;
+}
+
+.line-height-32 {
+  line-height: 32px;
+}
+
+.line-height-30 {
+  line-height: 30px;
+}
+
+.line-height-28 {
+  line-height: 28px;
+}
+
+.line-height-26 {
+  line-height: 26px;
+}
+
+.line-height-24 {
+  line-height: 24px;
+}
+
+.line-height-22 {
+  line-height: 22px;
+}
+
+.line-height-20 {
+  line-height: 20px;
+}
+
+.line-height-18 {
+  line-height: 18px;
+}
+
+.line-height-16 {
+  line-height: 16px;
+}
+
+.line-height-14 {
+  line-height: 14px;
+}
+
+.line-height-12 {
+  line-height: 12px;
+}
+
+.line-height-10 {
+  line-height: 10px;
+}
+
+.icon-vertical {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+}
+
+.admin-user-title {
+  padding: 5px;
+  background-color: rgba(38, 38, 38, 0.99);
+  font-weight: 300;
+  font-size: 12px;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  width: 70px;
+}
+
+.admin-user-content {
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(38, 38, 38, 0.5);
+  display: inline-block;
+  width: 200px;
+}
+
+.border-thumali {
+  border-radius: 10px;
+  border: 1px solid rgba(38, 38, 38, 0.2);
+  box-shadow: 0px 3px 6px 0px rgba(38, 38, 38, 0.5);
+}
+
+.info-warning {
+  background-color: red;
+  color: white;
+  display: inline-block;
+  margin-left: -15px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 50%;
+}
+
+.info-warning-green {
+  background-color: RGB(0, 243, 0);
+  color: white;
+  display: inline-block;
+  margin-left: -15px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 50%;
+}
+
+.select-default {
+  border-radius: 5px;
+  width: 80px;
+  height: 25px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.select-default:focus {
+  outline: none;
+  border: 1px solid RGB(51, 122, 183);
+}
+
+.clearStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.clearStyle ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+/*对checkbox 的重写*/
+input[type="checkbox"] + label::before {
+  content: "\a0";
+  /*不换行空格*/
+  display: inline-block;
+  vertical-align: .2em;
+  width: 15px;
+  height: 15px;
+  margin-right: .2em;
+  background-color: white;
+  border: 1px solid RGB(16, 142, 233);
+  text-indent: .14em;
+  line-height: 0.70;
+  /*行高不加单位，子元素将继承数字乘以自身字体尺寸而非父元素行高*/
+}
+
+input[type="checkbox"]:checked + label::before {
+  content: "\2713";
+  background-color: RGB(16, 142, 233);
+  color: white;
+  border: 1px solid RGB(16, 142, 233);
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+input[type="checkbox"]:hover + label::before {
+  background-color: RGB(16, 142, 233);
+}
+
+.input_text:focus {
+  outline: none;
+}
+
+.input_text {
+  border-radius: 3px;
+  text-indent: 5px;
+}
+
+.outline-none:focus {
+  outline: none;
+}
+
+.border-only-down {
+  text-indent: 5px;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.ul-li-margin > li {
+  margin-bottom: 7px;
+}
+
+.curcor-pointer {
+  cursor: pointer;
+}
+
+.curcor-pointer li {
+  cursor: pointer;
+}
+
+.curcor-pointer label {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 992px) {
+  .student-info-show {
+    margin-top: 2px;
+  }
+  .student-info-show .student-info-show-content {
+    padding-top: 10px;
+  }
+  .student-info-show .student-info-show-content .student-info-show-title {
+    display: inline-block;
+    text-align: center;
+    width: 110px;
+    font-size: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: rgba(243, 245, 247, 0.99);
+    font-weight: 600;
+  }
+  .student-info-show .student-info-show-content .student-info-show-value {
+    display: inline-block;
+    width: 580px;
+    padding-left: 30px;
+    padding-bottom: 5px;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+}

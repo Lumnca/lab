@@ -49,6 +49,11 @@ $radius-gap:30;
     .border-radius-#{$radius-gap}{
         border-radius: $radius-gap + 0px;
     }
+
+    .border-radius-#{$radius-gap}:focus{
+        outline: none;
+    }
+
     $radius-gap : $radius-gap - 2;
 }
 
@@ -86,6 +91,10 @@ $radius-gap:30;
     color: RGB(51,122,183);
 }
 
+.border-down-only{
+    border: none;
+    border-bottom: 1px solid gray;
+}
 
 $weight-max:700;
 @while  $weight-max >= 100 {
