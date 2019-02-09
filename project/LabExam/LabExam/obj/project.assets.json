@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "LitJson/0.13.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/LitJSON.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/LitJSON.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -4619,6 +4628,23 @@
     }
   },
   "libraries": {
+    "LitJson/0.13.0": {
+      "sha512": "aPNzMqngkTiy9uKTuuuP4S2r70gFZtKYRaevt3YQOV0HQG/9NMZqJmaLMijj7/GSnUr495zfy1WLYD7nGXRNCw==",
+      "type": "package",
+      "path": "litjson/0.13.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/LitJSON.dll",
+        "lib/net35/LitJSON.dll",
+        "lib/net40/LitJSON.dll",
+        "lib/net45/LitJSON.dll",
+        "lib/netstandard1.5/LitJSON.dll",
+        "lib/netstandard2.0/LitJSON.dll",
+        "litjson.0.13.0.nupkg.sha512",
+        "litjson.nuspec"
+      ]
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "sha512": "AIgEc1up4pvH8kXy+eG1x4Qfqd6piAq3yk11pveCQXWNkkYoiKdflSmcJZuWcerdMcAaoF0xC/mWGoTW4vF4Dg==",
       "type": "package",
@@ -12526,6 +12552,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "LitJson >= 0.13.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.CookiePolicy >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
@@ -12575,6 +12602,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "LitJson": {
+            "target": "Package",
+            "version": "[0.13.0, )"
+          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",

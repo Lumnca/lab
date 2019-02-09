@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.SqlClient;
 using LabExam.DataSource;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -108,6 +110,7 @@ namespace LabExam.Controllers
 
         public IActionResult Page([Required] int pageIndex,[Required] int moduleId,[Required] int instituteId)
         {
+
             if (ModelState.IsValid && pageIndex > 0)
             {
                 String sql = "select * from InstituteView where InstituteId > 0";
@@ -122,7 +125,7 @@ namespace LabExam.Controllers
                 }
 
                 int pageSize = 10;
-                int dataCount = _context.VInstituteMaps.FromSql(sql: sql).Count();
+                int dataCount = _context.VInstituteMaps.FromSql(sql).Count();
                 int pageCount = dataCount / pageSize;
                 int lastCount = dataCount % pageSize;
                 if (lastCount > 0)
@@ -141,7 +144,7 @@ namespace LabExam.Controllers
                     });
                 }
 
-                var listResultMaps = _context.VInstituteMaps.FromSql(sql: sql).OrderBy(ins => ins.InstituteId)
+                var listResultMaps = _context.VInstituteMaps.FromSql(sql).OrderBy(ins => ins.InstituteId)
                     .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
 

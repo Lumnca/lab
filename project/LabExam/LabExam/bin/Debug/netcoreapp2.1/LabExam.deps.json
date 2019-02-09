@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "1f5da74c73bcd40a876f54e3c32d49fdb295924e"
+    "signature": "697675bb8d01d84a046dfaa25da26978c191e40c"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.1": {
       "LabExam/1.0.0": {
         "dependencies": {
+          "LitJson": "0.13.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.CookiePolicy": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
@@ -36,6 +37,17 @@
         },
         "compile": {
           "LabExam.dll": {}
+        }
+      },
+      "LitJson/0.13.0": {
+        "runtime": {
+          "lib/netstandard2.0/LitJSON.dll": {
+            "assemblyVersion": "0.13.0.0",
+            "fileVersion": "0.13.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/LitJSON.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
@@ -3463,6 +3475,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "LitJson/0.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aPNzMqngkTiy9uKTuuuP4S2r70gFZtKYRaevt3YQOV0HQG/9NMZqJmaLMijj7/GSnUr495zfy1WLYD7nGXRNCw==",
+      "path": "litjson/0.13.0",
+      "hashPath": "litjson.0.13.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",

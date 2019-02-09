@@ -13,11 +13,6 @@ namespace LabExam.Models.Entities
         [MaxLength(300)]
         public  String Name { get; set; }
 
-        [MaxLength(100),ForeignKey("Principal")]
-        public String PrincipalId { get; set; }
-
-        public virtual Principal Principal { get; set; }
-
         public DateTime AddTime { get; set; }
 
         public String Introduction { get; set; }

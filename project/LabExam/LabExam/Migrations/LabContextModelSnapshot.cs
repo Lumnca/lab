@@ -111,14 +111,9 @@ namespace LabExam.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(300);
 
-                    b.Property<string>("PrincipalId")
-                        .HasMaxLength(100);
-
                     b.HasKey("CourceId");
 
                     b.HasIndex("ModuleId");
-
-                    b.HasIndex("PrincipalId");
 
                     b.ToTable("Cources");
                 });
@@ -704,10 +699,6 @@ namespace LabExam.Migrations
                         .WithMany()
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("LabExam.Models.Entities.Principal", "Principal")
-                        .WithMany()
-                        .HasForeignKey("PrincipalId");
                 });
 
             modelBuilder.Entity("LabExam.Models.Entities.ExamJudgeChoices", b =>

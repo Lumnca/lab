@@ -191,17 +191,21 @@
                 <div class=" margin-5px bc-clr-white padding-10px  border-little-grey-all" data-height-all>
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
-                            <a href="#professionList" aria-controls="home" role="tab" data-toggle="tab">
+                            <a href="#List" aria-controls="home" role="tab" data-toggle="tab">
                                 管理员列表
                             </a>
                         </li>
-                        <li role="presentation"><a href="#addprofession" aria-controls="profile" role="tab" data-toggle="tab">
+                        <li role="presentation">
+                            <a href="#Add" aria-controls="profile" role="tab" data-toggle="tab">
+                                添加管理员</a>
+                        </li>
+                        <li role="presentation"><a href="#Power" aria-controls="profile" role="tab" data-toggle="tab">
                                 管理员权限细则</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="professionList">
-                            <div class="float-layout margin-bottom-10px margin-top-10px">
+                        <div role="tabpanel" class="tab-pane active" id="List">
+                            <div class="float-layout margin-bottom-10px padding-10px margin-top-10px border-little-grey-all">
                                 <label class=" font-size-13 font-weight-400 margin-left-10px ">管理员名称:</label>
                                 <input type="text" list="InstituteName" class="border-radius-4 padding-left-10px"
                                     data-width="200" data-height="25" />
@@ -235,19 +239,20 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class=" text-center">1</td>
+                                            <td class="text-center">1</td>
                                             <td>20020059</td>
                                             <td>20020059</td>
                                             <th>樊向奎</th>
                                             <td>15982690985</td>
                                             <td>正常</td>
                                             <td class=" text-right">
-                                                <button data-toggle="modal" data-target="#deleteprofessionl" href="#deleteprofessionl"
-                                                    class=" btn btn-primary btn-sm">
+                                                <button data-toggle="modal" class=" btn btn-primary btn-sm">
+                                                    <span class=" glyphicon glyphicon-trash "></span>
+                                                    配置权限</button>
+                                                <button data-toggle="modal" class=" btn btn-primary btn-sm">
                                                     <span class=" glyphicon glyphicon-trash "></span>
                                                     删除</button>
-                                                <button data-toggle="modal" data-target="#updateProfessionl" href="#updateInsititute"
-                                                    class=" btn btn-primary btn-sm">
+                                                <button data-toggle="modal" class=" btn btn-default btn-sm">
                                                     <span class=" glyphicon glyphicon-cog "></span>
                                                     修改</button>
                                             </td>
@@ -292,26 +297,111 @@
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane padding-10px " id="addprofession">
+                        <div role="tabpanel" class="tab-pane " id="Add">
+                                <form id="addPrincipal" class="form-horizontal margin-top-30px">
+                                    <div class="form-group">
+                                        <label for="principalId" class="col-sm-2 control-label">
+                                            管理员编号
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" required data-max-width="400"
+                                               name="principalId"   id="principalId" placeholder="请填写管理员编号">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="principalJobNumber" class="col-sm-2 control-label">
+                                            管理员工号
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" required data-max-width="400"
+                                              name="principalJobNumber"  id="principalJobNumber" placeholder="请填写管理员工号">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="principalName" class="col-sm-2 control-label">
+                                            管理员姓名
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" required data-max-width="400"
+                                            name="principalName" id="principalName" placeholder="请填写管理员姓名">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">管理员密码</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" required data-max-width="400"
+                                            name="principalPwd"  id="principalPwd" placeholder="请填写管理员密码">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="principalPhone" class="col-sm-2 control-label">
+                                            管理员电话</label>
+                                        <div class="col-sm-10">
+                                            <input type="text"  class="form-control" required data-max-width="400"
+                                           name="principalPhone"  id="principalPhone" placeholder="请填写管理员电话">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="principalStatus" class="col-sm-2 control-label">
+                                            管理员状态</label>
+                                        <div class="col-sm-10">
+                                            <select name="zy" id="principalStatus" class="form-control" data-max-width="400">
+                                                <option value="0">正常</option>
+                                                <option value="1">禁止使用</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-primary" data-min-width="400">
+                                                 <span class="glyphicon glyphicon-send"></span>
+                                                立即添加 </button>
+                                        </div>
+                                    </div>
+                                </form>
+                        </div>
+                        <div role="tabpanel" class="tab-pane padding-10px " id="Power">
                             <div class="list-group">
                                 <a href="#" class="list-group-item ">
                                     <h5 class=" text-primary">学生管理权限</h5>
                                     <p class="list-group-item-text">
-                                        此权限允许你增加学生或者删除学生信息,处理学生重考或者加入考试计划的申请
+                                        此权限允许你增加学生或者删除学生信息,处理学生重考或者加入考试计划的申请 <span class=" font-weight-600">[每一个管理员用户默认拥有]</span>
                                     </p>
                                 </a>
                                 <a href="#" class="list-group-item ">
-                                    <h5 class="list-group-item-heading">考试出题权限</h5>
+                                    <h5 class="text-primary">考试出题权限</h5>
                                     <p class="list-group-item-text padding-top-10px">
                                         能够配置各个模块的考试出题设置,设置通过分数,出题方式
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item ">
+                                    <h5 class="text-primary">课程管理权限</h5>
+                                    <p class="list-group-item-text padding-top-10px">
+                                        添加/删除/修改 课程.添加/删除/修改 资源.安排各模块的课程
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item ">
+                                    <h5 class="text-primary">题库管理权限</h5>
+                                    <p class="list-group-item-text padding-top-10px">
+                                        能够增加/删除题目,上传题目,查看题目使用信息
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item ">
+                                    <h5 class="text-primary">信息管理权限</h5>
+                                    <p class="list-group-item-text padding-top-10px">
+                                        增删改 学院 增删改专业 增删改模块信息
+                                    </p>
+                                </a>
+                                <a href="#" class="list-group-item ">
+                                    <h5 class="text-primary">系统管理权限</h5>
+                                    <p class="list-group-item-text padding-top-10px">
+                                        能够配置管理员的权限
                                     </p>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -402,8 +492,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="update-dialog" role="dialog" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -437,19 +525,78 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="power-setting-dialog" role="dialog" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">修改管理员信息</h4>
+                    <h4 class="modal-title font-size-15 font-weight-400 padding-top-10px text-primary">管理员权限配置</h4>
                 </div>
-                <div class="modal-body">
-
+                <div class="modal-body padding-5px">
+                    <h5 class=" margin-top-5px border-little-grey-all padding-15px font-weight-600">
+                        <span>管理员编号： <span class="power-id">20020059</span> </span>
+                        <span class=" margin-left-15px">名称：
+                            <span class="power-name">樊向奎</span>
+                        </span>
+                    </h5>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="StudentManager" checked="true" />
+                            <label for="StudentManager" class="checkout-label"> 学生管理权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="ExamManager" />
+                            <label for="ExamManager" class="checkout-label"> 考试出题权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="CourcesManager" />
+                            <label for="CourcesManager" class="checkout-label"> 课程管理权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="QuestionBankManager" />
+                            <label for="QuestionBankManager" class="checkout-label"> 题库管理权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="SystemSettingManager" />
+                            <label for="SystemSettingManager" class="checkout-label"> 系统配置权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="SystemInfoManager" />
+                            <label for="SystemInfoManager" class="checkout-label"> 信息管理权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" id="SystemManager" />
+                            <label for="SystemManager" class="checkout-label"> 系统管理权限</label>
+                        </label>
+                    </div>
+                    <div class=" padding-10px">
+                        <button class=" btn btn-default btn-sm letter-space-2 " data-min-width="100">
+                            <span class=" glyphicon glyphicon-bold "></span>
+                            禁止登陆</button>
+                        <button class=" btn btn-default btn-sm letter-space-2 " data-min-width="100">
+                                <span class=" glyphicon glyphicon-bold "></span>
+                                允许登陆</button>
+                    </div>
+                    <div class=" text-center">
+                        <button class=" btn btn-sm btn-primary">
+                            <span class=" glyphicon glyphicon-upload "></span>
+                            保存设置 </button>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
                         <span class="glyphicon glyphicon-ok-sign "></span>
                         稍后处理</button>
                 </div>
@@ -461,8 +608,7 @@
 <script src="../lib/validation/messages_zh.js"></script>
 <script src="../lib/validation/additional-methods.min.js"></script>
 <script>
-
-
+    //$('#update-dialog').modal('show');
     /* update-dialog */
     $("#update-dialog form").validate({
         //错误提示信息
@@ -499,6 +645,52 @@
         errorClass: "text-primary",
         submitHandler: function (form) {
 
+        }
+    });
+
+    $("#addPrincipal").validate({
+        //错误提示信息
+        messages: {
+            principalId: {
+                required: "管理员编号不能为空",
+                maxlength: "最大长度为{0}"
+            },
+            principalJobNumber: {
+                required: "管理员工号不能为空",
+                maxlength: "最大长度为{0}"
+            },
+            principalName: {
+                required: "管理员名称不能为空",
+                maxlength: "最大长度为{0}"
+            },
+            principalPhone: {
+                required: "管理员电话不能为空",
+                maxlength: "最大长度为{0}"
+            }
+        },
+        //验证规则
+        rules: {
+            //使用空间 name 名称
+            principalId: {
+                required: true,
+                maxlength: 40
+            },
+            principalJobNumber: {
+                required: true,
+                maxlength: 30
+            },
+            principalName: {
+                required: true,
+                maxlength: 20
+            },
+            principalPhone: {
+                required: true,
+                maxlength: 20
+            }
+        },
+        errorClass: "text-primary",
+        submitHandler: function (form) {
+            form.submit();
         }
     });
 

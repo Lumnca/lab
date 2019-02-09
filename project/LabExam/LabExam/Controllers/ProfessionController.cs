@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using LabExam.DataSource;
@@ -106,9 +108,10 @@ namespace LabExam.Controllers
             if (ModelState.IsValid && pageIndex > 0 )
             {
                 String sql = "select * from ProfessionView where ProfessionId > 0";
+
                 if (name != null && name.Trim() != "")
                 {
-                    sql += $" and Name like '%{name}%'";
+                    sql += $" and Name like '%{name.Trim().Replace(";",".")}%'";
                 }
 
                 if (instituteId > 0)

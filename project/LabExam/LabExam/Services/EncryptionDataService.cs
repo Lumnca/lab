@@ -50,7 +50,7 @@ namespace LabExam.Services
         ///  <Author> 2016110418 蒋星 </Author>
         ///  <LastAlterTimeAndAuthor>  </LastAlterTimeAndAuthor>
         /// </summary>
-        public string EncodeByMd5(string Data)
+        public String EncodeByMd5(string Data)
         {
             if (String.IsNullOrEmpty(Data))
             {

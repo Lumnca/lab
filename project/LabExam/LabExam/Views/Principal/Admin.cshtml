@@ -1,8 +1,878 @@
-﻿
+﻿@using LabExam.Models.Map
+@model IEnumerable<LabExam.Models.Entities.Principal>
 @{
     ViewData["Title"] = "实验室安全教育在线-系统管理员";
     Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
 }
 
+<div class=" margin-5px bc-clr-white padding-10px  border-little-grey-all" data-height-all>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#List" aria-controls="home" role="tab" data-toggle="tab">
+                管理员列表
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#Add" aria-controls="profile" role="tab" data-toggle="tab">
+                添加管理员
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#Power" aria-controls="profile" role="tab" data-toggle="tab">
+                管理员权限细则
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="List">
+            <div class="float-layout margin-bottom-10px padding-10px margin-top-10px border-little-grey-all">
+                <label class=" font-size-13 font-weight-400 margin-left-10px ">管理员名称:</label>
+                <input type="text" name="admin-name" class="border-radius-4 padding-left-10px"
+                       data-width="200" data-height="25" />
+                <label class=" font-size-13 font-weight-400  margin-left-10px">工号:</label>
+                <input type="text" name="admin-jobId" class="border-radius-4 padding-left-10px select-layout"
+                       data-width="200" data-height="28" />
+                <label class=" font-size-13 font-weight-400  margin-left-10px">管理员编号:</label>
+                <input type="text" name="admin-pid" class="border-radius-4 padding-left-10px select-layout"
+                       data-width="200" data-height="28" />
+                <button id="searchInstitute" class=" float-right btn btn-primary btn-sm margin-left-10px">
+                    <span class=" glyphicon glyphicon-search"></span>
+                    立即查询
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover" data-min-width="700">
+                    <thead>
+                    <tr>
+                        <th class=" text-center">编号</th>
+                        <th>管理员ID</th>
+                        <th>工号</th>
+                        <th>名称</th>
+                        <th>电话</th>
+                        <th>状态</th>
+                        <th class=" text-right">
+                            操作
+                        </th>
+                    </tr>
+                    </thead>
+                    @{
+                        int index = 1;
+                    }
+                    <tbody class="section-items">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@(index++)</td>
+                            <td>@item.PrincipalId</td>
+                            <td>@item.JobNumber</td>
+                            <th>@item.Name</th>
+                            <td>@item.Phone</td>
+                            <td>@(item.PrincipalStatus == PrincipalStatus.Normal ? "正常" : "已禁用")</td>
+                            <td class=" text-right">
+                                <button  data-power-id="@item.PrincipalId" data-name="@item.Name"
+                                          class="dialog-reset btn btn-primary btn-sm">
+                                    <span class=" glyphicon glyphicon-record  "></span>
+                                    重置密码
+                                </button>
+                                <button   data-power-id="@item.PrincipalId" data-name="@item.Name"
+                                          class="dialog-power btn btn-primary btn-sm">
+                                    <span class=" glyphicon glyphicon-trash "></span>
+                                    配置权限
+                                </button>
+                                <button data-power-id="@item.PrincipalId" 
+                                          class="dialog-delete btn btn-primary btn-sm">
+                                    <span class=" glyphicon glyphicon-trash "></span>
+                                    删除
+                                </button>
+                                <button data-power-id="@item.PrincipalId" data-name="@item.Name" 
+                                          class="dialog-update btn btn-default btn-sm">
+                                    <span class=" glyphicon glyphicon-cog "></span>
+                                    修改
+                                </button>
+                            </td>
+                        </tr>
+                     }
+                    </tbody>
+                </table>
+                <div class=" text-center">
+                    <div class=" float-layout bc-clr-white padding-10px ">
+                        <label class=" float-left">
+                            共 <span class="items-count">@ViewBag.lineCount</span>个管理员
+                        </label>
+                        <div class=" float-right">
+                            <button class=" btn-default btn btn-sm ">
+                                <span>第</span>
+                                <span class="show-page-Index">
+                                    1
+                                </span>
+                                <span>
+                                    /
+                                </span>
+                                <span class="show-page-Count">
+                                    @ViewBag.pageCount
+                                </span>
+                                <span>
+                                    页
+                                </span>
+                            </button>
+                            <button class="First btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-backward"></span>
+                                 首页
+                            </button>
+                            <button class="Previous btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                上一页
+                            </button>
+                            <button class="Next btn btn-success btn-sm">
+                                下一页 <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                            <button class="Last btn btn-success btn-sm" data-lastIndex="@ViewBag.pageCount" >
+                                尾页 <span class="glyphicon glyphicon-forward"></span>
+                            </button>
+                            <select data-options="true" class=" margin-left-10px" data-height="27" data-width="45">
+                                @{
+                                    int _index = 1;
+                                }
+                                @for (; _index <= ViewBag.pageCount; _index++)
+                                {
+                                    <option value="@_index">@_index</option>
+                                }
+                            </select>
+                            <button data-skip="true" class="btn btn-sm btn-primary">跳转</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane " id="Add">
+            <form id="addPrincipal" class="form-horizontal margin-top-30px">
+                <div class="form-group">
+                    <label for="principalId" class="col-sm-2 control-label">
+                        管理员编号
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required data-max-width="400"
+                               name="principalId" id="principalId" placeholder="请填写管理员编号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="principalJobNumber" class="col-sm-2 control-label">
+                        管理员工号
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required data-max-width="400"
+                               name="principalJobNumber" id="principalJobNumber" placeholder="请填写管理员工号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="principalName" class="col-sm-2 control-label">
+                        管理员姓名
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required data-max-width="400"
+                               name="principalName" id="principalName" placeholder="请填写管理员姓名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="principalPhone" class="col-sm-2 control-label">
+                        管理员电话
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required data-max-width="400"
+                               name="principalPhone" id="principalPhone" placeholder="请填写管理员电话">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">管理员密码</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required data-max-width="400"
+                               name="principalPwd" id="principalPwd" placeholder="请填写管理员密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="principalStatus" class="col-sm-2 control-label">
+                        管理员状态
+                    </label>
+                    <div class="col-sm-10">
+                        <select name="zy" id="principalStatus" class="form-control" data-max-width="400">
+                            <option value="0">正常</option>
+                            <option value="1">禁止使用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" data-min-width="400">
+                            立即添加
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div role="tabpanel" class="tab-pane padding-10px " id="Power">
+            <div class="list-group">
+                <a href="#" class="list-group-item ">
+                    <h5 class=" text-primary">学生管理权限</h5>
+                    <p class="list-group-item-text">
+                        此权限允许你增加学生或者删除学生信息,处理学生重考或者加入考试计划的申请 <span class=" font-weight-600">[每一个管理员用户默认拥有]</span>
+                    </p>
+                </a>
+                <a href="#" class="list-group-item ">
+                    <h5 class="text-primary">考试出题权限</h5>
+                    <p class="list-group-item-text padding-top-10px">
+                        能够配置各个模块的考试出题设置,设置通过分数,出题方式
+                    </p>
+                </a>
+                <a href="#" class="list-group-item ">
+                    <h5 class="text-primary">课程管理权限</h5>
+                    <p class="list-group-item-text padding-top-10px">
+                        添加/删除/修改 课程.添加/删除/修改 资源.安排各模块的课程
+                    </p>
+                </a>
+                <a href="#" class="list-group-item ">
+                    <h5 class="text-primary">题库管理权限</h5>
+                    <p class="list-group-item-text padding-top-10px">
+                        能够增加/删除题目,上传题目,查看题目使用信息
+                    </p>
+                </a>
+                <a href="#" class="list-group-item ">
+                    <h5 class="text-primary">信息管理权限</h5>
+                    <p class="list-group-item-text padding-top-10px">
+                        增删改 学院 增删改专业 增删改模块信息
+                    </p>
+                </a>
+                <a href="#" class="list-group-item ">
+                    <h5 class="text-primary">系统管理权限</h5>
+                    <p class="list-group-item-text padding-top-10px">
+                        能够配置管理员的权限
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<div class="modal fade" id="delete-dialog" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-size-15 font-weight-600 padding-top-10px text-info">
+                    <span class="glyphicon glyphicon-fire"></span>
+                    删除提示
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    你确定删除管理员吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary">
+                        <span class=" glyphicon glyphicon-trash "></span>
+                        立即删除
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                        <span class=" glyphicon glyphicon-bed "></span>
+                        稍后处理
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="update-dialog" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">修改管理员信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="layout-center margin-top-5px " data-width="380">
+                    <div class="form-group">
+                        <label for="adminName">管理员名称:</label> <label data-update-Id class="sr-only">1</label>
+                        <input type="text" name="adminName" class="form-control" placeholder="请输入名称" data-max-width="400">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminId">管理员工号:</label> <label data-update-Id class="sr-only">1</label>
+                        <input type="text" name="adminJobId" class="form-control" placeholder="请输入名称" data-max-width="400">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPhone">管理员电话:</label> <label data-update-Id class="sr-only">1</label>
+                        <input type="text" name="adminPhone" class="form-control" placeholder="请输入名称"
+                               data-max-width="400">
+                    </div>
+                    <button type="submit" class="btn btn-info margin-top-5px form-control" data-max-width="400">立即提交</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-ok-sign "></span>
+                    稍后处理
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="power-setting-dialog" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-size-15 font-weight-400 padding-top-10px text-primary">管理员权限配置</h4>
+            </div>
+            <div class="modal-body padding-5px">
+                <h5 class=" margin-top-5px border-little-grey-all padding-15px font-weight-600">
+                    <span>管理员编号： <span class="power-id">20020059</span> </span>
+                    <span class=" margin-left-15px">
+                        名称：
+                        <span class="power-name">樊向奎</span>
+                    </span>
+                </h5>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="StudentManager" name="StudentManager" />
+                        <label for="StudentManager" class="checkout-label"> 学生管理权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="ExamManager" name="ExamManager" />
+                        <label for="ExamManager" class="checkout-label"> 考试出题权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="CourcesManager" />
+                        <label for="CourcesManager" class="checkout-label"> 课程管理权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="QuestionBankManager" />
+                        <label for="QuestionBankManager" class="checkout-label"> 题库管理权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="SystemSettingManager" />
+                        <label for="SystemSettingManager" class="checkout-label"> 系统配置权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="SystemInfoManager" />
+                        <label for="SystemInfoManager" class="checkout-label"> 信息管理权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="SystemManager" />
+                        <label for="SystemManager" class="checkout-label"> 系统管理权限</label>
+                    </label>
+                </div>
+                <div class=" padding-10px">
+                    <label class="bootstrap-checkbox">
+                        <input type="checkbox" id="changeAdminStatus"/>
+                        <label for="changeAdminStatus" class="checkout-label"> 允许管理员登录</label>
+                    </label>
+                </div>
+                <div class=" text-center">
+                    <button class=" btn btn-sm btn-primary">
+                        <span class=" glyphicon glyphicon-upload "></span>
+                        保存设置
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-ok-sign "></span>
+                    稍后处理
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reset-dialog" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-size-15 font-weight-600 padding-top-10px text-info">
+                    <span class="glyphicon glyphicon-fire"></span>
+                    重置提示
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    你确定重置此管理员的密码为 <code>123456</code>吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary">
+                        <span class=" glyphicon glyphicon-trash "></span>
+                        立即重置
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                        <span class=" glyphicon glyphicon-bed "></span>
+                        稍后处理
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/validation/jquery.validate.min.js"></script>
+<script src="~/lib/validation/messages_zh.js"></script>
+<script src="~/lib/validation/additional-methods.min.js"></script>
+<script id="item-template" type="x-tmpl-mustache">
+    {{#items}}
+    <tr>
+        <td class="text-center">{{index}}</td>
+        <td>{{id}}</td>
+        <td>{{jobId}}</td>
+        <th>{{name}}</th>
+        <td>{{phone}}</td>
+        <td>{{status}}</td>
+        <td class=" text-right">
+            <button data-power-id="{{id}}" data-name="{{name}}"
+                    class="dialog-reset btn btn-primary btn-sm">
+                <span class=" glyphicon glyphicon-record  "></span>
+                重置密码
+            </button>
+            <button data-power-id="{{id}}" data-name="{{name}}"
+                    class="dialog-power btn btn-primary btn-sm">
+                <span class=" glyphicon glyphicon-trash "></span>
+                配置权限
+            </button>
+            <button data-power-id="{{id}}"
+                    class="dialog-delete btn btn-primary btn-sm">
+                <span class=" glyphicon glyphicon-trash "></span>
+                删除
+            </button>
+            <button data-power-id="{{id}}" data-name="{{name}}"
+                    class="dialog-update btn btn-default btn-sm">
+                <span class=" glyphicon glyphicon-cog "></span>
+                修改
+            </button>
+        </td>
+    </tr>
+    {{/items}}
+</script>
+
+
+@section Scripts{
+    <script>
+        function Power() {
+            this.StudentManager = true;
+            this.ExamManager = false;
+            this.CourcesManager = false;
+            this.QuestionBankManager = false;
+            this.SystemSettingManager = false;
+            this.SystemInfoManager = false;
+            this.SystemManager = false;
+        }
+
+        var power = null;
+
+        function stateManager() {
+            var pageIndex = parseInt($('.show-page-Index').text().trim()); //当前页
+            var pageCount = parseInt($('.show-page-Count').text().trim()); //总共多少页
+            if (pageIndex >= pageCount) {
+                $('.Next').prop("disabled", true);
+            } else {
+                $('.Next').prop("disabled", false);
+            }
+            if (pageIndex == 1) {
+                $('.Previous').prop("disabled", true);
+            } else {
+                $('.Previous').prop("disabled", false);
+            }
+        }
+
+        stateManager();
+
+        function loadPageByIndex(index) {
+            $.ajax({
+                url: "/Principal/Page",
+                type: "post",
+                dataType: "json",
+                data: {
+                    index: index,
+                    name: $('#List input[name="admin-name"]').val(),
+                    jobId: $('#List input[name="admin-jobId"]').val(),
+                    pid: $('#List input[name="admin-pid"]').val()
+                },
+                success: function(json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        //console.log(json);
+
+                        if (json.items == null) {
+                            $('.section-items').html("");
+                        } else {
+                            for (var i = 0; i < json.items.length; i++) {
+                                json.items[i].index = (i + 1);
+                            }
+
+                            var template = $('#item-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('.section-items').html(result);
+                        }
+
+
+                        $('.items-count').text(json.lineCount); //学院总数
+                        $('.show-page-Count').text(`${json.pageCount}`); //分页总数
+                        $('.show-page-Index').text(`${json.pageNowIndex}`); //当前页
+                        $('button[data-lastIndex]').attr("data-lastIndex", json.pageCount); //最后一页 的index
+
+
+                        $('select[data-options] > option').remove();
+                        for (let index_ = 0; index_ < json.pageCount; index_++) {
+                            $('select[data-options]').append(`<option value="${index_ + 1}">${index_ + 1}</option>`);
+                        }
+                        $('select[data-options]').val(index);
+                        stateManager();
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        }
+
+        $('.Next').click(function(jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
+        });
+
+        $('.First').click(function(jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.Previous').click(function(jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
+        });
+
+        $('.Last').click(function(jqEvent) {
+            loadPageByIndex($('button[data-lastIndex]').attr("data-lastIndex").trim());
+        });
+
+        $('button[data-skip]').click(function(jqEvent) {
+            var pageIndex = parseInt($('.show-page-Index').text().trim());
+            var skip = parseInt($('select[data-options]').val().trim());
+            if (skip === pageIndex) {
+                onMask("提示信息", "跳转页面为当前页面");
+            } else {
+                loadPageByIndex($('select[data-options]').val());
+            }            
+        });
+
+        $('#searchInstitute').click(function(jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.section-items').on('click',
+            '.dialog-update',
+            null,
+            function(jqEvent) {
+                $('#update-dialog label[data-update-Id]').attr("data-update-Id",$(this).attr("data-power-id"));
+                $('#update-dialog input[name="adminName"]').val($(this).attr("data-name"));
+                form.reset();
+                $('#update-dialog').modal('show');
+            }); 
+
+        $('.section-items').on('click',
+            '.dialog-delete',
+            null,
+            function(jqEvent) {
+                $('#delete-dialog button:eq(1)').attr("data-deleteId",$(this).attr("data-power-id"));
+                $('#delete-dialog').modal('show');
+
+
+            });
+
+        $('.section-items').on('click',
+            '.dialog-power',
+            null,
+            function (jqEvent) {
+                var id = $(this).attr("data-power-id").trim();
+
+                $.ajax({
+                    url: "/Principal/Power",
+                    type: "get",
+                    dataType: "json",
+                    data: {
+                        pId: id
+                    },
+                    success: function(json, textStatus, jqXhr) {
+                        if (json.isOk) {
+                            //console.log(json);
+                            $('#StudentManager').prop("checked", json.setting.power.studentManager);
+                            $('#ExamManager').prop("checked", json.setting.power.examManager);
+                            $('#CourcesManager').prop("checked", json.setting.power.courcesManager);
+                            $('#QuestionBankManager').prop("checked", json.setting.power.questionBankManager);
+                            $('#SystemSettingManager').prop("checked", json.setting.power.systemSettingManager);
+                            $('#SystemInfoManager').prop("checked", json.setting.power.systemInfoManager);
+                            $('#SystemManager').prop("checked", json.setting.power.systemManager);
+                            $('#SystemManager').prop("checked", json.setting.power.systemManager);
+                            $('#changeAdminStatus').prop("checked", json.status);
+                             
+                            $('#power-setting-dialog .power-name').text(json.name);
+                            $('#power-setting-dialog .power-id').text(json.setting.principalId);
+
+                            $('#power-setting-dialog button:eq(1)').attr("data-power-setting-Id", $(this).attr("data-power-id"));
+
+                            $('#power-setting-dialog').modal('show');
+                        } else {
+                            onMask("错误", json.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", "网络连接失败...");
+                    }
+                });
+
+
+            });
+
+        $('.section-items').on('click',
+            '.dialog-reset',
+            null,
+            function (jqEvent) {                
+
+                $('#reset-dialog button:eq(1)').attr("data-deleteId", $(this).attr("data-power-id"));
+                $('#reset-dialog').modal('show');
+            });
+        //delete
+        $('#delete-dialog button:eq(1)').click(function(jqEvent) {
+            var id = $(this).attr("data-deleteId").trim();
+            $.ajax({
+                url: "/Principal/Delete",
+                type: "post",
+                dataType: "json",
+                data: {
+                    pId: id
+                },
+                success: function(json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        $('#delete-dialog').modal('hide');
+                        loadPageByIndex(1);
+                        onMask("提示信息", json.message);
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络连接失败...");
+                }
+            });
+        });
+        //reset
+        $('#reset-dialog button:eq(1)').click(function(jqEvent) {
+            var id = $(this).attr("data-deleteId").trim();
+            $.ajax({
+                url: "/Principal/Reset",
+                type: "post",
+                dataType: "json",
+                data: {
+                    pId: id
+                },
+                success: function(json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        $('#reset-dialog').modal('hide');
+                        onMask("提示信息", json.message);
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络连接失败...");
+                }
+            });
+        });
+
+        $('#power-setting-dialog button:eq(1)').click(function(jqEvent) {
+            var id = $('#power-setting-dialog .power-id').text().trim();
+            power = new Power();
+            power.StudentManager = $('#StudentManager').prop("checked");
+            power.ExamManager = $('#ExamManager').prop("checked");
+            power.CourcesManager = $('#CourcesManager').prop("checked");
+            power.QuestionBankManager = $('#QuestionBankManager').prop("checked");
+            power.SystemSettingManager = $('#SystemSettingManager').prop("checked");
+            power.SystemInfoManager = $('#SystemInfoManager').prop("checked");
+            power.SystemManager = $('#SystemManager').prop("checked");
+
+            var status = $('#changeAdminStatus').prop("checked");
+
+            $.ajax({
+                url: "/Principal/Setting",
+                type: "post",
+                dataType: "json",
+                data: {
+                    pId: id,
+                    powerString: JSON.stringify(power),
+                    status: status
+            },
+                success: function(json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        $('#power-setting-dialog').modal('hide');
+                        onMask("提示信息", json.message);
+                        loadPageByIndex(1);
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络连接失败...");
+                }
+            });
+
+        });
+
+        $("#update-dialog form").validate({
+            //错误提示信息
+            messages: {
+                adminName: {
+                    required: "管理员名称不能为空",
+                    maxlength: "最大长度为{0}"
+                },
+                adminJobId: {
+                    required: "管理员工号不能为空",
+                    maxlength: "最大长度为{0}"
+                },
+                adminPhone: {
+                    required: "管理员电话不能为空",
+                    maxlength: "最大长度为{0}"
+                }
+            },
+            //验证规则
+            rules: {
+                //使用空间 name 名称
+                adminName: {
+                    required: true,
+                    maxlength: 40
+                },
+                adminJobId: {
+                    required: true,
+                    maxlength: 20
+                },
+                adminPhone: {
+                    required: true,
+                    maxlength: 20
+                }
+            },
+            errorClass: "text-primary",
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/Principal/Update",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        pId: $("#update-dialog form label[data-update-Id]").attr("data-update-Id").trim(),
+                        jobId: $("#update-dialog form input[name='adminJobId']").val(),
+                        name: $("#update-dialog form input[name='adminName']").val(),
+                        phone: $("#update-dialog form input[name='adminPhone']").val()
+                    },
+                    success: function(json, textStatus, jqXhr) {
+                        if (json.isOk) {
+                            
+                            $('#update-dialog').modal('hide');
+                            loadPageByIndex(1);
+                            onMask("提示信息", json.message);
+                        } else {
+                            onMask("错误", json.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", "网络连接失败...");
+                    }
+                });
+            }
+        });
+
+        $("#addPrincipal").validate({
+            //错误提示信息
+            messages: {
+                principalId: {
+                    required: "管理员编号不能为空",
+                    maxlength: "最大长度为{0}"
+                },
+                principalJobNumber: {
+                    required: "管理员工号不能为空",
+                    maxlength: "最大长度为{0}"
+                },
+                principalName: {
+                    required: "管理员名称不能为空",
+                    maxlength: "最大长度为{0}"
+                },
+                principalPhone: {
+                    required: "管理员电话不能为空",
+                    maxlength: "最大长度为{0}"
+                },
+                principalPwd: {
+                    required: "管理员密码不能为空",
+                    maxlength: "最大长度为{0}",
+                    minlength: "最小长度为{0}"
+                }
+
+            },
+            //验证规则
+            rules: {
+                //使用空间 name 名称
+                principalId: {
+                    required: true,
+                    maxlength: 40
+                },
+                principalJobNumber: {
+                    required: true,
+                    maxlength: 30
+                },
+                principalName: {
+                    required: true,
+                    maxlength: 20
+                },
+                principalPhone: {
+                    required: true,
+                    maxlength: 20
+                },
+                principalPwd: {
+                    required: true,
+                    maxlength: 20,
+                    minlength: 6
+                }
+            },
+            errorClass: "text-primary",
+            submitHandler: function(form) {
+                $.ajax({
+                    url: "/Principal/Create",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        id: $("form input[name='principalId']").val(),
+                        jobId: $("form input[name='principalJobNumber']").val(),
+                        name: $("form input[name='principalName']").val(),
+                        phone: $("form input[name='principalPhone']").val(),
+                        pwd: $("form input[name='principalPwd']").val()
+                    },
+                    success: function(json, textStatus, jqXhr) {
+                        if (json.isOk) {
+                            form.reset();
+                            loadPageByIndex(1);
+                            onMask("提示信息", json.message);
+                        } else {
+                            onMask("错误", json.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", "网络连接失败...");
+                    }
+                });
+            }
+        });
+    </script>
+}
 
