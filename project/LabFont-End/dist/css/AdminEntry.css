@@ -1752,6 +1752,45 @@ input[type="checkbox"]:hover + label::before {
   }
 }
 
+.radio-reload {
+  position: relative;
+  line-height: 30px;
+}
+
+.radio-reload input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+}
+
+.radio-reload label {
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1px solid #999;
+}
+
+.radio-reload input:checked + label {
+  background-color: #349EDF;
+  border: 1px solid #349EDF;
+}
+
+.radio-reload input:checked + label::after {
+  position: absolute;
+  content: "";
+  width: 5px;
+  height: 10px;
+  top: 0px;
+  left: 6px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
 .admin-navbar {
   padding-left: 45px;
   list-style: none;

@@ -14,7 +14,7 @@
     <script src="../lib/validation/jquery.validate.min.js"></script>
     <script src="../lib/validation/messages_zh.js"></script>
     <script src="../lib/validation/additional-methods.min.js"></script>
-    <title>实验室安全教育在线-添加学生</title>
+    <title>实验室安全教育在线-出题设置</title>
 </head>
 
 <body class=" bc-clr-grey-little">
@@ -185,426 +185,170 @@
                 </div>
             </div>
             <div class="margin-10px bc-clr-defalut">
-                <div class=" margin-5px bc-clr-white padding-10px  border-little-grey-all" data-height-all>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#List" aria-controls="home" role="tab" data-toggle="tab">
-                                管理员列表
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#Add" aria-controls="profile" role="tab" data-toggle="tab">
-                                添加管理员</a>
-                        </li>
-                        <li role="presentation"><a href="#Power" aria-controls="profile" role="tab" data-toggle="tab">
-                                管理员权限细则</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="List">
-                            <div class="float-layout margin-bottom-10px padding-10px margin-top-10px border-little-grey-all">
-                                <label class=" font-size-13 font-weight-400 margin-left-10px ">管理员名称:</label>
-                                <input type="text" list="InstituteName" class="border-radius-4 padding-left-10px"
-                                    data-width="200" data-height="25" />
-                                <datalist id="InstituteName" class="border-radius-4 padding-left-10px" data-width="200"
-                                    data-height="25">
-
-                                </datalist>
-                                <label class=" font-size-13 font-weight-400  margin-left-10px">工号:</label>
-                                <select name="module" id="module" class="border-radius-4 padding-left-10px select-layout"
-                                    data-width="200" data-height="28">
-
-                                </select>
-                                <button class=" float-right btn btn-primary btn-sm margin-left-10px">
-                                    <span class=" glyphicon glyphicon-search"></span>
-                                    立即查询</button>
+                <div class=" margin-5px bc-clr-white padding-10px  border-little-grey-all" data-min-width="900" data-height-all>
+                    <h4 class=" border-light-down font-size-15 font-weight-700 padding-bottom-10px ">
+                        <span class=" glyphicon glyphicon-cog"></span> 考试出题设置
+                    </h4>
+                    <div class=" margin-top-10px">
+                        <div class="btn-group btn-group-justified" role="group" >
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    其他理工类</button>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover" data-min-width="700">
-                                    <thead>
-                                        <tr>
-                                            <th class=" text-center">编号</th>
-                                            <th>管理员ID</th>
-                                            <th>工号</th>
-                                            <th>名称</th>
-                                            <th>电话</th>
-                                            <th>状态</th>
-                                            <th class=" text-right">
-                                                操作
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td>20020059</td>
-                                            <td>20020059</td>
-                                            <th>樊向奎</th>
-                                            <td>15982690985</td>
-                                            <td>正常</td>
-                                            <td class=" text-right">
-                                                <button data-toggle="modal" class=" btn btn-primary btn-sm">
-                                                    <span class=" glyphicon glyphicon-trash "></span>
-                                                    配置权限</button>
-                                                <button data-toggle="modal" class=" btn btn-primary btn-sm">
-                                                    <span class=" glyphicon glyphicon-trash "></span>
-                                                    删除</button>
-                                                <button data-toggle="modal" class=" btn btn-default btn-sm">
-                                                    <span class=" glyphicon glyphicon-cog "></span>
-                                                    修改</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class=" text-center">
-                                    <div class=" float-layout bc-clr-white padding-10px ">
-                                        <label class=" float-left">
-                                            共 <span>78</span>个管理员
-                                        </label>
-                                        <div class=" float-right">
-                                            <button class=" btn-default btn btn-sm ">
-                                                <span>第</span>
-                                                <span class="page-Index">
-                                                    1
-                                                </span>
-                                                <span>
-                                                    /
-                                                </span>
-                                                <span class="page-count">
-                                                    12
-                                                </span>
-                                                <span>
-                                                    页
-                                                </span>
-                                            </button>
-                                            <button class="Frist btn btn-success btn-sm"> <span class="glyphicon glyphicon-backward"></span>
-                                                </span> 首页</button>
-                                            <button class="Previous btn btn-success btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span>
-                                                上一页</button>
-                                            <button class="Next btn btn-success btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span>
-                                            </button>
-                                            <button class="Last btn btn-success btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span>
-                                            </button>
-                                            <select class=" margin-left-10px" data-height="27" data-width="45">
-
-                                            </select>
-                                            <button data-skip="true" class=" btn btn-sm btn-primary">跳转</button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-cog" ></span>
+                                    化学生物类</button>
                             </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane " id="Add">
-                                <form id="addPrincipal" class="form-horizontal margin-top-30px">
-                                    <div class="form-group">
-                                        <label for="principalId" class="col-sm-2 control-label">
-                                            管理员编号
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input type="text"  class="form-control" required data-max-width="400"
-                                               name="principalId"   id="principalId" placeholder="请填写管理员编号">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="principalJobNumber" class="col-sm-2 control-label">
-                                            管理员工号
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" required data-max-width="400"
-                                              name="principalJobNumber"  id="principalJobNumber" placeholder="请填写管理员工号">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="principalName" class="col-sm-2 control-label">
-                                            管理员姓名
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" required data-max-width="400"
-                                            name="principalName" id="principalName" placeholder="请填写管理员姓名">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">管理员密码</label>
-                                        <div class="col-sm-10">
-                                            <input type="text"  class="form-control" required data-max-width="400"
-                                            name="principalPwd"  id="principalPwd" placeholder="请填写管理员密码">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="principalPhone" class="col-sm-2 control-label">
-                                            管理员电话</label>
-                                        <div class="col-sm-10">
-                                            <input type="text"  class="form-control" required data-max-width="400"
-                                           name="principalPhone"  id="principalPhone" placeholder="请填写管理员电话">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="principalStatus" class="col-sm-2 control-label">
-                                            管理员状态</label>
-                                        <div class="col-sm-10">
-                                            <select name="zy" id="principalStatus" class="form-control" data-max-width="400">
-                                                <option value="0">正常</option>
-                                                <option value="1">禁止使用</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary" data-min-width="400">
-                                                 <span class="glyphicon glyphicon-send"></span>
-                                                立即添加 </button>
-                                        </div>
-                                    </div>
-                                </form>
-                        </div>
-                        <div role="tabpanel" class="tab-pane padding-10px " id="Power">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item ">
-                                    <h5 class=" text-primary">学生管理权限</h5>
-                                    <p class="list-group-item-text">
-                                        此权限允许你增加学生或者删除学生信息,处理学生重考或者加入考试计划的申请 <span class=" font-weight-600">[每一个管理员用户默认拥有]</span>
-                                    </p>
-                                </a>
-                                <a href="#" class="list-group-item ">
-                                    <h5 class="text-primary">考试出题权限</h5>
-                                    <p class="list-group-item-text padding-top-10px">
-                                        能够配置各个模块的考试出题设置,设置通过分数,出题方式
-                                    </p>
-                                </a>
-                                <a href="#" class="list-group-item ">
-                                    <h5 class="text-primary">课程管理权限</h5>
-                                    <p class="list-group-item-text padding-top-10px">
-                                        添加/删除/修改 课程.添加/删除/修改 资源.安排各模块的课程
-                                    </p>
-                                </a>
-                                <a href="#" class="list-group-item ">
-                                    <h5 class="text-primary">题库管理权限</h5>
-                                    <p class="list-group-item-text padding-top-10px">
-                                        能够增加/删除题目,上传题目,查看题目使用信息
-                                    </p>
-                                </a>
-                                <a href="#" class="list-group-item ">
-                                    <h5 class="text-primary">信息管理权限</h5>
-                                    <p class="list-group-item-text padding-top-10px">
-                                        增删改 学院 增删改专业 增删改模块信息
-                                    </p>
-                                </a>
-                                <a href="#" class="list-group-item ">
-                                    <h5 class="text-primary">系统管理权限</h5>
-                                    <p class="list-group-item-text padding-top-10px">
-                                        能够配置管理员的权限
-                                    </p>
-                                </a>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    文史艺体类</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    物理信息模块</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    文史艺体（影传专用课）</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                    文史艺体（国教必修补充）</button>
                             </div>
                         </div>
                     </div>
+                    <div class=" margin-top-10px padding-10px">
+                        <div >
+                            <span class=" font-weight-400 font-size-14 label label-primary" >当前选择模块：</span> 
+                            <input type="text" name="moduleName"  disabled
+                            value="物理信息模块"
+                            id="moduleName" class=" border-down-only no-focus">
+                            <span class="margin-left-60px font-weight-400 font-size-14 label label-primary">当前模块编号:</span>
+                            <input type="text" name="moduleName" 
+                            value="123456" disabled
+                            id="moduleName" class=" border-down-only no-focus">
+                        </div>
+                        <div class=" margin-top-20px">
+                            <span class=" glyphicon glyphicon-calendar "></span>
+                            <span class=" font-weight-600  text-primary ">最大考试次数:</span>
+                            <input type="text" name="AllowMaxtimes" 
+                            value="2"
+                            id="AllowMaxtimes" class=" text-center border-radius-6 ">
+                            <label for="">次</label>
+                        </div>
+                        <div class=" margin-top-20px">
+                            <span class="glyphicon glyphicon-saved "></span>
+                            <span class=" font-weight-600  text-primary ">学生考试时间:</span>
+                            <input type="text" name="ExamTimes" 
+                            value="2"
+                            id="ExamTimes" class=" text-center border-radius-6 ">
+                            <label for="">分钟</label>
+                        </div>
+                        <div class=" margin-top-40px">
+                            <h4 class=" border-light-down font-size-14 font-weight-700 padding-bottom-10px ">
+                                <span class="glyphicon glyphicon-scissors"></span> 题目设置
+                                <span class="totalScore">0 分</span>
+                            </h4>
+                        </div>
+                        <div class=" margin-top-20px">
+                            <span class=" font-weight-700 font-size-14 margin-left-20px" >单选题数量:</span> 
+                            <input type="number" name="singleCount" 
+                            value="物理信息模块"
+                            id="singleCount"  class="margin-left-10px  border-radius-6 padding-left-10px " data-width="240" data-height="27">
+                            <span class=" font-weight-700 font-size-14 margin-left-40px">单个题目分数:</span>
+                            <input type="number" name="singleScore" 
+                            value=""
+                            id="singleScore"  class="margin-left-10px  border-radius-6 padding-left-10px " data-width="240" data-height="27">
+                        </div>
+                        <div class=" margin-top-20px">
+                            <span class=" font-weight-700 font-size-14 margin-left-20px" >多选题数量:</span> 
+                            <input type="number" name="MultipleCount" 
+                            value="物理信息模块"
+                            id="MultipleCount" class="margin-left-10px  border-radius-6 padding-left-10px " data-width="240" data-height="27">
+                            <span class=" font-weight-700 font-size-14 margin-left-40px">单个题目分数:</span>
+                            <input type="number" name="MultipleScore" 
+                            value=""
+                            id="MultipleScore" class="margin-left-10px  border-radius-6 padding-left-10px " data-width="240" data-height="27">
+                        </div>
+                        <div class=" margin-top-20px">
+                            <span class=" font-weight-700 font-size-14 margin-left-20px" >判断题数量:</span> 
+                            <input type="number" name="JudgeCount" 
+                            value="物理信息模块"
+                            id="JudgeCount" class="margin-left-10px  border-radius-6 padding-left-10px " data-width="240" data-height="27">
+                            <span class=" font-weight-700 font-size-14 margin-left-40px">单个题目分数:</span>
+                            <input type="number" name="JudgeScore" 
+                            value=""
+                            id="JudgeScore" class="margin-left-10px  border-radius-6 padding-left-10px " data-width="240" data-height="27">
+                        </div>
+                        <div class=" margin-top-20px">
+                            <span class=" glyphicon glyphicon-signal"></span>
+                            <span class=" font-weight-600  text-primary ">考试通过分数:</span>
+                            <input type="number" name="AllowMaxtimes" 
+                            value="2"
+                            id="AllowMaxtimes" class=" text-center border-down-only no-focus">
+                            <label for="">分</label>
+                        </div>
+                        <div class=" margin-top-40px">
+                            <h4 class=" border-light-down font-size-14 font-weight-700 padding-bottom-10px ">
+                                <span class="glyphicon glyphicon-tags"></span> 题目设置保存按钮
+                            </h4>
+                        </div>
+                        <div class=" margin-top-20px">
+                            <button class=" btn btn-sm btn-success">
+                                <span class="glyphicon glyphicon-send "></span>
+                                恢复默认设置
+                            </button>
+                            <button class=" btn btn-sm btn-primary margin-left-30px">
+                                <span class=" glyphicon glyphicon-fire "></span>
+                                立即保存设置
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="User-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">紧急信息</h4>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <span class=" font-size-14 text-muted text-danger">
-                                1. 系统异常情况 今天发生异常
-                                <b class=" font-weight-600 font-color-white padding-left-5px padding-right-5px bc-clr-danger ">3</b>
-                                起 请联系技术人员 查看日志系统进行排查
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="User-danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生申请</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="list-group">
-                        <ul class="list-group">
-                            <li class="list-group-item float-layout">
-                                <div class=" float-left">
-                                    当前有 <b class=" text-warning">3</b> 同学申请重新考试,请求老师批准
-                                </div>
-                                <div class=" float-right">
-                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">
-                                        立即查看
-                                    </a>
-                                </div>
 
-                            </li>
-                            <li class="list-group-item float-layout ">
-                                <div class=" float-left">
-                                    新增尚未浏览的建议或投诉信息 <b class=" text-warning">3</b> 条
-                                </div>
-                                <div class=" float-right">
-                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">立即查看 </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="delete-dialog" role="dialog" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-size-15 font-weight-600 padding-top-10px text-info">
-                        <span class="glyphicon glyphicon-fire"></span>
-                        删除提示</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="list-group">
-                        你确定删除管理员吗？
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <span class=" glyphicon glyphicon-trash "></span>
-                            稍后处理</button>
-                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-                            <span class=" glyphicon glyphicon-bed "></span>
-                            稍后处理</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="update-dialog" role="dialog" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">修改管理员信息</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="layout-center margin-top-5px " data-width="380">
-                        <div class="form-group">
-                            <label for="name">管理员名称:</label> <label data-update-Id class="sr-only">1</label>
-                            <input type="text" name="adminName" class="form-control" placeholder="请输入名称" data-max-width="400">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">管理员工号:</label> <label data-update-Id class="sr-only">1</label>
-                            <input type="text" name="adminId" class="form-control" placeholder="请输入名称" data-max-width="400">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">管理员电话:</label> <label data-update-Id class="sr-only">1</label>
-                            <input type="text" name="adminPhone" class="form-control" placeholder="请输入名称"
-                                data-max-width="400">
-                        </div>
-                        <button type="submit" class="btn btn-info margin-top-5px form-control" data-max-width="400">立即提交</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">
-                        <span class="glyphicon glyphicon-ok-sign "></span>
-                        稍后处理</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="power-setting-dialog" role="dialog" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-size-15 font-weight-400 padding-top-10px text-primary">管理员权限配置</h4>
-                </div>
-                <div class="modal-body padding-5px">
-                    <h5 class=" margin-top-5px border-little-grey-all padding-15px font-weight-600">
-                        <span>管理员编号： <span class="power-id">20020059</span> </span>
-                        <span class=" margin-left-15px">名称：
-                            <span class="power-name">樊向奎</span>
-                        </span>
-                    </h5>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="StudentManager" checked="true" />
-                            <label for="StudentManager" class="checkout-label"> 学生管理权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="ExamManager" />
-                            <label for="ExamManager" class="checkout-label"> 考试出题权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="CourcesManager" />
-                            <label for="CourcesManager" class="checkout-label"> 课程管理权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="QuestionBankManager" />
-                            <label for="QuestionBankManager" class="checkout-label"> 题库管理权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="SystemSettingManager" />
-                            <label for="SystemSettingManager" class="checkout-label"> 系统配置权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="SystemInfoManager" />
-                            <label for="SystemInfoManager" class="checkout-label"> 信息管理权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <label class="bootstrap-checkbox">
-                            <input type="checkbox" id="SystemManager" />
-                            <label for="SystemManager" class="checkout-label"> 系统管理权限</label>
-                        </label>
-                    </div>
-                    <div class=" padding-10px">
-                        <button class=" btn btn-default btn-sm letter-space-2 " data-min-width="100">
-                            <span class=" glyphicon glyphicon-bold "></span>
-                            禁止登陆</button>
-                        <button class=" btn btn-default btn-sm letter-space-2 " data-min-width="100">
-                            <span class=" glyphicon glyphicon-bold "></span>
-                            允许登陆</button>
-                    </div>
-                    <div class=" text-center">
-                        <button class=" btn btn-sm btn-primary">
-                            <span class=" glyphicon glyphicon-upload "></span>
-                            保存设置 </button>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <span class="glyphicon glyphicon-ok-sign "></span>
-                        稍后处理</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </body>
 <script src="../lib/validation/jquery.validate.min.js"></script>
 <script src="../lib/validation/messages_zh.js"></script>
 <script src="../lib/validation/additional-methods.min.js"></script>
 <script>
+
+    $('.btn-group-justified').on('click',"button",null,function(jqEvent){
+        $('.btn-group-justified .btn-primary').removeClass("btn-primary");
+        $(this).addClass('btn-primary');
+    });
+
+
+    $('input').keypress(function(jqevent) {
+        total();
+    });
+
+    $('input').keyup(function(jqevent) {
+        total();
+    });
+
+    function total() {
+        var judgeCount = parseInt($('#JudgeCount').val() == ""? 0:$('#JudgeCount').val() );
+        var judgeScore = parseInt($('#JudgeScore').val() == ""? 0:$('#JudgeScore').val() );
+        var multipleCount = parseInt($('#MultipleCount').val() == ""? 0:$('#MultipleCount').val());
+        var multipleScore = parseInt($('#MultipleScore').val() == ""? 0:$('#MultipleScore').val());
+        var singleCount = parseInt($('#singleCount').val()==""?0:$('#singleCount').val());
+        var singleScore = parseInt($('#singleScore').val()==""?0:$('#singleScore').val());
+        
+        var totalScore = judgeCount * judgeScore + multipleScore * multipleCount + singleCount * singleScore;
+        $('.totalScore').text(`当前总分：${totalScore}分`);
+        return totalScore;
+    };
+
     //$('#update-dialog').modal('show');
     /* update-dialog */
     $("#update-dialog form").validate({

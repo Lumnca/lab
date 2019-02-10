@@ -72,7 +72,7 @@ using LabExam.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(109, 63, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "af4a4686915849759aaac0eb5ce08b75", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee5e690558ba4d2b9910e03c774cc24a", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -90,7 +90,7 @@ using LabExam.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(174, 55, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "376e30b32bbf432eb9de9d772385752f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "14eba0486901423b9733783a22b42deb", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -222,7 +222,7 @@ using LabExam.Models;
                 ");
             EndContext();
             BeginContext(6029, 1604, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25913f6a511f4a80a17b0a6f19211ebe", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c6bbc2c60a62400192106633f61b8ac9", async() => {
                 BeginContext(6135, 1491, true);
                 WriteLiteral(@"
                     <div class="" padding-left-20px margin-bottom-10px"">

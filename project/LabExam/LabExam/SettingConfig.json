@@ -1,60 +1,122 @@
-﻿{
-  "staffs": [
+{
+  "Staffs": [
     {
-      "name": "蒋星",
-      "phone": "15982690985",
-      "qq": "1427035242"
+      "Name": "蒋星",
+      "Phone": "15982690985",
+      "QQ": "1427035242"
     },
     {
-      "name": "刘闽川",
-      "phone": "17721953180",
-      "qq": "1944731504"
+      "Name": "刘闽川",
+      "Phone": "17721953180",
+      "QQ": "1944731504"
     }
   ],
-  "loginSetting": {
-    "studentLogim": true,
-    "principalLogin": true,
-    "isOpenExam": true,
-    "allowPastJoinExam": true
+  "LoginSetting": {
+    "StudentLogim": true,
+    "PrincipalLogin": true,
+    "IsOpenExam": true,
+    "AllowPastJoinExam": true
   },
-  "version": "2019.2.00.00.12",
-  "examModuleSettings": {
+  "Version": "2019.2.00.00.12",
+  "ExamModuleSettings": {
     "1": {
-      "moduleId": 1,
-      "moduleName": "其他理工类",
-      "passFloat": 60,
-      "examTime": 100,
-      "totolScore": 100,
-      "single": {
-        "count": 30,
-        "score": 1
+      "AllowExamTime": 3,
+      "ModuleId": 1,
+      "ModuleName": "其他理工类",
+      "PassFloat": 60.0,
+      "ExamTime": 100.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 20,
+        "Score": 1.0
       },
-      "multiple": {
-        "count": 20,
-        "score": 2
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
       },
-      "judge": {
-        "count": 20,
-        "score": 1
+      "Judge": {
+        "Count": 40,
+        "Score": 1.0
       }
     },
     "2": {
-      "moduleId": 2,
-      "moduleName": "化学生物类",
-      "passFloat": 60,
-      "examTime": 100,
-      "totolScore": 100,
-      "single": {
-        "count": 30,
-        "score": 1
+      "AllowExamTime": 3,
+      "ModuleId": 2,
+      "ModuleName": "化学生物类",
+      "PassFloat": 60.0,
+      "ExamTime": 100.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
       },
-      "multiple": {
-        "count": 20,
-        "score": 2
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
       },
-      "judge": {
-        "count": 20,
-        "score": 1
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "3": {
+      "AllowExamTime": 3,
+      "ModuleId": 3,
+      "ModuleName": "文史艺体类",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "4": {
+      "AllowExamTime": 3,
+      "ModuleId": 4,
+      "ModuleName": "物理信息类",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "5": {
+      "AllowExamTime": 3,
+      "ModuleId": 5,
+      "ModuleName": "文史艺体（影传专用课）",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
       }
     }
   }

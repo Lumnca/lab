@@ -76,7 +76,7 @@ using LabExam.Models;
 #line default
 #line hidden
             BeginContext(101, 39, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b0157823b99c4fedb5181ecd9672ea3f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d96561aab93e461e91e20a97dae6ce27", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -104,7 +104,7 @@ using LabExam.Models;
             ");
             EndContext();
             BeginContext(705, 158, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c3765387a984083ad45b91b86958e00", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "68e75a4fc73144dea1b3d6fff0209969", async() => {
                 BeginContext(777, 82, true);
                 WriteLiteral("\r\n                <span class=\" text-primary font-weight-700\">SICNU 实验室安全教育</span>");
                 EndContext();
@@ -129,7 +129,7 @@ using LabExam.Models;
             WriteLiteral("\r\n        </div>\r\n        <div class=\"collapse navbar-collapse \" id=\"example-navbar-collapse\">\r\n            <ul class=\"nav navbar-nav \">\r\n                <li role=\"presentation\">");
             EndContext();
             BeginContext(1041, 121, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "76e9661b2997490aa6b40e2ff6f861e5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b8dfab09d8e94d3ab522cdfcba0ba06f", async() => {
                 BeginContext(1100, 58, true);
                 WriteLiteral(" <span class=\" text-primary font-weight-500 \">系统公告</span> ");
                 EndContext();
@@ -153,7 +153,7 @@ using LabExam.Models;
             WriteLiteral("</li>\r\n                <li role=\"presentation\">");
             EndContext();
             BeginContext(1209, 109, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2c78789ccbbe4d9fa2df8e5275db5279", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9ddb921c3c1b491e8129f2eace3b5f40", async() => {
                 BeginContext(1258, 56, true);
                 WriteLiteral("<span class=\" text-primary font-weight-500 \">使用帮助</span>");
                 EndContext();
@@ -177,7 +177,7 @@ using LabExam.Models;
             WriteLiteral("</li>\r\n                <li role=\"presentation\">");
             EndContext();
             BeginContext(1365, 109, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ec96acbff86446018768a60e0be9d2e3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4351b14e269447cf90d89f0001d66ed6", async() => {
                 BeginContext(1412, 58, true);
                 WriteLiteral("<span class=\" text-primary font-weight-500 \">申请加入考试</span>");
                 EndContext();
@@ -201,7 +201,7 @@ using LabExam.Models;
             WriteLiteral("</li>\r\n                <li role=\"presentation\"><a href=\"#\"><span class=\" text-primary font-weight-500 \">密码修改</span></a></li>\r\n                <li role=\"presentation\">");
             EndContext();
             BeginContext(1640, 108, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d69abc41ecdb408697147f0c2f1b6e29", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7a77b8dfc2234fb381640eeb265aa1c5", async() => {
                 BeginContext(1688, 56, true);
                 WriteLiteral("<span class=\" text-primary font-weight-500 \">用户登录</span>");
                 EndContext();
@@ -233,7 +233,7 @@ using LabExam.Models;
         ");
             EndContext();
             BeginContext(2056, 2374, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c38238c09b6344a285f92015b2003b8a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e73273764ff44c2b8f31757a18db2f55", async() => {
                 BeginContext(2187, 14, true);
                 WriteLiteral("\r\n            ");
                 EndContext();

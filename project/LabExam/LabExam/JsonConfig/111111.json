@@ -2,12 +2,12 @@
   "PrincipalId": "111111",
   "Power": {
     "StudentManager": true,
-    "ExamManager": false,
-    "CourcesManager": false,
-    "QuestionBankManager": false,
-    "SystemSettingManager": false,
-    "SystemInfoManager": false,
-    "SystemManager": false
+    "ExamManager": true,
+    "CourcesManager": true,
+    "QuestionBankManager": true,
+    "SystemSettingManager": true,
+    "SystemInfoManager": true,
+    "SystemManager": true
   },
-  "SettingTime": "2019-02-08T20:11:18.4635989+08:00"
+  "SettingTime": "2019-02-10T19:00:36.2268545+08:00"
 }

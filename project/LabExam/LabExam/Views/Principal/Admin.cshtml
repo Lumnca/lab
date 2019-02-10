@@ -581,7 +581,6 @@
             function(jqEvent) {
                 $('#update-dialog label[data-update-Id]').attr("data-update-Id",$(this).attr("data-power-id"));
                 $('#update-dialog input[name="adminName"]').val($(this).attr("data-name"));
-                form.reset();
                 $('#update-dialog').modal('show');
             }); 
 
@@ -779,7 +778,7 @@
                     },
                     success: function(json, textStatus, jqXhr) {
                         if (json.isOk) {
-                            
+                            form.reset();
                             $('#update-dialog').modal('hide');
                             loadPageByIndex(1);
                             onMask("提示信息", json.message);
