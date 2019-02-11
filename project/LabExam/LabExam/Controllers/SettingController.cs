@@ -1,17 +1,15 @@
-﻿using System;
+﻿using LabExam.DataSource;
+using LabExam.Models.Entities;
+using LabExam.Models.JsonModel;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using LabExam.DataSource;
 using LabExam.IServices;
-using LabExam.Models.Entities;
-using LabExam.Models.JsonModel;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,11 +19,13 @@ namespace LabExam.Controllers
     {
         private readonly IHostingEnvironment _hosting;
         private readonly LabContext _context;
+        private readonly ILoadConfigFileService _config;
 
-        public SettingController(LabContext context, IHostingEnvironment hosting)
+        public SettingController(LabContext context, IHostingEnvironment hosting, ILoadConfigFileService config)
         {
             _context = context;
             _hosting = hosting;
+            _config = config;
         }
 
         // GET: /<controller>/
@@ -61,14 +61,13 @@ namespace LabExam.Controllers
                             {
                                 String json = reader.ReadToEnd();
                                 SystemSetting setting = JsonConvert.DeserializeObject<SystemSetting>(json);
-                                ModuleExamSetting moduleSetting = null;
-                                Boolean isOk = setting.ExamModuleSettings.TryGetValue(moduleId,out moduleSetting);
+                                Boolean isOk = setting.ExamModuleSettings.TryGetValue(moduleId,out var _moduleSetting);
 
                                 if (isOk == true)
                                 {
                                     return Json(new
                                     {
-                                        moduleSetting = moduleSetting,
+                                        moduleSetting = _moduleSetting,
                                         isOk = true,
                                         title = "提示",
                                         message = "加载成功！"
@@ -140,22 +139,9 @@ namespace LabExam.Controllers
                     {
                         ModuleExamSetting setting = JsonConvert.DeserializeObject<ModuleExamSetting>(data);
                         setting.ModuleName = module.Name;
-
-                        var stream = new FileStream(Path.GetFullPath($@"{_hosting.ContentRootPath}/SettingConfig.json"),FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-                        StreamReader reader = new StreamReader(stream);
-                        SystemSetting systemSetting =
-                            JsonConvert.DeserializeObject<SystemSetting>(reader.ReadToEnd());
-
+                        SystemSetting systemSetting = _config.LoadSystemSetting();
                         systemSetting.ExamModuleSettings[setting.ModuleId] = setting;
-
-                        reader.Close();
-                        reader.Dispose();
-                        stream.Close();
-                        stream.Dispose();
-
-                        System.IO.File.WriteAllText(
-                            Path.GetFullPath($@"{_hosting.ContentRootPath}/SettingConfig.json"),
-                            JsonConvert.SerializeObject(systemSetting,Formatting.Indented));
+                        _config.ReWriteSystemSetting(systemSetting);
 
                         return Json(new
                         {
@@ -163,7 +149,6 @@ namespace LabExam.Controllers
                             title = "提示！",
                             message = "更新成功！"
                         });
-
                     }
                     catch (Exception e)
                     {
@@ -182,5 +167,65 @@ namespace LabExam.Controllers
                 });
             }
         }
+
+        public IActionResult Sys()
+        {
+            return View();
+        }
+
+        public IActionResult Reload()
+        {
+            try
+            {
+                SystemSetting systemSetting = _config.LoadSystemSetting();
+                List<int> keys = new List<int>();
+
+                foreach (var pair in systemSetting.ExamModuleSettings)
+                {
+                    int moduleKey = pair.Key;
+                    if (!_context.Modules.Any(m => m.ModuleId == moduleKey))
+                    {
+                        keys.Add(moduleKey);
+                    }
+                }
+                foreach (var key in keys)
+                {
+                    systemSetting.ExamModuleSettings.Remove(key);
+                }
+
+                _config.ReWriteSystemSetting(systemSetting);
+
+                return Json(new
+                {
+                    isOk = true,
+                    title = "提示！",
+                    message = "配置文件检查完毕！非常感谢你对系统的维护所做的贡献！"
+                });
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public IActionResult ExamSetting()
+        {
+           Dictionary<int,Boolean> openSetting = new Dictionary<int, bool>();
+           foreach (var module in _context.Modules.ToList())
+           {
+               openSetting.Add(module.ModuleId,true);
+           }
+           _config.ReWriteModuleExamOpenSetting(openSetting);
+           return Json(new
+           {
+               load = true
+           });
+
+        }
+
     }
+
 }
+

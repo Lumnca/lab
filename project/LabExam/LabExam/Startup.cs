@@ -56,7 +56,7 @@ namespace LabExam
 
             /* 注册自己的服务 */
             services.AddTransient<IEncryptionDataService, EncryptionDataService>();
-            services.AddTransient<IHttpRequstAnalysisService, HttpRequstAnalysisService>();
+            services.AddTransient<ILoadConfigFileService, LoadConfigFileService>();
 
         }
 

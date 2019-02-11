@@ -18,7 +18,7 @@ namespace LabExam.Controllers
     {
         private readonly IEncryptionDataService _ncryption;
         private readonly LabContext _context;
-        private IHttpContextAccessor _accessor;
+        private readonly IHttpContextAccessor _accessor;
 
         public StudentController(IEncryptionDataService ncryption, LabContext context, IHttpContextAccessor accessor)
         {
@@ -83,48 +83,30 @@ namespace LabExam.Controllers
             SystemSetting setting = new SystemSetting();
             Dictionary<int,ModuleExamSetting> dictionary = new Dictionary<int, ModuleExamSetting>();
 
-            ModuleExamSetting moduleOne = new ModuleExamSetting();
-            moduleOne.ModuleId = 1;
-            moduleOne.ExamTime = 100;
-            moduleOne.ModuleName = "其他理工类";
-            moduleOne.Multiple = new Multiple()
+            ModuleExamSetting moduleOne = new ModuleExamSetting
             {
-                Count = 20,Score = 2
+                ModuleId = 1,
+                ExamTime = 100,
+                ModuleName = "其他理工类",
+                Multiple = new Multiple() {Count = 20, Score = 2},
+                Single = new LabExam.Models.JsonModel.Single() {Count = 30, Score = 1},
+                Judge = new Judge() {Count = 20, Score = 1},
+                PassFloat = 60,
+                TotalScore = 100,
+                AllowExamTime = 3
             };
-            moduleOne.Single = new LabExam.Models.JsonModel.Single()
+            ModuleExamSetting moduleTwo = new ModuleExamSetting
             {
-                Count = 30,Score = 1 
+                ModuleId = 2,
+                ExamTime = 100,
+                ModuleName = "化学生物类",
+                Multiple = new Multiple() {Count = 20, Score = 2},
+                Single = new LabExam.Models.JsonModel.Single() {Count = 30, Score = 1},
+                Judge = new Judge() {Count = 20, Score = 1},
+                PassFloat = 60,
+                TotalScore = 100,
+                AllowExamTime = 3
             };
-            moduleOne.Judge = new Judge()
-            {
-                Count = 20,
-                Score = 1
-            };
-            moduleOne.PassFloat = 60;
-            moduleOne.TotalScore = 100;
-            moduleOne.AllowExamTime = 3;
-            ModuleExamSetting moduleTwo = new ModuleExamSetting();
-            moduleTwo.ModuleId = 2;
-            moduleTwo.ExamTime = 100;
-            moduleTwo.ModuleName = "化学生物类";
-            moduleTwo.Multiple = new Multiple()
-            {
-                Count = 20,
-                Score = 2
-            };
-            moduleTwo.Single = new LabExam.Models.JsonModel.Single()
-            {
-                Count = 30,
-                Score = 1
-            };
-            moduleTwo.Judge = new Judge()
-            {
-                Count = 20,
-                Score = 1
-            };
-            moduleTwo.PassFloat = 60;
-            moduleTwo.TotalScore = 100;
-            moduleTwo.AllowExamTime = 3;
             dictionary.Add(moduleOne.ModuleId, moduleOne);
             dictionary.Add(moduleTwo.ModuleId, moduleTwo);
 
@@ -139,20 +121,12 @@ namespace LabExam.Controllers
                 StudentLogim = true
             };
 
-            List<MaintenanceStaff> staff = new List<MaintenanceStaff>();
-            staff.Add(new MaintenanceStaff()
+            List<MaintenanceStaff> staff = new List<MaintenanceStaff>
             {
-                Name = "蒋星",
-                Phone = "15982690985",
-                QQ ="1427035242"
-            });
+                new MaintenanceStaff() {Name = "蒋星", Phone = "15982690985", QQ = "1427035242"},
+                new MaintenanceStaff() {Name = "刘闽川", Phone = "17721953180", QQ = "1944731504"}
+            };
 
-            staff.Add(new MaintenanceStaff()
-            {
-                Name = "刘闽川",
-                Phone = "17721953180",
-                QQ = "1944731504"
-            });
 
             setting.Staffs = staff;
             return Json(setting);

@@ -35,8 +35,9 @@
                     </a>
                     <ul>
                         <li><a asp-controller="Principal" asp-action="Admin">1.系统管理员</a></li>
-                        <li><a href="#">2.系统运行</a></li>
-                        <li><a href="#">3.系统配置</a></li>
+                        <li><a asp-controller="Setting" asp-action="Sys" >2.系统配置</a></li>
+                        <li><a href="#">3.系统运行</a></li>
+                        
                     </ul>
                 </li>
                 <li>
@@ -255,22 +256,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="update-inlow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">修改结果</h4>
-                </div>
-                <div class="modal-body">
-                    修改中~~~
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
                 </div>
             </div>
         </div>

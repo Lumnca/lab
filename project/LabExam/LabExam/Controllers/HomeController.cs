@@ -16,13 +16,7 @@ namespace LabExam.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHttpRequstAnalysisService _analysis;
-
-        public HomeController(IHttpRequstAnalysisService analysis)
-        {
-            _analysis = analysis;
-        }
-
+        
         [Route("/")]
         [Route("/Index")]
         [AllowAnonymous]
