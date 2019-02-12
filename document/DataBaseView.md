@@ -9,6 +9,7 @@
 - [x] [`4.InstituteWithoutModuleView`](#target4)
 - [x] [`5.InstituteStudentNotPassCountView`](#target5)
 - [x] [`6.ProfessionView`](#target6)
+- [x] [`7.StudentView`](#target7)
 
 
 ------
@@ -82,7 +83,7 @@ FROM    dbo.Institute INNER JOIN
         dbo.Professions 
         ON dbo.Institute.InstituteId = dbo.Professions.InstituteId
 ```
-#####  :octocat: [2.StudentView](#top) <b id="target2"></b> 
+#####  :octocat: [7.StudentView](#top) <b id="target7"></b> 
 `概括`:`查询类型 vStudentMap`
 ```sql
 SELECT dbo.Institute.InstituteId, dbo.Institute.Name AS InstituteName,
@@ -112,3 +113,4 @@ FROM dbo.Institute INNER JOIN
 `作者:` `KickGod` 
 `完成时间`:`2018年12月31日18:33:38`
 `备注信息`: `禁止转载` 
+
