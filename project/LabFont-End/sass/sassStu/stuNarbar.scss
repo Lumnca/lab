@@ -1,0 +1,172 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+$main-min-width:1100px;     /* css内容区域最小的大小 */
+$main-width:64%;            /* css内容区域大小 */
+
+$navbar-normal-height-value:70px;
+$navbar-normal-padding-gap-value:15px;
+.navbar-normal{
+    width: 100%;
+    height:$navbar-normal-height-value;   
+    box-shadow: 0 4px 8px 0 rgba(7,17,27,.2);
+    >.container{
+        margin: 0 auto;    
+        > .navbar-normal-brand{
+            display: inline-block;
+            height: $navbar-normal-height-value;
+            >img{       
+               vertical-align:middle ;
+              transition-duration: 0.6s;
+              transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+            }
+            >img:hover{
+                transform:scale(1.2,1.2)  rotate(300deg);
+            }
+            >.navbar-normal-brand-title{
+                display: inline-block;
+                font-size: 19px;
+                line-height: $navbar-normal-height-value;
+                height: $navbar-normal-height-value;
+                font-weight: 300;
+                text-indent: 10px;
+                text-shadow: 4px 3px 8px rgba(7,17,27,.5);
+                transition-duration: 0.6s;
+                transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+            }
+            >.navbar-normal-brand-title:hover{
+                transform:scale(1.2,1.2) rotate(300deg); 
+            }
+        }
+        >.navbar-normal-navlist{
+            display:block;
+            float: right;
+            line-height: $navbar-normal-height-value;
+            height: $navbar-normal-height-value;
+            >.navbar-normal-list-left{
+                float: left;
+            }
+            >.navbar-normal-list-right{
+                float: right;
+            }
+            a{
+                padding-left: $navbar-normal-padding-gap-value;
+                padding-right: $navbar-normal-padding-gap-value;
+                color: RGB(38,38,38);
+            }
+            a:hover{
+                text-decoration: none;
+                color: black;
+                font-weight: 600;
+            }
+            a:active{
+                text-decoration: none;
+            }
+            .nav-border-capsule{
+                $nav-border-capsule-height-value:12.5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                border: 1px solid rgba(7,17,27,.8);
+                border-top-left-radius: $nav-border-capsule-height-value;
+                border-top-right-radius: $nav-border-capsule-height-value;
+                border-bottom-left-radius: $nav-border-capsule-height-value;
+                border-bottom-right-radius: $nav-border-capsule-height-value;
+            }
+            .nav-border-capsule:hover{
+                background-color:rgba(38,38,38,.05);
+            }
+        }
+    }
+    >.container:after{
+        display:block;
+        content: "";
+        clear: both;
+    }
+}   
+
+.img-hover-func{       
+   transition-duration: 0.6s;
+   transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+ }
+.img-hover-func:hover{
+     transform:scale(1.2,1.2)  rotate(300deg);
+ }
+
+
+.nav-list{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    a{
+        $padding-gap-value:15px;
+        padding-left:$padding-gap-value;
+        padding-right:$padding-gap-value;
+        transition-duration: 0.8s;
+        color: rgb(31, 29, 29);
+        font-weight: 400;
+        font-size: 16px;
+    }
+    a:hover{
+        text-decoration: none;
+        color: black;
+    }
+}
+
+.video-title{
+    font-weight: 600;
+    font-size: 18px;
+    padding-top: 7px;
+    >.video-title-small{
+        font-size: 14px;
+        color: rgba(7,17,27,.2);
+        font-weight: 300;
+    }
+}
+
+.title-small-grey{
+    font-size: 14px;
+    color: rgba(38,38,38,.7);
+    font-weight: 300;
+}
+
+.title-Splitter{
+    cursor: pointer;
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-weight: 300px;
+    border-bottom: 1px solid rgba(38,38,138,.25);
+}
+
+.stu-nav-list{
+    >.stu-nav-list-item{
+        color: grey;
+        text-align: center;
+        a{
+            display: block;
+            color: black;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+
+        &.stu-nav-list-item-active{
+            background-color: rgba(240,20,20,0.99);
+            color: white;
+            >a{
+                color: white;  
+                text-decoration: none;
+                transition-duration: 0.3s;
+            }
+            a:hover{
+                font-size: 15px;
+            }
+        }
+        &.stu-nav-list-item-active:hover a{
+            color: white;
+        }
+    }
+    >.stu-nav-list-item:hover a{
+        color:  rgba(240,20,20,0.99);
+    }
+}

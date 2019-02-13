@@ -1,0 +1,116 @@
+.title-student-name{
+    font-size: 17px;
+    font-weight: 600;
+    &.title-shadow{
+        text-shadow: 2px 2px 2px rgba(38, 38, 38, .5);
+    }
+}
+
+.word-one{
+    font-size: 16px;    
+}
+
+.title-name-little{
+    font-size: 14px;
+    font-weight: 300px;
+    letter-spacing: 1px;
+}
+
+$font-size-gap:30;
+@while  $font-size-gap>=10 {
+    .font-size-#{$font-size-gap}{
+         font-size:  $font-size-gap + 0px;
+    }
+    $font-size-gap: $font-size-gap - 1;
+}
+.text-red{
+    color: red;
+}
+
+.glyphicon{
+    &.glyphicon-active{
+        color: red; 
+    }
+    
+    &.glyphicon-disabled{
+        color: grey;
+    }
+}
+
+$weight-max:700;
+@while  $weight-max >= 100 {
+    .font-weight-#{$weight-max}{
+         font-weight:  $weight-max;
+    }
+    $weight-max: $weight-max - 100;
+}
+
+.input-down-border{
+    border: none;
+    border-bottom: 1px solid rgba(38, 38, 38, .4);
+}
+.input-down-border:focus{
+    outline: none;
+}
+@media screen and (min-width:992px){
+    .student-info-show{
+        margin-top: 15px;
+        .student-info-show-content{
+            padding-top: 20px;
+            .student-info-show-title{
+                padding: 15px;
+                background-color:rgba(243,245,247,0.99);
+                font-weight: 600;
+            }
+            .student-info-show-value{
+                display: inline-block;
+                width: 400px;
+                padding-left: 30px;
+                padding-bottom: 13px;
+                letter-spacing: 1px;
+                font-weight: 500;
+            }
+        }
+    
+    }
+}
+
+@media screen and (max-width:992px){
+    .student-info-show{
+        .student-info-show-content{
+            padding-top: 20px;
+            .student-info-show-title{
+                display: block;
+                padding: 15px;
+                width: 100px;
+                background-color:rgba(243,245,247,0.99);
+                font-weight: 600;
+            }
+            .student-info-show-value{
+                display: block;
+                width: 400px;
+                margin-top: 10px;
+                padding-left: 10px;
+                font-size: 15px;
+            }
+        }
+    
+    } 
+}
+.title-name-hz{
+    font-weight: 600;
+    font-size: 15px;
+    padding-right: 15px;
+}
+.font-first-word::first-letter{
+     color: rgba(19,34,122, 0.9);   
+     font-weight: 600;
+     font-size: 16px;
+}
+.btn-border-cicle{
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    padding: 5px;
+    border: 1px solid gainsboro;
+}

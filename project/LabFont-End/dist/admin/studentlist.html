@@ -191,18 +191,7 @@
                     <div id="Search-condition" class=" bc-clr-white margin-10px  padding-15px border-little-grey-all"
                         data-min-width="1250">
                         <form class="float-layout">
-                            <!-- 模块 -->
-                            <span for="moduleId" class=" font-size-14 text-muted">所属模块：</span>
-                            <input value="" type="text" list="modules-list" id="moduleId" name="moduleId" data-height="22"
-                                data-width="130" class="font-size-12 padding-left-5px ">
-                            <datalist id="modules-list">
-                                <option id="0" selected>-- 全部 --</option>
-                                <option id="SD1">文史艺体类</option>
-                                <option id="SD2">物理信息类</option>
-                                <option id="SD3">化学生物类</option>
-                            </datalist>
-                            <!-- 所属学院 -->
-                            <span for="moduleId" class="margin-left-20px font-size-14 text-muted">所属学院：</span>
+                            <span for="moduleId" class=" font-size-14 text-muted">所属学院：</span>
                             <input value="" type="text" list="institute-list" id="instituteId" name="instituteId"
                                 data-height="22" data-width="150" class="font-size-12 padding-left-5px ">
                             <datalist id="institute-list">
@@ -251,13 +240,9 @@
                             <input type="checkbox" id="bks-student" />
                             <label for="bks-student" class="checkout-label"> 本科生</label>
                         </label>
-                        <span for="professionId" class="margin-left-20px font-size-14 text-muted">年级：</span>
-                        <select name="xsnj" id="xsnj" data-height="24" data-width="100" class="font-size-14 font-weight-600 padding-left-5px ">
-                            <option id="2018">2018</option>
-                            <option id="2017">2017</option>
-                            <option id="2016">2016</option>
-                            <option id="2015">2015</option>
-                            <option id="2014">2014</option>
+                        <span class="margin-left-20px font-size-14 text-muted">年级：</span>
+                        <select name="studentGrade" id="studentGrade" data-height="24" data-width="100" class="font-size-14 font-weight-600 padding-left-5px ">
+
                         </select>
                         <button class="margin-left-20px btn btn-sm btn-success"> <span class="glyphicon glyphicon-plus"></span>
                             添加学生</button>
@@ -265,8 +250,6 @@
                             导入学生</button>
                         <button class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#delete"> <span class="glyphicon-ok glyphicon glyphicon-remove"></span>
                             删除选中</button>
-                        <button class=" btn btn-sm btn-default"> <span class="glyphicon glyphicon-remove-circle"></span>
-                            清空筛选条件</button>
                     </div>
                 </div>
                 <div class=" bc-clr-white margin-10px  padding-15px border-little-grey-all" data-min-width="1250">
@@ -829,8 +812,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- 主要内容 end    -->
+            </div>            
         </div>
     </div>
     <div class="modal fade" id="User-warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -1001,26 +983,30 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">删除提示</h4>
+                        <h4 class="modal-title font-weight-600 font-size-15 padding-top-10px text-primary" id="myModalLabel">删除提示</h4>
                     </div>
                     <div class="modal-body">
-                        <p class=" text-danger font-size-14">
+                        <p class=" text-primary font-size-14">
                             1. 任何对于数据的删除请都谨慎
                         </p>
-                        <p class=" text-danger font-size-14">
+                        <p class=" text-primary font-size-14">
                             2. 请确保没有与此相关联的数据
                         </p>
-                        <p class=" text-danger font-size-14">
+                        <p class=" text-primary font-size-14">
                             3. 请注意相关联数据都会被删除掉
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-danger">立即删除</button>
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                                <span class=" glyphicon glyphicon-folder-close "></span>
+                            关闭</button>
+                        <button type="button" class="btn btn-primary btn-sm">
+                            <span class=" glyphicon glyphicon-trash "></span>
+                            立即删除</button>
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
 
 </body>
 <script>
@@ -1028,6 +1014,18 @@
     StartLoading("#loading");
     window.setTimeout(EndLoading,2000);
     */
+
+    function LoadYear(){
+        let yearNow = new Date().getFullYear();
+
+        $("#studentGrade").append('<option value="-1">所有年级</option>');
+        for(var index = 2015 ;index <= yearNow ; index++) {
+            $("#studentGrade")
+                .append(`<option value="${index}">${index}</option>`);
+        }
+    }
+    LoadYear();
+
 
     $(document).ready(function () {
         $('.admin-navbar > li>a').on('click', null, null, function () {

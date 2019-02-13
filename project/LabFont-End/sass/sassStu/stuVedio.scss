@@ -1,0 +1,27 @@
+#vedio-open-layout{
+    width: 100%;
+    >video{
+        border: 1px solid gray;
+        border-radius: 12px;
+    }
+}
+.vedio-control{
+    border-radius: 5px;
+    padding: 10px;
+    background-color:RGB(243,245,247);
+    >.glyphicon{
+        padding: 7px;
+        background-color: gray;
+        color: white;
+        font-size: 17px;
+    }
+}
+
+.vedio-open-need-waiting-list{
+    .color-grey{
+        color: rgba(38,38,38,0.8);
+    }   
+    .color-red{
+        color: red;
+    }
+}
