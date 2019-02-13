@@ -9,6 +9,7 @@
 - [x] [`4.InstituteWithoutModuleView`](#target4)
 - [x] [`5.InstituteStudentNotPassCountView`](#target5)
 - [x] [`6.ProfessionView`](#target6)
+- [x] [`7.StudentView`](#target7)
 
 
 ------
@@ -82,10 +83,23 @@ FROM    dbo.Institute INNER JOIN
         dbo.Professions 
         ON dbo.Institute.InstituteId = dbo.Professions.InstituteId
 ```
-#####  :octocat: [2.](#top) <b id="target2"></b> 
-`概括`:`查询类型 v Map`
+#####  :octocat: [7.StudentView](#top) <b id="target7"></b> 
+`概括`:`查询类型 vStudentMap`
 ```sql
-
+SELECT dbo.Institute.InstituteId, dbo.Institute.Name AS InstituteName,
+      dbo.Professions.Name AS ProfessionName, 
+      dbo.Professions.ProfessionType, dbo.Student.StudentId, 
+      dbo.Student.Name AS StudentName, dbo.Student.Grade, 
+      dbo.Student.Phone, dbo.Student.BirthDate, dbo.Student.Sex, 
+      dbo.Student.StudentType, dbo.Student.IsPassExam, 
+      dbo.Student.MaxExamScore, dbo.Student.MaxExamCount, 
+      dbo.Student.ProfessionId, dbo.Student.Email, 
+      dbo.Student.IDNumber
+FROM dbo.Institute INNER JOIN
+      dbo.Professions 
+      ON dbo.Institute.InstituteId = dbo.Professions.InstituteId
+      INNER JOIN
+      dbo.Student ON dbo.Professions.ProfessionId = dbo.Student.ProfessionId
 ```
 #####  :octocat: [2.](#top) <b id="target2"></b> 
 `概括`:`查询类型 v Map`
@@ -99,3 +113,4 @@ FROM    dbo.Institute INNER JOIN
 `作者:` `KickGod` 
 `完成时间`:`2018年12月31日18:33:38`
 `备注信息`: `禁止转载` 
+
