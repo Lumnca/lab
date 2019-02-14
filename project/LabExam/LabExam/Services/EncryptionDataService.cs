@@ -61,5 +61,26 @@ namespace LabExam.Services
             byte[] encryptdata = md5.ComputeHash(palindata);      //将字符串加密后也转换为字符数组
             return Convert.ToBase64String(encryptdata);           //将加密后的字节数组转换为加密字符串
         }
+
+        public string EncodeByMd5Times(string Data, int Time)
+        {
+            try
+            {
+                if (Time < 1)
+                {
+                    throw  new ArgumentException("整形参数不能小于1");
+                }
+                for (int i = 0; i < Time; i++)
+                {
+                    Data = EncodeByMd5(Data);
+                }
+                return Data;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

@@ -103,11 +103,11 @@
     <script>
         $(document).ready(function () {
             $.getJSON("/Account/UserInfo",
-                function(json) {
-                    if (json["isLogin"]) {
-                        $('#UserInfo').text(`${json["name"]}&${json["uId"]}`);
-                    }
-                });
+              function(json) {
+                 if (json.isLogin){
+                    $('#UserInfo').text(`${json["name"]}&${json["uId"]}`);
+                 }
+            });
         });
     </script>
 </body>

@@ -86,8 +86,7 @@
                 <label for="InstituteId" class="col-sm-2 control-label">学院</label>
                 <div class="col-sm-10">
                     <select name="InstituteId" id="InstituteId" class="form-control" data-max-width="400">
-                        <option value="0">计算机科学学院</option>
-                        <option value="1">文学院</option>
+
                     </select>
                 </div>
             </div>
@@ -95,9 +94,7 @@
                 <label for="ProfessionId" class="col-sm-2 control-label">专业</label>
                 <div class="col-sm-10">
                     <select name="ProfessionId" id="ProfessionId" class="form-control" data-max-width="400">
-                        <option value="0">软件工程</option>
-                        <option value="1">网络工程</option>
-                        <option value="2">计算机科学与技术</option>
+
                     </select>
                 </div>
             </div>
@@ -126,80 +123,156 @@
 
 @section Scripts
 {
-<script>
-    $(function () {
-        $('body').removeClass("bc-clr-grey-little");
-        $('body').addClass("bc-clr-primary");
+    <script>
+        $(function() {
+            $('body').removeClass("bc-clr-grey-little");
+            $('body').addClass("bc-clr-primary");
 
-        $("form").validate({
-            //错误提示信息
-            messages: {
-                StudentId: {
-                    required: "请填写你的学号", //此方法在username控件上的所有验证规则提示都是设置的这个字符串
-                    rangelength: "字符长度{0}到{1}之间"
-                },
-                Name: {
-                    required: "填写你的姓名",
-                    rangelength: "字符长度{0}到{1}之间"
-                },
-                IDNumber: {
-                    required:"身份证号码？",
-                    rangelength: "身份证号码为18位"
-                },
-                Reason:{
-                    required:"你还是吧原因说明一下撒！",
-                    minlength:"至少二十字说明情况！"
-                },
-                Grade:{
-                    required:"请填写你的年纪",
-                    range:"非法年纪"
-                },
-                Email: {
-                    required: "请填写你的QQ邮箱最佳",
-                    email:"邮箱格式错误"
-                },
-                Phone:{
-                    required:"请填写你的电话"
-                },
-                BirthDate:{
-                    required:"出生日期"
-                }
+            function loadProfession() {
+                var type = $('#StudentType').val();
+                var id = $('#InstituteId').val();
+                $.ajax({
+                    url: "/Profession/ListById",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        pid: id,
+                        type: type
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        $("#ProfessionId option").remove();
 
-            },
-            //验证规则
-            rules: {
-                //使用空间 name 名称
-                StudentId: {
-                    required: true,
-                    rangelength: [10, 14]
+                        for (var index in data.professions) {
+                            $("#ProfessionId")
+                                .append(
+                                    `<option value="${data.professions[index].id}">${data.professions[index].name
+                                    }</option>`);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", errorThrown);
+                    }
+                });
+            }
+
+            (function loadInstitute() {
+                $.ajax({
+                    url: "/Institute/List",
+                    type: "post",
+                    dataType: "json",
+                    success: function(data, textStatus, jqXHR) {
+                        for (var index in data) {
+                            $("#InstituteId")
+                                .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
+                        }
+                        loadProfession();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", errorThrown);
+                    }
+                });
+            })();
+
+            $('#InstituteId').change(function(jqEvent) {
+                loadProfession();
+            });
+
+            $('#StudentType').change(function(jqEvent) {
+                loadProfession();
+            });
+
+            $("form").validate({
+                //错误提示信息
+                messages: {
+                    StudentId: {
+                        required: "请填写你的学号", //此方法在username控件上的所有验证规则提示都是设置的这个字符串
+                        rangelength: "字符长度{0}到{1}之间"
+                    },
+                    Name: {
+                        required: "填写你的姓名",
+                        rangelength: "字符长度{0}到{1}之间"
+                    },
+                    IDNumber: {
+                        required: "身份证号码？",
+                        rangelength: "身份证号码为18位"
+                    },
+                    Reason: {
+                        required: "你还是吧原因说明一下撒！",
+                        minlength: "至少二十字说明情况！"
+                    },
+                    Grade: {
+                        required: "请填写你的年纪",
+                        range: "非法年纪",
+                        digit: "请输入整数"
+                    },
+                    Email: {
+                        required: "请填写你的QQ邮箱最佳",
+                        email: "邮箱格式错误"
+                    },
+                    Phone: {
+                        required: "请填写你的电话"
+                    },
+                    BirthDate: {
+                        required: "出生日期"
+                    }
+
                 },
-                Name: {
-                    required: true
+                //验证规则
+                rules: {
+                    //使用空间 name 名称
+                    StudentId: {
+                        required: true,
+                        rangelength: [10, 14]
+                    },
+                    Name: {
+                        required: true
+                    },
+                    IDNumber: {
+                        required: true,
+                        rangelength: [18, 18]
+                    },
+                    Reason: {
+                        required: true,
+                        minlength: 20
+                    },
+                    Grade: {
+                        required: true,
+                        digit: true,
+                        range: [2015, 2030]
+                    },
+                    Email: {
+                        required: true,
+                        email: true,
+
+                    },
+                    Phone: {
+                        required: true
+                    },
+                    BirthDate: {
+                        required: true
+                    }
                 },
-                IDNumber: {
-                    required: true,
-                    rangelength: [18,18]
-                },
-                Reason: {
-                    required: true,
-                    minlength:20
-                },
-                Grade: {
-                    required: true,
-                    range: [2015,2030]
-                },
-                Email: {
-                    required: true,
-                    email:true
-                },
-                Phone:{
-                    required:true
-                },
-                BirthDate:{
-                    required:true
-                }
-            },
-            errorClass: "text-danger"
+                errorClass: "text-danger",
+                submitHandler: function(form) {
+                    var _data = $(form).serialize();
+                    $.ajax({
+                        url: `/Account/Apply?${_data}`,
+                        type: "post",
+                        dataType: "json",
+                        success: function(json, textStatus, jqXhr) {
+                            console.log(json);
+                            if (json.isOk) {
+                                onMask(json.title, title.message);
+                            } else {
+                                onMask(json.title, title.message);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            onMask("错误", "网络接连错误..");
+                        }
+                    });
+                });
+        }
         });
     });
 </script>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/js/app.min.js"></script>
+    <link href="~/css/stuEntry.min.css" rel="stylesheet" />
+    <link rel="icon" href="~/Resources/system/icon/backEnd.png" />
+    <title>@ViewBag.Title</title>
+</head>
+<body class="bc-clr-grey-little">
+    <div class="navbar-normal bc-clr-white">
+        <div class="container">
+            <div class="navbar-normal-brand">
+                <img src="../Resources/Image/Icon/PageIconOnline.png" class="img-circle img-thumbnail" alt="系统图标" width="56px" />
+                <div class="navbar-normal-brand-title">
+                    SICNU 实验室安全教育
+                </div>
+            </div>
+            <div class="navbar-normal-navlist ">
+                <nav class="navbar-normal-list-right">
+                    <a href="#">学生主页</a>
+                    <a href="#">参加考试</a>
+                    <a href="#">申请重考</a>
+                    <a href="#" class="nav-border-capsule" title="你想要一声不啃的离我而去吗？">
+                        <span class="glyphicon glyphicon glyphicon-share"
+                              aria-hidden="true"></span> 退出登录
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <div class=" border-radius-4 container-fluid border-little-grey-all padding-10px  bc-clr-white margin-top-10px">
+        <div class="text-center font-size-16 ">
+            <small>© All Right Reserved . 四川师范大学计算机科学学院 版权所有 版本号1.0.0.2018.9</small>
+        </div>
+    </div>
+    <style>
+        a:link {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: cornflowerblue;
+        }
+    </style>
+</body>
+@RenderSection("Scripts", required: false)
+</html>
+

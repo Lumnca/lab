@@ -62,7 +62,7 @@ using LabExam.Models;
 #line default
 #line hidden
             BeginContext(170, 52, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8bd35f7b35d14231b81d7e254e4b588d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ff88f82cd928465b95ead5b045cc801b", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -315,7 +315,7 @@ using LabExam.Models;
             WriteLiteral("                                ");
             EndContext();
             BeginContext(6232, 40, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0f7f6e2ba8ca4486b6f3e5c88601d247", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "67ddffb08c634313a98af4f81dfcf9e0", async() => {
                 BeginContext(6257, 6, false);
 #line 121 "F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\Views\Institute\Index.cshtml"
                                                    Write(_index);

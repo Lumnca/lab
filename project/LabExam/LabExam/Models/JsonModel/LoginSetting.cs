@@ -7,7 +7,7 @@ namespace LabExam.Models.JsonModel
 {
     public class LoginSetting
     {
-        public Boolean StudentLogim { get; set; }
+        public Boolean StudentLogin { get; set; }
 
         public Boolean PrincipalLogin { get; set; }
 

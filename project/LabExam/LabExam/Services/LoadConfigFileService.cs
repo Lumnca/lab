@@ -49,7 +49,7 @@ namespace LabExam.Services
                 JsonConvert.SerializeObject(setting, Formatting.Indented));
         }
 
-        public Dictionary<int, bool> LoadModuleExamOpenSetting()
+        public Dictionary<int, ExamOpenSetting> LoadModuleExamOpenSetting()
         {
             try
             {
@@ -59,7 +59,7 @@ namespace LabExam.Services
                     using (StreamReader reader = new StreamReader(stream))
                     {
                         String json = reader.ReadToEnd();
-                        Dictionary<int, bool> setting = JsonConvert.DeserializeObject<Dictionary<int, bool>>(json);
+                        Dictionary<int, ExamOpenSetting> setting = JsonConvert.DeserializeObject<Dictionary<int, ExamOpenSetting>>(json);
                         return setting;
                     };
                 };
@@ -71,7 +71,7 @@ namespace LabExam.Services
             }
         }
 
-        public void ReWriteModuleExamOpenSetting(Dictionary<int, bool> setting)
+        public void ReWriteModuleExamOpenSetting(Dictionary<int, ExamOpenSetting> setting)
         {
             System.IO.File.WriteAllText(
                 Path.GetFullPath($@"{_hosting.ContentRootPath}/ModuleConfig.json"),

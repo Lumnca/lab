@@ -8,7 +8,7 @@ namespace LabExam.Models.Map
     public enum UserType
     {
         Student = 0,
-        Pricipal = 1,
+        Principal = 1,
         Anonymous = 2
     }
 }

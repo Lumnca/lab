@@ -67,7 +67,7 @@
                             <td>@item.JobNumber</td>
                             <th>@item.Name</th>
                             <td>@item.Phone</td>
-                            <td>@(item.PrincipalStatus == PrincipalStatus.Normal ? "正常" : "已禁用")</td>
+                            <td>@(item.PrincipalStatus == PrincipalStatus.Normal ? "正常" : item.PrincipalStatus == PrincipalStatus.Ban? "禁止":"超级管理员")</td>
                             <td class=" text-right">
                                 <button  data-power-id="@item.PrincipalId" data-name="@item.Name"
                                           class="dialog-reset btn btn-primary btn-sm">
@@ -84,7 +84,7 @@
                                     <span class=" glyphicon glyphicon-trash "></span>
                                     删除
                                 </button>
-                                <button data-power-id="@item.PrincipalId" data-name="@item.Name" 
+                                <button data-power-id="@item.PrincipalId" data-name="@item.Name"  data-u-jobId="@item.JobNumber" data-u-phone="@item.Phone"
                                           class="dialog-update btn btn-default btn-sm">
                                     <span class=" glyphicon glyphicon-cog "></span>
                                     修改
@@ -292,16 +292,24 @@
                 <form class="layout-center margin-top-5px " data-width="380">
                     <div class="form-group">
                         <label for="adminName">管理员名称:</label> <label data-update-Id class="sr-only">1</label>
-                        <input type="text" name="adminName" class="form-control" placeholder="请输入名称" data-max-width="400">
+                        <input type="text" id="adminName" name="adminName" class="form-control" placeholder="请输入名称" data-max-width="400">
                     </div>
                     <div class="form-group">
-                        <label for="adminId">管理员工号:</label> <label data-update-Id class="sr-only">1</label>
-                        <input type="text" name="adminJobId" class="form-control" placeholder="请输入名称" data-max-width="400">
+                        <label for="adminJobId">管理员工号:</label> 
+                        <input type="text" id="adminJobId" name="adminJobId" class="form-control" placeholder="请输入名称" data-max-width="400">
                     </div>
                     <div class="form-group">
-                        <label for="adminPhone">管理员电话:</label> <label data-update-Id class="sr-only">1</label>
-                        <input type="text" name="adminPhone" class="form-control" placeholder="请输入名称"
+                        <label for="adminPhone">管理员电话:</label> 
+                        <input type="text" id="adminPhone" name="adminPhone" class="form-control" placeholder="请输入名称"
                                data-max-width="400">
+                    </div>
+                    <div class="form-group">
+                        <label for="PrincipalStatus">管理员电话:</label> 
+                        <select name="PrincipalStatus" id="PrincipalStatus" class="form-control" data-max-width="400">
+                            <option value="0">正常使用</option>
+                            <option value="1">禁用账号</option>
+                            <option value="2">给与超级权限</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-info margin-top-5px form-control" data-max-width="400">立即提交</button>
                 </form>
@@ -452,7 +460,7 @@
                 <span class=" glyphicon glyphicon-trash "></span>
                 删除
             </button>
-            <button data-power-id="{{id}}" data-name="{{name}}"
+            <button data-power-id="{{id}}" data-name="{{name}}" data-u-jobId="{{jobNumber}}" data-u-phone="{{phone}}"
                     class="dialog-update btn btn-default btn-sm">
                 <span class=" glyphicon glyphicon-cog "></span>
                 修改
@@ -581,6 +589,9 @@
             function(jqEvent) {
                 $('#update-dialog label[data-update-Id]').attr("data-update-Id",$(this).attr("data-power-id"));
                 $('#update-dialog input[name="adminName"]').val($(this).attr("data-name"));
+                $('#update-dialog input[name="adminJobId"]').val($(this).attr("data-u-jobId"));
+                $('#update-dialog input[name="adminPhone"]').val($(this).attr("data-u-phone"));
+
                 $('#update-dialog').modal('show');
             }); 
 
@@ -774,7 +785,8 @@
                         pId: $("#update-dialog form label[data-update-Id]").attr("data-update-Id").trim(),
                         jobId: $("#update-dialog form input[name='adminJobId']").val(),
                         name: $("#update-dialog form input[name='adminName']").val(),
-                        phone: $("#update-dialog form input[name='adminPhone']").val()
+                        phone: $("#update-dialog form input[name='adminPhone']").val(),
+                        status: $('#update-dialog form #PrincipalStatus').val()
                     },
                     success: function(json, textStatus, jqXhr) {
                         if (json.isOk) {

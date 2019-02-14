@@ -8,12 +8,12 @@
     {
       "Name": "刘闽川",
       "Phone": "17721953180",
-      "QQ": "1944731504"
+      "QQ": "1235465855"
     }
   ],
   "LoginSetting": {
-    "StudentLogim": true,
-    "PrincipalLogin": true,
+    "StudentLogin": true,
+    "PrincipalLogin": false,
     "IsOpenExam": true,
     "AllowPastJoinExam": true
   },
@@ -31,11 +31,11 @@
         "Score": 1.0
       },
       "Multiple": {
-        "Count": 20,
+        "Count": 30,
         "Score": 2.0
       },
       "Judge": {
-        "Count": 40,
+        "Count": 20,
         "Score": 1.0
       }
     },

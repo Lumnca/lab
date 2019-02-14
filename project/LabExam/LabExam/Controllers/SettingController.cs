@@ -49,7 +49,6 @@ namespace LabExam.Controllers
                         message = "模块不存在或者已经删除"
                     });
                 }
-
                 if (System.IO.File.Exists(Path.GetFullPath($@"{_hosting.ContentRootPath}/SettingConfig.json")))
                 {
                     try
@@ -170,7 +169,11 @@ namespace LabExam.Controllers
 
         public IActionResult Sys()
         {
-            return View();
+            SystemSetting setting = _config.LoadSystemSetting();
+            setting.Staffs = setting.Staffs.OrderBy(s => s.Name).ToList(); //按照名称排序
+
+            ViewData["ModuleSetting"] = _config.LoadModuleExamOpenSetting();
+            return View(setting);
         }
 
         public IActionResult Reload()
@@ -212,18 +215,128 @@ namespace LabExam.Controllers
 
         public IActionResult ExamSetting()
         {
-           Dictionary<int,Boolean> openSetting = new Dictionary<int, bool>();
+           Dictionary<int,ExamOpenSetting> openSetting = new Dictionary<int, ExamOpenSetting>();
            foreach (var module in _context.Modules.ToList())
            {
-               openSetting.Add(module.ModuleId,true);
+               ExamOpenSetting setting = new ExamOpenSetting()
+               {
+                   IsOpen = true,ModuleId = module.ModuleId,ModuleName = module.Name
+               };
+               openSetting.Add(module.ModuleId, setting);
            }
            _config.ReWriteModuleExamOpenSetting(openSetting);
            return Json(new
            {
                load = true
            });
-
         }
+
+        public IActionResult SysLogin([Required] String data)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    LoginSetting loginSetting = JsonConvert.DeserializeObject<LoginSetting>(data);
+                    SystemSetting setting = _config.LoadSystemSetting();
+                    setting.LoginSetting = loginSetting;
+                    _config.ReWriteSystemSetting(setting);
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "提示",
+                        message = "保存成功"
+                    });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误提示",
+                    message = "参数错误,输入了非法参数"
+                });
+            }
+        }
+
+        public IActionResult Exam([Required] String data)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    List<ExamOpenSetting> list = JsonConvert.DeserializeObject<List<ExamOpenSetting>>(data);
+                    Dictionary<int, ExamOpenSetting>  dicSetting = new Dictionary<int, ExamOpenSetting>();
+                    foreach (var val in list)
+                    {
+                        dicSetting.Add(val.ModuleId,val);                        
+                    }
+                    _config.ReWriteModuleExamOpenSetting(dicSetting);                    
+
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "提示",
+                        message = "修改成功"
+                    });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误提示",
+                    message = "参数错误,输入了非法参数"
+                });
+            }
+        }
+
+        public IActionResult Staff([Required] String data)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    List<MaintenanceStaff> staffs = JsonConvert.DeserializeObject<List<MaintenanceStaff>>(data);
+                    SystemSetting set = _config.LoadSystemSetting();
+                    set.Staffs = staffs;
+                    _config.ReWriteSystemSetting(set);
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "提示",
+                        message = "修改成功"
+                    });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误提示",
+                    message = "参数错误,输入了非法参数"
+                });
+            }
+        }
+
 
     }
 

@@ -58,6 +58,76 @@ namespace LabExam.Controllers
             });
         }
 
+        public IActionResult ListById([Required] int pid, ProfessionType type)
+        {
+            if (ModelState.IsValid)
+            {
+                var list = _context.VProfessionMaps.Where(p => p.InstituteId == pid && p.ProfessionType == type).Select(pro => new
+                {
+                    id = pro.ProfessionId,
+                    name = pro.Name,
+                    instituteName = pro.InstituteName,
+                    instituteId = pro.InstituteId,
+                    type = pro.ProfessionType == ProfessionType.PostGraduate ? "研究生专业" : "本科生专业"
+                });
+                return Json(new
+                {
+                    professions = list
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误! 传递了错误的参数！"
+                });
+            }
+        }
+
+        public IActionResult ListOnlyById([Required] int pid)
+        {
+            if (ModelState.IsValid)
+            {
+                if (pid == -1)
+                {
+                    var plistAll = _context.VProfessionMaps.Select(pro => new
+                    {
+                        id = pro.ProfessionId,
+                        name = $"{pro.Name}[" + (pro.ProfessionType == ProfessionType.PostGraduate ? "研究生]" : "本科]"),
+                        instituteName = pro.InstituteName,
+                        instituteId = pro.InstituteId,
+                        type = pro.ProfessionType == ProfessionType.PostGraduate ? "研究生专业" : "本科生专业"
+                    });
+                    return Json(new
+                    {
+                        professions = plistAll
+                    });
+                }
+
+                var list = _context.VProfessionMaps.Where(p => p.InstituteId == pid).Select(pro => new
+                {
+                    id = pro.ProfessionId,
+                    name = $"{pro.Name}[" + (pro.ProfessionType == ProfessionType.PostGraduate? "研究生]" : "本科]"),
+                    instituteName = pro.InstituteName,
+                    instituteId = pro.InstituteId,
+                    type = pro.ProfessionType == ProfessionType.PostGraduate ? "研究生专业" : "本科生专业"
+                });
+                return Json(new
+                {
+                    professions = list
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误! 传递了错误的参数！"
+                });
+            }
+        }
+
         public IActionResult Update([Required] Int32 professionId, [Required] String newName, [Required] Int32 instituteId,[Required] ProfessionType type)
         {
             if (ModelState.IsValid)
@@ -219,7 +289,7 @@ namespace LabExam.Controllers
             {
                 if (_context.Institute.Any(val => val.InstituteId == instituteId))
                 {
-                    if (_context.Professions.Any(pro => pro.Name.Equals(name)))
+                    if (_context.Professions.Any(pro => pro.Name.Equals(name) && pro.ProfessionType == type )) //同一类型下的
                     {
                         return Json(new
                         {

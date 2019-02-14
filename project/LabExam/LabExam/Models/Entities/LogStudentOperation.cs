@@ -14,7 +14,7 @@ namespace LabExam.Models.Entities
         public int LogStudentOperationId { get; set; }
 
         [MaxLength(80)]
-        public int StudentId { get; set; }
+        public String StudentId { get; set; }
 
         public  StuOperationCode StuOperationCode { get; set; }
 

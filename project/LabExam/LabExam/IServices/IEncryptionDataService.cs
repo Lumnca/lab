@@ -12,5 +12,7 @@ namespace LabExam.IServices
         String DecryptByRsa(String Data);
 
         String EncodeByMd5(String Data);
+
+        String EncodeByMd5Times(String Data, int Time);
     }
 }

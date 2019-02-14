@@ -12,8 +12,8 @@ namespace LabExam.IServices
 
         void ReWriteSystemSetting(SystemSetting setting);
 
-        Dictionary<int, Boolean> LoadModuleExamOpenSetting();
+        Dictionary<int, ExamOpenSetting> LoadModuleExamOpenSetting();
 
-        void ReWriteModuleExamOpenSetting(Dictionary<int, bool> setting);
+        void ReWriteModuleExamOpenSetting(Dictionary<int, ExamOpenSetting> setting);
     }
 }

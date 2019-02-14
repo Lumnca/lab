@@ -1,4 +1,10 @@
-@import "stuFont.scss";              
-@import "stuLayout.scss";      
-@import "stuNarbar.scss"; 
-@import "stuVedio.scss";       
+@import "_stuFont.scss";              
+@import "_stuLayout.scss";      
+@import "_stuNarbar.scss"; 
+@import "_stuVedio.scss"; 
+@import "_stuBasic.scss";       
+
+
+.border-little-grey-all{
+    border: 1px solid gainsboro;
+} 

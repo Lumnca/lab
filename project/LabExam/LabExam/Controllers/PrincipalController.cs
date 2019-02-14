@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace LabExam.Controllers
 {
-    [Authorize(Roles = "Principal")]
+   // [Authorize(Roles = "Principal")]
     public class PrincipalController : Controller
     {
         private readonly LabContext _context;
@@ -31,7 +31,6 @@ namespace LabExam.Controllers
             _encryption = encryption;
             _hosting = hosting;
         }
-
 
         public IActionResult Index()
         {
@@ -110,7 +109,6 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = true,
-                    sql = sql,
                     lineCount = dataCount,
                     pageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
@@ -243,7 +241,7 @@ namespace LabExam.Controllers
         }
 
         public IActionResult Update([Required] String pId, String jobId, [Required] String name,
-            [Required] String phone)
+            [Required] String phone,[Required] PrincipalStatus status)
         {
             if (ModelState.IsValid)
             {
@@ -253,6 +251,7 @@ namespace LabExam.Controllers
                     principal.JobNumber = jobId;
                     principal.Name = name;
                     principal.Phone = phone;
+                    principal.PrincipalStatus = status;
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -417,7 +416,6 @@ namespace LabExam.Controllers
             }
         }
 
-
         [HttpPost]
         public IActionResult Setting([Required] String pId,[Required] String powerString, [Required] Boolean status)
         {
@@ -477,6 +475,43 @@ namespace LabExam.Controllers
                 {
                     isOk = false,
                     message = $"参数错误！输入了不合规范的参数。导致改变用户状态失败 "
+                });
+            }
+        }
+
+        public JsonResult Person([Required] String pId)
+        {
+            if (ModelState.IsValid)
+            {
+                var val = _context.Principals.FirstOrDefault(p=>p.PrincipalId == pId);
+                if (val != null)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        message = $"加载成功",
+                        id = val.PrincipalId,
+                        jobId = val.JobNumber,
+                        name = val.Name,
+                        status = val.PrincipalStatus == PrincipalStatus.Normal ? "正常" : val.PrincipalStatus == PrincipalStatus.Ban ? "禁止" : "超级管理员", 
+                        phone = val.Phone
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        message = $"用户不存在或者已经被删除！。 "
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    message = $"参数错误！输入了不合规范的参数。 "
                 });
             }
         }

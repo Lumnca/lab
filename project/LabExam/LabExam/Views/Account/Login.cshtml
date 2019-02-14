@@ -115,51 +115,51 @@
                 },
                 errorClass: "text-warning",
                 submitHandler: function(form) {
-                    var UserName = parseInt($('#num1').val());
-                    var UserPassword = parseInt($('#num2').val());
-                    var result = UserName + UserPassword;
-                    var valnum3 = $('#num3').val();
+                    var $num1 = parseInt($('#num1').val());
+                    var $num2 = parseInt($('#num2').val());
+                    var result = $num1 + $num2;
+                    var $num3 = $('#num3').val();
 
-                    if (valnum3 == "" || valnum3 == null) {
+                    if ($num3 == "" || $num3 == null) {
                         onMask("温馨提示", "请回答这种小学生题目！");
-                        jqEvent.preventDefault();
                         return;
                     }
-                    if (result == parseInt(valnum3)) {
+                    if (result == parseInt($num3)) {
+                        var os = window.f.Terminal();
+                        var xqXHR = $.post("/Account/Log",
+                            {
+                                terminal: os.isPc === true ? 2 : (os.isTablet === true ? 1 : 0),
+                                uId: $("#UserId").val()
+                            });
 
+                        $.ajax({
+                            url: "/Account/Login",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                userId: $('#UserId').val(),
+                                userPassword: $('#UserPassword').val(),
+                                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (data, textStatus, jqXHR) {
+
+                                console.log(data);
+
+                                if (data.isOk) {
+                                    window.location.href = data.url;
+                                } else {
+                                    onMask("温馨提示", data.message);
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR);
+                                console.log(textStatus);
+                                onMask("温馨提示", `账号认证错误--当前服务器过于拥挤！！或者网络连接失败...${errorThrown}`);
+                            }
+                        });
                     } else {
                         onMask("温馨提示", "小学生的题目都不会！ 你还是一个大学生");
-                        return;
                     }
-
-                    $.ajax({
-                        url: "/Account/IsExisit",
-                        data: {
-                            userId: $('#UserId').val()
-                        },
-                        success: function(data, textStatus, jqXHR) {
-                            if (data.isExisit) {
-                                
-                                var os = window.f.Terminal();
-                                var xqXHR = $.post("/Account/Log",
-                                    {
-                                        terminal: os.isPc === true ? 2 : (os.isTablet === true ? 1 : 0),
-                                        uId: $("#UserId").val()
-                                    });
-                                    
-                                form.submit();
-                                
-                            }
-                            else {
-                                console.log(data);
-                                onMask("温馨提示", "你的账号不存在！");
-                                return;
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            onMask("温馨提示", "账号认证错误--当前服务器过于拥挤！！");
-                        }
-                    });
                 }
             });
         });

@@ -1,4 +1,5 @@
-﻿@model LabExam.Models.JsonModel.SystemSetting
+﻿@using LabExam.Models.JsonModel
+@model LabExam.Models.JsonModel.SystemSetting
 @{
     ViewData["Title"] = "实验室安全教育在线-系统配置";
     Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
@@ -12,26 +13,26 @@
             </h4>
             <div class=" margin-bottom-10px">
                 <label class="bootstrap-checkbox">
-                    <input type="checkbox" id="studentcanlogin" />
-                    <label for="studentcanlogin" class="checkout-label"> 允许学生登录系统</label>
+                    <input type="checkbox" id="studentCanLogin" @(Model.LoginSetting.StudentLogin? "checked":"") />
+                    <label for="studentCanLogin" class="checkout-label"> 允许学生登录系统</label>
                 </label>
             </div>
             <div class=" margin-bottom-10px">
                 <label class="bootstrap-checkbox">
-                    <input type="checkbox" id="teachercanlogin" />
-                    <label for="teachercanlogin" class="checkout-label"> 允许管理员登录系统</label>
+                    <input type="checkbox" id="teacherCanLogin" @(Model.LoginSetting.PrincipalLogin? "checked":"") />
+                    <label for="teacherCanLogin" class="checkout-label"> 允许管理员登录系统</label>
                 </label>
             </div>
             <div class=" margin-bottom-10px">
                 <label class="bootstrap-checkbox">
-                    <input type="checkbox" id="examICan" />
-                    <label for="examICan" class="checkout-label"> 允许学生参加考试</label>
+                    <input type="checkbox" id="examStudentCan" @(Model.LoginSetting.IsOpenExam? "checked":"") />
+                    <label for="examStudentCan" class="checkout-label"> 允许学生参加考试</label>
                 </label>
             </div>
             <div class=" margin-bottom-10px">
                 <label class="bootstrap-checkbox">
-                    <input type="checkbox" id="pastexamICan" />
-                    <label for="pastexamICan" class="checkout-label"> 允许往届学生参加考试</label>
+                    <input type="checkbox" id="pastExamICan" @(Model.LoginSetting.AllowPastJoinExam? "checked":"") />
+                    <label for="pastExamICan" class="checkout-label"> 允许往届学生参加考试</label>
                 </label>
             </div>
             <div class=" float-layout">
@@ -52,40 +53,55 @@
             </h4>
             <div>
                 <p><span class="font-size-14 font-weight-600">技术人员:</span> <span></span></p>
+
                 <p>
                     <label class=" text-muted  padding-5px  font-size-14">姓名:</label>
                     <input type="text" data-width="150" data-height="20"
+                           value="@Model.Staffs[0].Name"
+                           name="name1"
                            class=" padding-left-5px font-size-12  border-down-only no-focus "
                            placeholder="填写维护人员姓名">
 
                     <label class="  text-muted  padding-5px  font-size-14">电话:</label>
                     <input type="text" data-width="220" data-height="20"
+                           value="@Model.Staffs[0].Phone"
+                           name="phone1"
                            class="padding-left-5px font-size-12 border-down-only no-focus"
                            placeholder="填写维护人员电话">
 
                     <label class=" text-muted  padding-5px  font-size-14">QQ:</label>
                     <input type="text" data-width="220" data-height="20"
+                           value="@Model.Staffs[0].QQ"
+                           name="qq1"
                            class="padding-left-5px font-size-12 border-down-only no-focus"
                            placeholder="填写维护人员QQ">
                 </p>
+
+
                 <p>
                     <label class="text-muted  padding-5px  font-size-14">姓名:</label>
                     <input type="text" data-width="150" data-height="20"
+                           value="@Model.Staffs[1].Name"
+                           name="name2"
                            class="padding-left-5px font-size-12 border-down-only no-focus"
                            placeholder="填写维护人员姓名">
 
                     <label class=" text-muted  padding-5px  font-size-14">电话:</label>
                     <input type="text" data-width="220" data-height="20"
+                           value="@Model.Staffs[1].Phone"
+                           name="phone2"
                            class="padding-left-5px font-size-12 border-down-only no-focus"
                            placeholder="填写维护人员电话">
 
                     <label class=" text-muted  padding-5px  font-size-14">QQ:</label>
                     <input type="text" data-width="220" data-height="20"
+                           value="@Model.Staffs[1].QQ"
+                           name="qq2"
                            class="padding-left-5px font-size-12 border-down-only no-focus"
                            placeholder="填写维护人员姓名">
                 </p>
                 <div class=" float-layout">
-                    <button class=" btn btn-primary float-right">
+                    <button class=" btn btn-primary float-right" id="staffButton">
                         <span class=" glyphicon  glyphicon-save"></span>
                         立即保存
                     </button>
@@ -93,48 +109,23 @@
             </div>
         </div>
     </div>
-    <div class=" border-little-grey-all  bc-clr-white margin-5px">
+    <div id="list-module-info" class=" border-little-grey-all  bc-clr-white margin-5px">
         <div class=" padding-10px">
             <h4 class="border-light-down font-size-14 font-weight-600 padding-bottom-10px ">
                 各模块考试安排
             </h4>
             <ul class=" clearStyle ul-li-margin curcor-pointer">
-                <li>
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="val-id-1" />
-                        <label for="val-id-1" class="checkout-label"> 允许其它理工类考试</label>
-                    </label>
-                </li>
-                <li>
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="val-id-2" />
-                        <label for="val-id-2" class="checkout-label"> 允许化学生物类考试</label>
-                    </label>
-                </li>
-                <li>
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="val-id-3" />
-                        <label for="val-id-3" class="checkout-label"> 允许文史艺体类考试</label>
-                    </label>
-                </li>
-                <li>
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="val-id-4" />
-                        <label for="val-id-4" class="checkout-label"> 允许物理信息类考试</label>
-                    </label>
-                </li>
-                <li>
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="val-id-5" />
-                        <label for="val-id-5" class="checkout-label"> 允许文史艺体（影传专用课）考试</label>
-                    </label>
-                </li>
-                <li>
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="val-id-6" />
-                        <label for="val-id-6" class="checkout-label"> 允许文史艺体（国教必修补充）考试</label>
-                    </label>
-                </li>
+                @foreach (var val in (Dictionary<int, ExamOpenSetting>) ViewData["ModuleSetting"])
+                {
+                    <li>
+                        <label class="bootstrap-checkbox">
+                            <input type="checkbox" 
+                                   @(val.Value.IsOpen? "checked":"")
+                                   id="moduleId-@(val.Key)" data-module-id="@(val.Value.ModuleId)" data-name="@(val.Value.ModuleName)" />
+                            <label for="moduleId-@(val.Key)" class="checkout-label"> 允许 @(val.Value.ModuleName)考试</label>
+                        </label>
+                    </li>
+                }
             </ul>
             <div class=" float-layout">
                 <button class=" btn btn-primary float-right">
@@ -153,7 +144,7 @@
                 <h4 class="modal-title font-weight-400 font-size-14 padding-top-10px text-info">拼命版本数据中</h4>
             </div>
             <div class="modal-body">
-                <span class=" glyphicon glyphicon-cloud-upload "></span> 拼命搬运数据中........
+                <span class=" glyphicon glyphicon-cloud-upload "></span> 玩命奔跑中........
             </div>
         </div>
     </div>
@@ -161,18 +152,72 @@
 @section Scripts
 {
     <script>
+        function MaintenanceStaff(name,phone,qq) {
+            this.name = name;
+            this.phone = phone;
+            this.qq = qq;
+        }
+
+        function LoginSetting() {
+            this.studentLogin = false;
+            this.principalLogin = false;
+            this.isOpenExam = false;
+            this.allowPastJoinExam = false;
+        }
+
+        $('#staffButton').click(function (jqEvent) {
+            var name1 = $('input[name="name1"]').val();
+            var name2 = $('input[name="name2"]').val();
+            var phone1 = $('input[name="phone1"]').val();
+            var phone2 = $('input[name="phone2"]').val();
+            var qq1 = $('input[name="qq1"]').val();
+            var qq2 = $('input[name="qq2"]').val();
+
+            if (name1 == "" || name2 == "" || phone1 == "" || phone2 =="" || qq1 == "" || qq2 == "" ) {
+                onMask("错误", "维护人员信息部分为空");
+                return;
+            }
+
+            $('#program').modal("show");
+
+            var staffup = new MaintenanceStaff(name1, phone1, qq1);
+            var staffdown = new MaintenanceStaff(name2, phone2, qq2);
+
+            var list = new Array();
+            list.push(staffup);
+            list.push(staffdown);
+
+            $.ajax({
+                url: "/Setting/Staff",
+                type: "post",
+                dataType: "json",
+                data: {
+                    data: JSON.stringify(list)
+                },
+                success: function(json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        $('#program').modal("hide");
+                    } 
+                    onMask(json.title, json.message);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        });
+
         $('#configSystem').on('click',"button:first",null,
-            function(jqEvent) {
+            function (jqEvent) {
+                $('#program').modal("show");
                 $.ajax({
                     url: "/Setting/Reload",
                     type: "post",
                     dataType: "json",
                     success: function(json, textStatus, jqXhr) {
                         if (json.isOk) {
-                            onMask(json.title, json.message);
-                        } else {
-                            onMask(json.title, json.message);
+                            $('#program').modal("hide");    
                         }
+                        onMask(json.title, json.message);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         onMask("错误", errorThrown);
@@ -180,10 +225,74 @@
                 });
             });
 
-
         $('#configSystem').on('click',"button:last",null,
             function(jqEvent) {
                 $('#program').modal("show");
+                var loginS = new LoginSetting();
+
+                loginS.allowPastJoinExam = $('#pastExamICan').prop("checked");
+                loginS.studentLogin = $('#studentCanLogin').prop("checked");
+                loginS.principalLogin = $('#teacherCanLogin').prop("checked");
+                loginS.isOpenExam = $('#examStudentCan').prop("checked");
+
+                $.ajax({
+                    url: "/Setting/SysLogin",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        data:JSON.stringify(loginS)
+                    },
+                    success: function(json, textStatus, jqXhr) {
+                        if (json.isOk) {
+                            $('#program').modal("hide");
+                        } 
+                        onMask(json.title, json.message);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", errorThrown);
+                    }
+                });
             });
+
+        function ExamOpenSetting(name,id,isOpen) {
+            this.moduleName = name ;
+            this.moduleId = id;
+            this.isOpen = isOpen;
+        };
+
+        $('#list-module-info').on('click','button',null,
+            function (jqEvent) {
+                $('#program').modal("show");
+                var list = new Array();
+
+                $('#list-module-info  ul > li  input').each(function (index, domEle) {
+                    var val = new ExamOpenSetting();
+                    val.moduleId = $(domEle).attr('data-module-id');
+                    val.moduleName = $(domEle).attr('data-name');
+                    val.isOpen = $(domEle).prop("checked");
+
+                    list.push(val);
+                });
+                console.log(list);
+
+                $.ajax({
+                    url: "/Setting/Exam",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        data: JSON.stringify(list)
+                    },
+                    success: function(json, textStatus, jqXhr) {
+                        if (json.isOk) {
+                            $('#program').modal("hide");
+                        } 
+                        onMask(json.title, json.message);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", errorThrown);
+                    }
+                });
+            });
+
     </script>
 }

@@ -8,6 +8,7 @@
     <link rel="icon" href="../Resources/system/icon/icon.png" />
     <script src="../lib/jquery/dist/jquery.js"></script>
     <script src="../lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../js/app.min.js"></script>
     <link rel="stylesheet" href="../css/stuEntry.min.css">
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" />
     <title>实验室安全教育在线-学生主页</title>
@@ -16,6 +17,13 @@
             #student-info {
                 margin-left: -25px;
             }
+        }
+        a:link{
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: none;
+            color: cornflowerblue;
         }
     </style>
 </head>
@@ -26,7 +34,7 @@
             <div class="navbar-normal-brand">
                 <img src="../Resources/Image/Icon/PageIconOnline.png" class="img-circle img-thumbnail" alt="系统图标" width="56px" />
                 <div class="navbar-normal-brand-title">
-                    实验室安全教育
+                    SICNU 实验室安全教育
                 </div>
             </div>
             <div class="navbar-normal-navlist ">
@@ -40,6 +48,7 @@
             </div>
         </div>
     </div>
+    
     <div class=" container-fluid margin-top-15px ">
         <div class="container padding-15 border-thumali bc-clr-white">
             <div class="row">
@@ -94,7 +103,7 @@
         </div>
     </div>
     <div class=" container-fluid ">
-        <div class="height-value-900 container margin-top-15px  border-thumali bc-clr-white">
+        <div class="container margin-top-15px  border-thumali bc-clr-white" data-min-height="1000">
             <nav class="nav-list">
                 <a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> 个人动态</a>
                 <a href="#ios" data-toggle="tab"><span class="glyphicon glyphicon-expand"></span>学习课程</a> 
@@ -387,8 +396,9 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid bc-clr-grey-little margin-top-15px">
-        <div class="text-center font-size-16 padding-bottom-10px">
+
+    <div class=" border-radius-4 container-fluid border-little-grey-all padding-10px  bc-clr-white margin-top-10px">
+        <div class="text-center font-size-16 ">
             <small>© All Right Reserved . 四川师范大学计算机科学学院 版权所有 版本号1.0.0.2018.9</small>
         </div>
     </div>

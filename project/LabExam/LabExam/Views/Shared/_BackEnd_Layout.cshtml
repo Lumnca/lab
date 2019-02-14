@@ -46,8 +46,8 @@
                         <span>学生管理</span>
                     </a>
                     <ul>
-                        <li><a href="#">1.学生信息</a></li>
-                        <li><a href="#">2.学生列表</a></li>
+                        <li><a asp-controller="Manager" asp-action="Create">1.添加学生</a></li>
+                        <li><a asp-controller="Manager" asp-action="list" >2.学生列表</a></li>
                         <li><a href="#">3.管理学生</a></li>
                         <li><a href="#">4.总体情况</a></li>
                     </ul>
@@ -131,54 +131,12 @@
             <div class="admin-narbar-top bc-clr-white border-light-down float-layout ">
                 <ul class="list-unstyled float-left  float-layout">
                     <li>
-                        <a href="javascript:;" class="ban-bootsrap-a-style" id="admin-only-show-505">
+                        <a asp-controller="Principal" asp-action="Index" class="ban-bootsrap-a-style" >
                             <img src="~/Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
                             <span class=" font-color-grey padding-left-25px">
                                 管理员： 蒋廖周
                             </span>
                         </a>
-                        <a asp-controller="Principal" asp-action="Index" class=" margin-left-15px font-color-black-153">  <span class="glyphicon glyphicon-user"></span> 用户个人中心</a>
-                        <ul class="z-index-top" id="admin-only-show-505-content">
-                            <li class="bc-clr-white border-thumali" data-height="310" data-width="300">
-                                <div class=" border-light-down">
-                                    <h4 class=" text-danger font-size-15 font-weight-600 text-center">
-                                        <img src="~/Resources/Admin/login/admin1.svg" width="20" class="icon-vertical" />
-                                        管理员信息
-                                        <a href="#" class="close padding-bottom-15px" id="admin-only-show-505-content-cancel">
-                                            &times;
-                                        </a>
-                                    </h4>
-                                </div>
-                                <p class=" margin-top-10px">
-                                    <span class="admin-user-title">姓名</span>
-                                    <span class="admin-user-content margin-left-15px">酱料周 </span>
-                                </p>
-                                <p class=" margin-top-10px">
-                                    <span class="admin-user-title">工号</span>
-                                    <span class="admin-user-content margin-left-15px">2016110418 </span>
-                                </p>
-                                <p class=" margin-top-10px">
-                                    <span class="admin-user-title">用户状态</span>
-                                    <span class="admin-user-content margin-left-15px">正常使用 </span>
-                                </p>
-                                <p class=" margin-top-10px">
-                                    <span class="admin-user-title">登陆时间</span>
-                                    <span class="admin-user-content margin-left-15px">2018/10/27 17:59 </span>
-                                </p>
-                                <p class=" margin-top-10px">
-                                    <span class="admin-user-title">操作总数</span>
-                                    <span class="admin-user-content margin-left-15px"> <span>50</span> 项操作 </span>
-                                </p>
-                                <p>
-                                    <span class="admin-user-title">权限拥有</span>
-                                    <span class="admin-user-content margin-left-15px"> 部分权限 </span>
-                                </p>
-                                <p>
-                                    <span class="admin-user-title">登陆选项</span>
-                                    <button class="margin-left-15px btn btn-sm btn-danger">退出登录</button>
-                                </p>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
                 <div class=" float-right padding-15px">

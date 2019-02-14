@@ -8,6 +8,7 @@ namespace LabExam.Models.Map
     public enum PrincipalStatus
     {
         Normal = 0,
-        Ban = 1
+        Ban = 1,
+        Super = 2
     }
 }

@@ -374,7 +374,7 @@ namespace LabExam.Migrations
 
                     b.Property<int>("StuOperationType");
 
-                    b.Property<int>("StudentId")
+                    b.Property<string>("StudentId")
                         .HasMaxLength(80);
 
                     b.Property<string>("Title");
