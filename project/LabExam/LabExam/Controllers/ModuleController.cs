@@ -5,6 +5,9 @@ using LabExam.DataSource;
 using LabExam.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using LabExam.IServices;
+using LabExam.Models;
+using LabExam.Models.JsonModel;
 using LabExam.Services;
 using Microsoft.AspNetCore.Authorization;
 
@@ -16,10 +19,13 @@ namespace LabExam.Controllers
     public class ModuleController : Controller
     {
         private readonly LabContext _context;
-
-        public ModuleController(LabContext context)
+        private readonly ILoadConfigFileService _config;
+        private readonly IHttpContextAnalysisService _analysis;
+        public ModuleController(LabContext context, ILoadConfigFileService config, IHttpContextAnalysisService analysis)
         {
             _context = context;
+            _config = config;
+            _analysis = analysis;
         }
 
         public IActionResult Index()
@@ -41,12 +47,18 @@ namespace LabExam.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            error = "你并无信息管理操作权限"
+                        });
+                    }
+
                     if (_context.Modules.FirstOrDefault(m => m.Name.Equals(name)) == null)
                     {
-                        Module module = new Module();
-                        module.AddTime = DateTime.Now;
-                        module.Name = name;
-                        module.PrincipalId = "20020059";
+                        Module module = new Module {AddTime = DateTime.Now, Name = name, PrincipalId = "20020059"};
                         _context.Modules.Add(module);
                         _context.SaveChanges();
                         return Json(new
@@ -79,6 +91,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 if (_context.Cources.Any(cor => cor.ModuleId == moduleId))
                 {
                     return Json(new
@@ -169,6 +190,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 Module module = _context.Modules.Find(moduleId);
                 if (module != null)
                 {
@@ -203,6 +233,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 Module m = _context.Modules.FirstOrDefault(one => one.ModuleId == moduleId);
                 if (m != null)
                 {
@@ -238,6 +277,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 InstituteToModule im = _context.InstituteToModules.FirstOrDefault(val =>
                     val.InstituteId == instituteId && val.ModuleId == moduleId);
 
@@ -274,6 +322,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 if (_context.Modules.Any(val => val.ModuleId == moduleId) && _context.Institute.Any(ins => ins.InstituteId == instituteId))
                 {
                     if (_context.InstituteToModules.Any(one =>
@@ -287,9 +344,7 @@ namespace LabExam.Controllers
                     }
                     else
                     {
-                        InstituteToModule im = new InstituteToModule();
-                        im.InstituteId = instituteId;
-                        im.ModuleId = moduleId;
+                        InstituteToModule im = new InstituteToModule {InstituteId = instituteId, ModuleId = moduleId};
                         _context.InstituteToModules.Add(im);
                         _context.SaveChanges();
                         return Json(new

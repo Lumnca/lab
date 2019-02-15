@@ -8,6 +8,7 @@ using LabExam.Models.Entities;
 using LabExam.Models.EntitiyViews;
 using LabExam.Models.JsonModel;
 using LabExam.Models.Map;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace LabExam.Controllers
 {
+    [Authorize(Roles = "Principal")]
     public class ManagerController : Controller
     {
 
@@ -22,13 +24,15 @@ namespace LabExam.Controllers
         private readonly LabContext _context;
         private readonly IHttpContextAccessor _accessor;
         private readonly ILoadConfigFileService _config;
+        private readonly IHttpContextAnalysisService _analysis;
 
-        public ManagerController(IEncryptionDataService ncryption, LabContext context, IHttpContextAccessor accessor, ILoadConfigFileService config)
+        public ManagerController(IEncryptionDataService ncryption, LabContext context, IHttpContextAccessor accessor, ILoadConfigFileService config, IHttpContextAnalysisService analysis)
         {
             _ncryption = ncryption;
             _context = context;
             _accessor = accessor;
             _config = config;
+            _analysis = analysis;
         }
 
         public IActionResult Index()
@@ -94,7 +98,6 @@ namespace LabExam.Controllers
                     return Json(new
                     {
                         isOk = true,
-                        sql = sql,
                         lineCount = 0,
                         pageCount = 1, //总共是多少页
                         pageNowIndex = 1, //当前是第几页
@@ -104,32 +107,31 @@ namespace LabExam.Controllers
                     .ThenBy(item => item.ProfessionId)
                     .Skip((index - 1) * pageSize).Take(pageSize).Select(val => new
                     {
-                        InstituteName = val.InstituteName ,
-                        ProfessionName = $"{val.ProfessionName}" + (val.ProfessionType == ProfessionType.UnderGraduate ? "[本科生]" : "[研究生]"),
-                        ProfessionType = val.ProfessionType,
-                        StudentId = val.StudentId,
-                        StudentName =  val.StudentName,
-                        Grade = val.Grade,
-                        Phone = val.Phone,
-                        BirthDate = val.BirthDate,
-                        Sex = val.Sex == true?"男":"女",
-                        StudentType =val.StudentType == StudentType.UnderGraduate? "本科生":"研究生",
-                        IsPassExam = val.IsPassExam? "通过":"未通过",
-                        MaxExamScore = val.MaxExamScore,
-                        MaxExamCount = val.MaxExamCount,
-                        ProfessionId = val.ProfessionId,
-                        Email = val.Email,
-                        IDNumber =val.IDNumber
+                        instituteName = val.InstituteName ,
+                        professionName = $"{val.ProfessionName}" + (val.ProfessionType == ProfessionType.UnderGraduate ? "[本科生]" : "[研究生]"),
+                        professionType = val.ProfessionType,
+                        studentId = val.StudentId,
+                        studentName =  val.StudentName,
+                        grade = val.Grade,
+                        phone = val.Phone,
+                        birthDate = val.BirthDate,
+                        sex = val.Sex == true?"男":"女",
+                        studentType =val.StudentType == StudentType.UnderGraduate? "本科生":"研究生",
+                        isPassExam = val.IsPassExam? "通过":"未通过",
+                        maxExamScore = val.MaxExamScore,
+                        maxExamCount = val.MaxExamCount,
+                        professionId = val.ProfessionId,
+                        email = val.Email,
+                        idNumber =val.IDNumber
                     }).ToList();
 
                 return Json(new
                 {
                     isOk = true,
-                    sql = sql,
                     lineCount = dataCount,
-                    pageCount = pageCount, //总共是多少页
+                    PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    items = items
+                    Items = items
                 });
 
             }
@@ -154,6 +156,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误",
+                        message = "你并无学生管理操作权限"
+                    });
+                }
                 Institute ins = _context.Institute.FirstOrDefault(i => i.InstituteId == student.InstituteId);
                 Profession pro = _context.Professions.FirstOrDefault(p => p.ProfessionId == student.ProfessionId);
                 if (ins == null)
@@ -244,7 +255,7 @@ namespace LabExam.Controllers
         }
 
         [HttpGet]
-        public IActionResult list()
+        public IActionResult List()
         {
             return View();
         }
@@ -253,6 +264,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误",
+                        message = "你并无学生管理操作权限"
+                    });
+                }
                 vStudentMap val = _context.VStudentMaps.FirstOrDefault(stu => stu.StudentId == sId);
                 if (val != null)
                 {
@@ -263,26 +283,26 @@ namespace LabExam.Controllers
                     return Json(new
                     {
                         isOk = true,
-                        InstituteName = val.InstituteName,
-                        ProfessionName = $"{val.ProfessionName}" + (val.ProfessionType == ProfessionType.UnderGraduate ? "[本科生]" : "[研究生]"),
-                        ProfessionType = val.ProfessionType,
-                        StudentId = val.StudentId,
-                        StudentName = val.StudentName,
-                        Grade = val.Grade,
-                        Phone = val.Phone,
-                        BirthDate = val.BirthDate,
-                        Sex = val.Sex == true ? "男" : "女",
-                        StudentType = val.StudentType == StudentType.UnderGraduate ? "本科生" : "研究生",
-                        IsPassExam = val.IsPassExam ? "通过" : "未通过",
-                        MaxExamScore = val.MaxExamScore,
-                        MaxExamCount = val.MaxExamCount,
+                        instituteName = val.InstituteName,
+                        professionName = $"{val.ProfessionName}" + (val.ProfessionType == ProfessionType.UnderGraduate ? "[本科生]" : "[研究生]"),
+                        professionType = val.ProfessionType,
+                        studentId = val.StudentId,
+                        studentName = val.StudentName,
+                        grade = val.Grade,
+                        phone = val.Phone,
+                        birthDate = val.BirthDate,
+                        sex = val.Sex == true ? "男" : "女",
+                        studentType = val.StudentType == StudentType.UnderGraduate ? "本科生" : "研究生",
+                        isPassExam = val.IsPassExam ? "通过" : "未通过",
+                        maxExamScore = val.MaxExamScore,
+                        maxExamCount = val.MaxExamCount,
                         ExamCount = examCount,
                         LoginCount = loginCount,
                         AppCount = appCount,
                         StudyTime = studyTime,
-                        ProfessionId = val.ProfessionId,
-                        Email = val.Email,
-                        IDNumber = val.IDNumber
+                        professionId = val.ProfessionId,
+                        email = val.Email,
+                        idNumber = val.IDNumber
                     });
                 }
                 else
@@ -311,6 +331,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "你并无学生管理操作权限"
+                    });
+                }
                 Student stu = _context.Student.Find(sId);
                 if (stu != null)
                 {
@@ -354,6 +383,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "你并无学生管理操作权限"
+                    });
+                }
                 var isExisit = _context.Student.Any(val => val.StudentId == sId);
                 return Json(new
                 {

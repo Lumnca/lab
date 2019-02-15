@@ -1,5 +1,5 @@
 {
-  "PrincipalId": "111111",
+  "PrincipalId": "20020059",
   "Power": {
     "StudentManager": true,
     "ExamManager": true,
@@ -9,5 +9,5 @@
     "SystemInfoManager": true,
     "SystemManager": true
   },
-  "SettingTime": "2019-02-10T19:00:36.2268545+08:00"
+  "SettingTime": "2019-02-15T10:21:06.2500492+08:00"
 }

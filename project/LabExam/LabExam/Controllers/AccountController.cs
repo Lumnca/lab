@@ -115,7 +115,7 @@ namespace LabExam.Controllers
                 if (type == UserType.Principal)
                 {
                     Principal principal = _context.Principals.Find(userId);
-                    if ( _ncryption.DecryptByRsa(principal.Password) == _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(userPassword)))
+                    if ( _ncryption.DecryptByRsa(principal.Password) != _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(userPassword)))
                     {
                         return Json(new
                         {
@@ -127,7 +127,7 @@ namespace LabExam.Controllers
                 //如果是学生判断密码是正确
                 if (type == UserType.Student)
                 {
-                    if (!_context.Student.Any(stu => stu.Password == _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(userPassword))))
+                    if (_context.Student.Any(stu => stu.Password != _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(userPassword))))
                     {
                         return Json(new
                         {
@@ -150,7 +150,7 @@ namespace LabExam.Controllers
                             message = "系统维护中,管理员请等待系统维护之后进入！",
                         });
                     }
-
+                    //判断此管理员是否已经被禁止
                     if (principal.PrincipalStatus == PrincipalStatus.Ban)
                     {
                         return Json(new

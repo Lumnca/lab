@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using LabExam.IServices;
 using LabExam.Models.Entities;
 using LabExam.Models.EntitiyViews;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +19,11 @@ namespace LabExam.Controllers
     public class InstituteController : Controller
     {
         private readonly LabContext _context;
-
-        public InstituteController(LabContext context)
+        private readonly IHttpContextAnalysisService _analysis;
+        public InstituteController(LabContext context, IHttpContextAnalysisService analysis)
         {
             _context = context;
+            _analysis = analysis;
         }
 
         public IActionResult Index()
@@ -55,6 +57,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 if (_context.Modules.Any(m => m.ModuleId == ModuleId))
                 {
                     if (_context.Institute.Any(ins => ins.Name == Name))
@@ -110,7 +121,6 @@ namespace LabExam.Controllers
 
         public IActionResult Page([Required] int pageIndex,[Required] int moduleId,[Required] int instituteId)
         {
-
             if (ModelState.IsValid && pageIndex > 0)
             {
                 String sql = "select * from InstituteView where InstituteId > 0";
@@ -171,6 +181,14 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid && instituteId > 0)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
                 Institute ins = _context.Institute.FirstOrDefault(one => one.InstituteId == instituteId);
                 if (ins != null)
                 {
@@ -206,6 +224,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
+
                 Institute ins = _context.Institute.FirstOrDefault(one => one.InstituteId == instituteId);
                 if (ins != null)
                 {

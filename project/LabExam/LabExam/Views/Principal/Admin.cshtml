@@ -236,6 +236,12 @@
                     </p>
                 </a>
                 <a href="#" class="list-group-item ">
+                    <h5 class="text-primary">系统配置权限</h5>
+                    <p class="list-group-item-text padding-top-10px">
+                        可以配置系统设置
+                    </p>
+                </a>
+                <a href="#" class="list-group-item ">
                     <h5 class="text-primary">信息管理权限</h5>
                     <p class="list-group-item-text padding-top-10px">
                         增删改 学院 增删改专业 增删改模块信息
@@ -304,7 +310,7 @@
                                data-max-width="400">
                     </div>
                     <div class="form-group">
-                        <label for="PrincipalStatus">管理员电话:</label> 
+                        <label for="PrincipalStatus">管理员状态:</label> 
                         <select name="PrincipalStatus" id="PrincipalStatus" class="form-control" data-max-width="400">
                             <option value="0">正常使用</option>
                             <option value="1">禁用账号</option>
@@ -378,12 +384,6 @@
                     <label class="bootstrap-checkbox">
                         <input type="checkbox" id="SystemManager" />
                         <label for="SystemManager" class="checkout-label"> 系统管理权限</label>
-                    </label>
-                </div>
-                <div class=" padding-10px">
-                    <label class="bootstrap-checkbox">
-                        <input type="checkbox" id="changeAdminStatus"/>
-                        <label for="changeAdminStatus" class="checkout-label"> 允许管理员登录</label>
                     </label>
                 </div>
                 <div class=" text-center">
@@ -460,7 +460,7 @@
                 <span class=" glyphicon glyphicon-trash "></span>
                 删除
             </button>
-            <button data-power-id="{{id}}" data-name="{{name}}" data-u-jobId="{{jobNumber}}" data-u-phone="{{phone}}"
+            <button data-power-id="{{id}}" data-name="{{name}}" data-u-jobId="{{jobId}}" data-u-phone="{{phone}}"
                     class="dialog-update btn btn-default btn-sm">
                 <span class=" glyphicon glyphicon-cog "></span>
                 修改
@@ -629,7 +629,6 @@
                             $('#SystemInfoManager').prop("checked", json.setting.power.systemInfoManager);
                             $('#SystemManager').prop("checked", json.setting.power.systemManager);
                             $('#SystemManager').prop("checked", json.setting.power.systemManager);
-                            $('#changeAdminStatus').prop("checked", json.status);
                              
                             $('#power-setting-dialog .power-name').text(json.name);
                             $('#power-setting-dialog .power-id').text(json.setting.principalId);
@@ -716,19 +715,18 @@
             power.SystemInfoManager = $('#SystemInfoManager').prop("checked");
             power.SystemManager = $('#SystemManager').prop("checked");
 
-            var status = $('#changeAdminStatus').prop("checked");
-
             $.ajax({
                 url: "/Principal/Setting",
                 type: "post",
                 dataType: "json",
                 data: {
                     pId: id,
-                    powerString: JSON.stringify(power),
-                    status: status
-            },
+                    powerString: JSON.stringify(power)
+                 },
                 success: function(json, textStatus, jqXhr) {
+                    console.log(json);
                     if (json.isOk) {
+                        
                         $('#power-setting-dialog').modal('hide');
                         onMask("提示信息", json.message);
                         loadPageByIndex(1);

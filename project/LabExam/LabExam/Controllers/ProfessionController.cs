@@ -6,21 +6,26 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using LabExam.DataSource;
+using LabExam.IServices;
 using LabExam.Models.Entities;
 using LabExam.Models.Map;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LabExam.Controllers
 {
+    [Authorize(Roles = "Principal")]
     public class ProfessionController : Controller
     {
 
         private readonly LabContext _context;
+        private readonly IHttpContextAnalysisService _analysis;
 
-        public ProfessionController(LabContext context)
+        public ProfessionController(LabContext context, IHttpContextAnalysisService analysis)
         {
             _context = context;
+            _analysis = analysis;
         }
 
         public IActionResult Index()
@@ -132,6 +137,14 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
                 if (!_context.Institute.Any(ins => ins.InstituteId == instituteId))
                 {
                     return Json(new
@@ -244,6 +257,14 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
                 if (_context.Student.Any(stu => stu.ProfessionId == professionId))
                 {
                     return Json(new
@@ -287,6 +308,14 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemInfoManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        error = "你并无信息管理操作权限"
+                    });
+                }
                 if (_context.Institute.Any(val => val.InstituteId == instituteId))
                 {
                     if (_context.Professions.Any(pro => pro.Name.Equals(name) && pro.ProfessionType == type )) //同一类型下的

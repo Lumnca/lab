@@ -25,6 +25,5 @@ namespace LabExam.Models.JsonModel
             SystemInfoManager = false;
             SystemManager = false;
         }
-
     }
 }

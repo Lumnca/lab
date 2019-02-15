@@ -19,7 +19,7 @@
     <Folder Include="JsonConfig\" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties JsonConfig_41111112_1json__JSONSchema="http://json.schemastore.org/2.0.0-csd.2.beta.2018-10-10.json" appsettings_1Development_1json__JSONSchema="http://json.schemastore.org/appsscript" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1Development_1json__JSONSchema="http://json.schemastore.org/appsscript" /></VisualStudio></ProjectExtensions>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES2015</TypeScriptTarget>

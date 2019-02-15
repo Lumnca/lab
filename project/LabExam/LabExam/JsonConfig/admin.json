@@ -1,13 +1,13 @@
 {
-  "PrincipalId": "1427035242",
+  "PrincipalId": "admin",
   "Power": {
     "StudentManager": true,
-    "ExamManager": false,
+    "ExamManager": true,
     "CourcesManager": false,
     "QuestionBankManager": false,
     "SystemSettingManager": false,
     "SystemInfoManager": false,
     "SystemManager": false
   },
-  "SettingTime": "2019-02-08T20:14:08.4007436+08:00"
+  "SettingTime": "2019-02-15T10:20:57.5272057+08:00"
 }

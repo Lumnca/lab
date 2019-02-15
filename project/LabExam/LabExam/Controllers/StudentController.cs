@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LabExam.DataSource;
+﻿using LabExam.DataSource;
 using LabExam.IServices;
-using LabExam.Models.Entities;
-using LabExam.Models.JsonModel;
-using LabExam.Models.Map;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LabExam.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
         private readonly IEncryptionDataService _ncryption;

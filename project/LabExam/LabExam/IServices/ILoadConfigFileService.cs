@@ -15,5 +15,8 @@ namespace LabExam.IServices
         Dictionary<int, ExamOpenSetting> LoadModuleExamOpenSetting();
 
         void ReWriteModuleExamOpenSetting(Dictionary<int, ExamOpenSetting> setting);
+
+        PrincipalConfig LoadPrincipalConfig(String principalId);
+        
     }
 }

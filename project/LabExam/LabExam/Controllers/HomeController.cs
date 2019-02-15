@@ -14,12 +14,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace LabExam.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         
         [Route("/")]
         [Route("/Index")]
-        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

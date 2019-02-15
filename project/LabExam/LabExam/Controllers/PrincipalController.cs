@@ -18,18 +18,19 @@ using System.Linq;
 
 namespace LabExam.Controllers
 {
-   // [Authorize(Roles = "Principal")]
+    [Authorize(Roles = "Principal")]
     public class PrincipalController : Controller
     {
         private readonly LabContext _context;
         private readonly IEncryptionDataService _encryption;
         private readonly IHostingEnvironment _hosting;
-
-        public PrincipalController(LabContext context, IEncryptionDataService encryption, IHostingEnvironment hosting)
+        private readonly IHttpContextAnalysisService _analysis;
+        public PrincipalController(LabContext context, IEncryptionDataService encryption, IHostingEnvironment hosting, IHttpContextAnalysisService analysis)
         {
             _context = context;
             _encryption = encryption;
             _hosting = hosting;
+            _analysis = analysis;
         }
 
         public IActionResult Index()
@@ -89,7 +90,6 @@ namespace LabExam.Controllers
                     return Json(new
                     {
                         isOk = true,
-                        sql = sql,
                         lineCount = 0,
                         pageCount = 1, //总共是多少页
                         pageNowIndex = 1, //当前是第几页
@@ -102,7 +102,7 @@ namespace LabExam.Controllers
                         id = val.PrincipalId,
                         jobId = val.JobNumber,
                         name = val.Name,
-                        status = val.PrincipalStatus == PrincipalStatus.Normal ? "正常" : "已禁用",
+                        status = val.PrincipalStatus == PrincipalStatus.Normal ? "正常" : val.PrincipalStatus == PrincipalStatus.Ban ? "禁止" : "超级管理员",
                         phone = val.Phone
                     }).ToList();
 
@@ -110,9 +110,9 @@ namespace LabExam.Controllers
                 {
                     isOk = true,
                     lineCount = dataCount,
-                    pageCount = pageCount, //总共是多少页
+                    PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    items = items
+                    Items = items
                 });
             }
             else
@@ -130,6 +130,36 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
+                if (_context.Student.Any(stu => stu.StudentId == id))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        message = $"编号:{id}是已经存在的学号！无法使用！"
+                    });
+                }
+
+                if (id.Length == 12 || id.Length == 10)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        message = $"编号:{id}属于学号范围！长度不能为10位或者12位 无法使用！"
+                    });
+                }
+
                 if (_context.Principals.Any(admin => admin.PrincipalId == id || admin.JobNumber == jobId))
                 {
                     return Json(new
@@ -140,13 +170,15 @@ namespace LabExam.Controllers
                 }
                 else
                 {
-                    Principal principal = new Principal();
-                    principal.PrincipalId = id;
-                    principal.JobNumber = jobId;
-                    principal.Name = name;
-                    principal.Phone = phone;
-                    principal.PrincipalStatus = PrincipalStatus.Normal;
-                    principal.PrincipalConfig = $"{id}.json";
+                    Principal principal = new Principal
+                    {
+                        PrincipalId = id,
+                        JobNumber = jobId,
+                        Name = name,
+                        Phone = phone,
+                        PrincipalStatus = PrincipalStatus.Normal,
+                        PrincipalConfig = $"{id}.json"
+                    };
                     String password = _encryption.EncodeByRsa(_encryption.EncodeByMd5(_encryption.EncodeByMd5(pwd)));
                     principal.Password = password;
                     _context.Principals.Add(principal);
@@ -156,10 +188,10 @@ namespace LabExam.Controllers
                     if (result == 1)
                     {
                         //配置权限
-                        PrincipalConfig config = new PrincipalConfig();
-                        config.SettingTime = DateTime.Now;
-                        config.PrincipalId = id;
-                        config.Power = new Power();
+                        PrincipalConfig config = new PrincipalConfig
+                        {
+                            SettingTime = DateTime.Now, PrincipalId = id, Power = new Power()
+                        };
 
                         using (var stream = new FileStream(
                             Path.GetFullPath($@"{_hosting.ContentRootPath}/JsonConfig/{id}.json"), FileMode.Create,
@@ -203,6 +235,18 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 Principal principal = _context.Principals.Find(pId);
                 if (principal != null)
                 {
@@ -245,6 +289,18 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 Principal principal = _context.Principals.FirstOrDefault(val => val.PrincipalId == pId);
                 if (principal != null)
                 {
@@ -283,6 +339,18 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 Principal principal = _context.Principals.Find(pId);
                 if (principal != null)
                 {
@@ -351,6 +419,18 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 Principal principal = _context.Principals.Find(pId);
                 if (principal != null)
                 {
@@ -386,6 +466,18 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 Principal principal = _context.Principals.Find(pId);
                 if (principal != null)
                 {
@@ -417,10 +509,22 @@ namespace LabExam.Controllers
         }
 
         [HttpPost]
-        public IActionResult Setting([Required] String pId,[Required] String powerString, [Required] Boolean status)
+        public IActionResult Setting([Required] String pId,[Required] String powerString)
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 Principal principal = _context.Principals.Find(pId);
                 if (principal != null)
                 {
@@ -428,10 +532,10 @@ namespace LabExam.Controllers
                     try
                     {
                         Power p = JsonConvert.DeserializeObject<Power>(powerString);
-                        PrincipalConfig config = new PrincipalConfig();
-                        config.PrincipalId = pId;
-                        config.Power = p;
-                        config.SettingTime = DateTime.Now;
+                        PrincipalConfig config = new PrincipalConfig
+                        {
+                            PrincipalId = pId, Power = p, SettingTime = DateTime.Now
+                        };
 
                         using (var stream = new FileStream(
                             Path.GetFullPath($@"{_hosting.ContentRootPath}/JsonConfig/{pId}.json"), FileMode.Create,
@@ -450,9 +554,6 @@ namespace LabExam.Controllers
                         Console.WriteLine(e);
                         throw;
                     }
-
-                    //修改用户状态
-                    principal.PrincipalStatus = status ? PrincipalStatus.Normal : PrincipalStatus.Ban;
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -483,6 +584,18 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!principalConfig.Power.SystemManager)
+                {
+                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你并无系统管理操作权限"
+                        });
+                    }
+                }
                 var val = _context.Principals.FirstOrDefault(p=>p.PrincipalId == pId);
                 if (val != null)
                 {

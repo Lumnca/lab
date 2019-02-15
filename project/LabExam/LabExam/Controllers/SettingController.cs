@@ -10,22 +10,25 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using LabExam.IServices;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LabExam.Controllers
 {
+    [Authorize(Roles = "Principal")]
     public class SettingController : Controller
     {
         private readonly IHostingEnvironment _hosting;
         private readonly LabContext _context;
         private readonly ILoadConfigFileService _config;
-
-        public SettingController(LabContext context, IHostingEnvironment hosting, ILoadConfigFileService config)
+        private readonly IHttpContextAnalysisService _analysis;
+        public SettingController(LabContext context, IHostingEnvironment hosting, ILoadConfigFileService config, IHttpContextAnalysisService analysis)
         {
             _context = context;
             _hosting = hosting;
             _config = config;
+            _analysis = analysis;
         }
 
         // GET: /<controller>/
@@ -39,6 +42,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无系统设置操作权限"
+                    });
+                }
                 Module module = _context.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
                 if (module == null)
                 {
@@ -121,6 +133,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无系统设置操作权限"
+                    });
+                }
                 Module module = _context.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
 
                 if (module == null)
@@ -180,6 +201,15 @@ namespace LabExam.Controllers
         {
             try
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示！",
+                        message = "你并无系统设置操作权限"
+                    });
+                }
                 SystemSetting systemSetting = _config.LoadSystemSetting();
                 List<int> keys = new List<int>();
 
@@ -215,7 +245,17 @@ namespace LabExam.Controllers
 
         public IActionResult ExamSetting()
         {
-           Dictionary<int,ExamOpenSetting> openSetting = new Dictionary<int, ExamOpenSetting>();
+            if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title ="错误提示",
+                    message = "你并无系统设置操作权限"
+                });
+            }
+
+            Dictionary<int,ExamOpenSetting> openSetting = new Dictionary<int, ExamOpenSetting>();
            foreach (var module in _context.Modules.ToList())
            {
                ExamOpenSetting setting = new ExamOpenSetting()
@@ -235,6 +275,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示！",
+                        message = "你并无系统设置操作权限"
+                    });
+                }
                 try
                 {
                     LoginSetting loginSetting = JsonConvert.DeserializeObject<LoginSetting>(data);
@@ -269,6 +318,15 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无系统设置操作权限"
+                    });
+                }
                 try
                 {
                     List<ExamOpenSetting> list = JsonConvert.DeserializeObject<List<ExamOpenSetting>>(data);
@@ -305,8 +363,18 @@ namespace LabExam.Controllers
 
         public IActionResult Staff([Required] String data)
         {
+
             if (ModelState.IsValid)
             {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.SystemSettingManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无系统设置操作权限"
+                    });
+                }
                 try
                 {
                     List<MaintenanceStaff> staffs = JsonConvert.DeserializeObject<List<MaintenanceStaff>>(data);

@@ -14,10 +14,8 @@ namespace LabExam.Models.Entities
         public String Name { get; set; } //名称
         public DateTime AddTime { get; set; } //添加时间
 
-        [ForeignKey("Principal"),MaxLength(100)]
+        [MaxLength(100)]
         public String PrincipalId { get; set; }
-
-        public virtual Principal Principal { get; set; }//导航属性
 
     }
 }
