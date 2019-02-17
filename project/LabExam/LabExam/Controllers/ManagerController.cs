@@ -35,11 +35,6 @@ namespace LabExam.Controllers
             _analysis = analysis;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Page([Required] int index, String sName, String sId,[Required] int iId, [Required] int pid,Boolean isUnder,Boolean isPost,[Required] int grade)
         {
             if (ModelState.IsValid && index > 0)

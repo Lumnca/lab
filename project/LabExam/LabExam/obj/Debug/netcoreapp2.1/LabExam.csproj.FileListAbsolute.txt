@@ -49,8 +49,11 @@ F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Student\Index.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Setting\Index.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Setting\Sys.g.cshtml.cs
-F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Manager\Index.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Manager\Create.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Manager\list.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_FrontEnd_Layout.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Account\AlterResult.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Judge\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Single\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Multiple\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Cource\Index.g.cshtml.cs

@@ -63,7 +63,7 @@ using LabExam.Models;
             WriteLiteral("\r\n\r\n<!doctype html>\r\n<html>\r\n");
             EndContext();
             BeginContext(58, 4146, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "220645b7b45045f1b0a1ddbe6459ee17", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "99245db2be3e48e6bfe95496e6230bcc", async() => {
                 BeginContext(64, 74, true);
                 WriteLiteral("\r\n    <meta charset=\"utf-8\">\r\n    <title>404错误页效果</title>\r\n\r\n    <style>\r\n");
                 EndContext();
@@ -241,7 +241,7 @@ a.more-link {
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(4206, 258, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "34139e781ba74e15be6d052fbd9e0764", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3667ac6e5b89428ea318d02e83e6bd2e", async() => {
                 BeginContext(4212, 245, true);
                 WriteLiteral("\r\n\r\n    <h1>404 错误页面 !</h1>\r\n    <p class=\"zoom-area\">你查找的资源被我们弄丢了!!! </p>\r\n    <section class=\"error-container\">\r\n        <span>4</span>\r\n        <span><span class=\"screen-reader-text\">0</span></span>\r\n        <span>4</span>\r\n    </section>\r\n\r\n");
                 EndContext();

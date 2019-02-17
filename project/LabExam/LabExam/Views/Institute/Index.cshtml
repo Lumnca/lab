@@ -29,7 +29,6 @@
                     <label class=" font-size-13 font-weight-500 ">所属模块:</label>
                     <select name="module-list" id="module-list" class="border-radius-4 padding-left-10px select-layout"
                             data-width="200" data-height="28">
-
                     </select>
                     <label class=" font-size-13 font-weight-500 ">学院名称:</label>
                     <select id="InstituteName" class="border-radius-4 padding-left-10px" data-width="200"
@@ -41,14 +40,12 @@
                         立即查询
                     </button>
                 </div>
-
-
                 <div class="table-responsive bc-clr-white">
                     <table class="table table-hover" data-min-width="700">
                         <thead>
                             <tr>
                             <tr>
-                                <th class=" text-center">编号</th>
+                                <th>编号</th>
                                 <th>学院名称</th>
                                 <th>学院ID</th>
                                 <th>所属模块</th>
@@ -66,7 +63,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td class=" text-center">@(++index)</td>
+                                    <td ><label class="label label-primary">@(++index)</label></td>
                                     <td>@item.Name </td>
                                     <td>@item.InstituteId</td>
                                     <td>@item.ModuleName</td>
@@ -108,10 +105,10 @@
                                 页
                             </span>
                         </button>
-                        <button class="First btn btn-success btn-sm" > <span class="glyphicon glyphicon-backward"></span>  首页</button>
-                        <button class="Previous btn btn-success btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
-                         <button class="Next btn btn-success btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
-                         <button data-pageLastIndex="@ViewBag.pageCount" class="Last btn btn-success btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
+                        <button class="First btn btn-primary btn-sm" > <span class="glyphicon glyphicon-backward"></span>  首页</button>
+                        <button class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
+                         <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
+                         <button data-pageLastIndex="@ViewBag.pageCount" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
                         <select id="pageSkipNext" class=" margin-left-10px" data-height="27" data-width="45">
                             @{
                                 int _index = 1;
@@ -237,7 +234,7 @@
 <script id="fuiInstituteListTemplate" type="x-tmpl-mustache">
     {{#institutes}}
     <tr>
-        <td class=" text-center">{{index}}</td>
+        <td class=" text-center"><label class="label label-primary">{{index}}</label></td>
         <td>{{name}} </td>
         <td>{{instituteId}}</td>
         <td>{{moduleName}}</td>

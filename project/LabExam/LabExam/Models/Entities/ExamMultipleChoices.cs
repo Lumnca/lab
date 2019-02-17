@@ -17,10 +17,7 @@ namespace LabExam.Models.Entities
         [MaxLength(40)]
         public String StudentId { get; set; }
 
-        [ForeignKey("MultipleChoices")]
         public int MultipleId { get; set; }
-
-        public virtual MultipleChoices MultipleChoices { get; set; }
 
         [MaxLength(10)]
         public String StudentAnswer { get; set; }

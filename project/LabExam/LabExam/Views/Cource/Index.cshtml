@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "实验室安全教育在线-课程列表";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+<div class="admin-searach">
+    <!-- 搜索栏 -->
+    <div id="Search-condition" class=" bc-clr-white margin-10px  padding-15px border-little-grey-all"
+         data-min-width="1250">
+        <form class="float-layout">
+            <span for="ModuleId" class=" font-size-14 text-muted">所属模块：</span>
+            <select name="ModuleId" id="ModuleId" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                <option id="0" selected>-- 全部 --</option>
+                <option value="1">文史艺体类</option>
+                <option value="2">物理信息类</option>
+                <option value="3">化学生物类</option>
+            </select>
+            <span for="ModuleStatus" class="margin-left-20px font-size-14 text-muted">课程状态</span>
+            <select name="ModuleStatus" id="ModuleStatus" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                <option value="-1">-- 全部 --</option>
+                <option value="1">停用</option>
+                <option value="2">在使用</option>
+            </select>
+            <span for="KeyName" class="margin-left-20px font-size-14 text-muted">关键字：</span>
+            <input value="" type="text"  id="KeyName" name="KeyName"
+                   data-height="24" data-width="200" class="font-size-12 padding-left-5px ">
+            <button class="float-right  btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-search"></span>
+                立即搜索
+            </button>
+        </form>
+
+    </div>
+    <div class=" bc-clr-white margin-10px  padding-15px border-little-grey-all" data-min-width="1250">
+        <label class=" bootstrap-checkbox">
+            <input type="checkbox" id="shooseAllCode" />
+            <label for="shooseAllCode" class="checkout-label"> 编号</label>
+        </label>
+        <a asp-controller="Cource" asp-action="Create"  class="margin-left-20px btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-plus"></span>
+            添加课程
+        </a>
+        <button class=" btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-hand-up"></span>
+            全部使用
+        </button>
+        <button class=" btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-hand-down"></span>
+            全部停用
+        </button>
+        <button class=" btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-user"></span>
+            我的课程
+        </button>
+        <button class=" btn btn-sm btn-default">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+            清空筛选条件
+        </button>
+    </div>
+</div>
+<div class=" bc-clr-white margin-10px  padding-15px border-little-grey-all" data-min-width="1250">
+    <table class="table table-hover" id="student-list">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>课程名称</th>
+                <th>所属模块</th>
+                <th>学分</th>
+                <th>添加时间</th>
+                <th>课程状态</th>
+                <th class=" text-right">数据操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label class="label label-primary">1</label>
+                </td>
+                <td>实验室防盗与信息安全(物理信息类）</td>
+                <td>物理信息类</td>
+                <td>2</td>
+                <td>
+                    2018/5/15 15:36
+                </td>
+                <td>在使用</td>
+                <td class=" text-right">
+                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#arrangeCource">
+                        <span class="glyphicon glyphicon-calendar"></span> 安排课程
+                    </button>
+                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#delete">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        停用课程
+                    </button>
+                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                        <span class="glyphicon glyphicon-search"></span> 详情/修改
+                    </button>
+                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        删除
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="label label-primary">2</label>
+                </td>
+                <td>实验室安全与环保事故的反思（化学生物类）</td>
+                <td>化学生物类</td>
+                <td>3</td>
+                <td>
+                    2018/5/15 12:16
+                </td>
+                <td>未通过</td>
+                <td class=" text-right">
+                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#arrangeCource">
+                        <span class="glyphicon glyphicon-calendar"></span> 安排课程
+                    </button>
+                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#delete">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        停用课程
+                    </button>
+                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                        <span class="glyphicon glyphicon-search"></span> 详情/修改
+                    </button>
+                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        删除
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class=" float-layout bc-clr-white padding-10px ">
+        <label class=" InspageCount float-left">
+            共 <span class="items-count">0</span> 个题目
+        </label>
+        <div class=" float-right">
+            <button class=" btn-default btn btn-sm ">
+                <span>第</span>
+                <span class="show-page-Index">
+                    1
+                </span>
+                <span>
+                    /
+                </span>
+                <span class="show-page-Count">
+                    12
+                </span>
+                <span>
+                    页
+                </span>
+            </button>
+            <button class="First btn btn-primary btn-sm"> <span class="glyphicon glyphicon-backward"></span>  首页</button>
+            <button class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
+            <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
+            <button data-lastIndex="" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
+            <select id="pageSkipNext" data-options="true" class=" margin-left-10px" data-height="27" data-width="45">
+
+            </select>
+            <button class="pageSkip btn btn-sm btn-primary">跳转</button>
+        </div>
+    </div>
+</div> 

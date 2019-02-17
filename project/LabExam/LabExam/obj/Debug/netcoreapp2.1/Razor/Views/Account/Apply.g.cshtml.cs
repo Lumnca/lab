@@ -98,7 +98,7 @@ using LabExam.Models;
         ");
             EndContext();
             BeginContext(1764, 4631, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "62622f94bef14f34a5fe5adb900c7e9e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1eae858a7e144d6896691aea0b32e5a5", async() => {
                 BeginContext(1896, 1028, true);
                 WriteLiteral(@"
             <div class=""form-group"">
@@ -123,7 +123,7 @@ using LabExam.Models;
                 WriteLiteral("    ");
                 EndContext();
                 BeginContext(2924, 30, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ecf8903372904a08816962180659d6ba", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cffaac3816664ec4ba975bd12e01194f", async() => {
                     BeginContext(2942, 3, true);
                     WriteLiteral("本科生");
                     EndContext();
@@ -145,7 +145,7 @@ using LabExam.Models;
                 WriteLiteral("\r\n                        ");
                 EndContext();
                 BeginContext(2980, 30, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8362c560360542709af07c77de355e50", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "40a32b6641ed472c9647c9cb59708c8b", async() => {
                     BeginContext(2998, 3, true);
                     WriteLiteral("研究生");
                     EndContext();

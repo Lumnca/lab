@@ -164,8 +164,6 @@ namespace LabExam.Migrations
 
                     b.HasKey("ExamJudgeChoicesId");
 
-                    b.HasIndex("JudgeId");
-
                     b.HasIndex("PaperId");
 
                     b.ToTable("ExamJudgeChoices");
@@ -192,8 +190,6 @@ namespace LabExam.Migrations
                         .HasMaxLength(40);
 
                     b.HasKey("ExamMultipleChoicesId");
-
-                    b.HasIndex("MultipleId");
 
                     b.HasIndex("PaperId");
 
@@ -223,8 +219,6 @@ namespace LabExam.Migrations
                     b.HasKey("ExamSingleChoicesId");
 
                     b.HasIndex("PaperId");
-
-                    b.HasIndex("SingleId");
 
                     b.ToTable("ExamSingleChoices");
                 });
@@ -274,7 +268,7 @@ namespace LabExam.Migrations
                     b.Property<DateTime>("AddTime");
 
                     b.Property<string>("Answer")
-                        .HasMaxLength(10);
+                        .HasMaxLength(50);
 
                     b.Property<string>("B")
                         .HasMaxLength(1000);
@@ -286,6 +280,9 @@ namespace LabExam.Migrations
                     b.Property<int>("Count");
 
                     b.Property<float>("DegreeOfDifficulty");
+
+                    b.Property<string>("Key")
+                        .HasMaxLength(200);
 
                     b.Property<int>("ModuleId");
 
@@ -436,7 +433,7 @@ namespace LabExam.Migrations
                     b.Property<DateTime>("AddTime");
 
                     b.Property<string>("Answer")
-                        .HasMaxLength(10);
+                        .HasMaxLength(50);
 
                     b.Property<string>("B")
                         .HasMaxLength(1000);
@@ -466,6 +463,9 @@ namespace LabExam.Migrations
 
                     b.Property<string>("H")
                         .HasMaxLength(1000);
+
+                    b.Property<string>("Key")
+                        .HasMaxLength(200);
 
                     b.Property<int>("ModuleId");
 
@@ -593,7 +593,7 @@ namespace LabExam.Migrations
                     b.Property<DateTime>("AddTime");
 
                     b.Property<string>("Answer")
-                        .HasMaxLength(10);
+                        .HasMaxLength(50);
 
                     b.Property<string>("B")
                         .HasMaxLength(1000);
@@ -623,6 +623,9 @@ namespace LabExam.Migrations
 
                     b.Property<string>("H")
                         .HasMaxLength(1000);
+
+                    b.Property<string>("Key")
+                        .HasMaxLength(200);
 
                     b.Property<int>("ModuleId");
 
@@ -701,11 +704,6 @@ namespace LabExam.Migrations
 
             modelBuilder.Entity("LabExam.Models.Entities.ExamJudgeChoices", b =>
                 {
-                    b.HasOne("LabExam.Models.Entities.JudgeChoices", "JudgeChoices")
-                        .WithMany()
-                        .HasForeignKey("JudgeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("LabExam.Models.Entities.ExaminationPaper", "ExaminationPaper")
                         .WithMany()
                         .HasForeignKey("PaperId")
@@ -714,11 +712,6 @@ namespace LabExam.Migrations
 
             modelBuilder.Entity("LabExam.Models.Entities.ExamMultipleChoices", b =>
                 {
-                    b.HasOne("LabExam.Models.Entities.MultipleChoices", "MultipleChoices")
-                        .WithMany()
-                        .HasForeignKey("MultipleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("LabExam.Models.Entities.ExaminationPaper", "ExaminationPaper")
                         .WithMany("ExamMultipleChoices")
                         .HasForeignKey("PaperId")
@@ -730,11 +723,6 @@ namespace LabExam.Migrations
                     b.HasOne("LabExam.Models.Entities.ExaminationPaper", "ExaminationPaper")
                         .WithMany("ExamSingleChoices")
                         .HasForeignKey("PaperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("LabExam.Models.Entities.SingleChoices", "SingleChoices")
-                        .WithMany()
-                        .HasForeignKey("SingleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -44,7 +44,7 @@
                 <table class="table table-hover" data-min-width="700">
                     <thead>
                     <tr>
-                        <th class=" text-center">编号</th>
+                        <th>编号</th>
                         <th>管理员ID</th>
                         <th>工号</th>
                         <th>名称</th>
@@ -62,7 +62,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="text-center">@(index++)</td>
+                            <td><label class="label label-primary">@(index++)</label> </td>
                             <td>@item.PrincipalId</td>
                             <td>@item.JobNumber</td>
                             <th>@item.Name</th>
@@ -115,18 +115,18 @@
                                     页
                                 </span>
                             </button>
-                            <button class="First btn btn-success btn-sm">
+                            <button class="First btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-backward"></span>
                                  首页
                             </button>
-                            <button class="Previous btn btn-success btn-sm">
+                            <button class="Previous btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                                 上一页
                             </button>
-                            <button class="Next btn btn-success btn-sm">
+                            <button class="Next btn btn-primary btn-sm">
                                 下一页 <span class="glyphicon glyphicon-chevron-right"></span>
                             </button>
-                            <button class="Last btn btn-success btn-sm" data-lastIndex="@ViewBag.pageCount" >
+                            <button class="Last btn btn-primary btn-sm" data-lastIndex="@ViewBag.pageCount" >
                                 尾页 <span class="glyphicon glyphicon-forward"></span>
                             </button>
                             <select data-options="true" class=" margin-left-10px" data-height="27" data-width="45">
@@ -438,7 +438,7 @@
 <script id="item-template" type="x-tmpl-mustache">
     {{#items}}
     <tr>
-        <td class="text-center">{{index}}</td>
+        <td><label class="label label-primary">{{index}}</label></td>
         <td>{{id}}</td>
         <td>{{jobId}}</td>
         <th>{{name}}</th>

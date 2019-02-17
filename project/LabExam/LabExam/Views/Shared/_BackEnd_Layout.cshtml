@@ -35,9 +35,9 @@
                     </a>
                     <ul>
                         <li><a asp-controller="Principal" asp-action="Admin">1.系统管理员</a></li>
-                        <li><a asp-controller="Setting" asp-action="Sys" >2.系统配置</a></li>
+                        <li><a asp-controller="Setting" asp-action="Sys">2.系统配置</a></li>
                         <li><a href="#">3.系统运行</a></li>
-                        
+
                     </ul>
                 </li>
                 <li>
@@ -47,9 +47,19 @@
                     </a>
                     <ul>
                         <li><a asp-controller="Manager" asp-action="Create">1.添加学生</a></li>
-                        <li><a asp-controller="Manager" asp-action="list" >2.学生列表</a></li>
-                        <li><a href="#">3.管理学生</a></li>
-                        <li><a href="#">4.总体情况</a></li>
+                        <li><a asp-controller="Manager" asp-action="list">2.学生列表</a></li>
+                        <li><a href="#">3.统计情况</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="~/Resources/Admin/login/exam3.svg" width="20" />
+                        <span>题库管理</span>
+                    </a>
+                    <ul>
+                        <li><a asp-controller="Single" asp-action="Index">1.单择题</a></li>
+                        <li><a asp-controller="Judge" asp-action="Index">2.判断题</a></li>
+                        <li><a asp-controller="Multiple" asp-action="Index">3.多选题</a></li>
                     </ul>
                 </li>
                 <li>
@@ -60,20 +70,18 @@
                     <ul>
                         <li><a asp-controller="Setting" asp-action="Index">1.考试出题</a></li>
                         <li><a href="#">2.考试试卷</a></li>
-                        <li><a href="#">3.生成试卷</a></li>
-                        <li><a href="#">4.出题历史</a></li>
+                        <li><a href="#">3.考试情况</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="javascript:;">
-                        <img src="~/Resources/Admin/login/exam3.svg" width="20" />
-                        <span>题库管理</span>
+                        <img src="~/Resources/Admin/login/question2016110418.svg" width="20" />
+                        <span>课程管理</span>
                     </a>
                     <ul>
-                        <li><a href="#">1.添加题目</a></li>
-                        <li><a href="#">2.题目列表</a></li>
-                        <li><a href="#">3.修改题目</a></li>
-                        <li><a href="#">4.题库使用分析</a></li>
+                        <li><a asp-controller="Cource" asp-action="Create">1.添加课程</a></li>
+                        <li><a asp-controller="Cource" asp-action="Index">2.课程列表</a></li>
+                        <li><a href="#">3.课程资料</a></li>
                     </ul>
                 </li>
                 <li>
@@ -83,30 +91,6 @@
                     </a>
                     <ul>
                         <li><a href="#">1.处理学生申请</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <img src="~/Resources/Admin/login/question2016110418.svg" width="20" />
-                        <span>课程管理</span>
-                    </a>
-                    <ul>
-                        <li><a href="#">1.添加课程</a></li>
-                        <li><a href="#">2.课程详情</a></li>
-                        <li><a href="#">3.课程资料</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <img src="~/Resources/Admin/login/system2016110418.svg" width="20" />
-                        <span>系统配置</span>
-                    </a>
-                    <ul>
-                        <li><a href="#">1.系统运行</a></li>
-                        <li><a href="#">2.系统配置</a></li>
-                        <li><a href="#">3.系统管理员</a></li>
-                        <li><a href="#">4.添加管理员</a></li>
-                        <li><a href="#">4.修改个人密码</a></li>
                     </ul>
                 </li>
                 <li>
@@ -151,7 +135,7 @@
                     </a>
                 </div>
             </div>
-            <div class="margin-10px bc-clr-defalut">
+            <div class="margin-10px ">
                 @RenderBody()
             </div>
         </div>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "list";
+    ViewData["Title"] = "实验室安全教育在线-学生管理";
     Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
 }
 
@@ -47,17 +47,13 @@
         <select name="studentGrade" id="studentGrade" data-height="24" data-width="100" class="font-size-14 font-weight-400 padding-left-5px ">
 
         </select>
-        <a class="margin-left-20px btn btn-sm btn-success" asp-controller="Manager" asp-action="Create" target="_blank">
+        <a class="margin-left-20px btn btn-sm btn-primary" asp-controller="Manager" asp-action="Create" target="_blank">
             <span class="glyphicon glyphicon-plus"></span>
             添加学生
         </a>
-        <button class=" btn btn-sm btn-success">
+        <button class=" btn btn-sm btn-primary">
             <span class="glyphicon glyphicon-plus-sign"></span>
             导入学生
-        </button>
-        <button class=" btn btn-sm btn-primary" data-toggle="modal" data-target="#delete">
-            <span class="glyphicon-ok glyphicon glyphicon-remove"></span>
-            删除选中
         </button>
     </div>
 </div>
@@ -102,18 +98,18 @@
                     页
                 </span>
             </a>
-            <button class="First btn btn-success btn-sm">
+            <button class="First btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-backward"></span>
                 首页
             </button>
-            <button class="Previous btn btn-success btn-sm">
+            <button class="Previous btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 上一页
             </button>
-            <button class="Next btn btn-success btn-sm">
+            <button class="Next btn btn-primary btn-sm">
                 下一页 <span class="glyphicon glyphicon-chevron-right"></span>
             </button>
-            <button class="Last btn btn-success btn-sm" data-lastIndex="1" >
+            <button class="Last btn btn-primary btn-sm" data-lastIndex="1" >
                 尾页 <span class="glyphicon glyphicon-forward"></span>
             </button>
             <select data-options="true" class=" margin-left-10px text-center" data-height="27" data-width="45">
@@ -138,13 +134,7 @@
             </div>
             <div class="modal-body">
                 <p class=" text-primary font-size-14">
-                    1. 任何对于数据的删除请都谨慎
-                </p>
-                <p class=" text-primary font-size-14">
-                    2. 请确保没有与此相关联的数据
-                </p>
-                <p class=" text-primary font-size-14">
-                    3. 请注意相关联数据都会被删除掉
+                    你确定要删除这个学生吗？
                 </p>
             </div>
             <div class="modal-footer">
@@ -165,7 +155,7 @@
     {{#items}}
     <tr>
         <td>
-           <label  class="checkout-label">{{index}}</label>
+            <label class="label label-primary">{{index}}</label>
         </td>
         <td>
             {{studentId}}
@@ -406,9 +396,6 @@
                     pid: $('#ProfessionId').val()
                 },
                 success: function (json, textStatus, jqXhr) {
-                    console.log($('#studentGrade').val());
-                    console.log(json);
-
                     if (json.isOk) {
                         if (json.items == null) {
                             $('.section-items').html("");
@@ -489,7 +476,7 @@
             '.dialog-detail',
             null,
             function(jqEvent) {
-                var id = $(this).attr("data-delete-id");
+                var id = $(this).attr("data-detail-id");
                 $.ajax({
                     url: "/Manager/StuPerson",
                     type: "post",
@@ -498,7 +485,6 @@
                         sId: id
                     },
                     success: function (json, textStatus, jqXhr) {
-                        console.log(json);
                         if (json.isOk) {
                             var template = $('#detail-template').html();
                             Mustache.parse(template);
@@ -507,7 +493,7 @@
 
                             $('#detail-dialog').modal('show');
                         } else {
-                            onMask(json.title, title.message);
+                            onMask(json.title, json.message);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

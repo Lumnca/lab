@@ -42,7 +42,7 @@
                 <table class="table table-hover" data-min-width="700">
                     <thead>
                         <tr>
-                            <th class=" text-center">编号</th>
+                            <th>编号</th>
                             <th>专业名称</th>
                             <th>专业类型</th>
                             <th>所属学院</th>
@@ -60,7 +60,7 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td class=" text-center">@(++index) </td>
+                                <td><label class="label label-primary">@(++index)</label></td>
                                 <td>@item.Name</td>
                                 <td>@(item.ProfessionType == ProfessionType.PostGraduate ? "研究生专业" : "本科生专业")</td>
                                 <th>@item.InstituteName</th>
@@ -101,10 +101,10 @@
                                     页
                                 </span>
                             </button>
-                            <button class="First btn btn-success btn-sm"> <span class="glyphicon glyphicon-backward"></span>  首页</button>
-                            <button class="Previous btn btn-success btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
-                            <button class="Next btn btn-success btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
-                            <button data-pageLastIndex="@ViewBag.pageCount" class="Last btn btn-success btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
+                            <button class="First btn btn-primary btn-sm"> <span class="glyphicon glyphicon-backward"></span>  首页</button>
+                            <button class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
+                            <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
+                            <button data-pageLastIndex="@ViewBag.pageCount" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
                             <select id="pageSkipNext" class=" margin-left-10px" data-height="27" data-width="45">
                                 @{
                                     int _index = 1;
@@ -216,7 +216,7 @@
 <script id="professions-list-table-template" type="x-tmpl-mustache">
     {{#professions}}
     <tr>
-        <td class=" text-center">{{index}}</td>
+        <td><label class="label label-primary">{{index}}</label></td>
         <td>{{name}}</td>
         <td>{{type}}</td>
         <th>{{instituteName}}</th>

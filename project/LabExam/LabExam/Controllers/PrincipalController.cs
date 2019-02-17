@@ -38,6 +38,7 @@ namespace LabExam.Controllers
             return View();
         }
 
+
         public IActionResult Admin()
         {
             List<Principal> principals = _context.Principals.OrderBy(item => item.PrincipalId).Take(10).ToList();

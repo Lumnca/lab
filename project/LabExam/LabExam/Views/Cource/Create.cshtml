@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LabExam.Models.Entities.Module>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+<div class=" bc-clr-white padding-10px  border-little-grey-all" data-height-all>
+    <h4 class="border-light-down font-size-15 font-weight-500 padding-bottom-10px ">
+        <span class=" glyphicon glyphicon-plus"></span> 添加课程信息
+    </h4>
+    <form class="form-horizontal margin-top-30px">
+        <div class="form-group">
+            <label for="courceName" class="col-sm-2  control-label">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                课程名称
+            </label>
+            <div class="col-sm-8">
+                <input class="form-control" required data-max-width="400" id="courceName" name="courceName" placeholder="请输入课程名称">
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="ModuleId" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-object-align-bottom"></span>
+                所属模块
+            </label>
+            <div class="col-sm-10">
+                <select name="ModuleId" id="ModuleId" class="form-control" data-max-width="400">
+                    @foreach (var item in Model)
+                    {
+                        <option  value="@item.ModuleId">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-sm-2 control-label">
+                <span class="	glyphicon glyphicon-user"></span>
+                添加人员
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">自动识别</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-th"></span>
+                添加时间
+            </label>
+            <div class="col-sm-10">
+                <p class="form-control-static">自动识别</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a asp-controller="Cource" asp-action="Index" class="btn btn-success">
+                    <span class="glyphicon glyphicon-send"></span>
+                    返回页面
+                </a>
+                <button type="submit" class="  margin-left-25px  btn btn-primary">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    立即添加
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

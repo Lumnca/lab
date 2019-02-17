@@ -20,7 +20,7 @@ namespace LabExam.Models.Entities
         [Column("Content",TypeName = "ntext")]
         public string Content { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(50)]
         public String Answer { get; set; }
 
         public float DegreeOfDifficulty { get; set; }
@@ -29,6 +29,9 @@ namespace LabExam.Models.Entities
 
         [MaxLength(100)]
         public String PrincipalId { get; set; }
+
+        [MaxLength(200)]
+        public String  Key { get; set; }
 
         public int Count { get; set; }
 
