@@ -7,6 +7,7 @@ using LabExam.DataSource;
 using LabExam.IServices;
 using LabExam.Models;
 using LabExam.Models.Entities;
+using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

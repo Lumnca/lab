@@ -1,0 +1,97 @@
+﻿@model IEnumerable<LabExam.Models.Entities.Cource>
+
+@{
+    ViewData["Title"] = "实验室安全教育在线-资源列表";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+<div class=" bc-clr-white padding-10px  border-little-grey-all" data-height-all>
+    <h4 class="border-light-down font-size-15 font-weight-500 padding-bottom-10px ">
+        <span class=" glyphicon glyphicon-plus"></span> 添加课程资源
+    </h4>
+
+    <form class="form-horizontal margin-top-30px">
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-object-align-bottom"></span>
+                资源名称
+            </label>
+            <div class="col-sm-10">
+                <input type="number" min="2015" class="form-control" required data-max-width="500" id="inputPassword3"
+                       placeholder="资源名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-zoom-in"></span>
+                所属课程
+            </label>
+            <div class="col-sm-10">
+                <select id="CourceId" class="form-control" data-max-width="500">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.CourceId">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-font"></span>
+                资源类型
+            </label>
+            <div class="col-sm-10">
+                <select id="student-sex" class="form-control" data-max-width="500">
+                    <option value="2"> 视频资源</option>
+                    <option value="3"> 资源链接</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-log-out"></span>
+                资源链接
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputPassword3" data-max-width="500"
+                       placeholder="资源url链接" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-zoom-in"></span>
+                学习时长
+            </label>
+            <div class="col-sm-10">
+                <input type="number" required min="20" class="form-control" data-max-width="500" id="studyTime" placeholder="最低学习时长">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+                上传文件
+            </label>
+            <div class="col-sm-10">
+                <input type="file" class="file" name="" id="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-eye-close"></span>
+                资源备注
+            </label>
+            <div class="col-sm-10">
+                <textarea type="text" rows="10" class="form-control" id="inputPassword3" data-max-width="500"
+                          placeholder="准备信息"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success"> <span class="glyphicon glyphicon-send"></span> 返回页面 </button>
+                <button type="submit" class="  margin-left-25px  btn btn-primary">  <span class="glyphicon glyphicon-floppy-saved"></span> 立即保存 </button>
+            </div>
+        </div>
+    </form>
+</div>
+

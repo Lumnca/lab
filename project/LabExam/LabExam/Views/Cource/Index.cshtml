@@ -8,36 +8,27 @@
     <!-- 搜索栏 -->
     <div id="Search-condition" class=" bc-clr-white margin-10px  padding-15px border-little-grey-all"
          data-min-width="1250">
-        <form class="float-layout">
+        <div class="float-layout" id="corporation">
             <span for="ModuleId" class=" font-size-14 text-muted">所属模块：</span>
-            <select name="ModuleId" id="ModuleId" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
-                <option id="0" selected>-- 全部 --</option>
-                <option value="1">文史艺体类</option>
-                <option value="2">物理信息类</option>
-                <option value="3">化学生物类</option>
-            </select>
+            <select name="ModuleId" id="ModuleId" data-height="27" data-width="150" class="font-size-13 padding-left-5px "></select>
             <span for="ModuleStatus" class="margin-left-20px font-size-14 text-muted">课程状态</span>
             <select name="ModuleStatus" id="ModuleStatus" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
                 <option value="-1">-- 全部 --</option>
-                <option value="1">停用</option>
-                <option value="2">在使用</option>
+                <option value="0">使用中</option>
+                <option value="1">未使用</option>
             </select>
             <span for="KeyName" class="margin-left-20px font-size-14 text-muted">关键字：</span>
-            <input value="" type="text"  id="KeyName" name="KeyName"
+            <input value="" type="text" id="KeyName" name="KeyName"
                    data-height="24" data-width="200" class="font-size-12 padding-left-5px ">
-            <button class="float-right  btn btn-sm btn-primary">
+            <button class="float-right  btn btn-sm btn-primary" id="search-items">
                 <span class="glyphicon glyphicon-search"></span>
                 立即搜索
             </button>
-        </form>
+        </div>
 
     </div>
     <div class=" bc-clr-white margin-10px  padding-15px border-little-grey-all" data-min-width="1250">
-        <label class=" bootstrap-checkbox">
-            <input type="checkbox" id="shooseAllCode" />
-            <label for="shooseAllCode" class="checkout-label"> 编号</label>
-        </label>
-        <a asp-controller="Cource" asp-action="Create"  class="margin-left-20px btn btn-sm btn-primary">
+        <a asp-controller="Cource" asp-action="Create" class=" btn btn-sm btn-primary">
             <span class="glyphicon glyphicon-plus"></span>
             添加课程
         </a>
@@ -72,64 +63,7 @@
                 <th class=" text-right">数据操作</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <label class="label label-primary">1</label>
-                </td>
-                <td>实验室防盗与信息安全(物理信息类）</td>
-                <td>物理信息类</td>
-                <td>2</td>
-                <td>
-                    2018/5/15 15:36
-                </td>
-                <td>在使用</td>
-                <td class=" text-right">
-                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#arrangeCource">
-                        <span class="glyphicon glyphicon-calendar"></span> 安排课程
-                    </button>
-                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#delete">
-                        <span class="glyphicon glyphicon-lock"></span>
-                        停用课程
-                    </button>
-                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
-                        <span class="glyphicon glyphicon-search"></span> 详情/修改
-                    </button>
-                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        删除
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label class="label label-primary">2</label>
-                </td>
-                <td>实验室安全与环保事故的反思（化学生物类）</td>
-                <td>化学生物类</td>
-                <td>3</td>
-                <td>
-                    2018/5/15 12:16
-                </td>
-                <td>未通过</td>
-                <td class=" text-right">
-                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#arrangeCource">
-                        <span class="glyphicon glyphicon-calendar"></span> 安排课程
-                    </button>
-                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#delete">
-                        <span class="glyphicon glyphicon-lock"></span>
-                        停用课程
-                    </button>
-                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
-                        <span class="glyphicon glyphicon-search"></span> 详情/修改
-                    </button>
-                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        删除
-                    </button>
-                </td>
-            </tr>
-        </tbody>
+        <tbody class="section-items"></tbody>
     </table>
     <div class=" float-layout bc-clr-white padding-10px ">
         <label class=" InspageCount float-left">
@@ -155,10 +89,430 @@
             <button class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
             <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
             <button data-lastIndex="" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
-            <select id="pageSkipNext" data-options="true" class=" margin-left-10px" data-height="27" data-width="45">
-
-            </select>
+            <select id="pageSkipNext" data-options="true" class=" margin-left-10px" data-height="27" data-width="45"></select>
             <button class="pageSkip btn btn-sm btn-primary">跳转</button>
         </div>
     </div>
-</div> 
+</div>
+<div class="modal fade " id="CourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生信息详情</h4>
+            </div>
+            <div class="modal-body" data-min-height="300">
+                <div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">昵称</span>
+                            <span class="student-info-show-value border-light-down "> 李嘉坤</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">年级</span>
+                            <span class="student-info-show-value border-light-down "> 2018 级</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">学号</span>
+                            <span class="student-info-show-value border-light-down "> 2016110423</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">性别</span>
+                            <span class="student-info-show-value border-light-down "> 男</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">成绩</span>
+                            <span class="student-info-show-value border-light-down "> 85.5 [最好成绩]</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">身份</span>
+                            <span class="student-info-show-value border-light-down "> 本科生</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">学院</span>
+                            <span class="student-info-show-value border-light-down "> 计算机科学学院</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">专业</span>
+                            <span class="student-info-show-value border-light-down "> 软件工程</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">考试次数</span>
+                            <span class="student-info-show-value border-light-down "> 2 [次]</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">身份证号码</span>
+                            <span class="student-info-show-value border-light-down "> 5222624499705091755</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">登录次数</span>
+                            <span class="student-info-show-value border-light-down "> 56 [次]</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">申请重考次数</span>
+                            <span class="student-info-show-value border-light-down "> 0 [次]</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">学习时长</span>
+                            <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
+                        </div>
+                    </div>
+                    <div class="student-info-show">
+                        <div class="student-info-show-content padding-left-10px">
+                            <span class="student-info-show-title">异常情况</span>
+                            <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="arrangeCource" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-500 padding-top-10px text-info" >安排课程学习</h4>
+            </div>
+            <div class="modal-body" data-min-height="400">
+                <!-- 搜索栏 -->
+                <div name="Search-content">
+                    <div class="float-layout  padding-10px  border-little-grey-all">
+                        <!-- 模块 -->
+                        <span for="moduleId" class=" font-size-14 text-muted">资源属性：</span>
+                        <select name="rType" id="rType" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                            <option value="-1">-- 全部 --</option>
+                            <option value="0">课程视频</option>
+                            <option value="1">相关链接</option>
+                        </select>
+                        <span for="moduleId" class="margin-left-20px font-size-14 text-muted">状态:</span>
+                        <select name="rStatus" id="rStatus" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                            <option value="-1">-- 全部 --</option>
+                            <option value="0">使用中</option>
+                            <option value="1">未使用</option>
+                        </select>
+                        <button class="float-right  btn btn-sm btn-primary " id="search-resource"  >
+                            <span class="glyphicon glyphicon-search"></span>
+                            立即搜索
+                        </button>
+                    </div>
+                    <div class="border-little-grey-all padding-10px margin-top-10px margin-bottom-15px table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>资源名称</th>
+                                    <th>资源类型</th>
+                                    <th>学习时长</th>
+                                    <th>状态</th>
+                                    <th class=" text-right">
+                                        操作
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="resource-section">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 font-size-15 padding-top-10px text-primary" id="myModalLabel">删除提示</h4>
+            </div>
+            <div class="modal-body">
+                <p class=" text-primary font-size-14">
+                    你确定要删除此题目吗
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="deleteButton">
+                    <span class=" glyphicon glyphicon-trash "></span>
+                    立即删除
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <span class=" glyphicon glyphicon-folder-close "></span>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="item-template" type="x-tmpl-mustache">
+    {{#items}}
+    <tr>
+        <td>
+            <label class="label label-primary">{{index}}</label>
+        </td>
+        <td>{{name}}</td>
+        <td><label class="label label-primary">{{module.name}}</label></td>
+        <td>{{credit}}</td>
+        <td>
+            <small>{{addTime}}</small>
+        </td>
+        <td>{{courceStatus}}</td>
+        <td class=" text-right">
+            <button class=" btn btn-default btn-sm  arrange-button" data-item-id="{{courceId}}">
+                <span class="glyphicon glyphicon-calendar"></span> 安排课程
+            </button>
+            <button class=" btn btn-default btn-sm " data-item-id="{{courceId}}">
+                <span class="glyphicon glyphicon-lock"></span>
+                停用课程
+            </button>
+            <button class=" btn btn-default btn-sm " data-item-id="{{courceId}}">
+                <span class="glyphicon glyphicon-search"></span> 详情/修改
+            </button>
+            <button class=" btn btn-primary btn-sm " data-item-id="{{courceId}}">
+                <span class="glyphicon glyphicon-remove"></span>
+                删除
+            </button>
+        </td>
+    </tr>
+    {{/items}}
+</script>
+<script id="resource-template" type="x-tmpl-mustache">
+    {{#items}}
+    <tr>
+        <td>{{index}}</td>
+        <td>{{name}}</td>
+        <td>{{resourceType}}</td>
+        <td>{{lengthOfStudy}}</td>
+        <td>{{status}}</td>
+        <td class=" text-right">
+            <button class="function-stop btn btn-sm btn-primary" data-item-id="{{resourceId}}">
+                <span class=" glyphicon glyphicon-ok-sign "></span> 停用课程
+            </button>
+            <button class="function-use btn btn-sm btn-primary" data-item-id="{{resourceId}}">
+                <span class=" glyphicon glyphicon-ok-sign "></span> 使用课程
+            </button>
+        </td>
+    </tr>
+    {{/items}}
+</script>
+
+@section Scripts
+    {
+    <script>
+        (function loadModuleSelect() {
+            $.ajax({
+                url: "/Module/List",
+                type: "post",
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    $("#ModuleId")
+                        .append('<option value="-1">所有模块</option>');
+                    for (var index in data) {
+                        $("#ModuleId")
+                            .append(`<option value="${data[index].moduleId}">${data[index].name}</option>`);
+                    }
+                    loadPageByIndex(1);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        })();
+
+        function stateManager() {
+            var pageIndex = parseInt($('.show-page-Index').text().trim()); //当前页
+            var pageCount = parseInt($('.show-page-Count').text().trim()); //总共多少页
+            if (pageIndex >= pageCount) {
+                $('.Next').prop("disabled", true);
+            } else {
+                $('.Next').prop("disabled", false);
+            }
+            if (pageIndex == 1) {
+                $('.Previous').prop("disabled", true);
+            } else {
+                $('.Previous').prop("disabled", false);
+            }
+        }
+
+        function loadPageByIndex(index) {
+            $.ajax({
+                url: "/Cource/Page",
+                type: "post",
+                dataType: "json",
+                data: {
+                    index: index,
+                    mId: $('#corporation select[name="ModuleId"]').val(),
+                    status: $('#corporation select[name="ModuleStatus"]').val(),
+                    content: $('#corporation input[name="KeyName"]').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    //debug
+                    console.log(json);
+                    // end debug
+
+                    if (json.isOk) {
+                        if (json.items == null) {
+                            $('.section-items').html("");
+                        } else {
+                            for (var i = 0; i < json.items.length; i++) {
+                                json.items[i].index = (i + 1);
+                            }
+
+                            var template = $('#item-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('.section-items').html(result);
+                        }
+
+                        $('.items-count').text(json.lineCount); //总数
+                        $('.show-page-Count').text(`${json.pageCount}`); //分页总数
+                        $('.show-page-Index').text(`${json.pageNowIndex}`); //当前页
+                        $('button[data-lastIndex]').attr("data-lastIndex", json.pageCount); //最后一页 的index
+
+                        $('select[data-options] > option').remove();
+                        for (let index_ = 0; index_ < json.pageCount; index_++) {
+                            $('select[data-options]').append(`<option value="${index_ + 1}">${index_ + 1}</option>`);
+                        }
+                        $('select[data-options]').val(index);
+                        stateManager();
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误..${errorThrown}`);
+                }
+            });
+        }
+
+        $('.Next').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
+        });
+
+        $('.First').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.Previous').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
+        });
+
+        $('.Last').click(function (jqEvent) {
+            loadPageByIndex($('button[data-lastIndex]').attr("data-lastIndex").trim());
+        });
+
+        $('button[data-skip]').click(function (jqEvent) {
+            var pageIndex = parseInt($('.show-page-Index').text().trim());
+            var skip = parseInt($('select[data-options]').val().trim());
+            if (skip === pageIndex) {
+                onMask("提示信息", "跳转页面为当前页面");
+            } else {
+                loadPageByIndex($('select[data-options]').val());
+            }
+        });
+
+        $('#search-items').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.section-items').on('click',
+            '.arrange-button',
+            null,
+            function (jqEvent) {
+                var id = $(this).attr("data-item-id");
+
+                $('#search-resource').attr("data-item-id",id);
+
+                $.ajax({
+                    url: "/Resource/List",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        cId: id,
+                        type: -1,
+                        status: -1
+                    },
+                    success: function (json, textStatus, jqXhr) {
+                        //debug
+                        console.log(json);
+                        //end debug
+
+                        if (json.isOk) {
+                            var template = $('#resource-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('.resource-section').html(result);
+                            $('#arrangeCource').modal('show');
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        onMask("错误", "网络接连错误..");
+                    }
+                });
+            });
+
+        $('#search-resource').click(function(jqEvent) {
+            $.ajax({
+                url: "/Resource/List",
+                type: "post",
+                dataType: "json",
+                data: {
+                    cId: $('#search-resource').attr("data-item-id"),
+                    type: $('#rType').val(),
+                    status: $('#rStatus').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    //debug
+                    console.log(json);
+                    //end debug
+
+                    if (json.isOk) {
+                        var template = $('#resource-template').html();
+                        Mustache.parse(template);
+                        var result = Mustache.render(template, json);
+                        $('.resource-section').html(result);
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+    </script>
+}
