@@ -1,0 +1,274 @@
+﻿@model IEnumerable<LabExam.Models.Entities.Cource>
+
+@{
+    ViewData["Title"] = "实验室安全教育在线-添加资源";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+<script src="~/lib/validation/jquery.validate.min.js"></script>
+<script src="~/lib/validation/messages_zh.js"></script>
+<div class=" bc-clr-white padding-10px  border-little-grey-all" data-height-all>
+    <h4 class="border-light-down font-size-15 font-weight-500 padding-bottom-10px ">
+        <span class=" glyphicon glyphicon-plus"></span> 添加课程资源
+    </h4>
+
+    <form class="form-horizontal margin-top-30px" method="post" enctype="multipart/form-data" asp-controller="Resource" asp-action="Upload">
+        <div class="form-group">
+            <label for="Name" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-object-align-bottom"></span>
+                资源名称
+            </label>
+            <div class="col-sm-10">
+                <input type="text"  class="form-control" required data-max-width="500" id="Name" name="Name"
+                       placeholder="资源名称">
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="CourceId" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-zoom-in"></span>
+                所属课程
+            </label>
+            <div class="col-sm-10">
+                <select id="CourceId" name="CourceId" class="form-control" data-max-width="500">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.CourceId"> @item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ResourceType" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-font"></span>
+                资源类型
+            </label>
+            <div class="col-sm-10">
+                <select id="ResourceType" name="ResourceType" class="form-control" data-max-width="500">
+                    <option value="1"> 视频资源</option>
+                    <option value="0"> 资源链接</option>
+                </select>
+                <span class="help-block">
+                    只有视频资源才上传文件
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ResourceUrl" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-log-out"></span>
+                资源链接
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="ResourceUrl" name="ResourceUrl" data-max-width="500"
+                       placeholder="资源url链接" />
+                <span class="help-block">
+                    只有链接资源才需要填写
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="LengthOfStudy" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-zoom-in"></span>
+                学习时长
+            </label>
+            <div class="col-sm-10">
+                <input type="number" required min="0" class="form-control" data-max-width="500" name="LengthOfStudy" id="LengthOfStudy" placeholder="最低学习时长">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="loadFile" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+                上传文件
+            </label>
+            <div class="col-sm-10">
+                <input type="file" name="loadFile" id="loadFile">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Description" class="col-sm-2 control-label">
+                <span class="glyphicon glyphicon-eye-close"></span>
+                资源描述
+            </label>
+            <div class="col-sm-10">
+                <textarea type="text" rows="10" class="form-control" id="Description" name="Description" data-max-width="500"
+                          placeholder="描述信息"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a asp-controller="Resource" asp-action="Index" type="button" class="btn btn-success"> <span class="glyphicon glyphicon-send"></span> 返回列表页面 </a>
+                <button type="submit" class="  margin-left-25px  btn btn-primary">  <span class="glyphicon glyphicon-floppy-saved"></span> 立即保存 </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中!!!</h4>
+            </div>
+            <div class="modal-body">
+                <img src="~/Resources/animation/Pacman-0.5s-200px.svg" width="90" class=" layout-center">
+                <p class=" text-center">
+                    <span class=" glyphicon glyphicon-cloud-upload "></span>
+                    <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $("form").validate({
+            //错误提示信息
+            messages: {
+                Name: {
+                    required: "请填写资源名称"
+                },
+                LengthOfStudy: {
+                    required: "请填写题干",
+                    min: "不要输入负数啊",
+                    digit: "请填写整数"
+                },
+                Description: {
+                    required: "请填写你的资源描述",
+                    maxlength: "描述过长！请不要超过{0}字"
+                }
+            },
+            //验证规则
+            rules: {
+                Name: {
+                    required: true
+                },
+                //使用空间 name 名称
+                LengthOfStudy: {
+                    required: true,
+                    digits: true,
+                    min: 0
+                },
+                Description: {
+                    required: true,
+                    maxlength: 400
+                }
+            },
+            errorClass: "text-primary",
+            submitHandler: function (form) {
+
+                if ($('#ResourceType').val() == "0") {
+
+                    if ($('#ResourceUrl').val() == null || $('#ResourceUrl').val() == "") {
+                        onMask("错误", "请填写资源链接URL！");
+                        return;
+                    }
+                    $.ajax({
+                        url: "/Resource/Link",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            Name: $('#Name').val(),
+                            CourceId: $('#CourceId').val(),
+                            Description: $('#Description').val(),
+                            LengthOfStudy: $('#LengthOfStudy').val(),
+                            ResourceUrl: $('#ResourceUrl').val(),
+                            ResourceType: $('#ResourceType').val(),
+                            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function(json, textStatus, jqXhr) {
+                            //debug
+                            console.log(json);
+                            //end debug
+                            if (json.isOk) {
+                                onMask(json.title, json.message);
+                            } else {
+                                onMask(json.title, json.message);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            onMask("错误", "网络连接失败...");
+                        }
+                    });
+                } else
+                if ($('#ResourceType').val() == "1") {
+
+                    if ($('#loadFile').val() == null || $('#loadFile').val() == "") {
+                        onMask("错误", "请选择文件！");
+                        return;
+                    } else {
+                        var fileo = $('input[type="file"]').val();
+                        var extension = fileo.split('.')[fileo.split('.').length - 1];
+
+                        if (extension.toLowerCase() != "mp4") {
+                            onMask("错误", "请上传MP4文件！");
+                            return;
+                        }
+                    }
+
+                    $('#program').modal('show');
+
+                    var formData = new FormData($('form')[0]);
+
+                    
+                    var time = new Date().getTime(); //记录当前时间
+                    
+                    var percentage =null; //记录当前进度
+                    
+                    var velocity=null; //记录当前上传速度
+                    
+                    var loaded = 0; //记录已上传文件字节大小
+                    $.ajax({
+                        url: 'Resource/Upload',
+                        type: "post",
+                        data: formData,
+                        contentType: false, // 必须 不设置内容类型
+                        processData: false, // 必须 不处理数据
+                        xhr: function xhr() {
+                            //获取原生的xhr对象
+                            var xhr = $.ajaxSettings.xhr();
+                            if (xhr.upload) {
+                                //添加 progress 事件监听
+                                xhr.upload.addEventListener('progress', function (e) {
+                                    var nowDate = new Date().getTime();
+                                    //每一秒刷新一次状态
+                                    if (nowDate - time >= 1000) {
+                                        //已上传文件字节数/总字节数
+                                        percentage = parseInt(e.loaded / e.total * 100);
+                                        //当前已传大小(字节数)-一秒前已传文件大小(字节数)
+                                        velocity = (e.loaded - loaded) / 1024;
+                                        if (percentage >= 99) {
+                                            $(".hintText").html('服务端正在解析，请稍后');
+                                        }
+                                        else
+                                        {
+                                            //修改上次记录时间及数据大小
+                                            time = nowDate;
+                                            loaded = e.loaded;
+                                        }
+                                        console.log(" 进度条:" + `${percentage}`);
+                                        console.log(" velocity:" + `${velocity}`);
+                                    }
+                                    else {
+                                        return;
+                                    }
+                                }, false);
+                            }
+                            return xhr;
+                        },
+                        success: function success(response) {
+                            $('#program').modal('hide');
+                            onMask(response.title, response.message);
+                            console.log(response);
+                        },
+                        error: function error(error) {
+                            console.log(error); 
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+}

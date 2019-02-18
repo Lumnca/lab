@@ -24,6 +24,9 @@ namespace LabExam.Models.Entities
         public  String Description { get; set; }
 
         public  float LengthOfStudy { get; set; }
+
+        [MaxLength(600)]
+        public String ResourceUrl { get; set; }
         
         public ResourceStatus ResourceStatus { get; set; }
     }

@@ -70,7 +70,7 @@ using LabExam.Models;
 #line default
 #line hidden
             BeginContext(159, 63, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "369d66338e2d471e925b77b5a7a69b75", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a74ec65bd8a24e158526cc8de1703514", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -88,7 +88,7 @@ using LabExam.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(224, 55, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c1aa00897022478c8b9f1d856ef75689", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7cd28d35bed94c4b86e73d5e20b63b03", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -106,7 +106,7 @@ using LabExam.Models;
             WriteLiteral("\r\n<div class=\" bc-clr-white padding-10px  border-little-grey-all\" data-height-all>\r\n    <h4 class=\"border-light-down font-size-15 font-weight-500 padding-bottom-10px \">\r\n        <span class=\" glyphicon glyphicon-plus\"></span> 添加课程信息\r\n    </h4>\r\n    ");
             EndContext();
             BeginContext(528, 3141, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a6d244a1e6b549029bece4f3bc3d456d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d4c90ec852934c42b5f35fd1fff7076b", async() => {
                 BeginContext(574, 445, true);
                 WriteLiteral(@"
         <div class=""form-group"">
@@ -148,7 +148,7 @@ using LabExam.Models;
                 WriteLiteral("                        ");
                 EndContext();
                 BeginContext(1501, 51, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9b7552373bca4d878947896c486aad4a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9df39b2848314593b35687d19b57e20b", async() => {
                     BeginContext(1534, 9, false);
 #line 33 "F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\Views\Cource\Create.cshtml"
                                                    Write(item.Name);
@@ -231,7 +231,7 @@ using LabExam.Models;
                 ");
                 EndContext();
                 BeginContext(3219, 188, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "86e0e83c963f4a6b9ef696a92c504e75", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c760c475d3214402ab151498779ece71", async() => {
                     BeginContext(3289, 114, true);
                     WriteLiteral("\r\n                    <span class=\"glyphicon glyphicon-send\"></span>\r\n                    返回列表页面\r\n                ");
                     EndContext();

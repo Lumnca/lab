@@ -225,6 +225,9 @@
                                     <option value="2"> 视频资源</option>
                                     <option value="3"> 资源链接</option>
                                 </select>
+                                <span  class="help-block">
+                                    只有视频资源才上传文件
+                                </span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -371,9 +374,26 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中!!!</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="../Resources/animation/Pacman-0.5s-200px.svg" width="90" class=" layout-center">
+                    <p class=" text-center">
+                            <span class=" glyphicon glyphicon-cloud-upload "></span>
+                            <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
+    $('#program').modal('show');
     $(document).ready(function () {
         $('.admin-navbar > li>a').on('click', null, null, function () {
             $('.admin-navbar > li>ul').slideUp();

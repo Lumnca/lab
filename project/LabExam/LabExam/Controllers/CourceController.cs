@@ -77,13 +77,15 @@ namespace LabExam.Controllers
                 }
                 else
                 {
-                    Cource cource = new Cource();
-                    cource.Name = name.Trim();
-                    cource.AddTime = DateTime.Now;
-                    cource.CourceStatus = CourceStatus.Normal;
-                    cource.Credit = mark;
-                    cource.Introduction = description.Trim();
-                    cource.ModuleId = moduleId;
+                    Cource cource = new Cource
+                    {
+                        Name = name.Trim(),
+                        AddTime = DateTime.Now,
+                        CourceStatus = CourceStatus.Normal,
+                        Credit = mark,
+                        Introduction = description.Trim(),
+                        ModuleId = moduleId
+                    };
                     _context.Cources.Add(cource);
                     _context.SaveChanges();
                     return Json(new
@@ -215,13 +217,13 @@ namespace LabExam.Controllers
                 }
 
                 #region 功能实现区域
-                Cource item = _context.Cources.Include("Module").FirstOrDefault(j => j.CourceId == itemId);
-                if (item != null)
+                Cource _item = _context.Cources.Include("Module").FirstOrDefault(j => j.CourceId == itemId);
+                if (_item != null)
                 {
                     return Json(new
                     {
                         isOk = true,
-                        item = item,
+                        item = _item,
                         title = "消息提示",
                         message = "加载成功"
                     });
@@ -260,6 +262,103 @@ namespace LabExam.Controllers
             }
         }
 
-        
+        public async Task<IActionResult> Stop([Required] int cId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.QuestionBankManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无题库管理操作权限"
+                    });
+                }
+
+                Cource cource = _context.Cources.Find(cId);
+                if (cource != null)
+                {
+                    cource.CourceStatus = CourceStatus.Normal;
+                    await _context.SaveChangesAsync();
+
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "消息提示",
+                        message = "修改成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "资源不存在，或者已经被删除了"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        public async Task<IActionResult> Use([Required] int cId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.QuestionBankManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无题库管理操作权限"
+                    });
+                }
+
+                Cource cource = _context.Cources.Find(cId);
+                if (cource != null)
+                {
+                    cource.CourceStatus = CourceStatus.Using;
+                    await _context.SaveChangesAsync();
+
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "消息提示",
+                        message = "修改成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "资源不存在，或者已经被删除了"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
     }
 }

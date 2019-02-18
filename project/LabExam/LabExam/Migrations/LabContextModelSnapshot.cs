@@ -574,6 +574,9 @@ namespace LabExam.Migrations
 
                     b.Property<int>("ResourceType");
 
+                    b.Property<string>("ResourceUrl")
+                        .HasMaxLength(600);
+
                     b.HasKey("ResourceId");
 
                     b.HasIndex("CourceId");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace LabExam
@@ -7,7 +8,13 @@ namespace LabExam
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).
+                UseKestrel(options =>
+                {
+                    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(1800);
+                    options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(20);
+                })
+                .Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

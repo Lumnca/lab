@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Folder Include="JsonConfig\" />
+    <Folder Include="wwwroot\vedio\" />
+    <Folder Include="wwwroot\video\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1Development_1json__JSONSchema="http://json.schemastore.org/appsscript" /></VisualStudio></ProjectExtensions>

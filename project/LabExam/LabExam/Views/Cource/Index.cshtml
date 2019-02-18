@@ -210,8 +210,8 @@
                         <span for="moduleId" class=" font-size-14 text-muted">资源属性：</span>
                         <select name="rType" id="rType" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
                             <option value="-1">-- 全部 --</option>
-                            <option value="0">课程视频</option>
-                            <option value="1">相关链接</option>
+                            <option value="1">课程视频</option>
+                            <option value="0">链接资源</option>
                         </select>
                         <span for="moduleId" class="margin-left-20px font-size-14 text-muted">状态:</span>
                         <select name="rStatus" id="rStatus" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
@@ -313,15 +313,15 @@
     <tr>
         <td>{{index}}</td>
         <td>{{name}}</td>
-        <td>{{resourceType}}</td>
+        <td>{{type}}</td>
         <td>{{lengthOfStudy}}</td>
         <td>{{status}}</td>
         <td class=" text-right">
             <button class="function-stop btn btn-sm btn-primary" data-item-id="{{resourceId}}">
-                <span class=" glyphicon glyphicon-ok-sign "></span> 停用课程
+                <span class=" glyphicon glyphicon-ok-sign "></span> 停用资源
             </button>
             <button class="function-use btn btn-sm btn-primary" data-item-id="{{resourceId}}">
-                <span class=" glyphicon glyphicon-ok-sign "></span> 使用课程
+                <span class=" glyphicon glyphicon-ok-sign "></span> 使用资源
             </button>
         </td>
     </tr>
@@ -329,14 +329,14 @@
 </script>
 
 @section Scripts
-    {
+{
     <script>
         (function loadModuleSelect() {
             $.ajax({
                 url: "/Module/List",
                 type: "post",
                 dataType: "json",
-                success: function (data, textStatus, jqXHR) {
+                success: function(data, textStatus, jqXHR) {
                     $("#ModuleId")
                         .append('<option value="-1">所有模块</option>');
                     for (var index in data) {
@@ -345,7 +345,7 @@
                     }
                     loadPageByIndex(1);
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     onMask("错误", errorThrown);
                 }
             });
@@ -377,7 +377,7 @@
                     status: $('#corporation select[name="ModuleStatus"]').val(),
                     content: $('#corporation input[name="KeyName"]').val()
                 },
-                success: function (json, textStatus, jqXhr) {
+                success: function(json, textStatus, jqXhr) {
                     //debug
                     console.log(json);
                     // end debug
@@ -411,29 +411,29 @@
                         onMask("错误", json.message);
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     onMask("错误", `网络接连错误..${errorThrown}`);
                 }
             });
         }
 
-        $('.Next').click(function (jqEvent) {
+        $('.Next').click(function(jqEvent) {
             loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
         });
 
-        $('.First').click(function (jqEvent) {
+        $('.First').click(function(jqEvent) {
             loadPageByIndex(1);
         });
 
-        $('.Previous').click(function (jqEvent) {
+        $('.Previous').click(function(jqEvent) {
             loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
         });
 
-        $('.Last').click(function (jqEvent) {
+        $('.Last').click(function(jqEvent) {
             loadPageByIndex($('button[data-lastIndex]').attr("data-lastIndex").trim());
         });
 
-        $('button[data-skip]').click(function (jqEvent) {
+        $('button[data-skip]').click(function(jqEvent) {
             var pageIndex = parseInt($('.show-page-Index').text().trim());
             var skip = parseInt($('select[data-options]').val().trim());
             if (skip === pageIndex) {
@@ -443,17 +443,17 @@
             }
         });
 
-        $('#search-items').click(function (jqEvent) {
+        $('#search-items').click(function(jqEvent) {
             loadPageByIndex(1);
         });
 
         $('.section-items').on('click',
             '.arrange-button',
             null,
-            function (jqEvent) {
+            function(jqEvent) {
                 var id = $(this).attr("data-item-id");
 
-                $('#search-resource').attr("data-item-id",id);
+                $('#search-resource').attr("data-item-id", id);
 
                 $.ajax({
                     url: "/Resource/List",
@@ -464,28 +464,33 @@
                         type: -1,
                         status: -1
                     },
-                    success: function (json, textStatus, jqXhr) {
-                        //debug
-                        console.log(json);
-                        //end debug
-
+                    success: function(json, textStatus, jqXhr) {
                         if (json.isOk) {
+
+                            for (var i = 0; i < json.items.length; i++) {
+                                json.items[i].index = (i + 1);
+                            }
+
                             var template = $('#resource-template').html();
                             Mustache.parse(template);
                             var result = Mustache.render(template, json);
-                            $('.resource-section').html(result);
+                            $('#resource-section').html(result);
                             $('#arrangeCource').modal('show');
                         } else {
                             onMask(json.title, json.message);
                         }
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, textStatus, errorThrown) {
                         onMask("错误", "网络接连错误..");
                     }
                 });
             });
 
         $('#search-resource').click(function(jqEvent) {
+            LoadResource();
+        });
+
+        function LoadResource() {
             $.ajax({
                 url: "/Resource/List",
                 type: "post",
@@ -495,24 +500,71 @@
                     type: $('#rType').val(),
                     status: $('#rStatus').val()
                 },
-                success: function (json, textStatus, jqXhr) {
-                    //debug
-                    console.log(json);
-                    //end debug
-
+                success: function(json, textStatus, jqXhr) {
                     if (json.isOk) {
+
+                        for (var i = 0; i < json.items.length; i++) {
+                            json.items[i].index = (i + 1);
+                        }
+
                         var template = $('#resource-template').html();
                         Mustache.parse(template);
                         var result = Mustache.render(template, json);
-                        $('.resource-section').html(result);
-                    } else {
-                        onMask(json.title, json.message);
+                        $('#resource-section').html(result);
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     onMask("错误", "网络接连错误..");
                 }
             });
-        });
+        }
+
+        $('#resource-section').on('click',
+            ".function-stop",
+            null,
+            function(jqEvent) {
+                var id = $(this).attr("data-item-id");
+
+                $.ajax({
+                    url: "/Resource/Stop",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        rId: id
+                    },
+                    success: function(json) {
+                        console.log(json);
+                        LoadResource();
+                        onMask(json.title, json.message);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+            });
+
+        $('#resource-section').on('click',
+            ".function-use",
+            null,
+            function(jqEvent) {
+                var id = $(this).attr("data-item-id");
+
+                $.ajax({
+                    url: "/Resource/Use",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        rId: id
+                    },
+                    success: function(json) {
+                        console.log(json);
+                        LoadResource();
+                        onMask(json.title, json.message);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+            });
     </script>
 }

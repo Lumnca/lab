@@ -10,6 +10,7 @@ using LabExam.Models.JsonModel;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
 namespace LabExam.Services
@@ -83,6 +84,22 @@ namespace LabExam.Services
                 throw;
             }
 
+        }
+
+        public List<string> ModelStateDictionaryError(ModelStateDictionary modelState)
+        {
+            List<string> sb = new List<string>();
+            List<string> Keys = modelState.Keys.ToList();
+            foreach (var key in Keys)
+            {
+                var errors = modelState[key].Errors.ToList();
+                //将错误描述添加到sb中
+                foreach (var error in errors)
+                {
+                    sb.Add(error.ErrorMessage);
+                }
+            }
+            return sb;
         }
     }
 }
