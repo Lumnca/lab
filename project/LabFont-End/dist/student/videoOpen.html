@@ -51,7 +51,7 @@
                             不支持
                         </p>
                     </video>
-<!-- html 播放器
+                    <!-- html 播放器
                     <video controls autoplay="false" width="100%" class=" img-thumbnail" >
                         <source src="../Resources/VedioList/2015430159923.mp4" type="video/mp4">
                         <source src="../Resources/VedioList/2015419433498.mp4" type="video/mp4">
@@ -59,7 +59,7 @@
                             人世间最痛苦的事情    
                         </p>
                     </video>
--->
+                    -->
                 </div>
                 <div>
                     
@@ -150,13 +150,13 @@
 </body>
 <script src="../Scripts/video.min.js"></script>
 <script>
-        window.onload = function(){
-            window.onresize = function(){
-                $('#my-video').width($('#col-md-9-ms').width());
-                $('#my-video').height($('#col-md-9-ms').width()*0.6);
-            }
+    window.onload = function(){
+        window.onresize = function(){
             $('#my-video').width($('#col-md-9-ms').width());
             $('#my-video').height($('#col-md-9-ms').width()*0.6);
         }
-    </script>
+        $('#my-video').width($('#col-md-9-ms').width());
+        $('#my-video').height($('#col-md-9-ms').width()*0.6);
+    }
+</script>
 </html>

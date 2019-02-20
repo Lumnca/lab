@@ -108,11 +108,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中!!!</h4>
+                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中 <span id="val-speed"></span> </h4>
             </div>
             <div class="modal-body">
-                <img src="~/Resources/animation/Pacman-0.5s-200px.svg" width="90" class=" layout-center">
-                <p class=" text-center">
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        <span class="sr-only">0% 完成（信息）</span>
+                    </div>
+                </div>
+                <p class=" text-left">
                     <span class=" glyphicon glyphicon-cloud-upload "></span>
                     <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
                 </p>
@@ -122,7 +127,7 @@
 </div>
 
 @section Scripts
-    {
+{
     <script>
         $("form").validate({
             //错误提示信息
@@ -133,7 +138,8 @@
                 LengthOfStudy: {
                     required: "请填写题干",
                     min: "不要输入负数啊",
-                    digit: "请填写整数"
+                    digit: "请填写整数",
+                    max: "最长学习时间 {0}分钟"
                 },
                 Description: {
                     required: "请填写你的资源描述",
@@ -149,7 +155,8 @@
                 LengthOfStudy: {
                     required: true,
                     digits: true,
-                    min: 0
+                    min: 0,
+                    max: 120
                 },
                 Description: {
                     required: true,
@@ -157,7 +164,7 @@
                 }
             },
             errorClass: "text-primary",
-            submitHandler: function (form) {
+            submitHandler: function(form) {
 
                 if ($('#ResourceType').val() == "0") {
 
@@ -192,13 +199,13 @@
                             onMask("错误", "网络连接失败...");
                         }
                     });
-                } else
-                if ($('#ResourceType').val() == "1") {
+                } else if ($('#ResourceType').val() == "1") {
 
                     if ($('#loadFile').val() == null || $('#loadFile').val() == "") {
                         onMask("错误", "请选择文件！");
                         return;
-                    } else {
+                    }
+                    else {
                         var fileo = $('input[type="file"]').val();
                         var extension = fileo.split('.')[fileo.split('.').length - 1];
 
@@ -208,63 +215,95 @@
                         }
                     }
 
-                    $('#program').modal('show');
-
-                    var formData = new FormData($('form')[0]);
-
-                    
-                    var time = new Date().getTime(); //记录当前时间
-                    
-                    var percentage =null; //记录当前进度
-                    
-                    var velocity=null; //记录当前上传速度
-                    
-                    var loaded = 0; //记录已上传文件字节大小
                     $.ajax({
-                        url: 'Resource/Upload',
+                        url: "/Resource/Exisit",
                         type: "post",
-                        data: formData,
-                        contentType: false, // 必须 不设置内容类型
-                        processData: false, // 必须 不处理数据
-                        xhr: function xhr() {
-                            //获取原生的xhr对象
-                            var xhr = $.ajaxSettings.xhr();
-                            if (xhr.upload) {
-                                //添加 progress 事件监听
-                                xhr.upload.addEventListener('progress', function (e) {
-                                    var nowDate = new Date().getTime();
-                                    //每一秒刷新一次状态
-                                    if (nowDate - time >= 1000) {
-                                        //已上传文件字节数/总字节数
-                                        percentage = parseInt(e.loaded / e.total * 100);
-                                        //当前已传大小(字节数)-一秒前已传文件大小(字节数)
-                                        velocity = (e.loaded - loaded) / 1024;
-                                        if (percentage >= 99) {
-                                            $(".hintText").html('服务端正在解析，请稍后');
+                        dataType: "json",
+                        data: {
+                            name: $('#Name').val(),
+                            type: $('#ResourceType').val()
+                        },
+                        success: function(json, textStatus, jqXhr) {
+                            //debug
+                            console.log(json);
+                            //end debug
+                            if (json.isOk) {
+                                if (!json.isHave) {
+                                    $('#program').modal('show');
+                                    //form.submit();
+
+                                    var formData = new FormData($('form')[0]);
+
+
+                                    var time = new Date().getTime(); //记录当前时间
+
+                                    var percentage = null; //记录当前进度
+
+                                    var velocity = null; //记录当前上传速度
+
+                                    var loaded = 0; //记录已上传文件字节大小
+                                    $.ajax({
+                                        url: '/Resource/Upload',
+                                        type: "post",
+                                        data: formData,
+                                        contentType: false, // 必须 不设置内容类型
+                                        processData: false, // 必须 不处理数据
+                                        xhr: function xhr() {
+                                            //获取原生的xhr对象
+                                            var xhr = $.ajaxSettings.xhr();
+                                            if (xhr.upload) {
+                                                //添加 progress 事件监听
+                                                xhr.upload.addEventListener('progress',
+                                                    function (e) {
+                                                        var nowDate = new Date().getTime();
+                                                        //每一秒刷新一次状态
+                                                        if (nowDate - time >= 1000) {
+                                                            //已上传文件字节数/总字节数
+                                                            percentage = parseInt(e.loaded / e.total * 100);
+                                                            //当前已传大小(字节数)-一秒前已传文件大小(字节数)
+                                                            velocity = (e.loaded - loaded) / 1024;
+                                                            if (percentage >= 99) {
+                                                                $('.progress-bar-primary').css("width", "100%");
+                                                            } else {
+                                                                //修改上次记录时间及数据大小
+                                                                time = nowDate;
+                                                                loaded = e.loaded;
+                                                            }
+                                                            $('.progress-bar-primary').css("width", `${percentage}%`);
+                                                            $('#val-speed').text(`上传速度: ${velocity}KB/s`);
+                                                        } else {
+                                                            return;
+                                                        }
+                                                    },
+                                                    false);
+                                            }
+                                            return xhr;
+                                        },
+                                        success: function (json, textStatus, jqXhr) {
+                                            console.log(json);
+                                            if (json.isOk) {
+                                                $('.progress-bar-primary').css("width", "100%");
+                                                $('#program #data-info').text('上传完毕！！！');
+                                                form.reset();
+                                            } else {
+                                                onMask(json.title, json.message);
+                                            }
+          
+                                        },
+                                        error: function (jqXHR, textStatus, errorThrown) {
+                                            console.log(errorThrown);
                                         }
-                                        else
-                                        {
-                                            //修改上次记录时间及数据大小
-                                            time = nowDate;
-                                            loaded = e.loaded;
-                                        }
-                                        console.log(" 进度条:" + `${percentage}`);
-                                        console.log(" velocity:" + `${velocity}`);
-                                    }
-                                    else {
-                                        return;
-                                    }
-                                }, false);
+                                    });
+                                }
+                                else {
+                                    onMask(json.title, json.message);
+                                }
+                            } else {
+                                onMask(json.title, json.message);
                             }
-                            return xhr;
                         },
-                        success: function success(response) {
-                            $('#program').modal('hide');
-                            onMask(response.title, response.message);
-                            console.log(response);
-                        },
-                        error: function error(error) {
-                            console.log(error); 
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            onMask("错误", "网络连接失败...");
                         }
                     });
                 }

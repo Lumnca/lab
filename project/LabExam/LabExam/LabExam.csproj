@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\video.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LitJson" Version="0.13.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.1.1" />
@@ -17,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="JsonConfig\" />
-    <Folder Include="wwwroot\vedio\" />
     <Folder Include="wwwroot\video\" />
   </ItemGroup>
 

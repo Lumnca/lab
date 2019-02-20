@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/sass_product/fui-animation.min.css" />
     <link rel="stylesheet" href="../css/AdminEntry.min.css" />
     <link rel="icon" href="../Resources/system/icon/icon.png" />
+    <link rel="stylesheet" href="../css/video-js.min.css" >
+    <script src="../js/videojs-ie8.min.js"></script>
     <title>实验室安全教育在线-资源管理</title>
 </head>
 
@@ -245,7 +247,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                   <label class=" label label-primary">1</label> 
+                                    <label class=" label label-primary">1</label>
                                 </td>
                                 <td>实验室防盗与信息安全细则视频讲解</td>
                                 <td>实验室防盗与信息安全(物理信息类）</td>
@@ -255,7 +257,7 @@
                                 </td>
                                 <td>在使用</td>
                                 <td class=" text-right">
-                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#vResourceDetail">
                                         <span class="glyphicon glyphicon-search"></span> 详情/修改</button>
                                     <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#delete">
                                         <span class="glyphicon glyphicon-lock"></span>
@@ -376,7 +378,26 @@
             </div>
         </div>
     </div>
-    <div class="modal fade " id="CourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-primary" id="myModalLabel">删除提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p class=" text-primary font-size-14">
+                        确定删除吗？
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary btn-sm ">立即删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="ResourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -387,32 +408,41 @@
                     <div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">课程名称</span>
-                                
-                                <span class="student-info-show-value border-light-down "> 
-                                    <input type="text" value="实验室防盗与信息安全(物理信息类）" class=" border-radius-2 padding-left-10px" 
-                                     data-width="250" data-height="22"  >
-                                     <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
-                                            <span class="glyphicon glyphicon-hand-down"></span> 保存修改</button>
+                                <span class="student-info-show-title">资源名称</span>
+
+                                <span class="student-info-show-value border-light-down ">
+                                    <input type="text" value="实验室防盗与信息安全(物理信息类）" class=" border-radius-2 padding-left-10px"
+                                        data-width="450" data-height="22">
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#CourceDetail">
+                                        <span class="glyphicon glyphicon-hand-down"></span> 保存修改</button>
                                 </span>
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">	所属模块</span>
-                                <span class="student-info-show-value border-light-down "> 	物理信息类</span>
+                                <span class="student-info-show-title"> 所属课程</span>
+                                <span class="student-info-show-value border-light-down "> 实验室防盗与信息安全(物理信息类）</span>
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">课程状态</span>
-                                <span class="student-info-show-value border-light-down "> 已提交</span>
+                                <span class="student-info-show-title">资源状态</span>
+                                <span class="student-info-show-value border-light-down "> 使用中</span>
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">负责人</span>
-                                <span class="student-info-show-value border-light-down "> 李志明</span>
+                                <span class="student-info-show-title">链接资源</span>
+                                <span class="student-info-show-value border-light-down "> 视频资源</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">资源链接</span>
+                                <span class="student-info-show-value border-light-down ">
+                                    <input type="text" value="https://v3.bootcss.com" class=" border-radius-2 padding-left-10px"
+                                        data-width="450" data-height="22">
+                                </span>
                             </div>
                         </div>
                         <div class="student-info-show">
@@ -424,221 +454,97 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                        <button class=" btn btn-primary btn-sm ">
-                                <span class="glyphicon glyphicon-hand-up"></span> 审核通过</button>
+                    <button class=" btn btn-primary btn-sm ">
+                        <span class="glyphicon glyphicon-hand-up"></span> 审核通过</button>
 
-                            <button class=" btn btn-primary btn-sm ">
-                                <span class="glyphicon glyphicon-hand-down"></span> 审核未通过</button>
+                    <button class=" btn btn-primary btn-sm ">
+                        <span class="glyphicon glyphicon-hand-down"></span> 审核未通过</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-danger" id="myModalLabel">删除提示</h4>
-                </div>
-                <div class="modal-body">
-                    <p class=" text-danger font-size-14">
-                        1. 任何对于数据的删除请都谨慎
-                    </p>
-                    <p class=" text-danger font-size-14">
-                        2. 请确保没有与此相关联的数据
-                    </p>
-                    <p class=" text-danger font-size-14">
-                        3. 请注意相关联数据都会被删除掉
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-danger">立即删除</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade " id="CourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade " id="vResourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生信息详情</h4>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">课程详细信息</h4>
                 </div>
                 <div class="modal-body" data-min-height="300">
                     <div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">昵称</span>
-                                <span class="student-info-show-value border-light-down "> 李嘉坤</span>
+                                <span class="student-info-show-title">资源名称</span>
+                                <span class="student-info-show-value border-light-down ">
+                                    <input type="text" value="实验室防盗与信息安全(物理信息类）" class=" border-radius-2 padding-left-10px"
+                                        data-width="450" data-height="22">
+                                </span>
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">年级</span>
-                                <span class="student-info-show-value border-light-down "> 2018 级</span>
+                                <span class="student-info-show-title"> 所属课程</span>
+                                <span class="student-info-show-value border-light-down "> 实验室防盗与信息安全(物理信息类）</span>
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">学号</span>
-                                <span class="student-info-show-value border-light-down "> 2016110423</span>
+                                <span class="student-info-show-title">资源状态</span>
+                                <span class="student-info-show-value border-light-down "> 使用中</span>
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">性别</span>
-                                <span class="student-info-show-value border-light-down "> 男</span>
+                                <span class="student-info-show-title">链接资源</span>
+                                <span class="student-info-show-value border-light-down "> 视频资源</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show padding-10px">
+                            <div id="vedio-open-layout" data-vedio-open-style="html5" muted preload="metadata">
+                                <video id="my-video" class="video-js" controls preload="auto" width="100%" data-setup="{}">
+                                    <source src="../Resources/VedioList/20190219162830523.mp4" type="video/mp4">
+                                    <source src="../Resources/VedioList/20190219162830523.mp4" type="video/mp4">
+                                    <p class="vjs-no-js">
+                                        不支持
+                                    </p>
+                                </video>
+                                <!-- html 播放器
+                                    <video controls autoplay="false" width="100%" class=" img-thumbnail" >
+                                        <source src="../Resources/VedioList/2015430159923.mp4" type="video/mp4">
+                                        <source src="../Resources/VedioList/2015419433498.mp4" type="video/mp4">
+                                        <p>
+                                            人世间最痛苦的事情    
+                                        </p>
+                                    </video>
+                                -->
                             </div>
                         </div>
                         <div class="student-info-show">
                             <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">成绩</span>
-                                <span class="student-info-show-value border-light-down "> 85.5 [最好成绩]</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">身份</span>
-                                <span class="student-info-show-value border-light-down "> 本科生</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">学院</span>
-                                <span class="student-info-show-value border-light-down "> 计算机科学学院</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">专业</span>
-                                <span class="student-info-show-value border-light-down "> 软件工程</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">考试次数</span>
-                                <span class="student-info-show-value border-light-down "> 2 [次]</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">身份证号码</span>
-                                <span class="student-info-show-value border-light-down "> 5222624499705091755</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">登录次数</span>
-                                <span class="student-info-show-value border-light-down "> 56 [次]</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">申请重考次数</span>
-                                <span class="student-info-show-value border-light-down "> 0 [次]</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">学习时长</span>
-                                <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
-                            </div>
-                        </div>
-                        <div class="student-info-show">
-                            <div class="student-info-show-content padding-left-10px">
-                                <span class="student-info-show-title">异常情况</span>
-                                <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
+                                <span class="student-info-show-title">添加时间</span>
+                                <span class="student-info-show-value border-light-down "> 2016/4/5 15:42</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button class=" btn btn-primary btn-sm ">
+                        <span class="glyphicon glyphicon-save"></span> 保存修改</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade " id="arrangeCource"
-     tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog  modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title font-weight-500 padding-top-10px text-info" id="myModalLabel">安排课程学习</h4>
-                    </div>
-                    <div class="modal-body" data-min-height="400">
-                        <!-- 搜索栏 -->
-                        <div name="Search-content" >
-                                <form class="float-layout  padding-10px  border-little-grey-all">
-                                    <!-- 模块 -->
-                                    <span for="moduleId" class=" font-size-14 text-muted">资源属性：</span>
-                                    <select name="modules-name" id="moudle-name" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
-                                        <option id="0" selected>-- 全部 --</option>
-                                        <option id="SD1">课程视频</option>
-                                        <option id="SD2">相关链接</option>
-                                        <option id="SD3">推荐书籍</option>
-                                        <option id="SD3">学生下载资源</option>
-                                    </select>
-                                    <span for="moduleId" class="margin-left-20px font-size-14 text-muted">课程状态:</span>
-                                    <select name="modules-name" id="moudle-name" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
-                                        <option id="0" selected>-- 全部 --</option>
-                                        <option id="SD1">未审核</option>
-                                        <option id="SD2">已通过</option>
-                                        <option id="SD2">未通过</option>
-                                        <option id="SD3">在使用</option>
-                                    </select>
-                                    <button class="float-right  btn btn-sm btn-primary">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                            立即搜索
-                                        </button>
-                                </form>
-
-
-                                <div class="border-little-grey-all padding-10px margin-top-10px margin-bottom-15px table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <th>编号</th>
-                                            <th>资源名称</th>
-                                            <th>资源类型</th>
-                                            <th>学习时长</th>
-                                            <th>状态</th>
-                                            <th class=" text-right" >操作</t>
-                                        </thead>
-                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>实验室安全与环保概述 梁文海.mp4</td>
-                                                <td>课程视频</td>
-                                                <td>30</td>
-                                                <td>在使用</td>
-                                                <td class=" text-right"> <button class=" btn btn-sm btn-primary">
-                                                    <span class="glyphicon glyphicon-lock"></span> 停用课程</button> </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>实验室安全与环保概述 梁文海.mp4</td>
-                                                <td>课程视频</td>
-                                                <td>30</td>
-                                                <td>在使用</td>
-                                                <td class=" text-right"> <button class=" btn btn-sm btn-primary">
-                                                    <span class=" glyphicon glyphicon-ok-sign "></span> 使用课程</button> </td>
-                                            </tr>
-                                         </tbody>   
-                                    </table>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>    
 </body>
+<script src="../Scripts/video.min.js"></script>
 <script>
 
+</script>
+<script>
+
+
+    
     $(document).ready(function () {
         $('.admin-navbar > li>a').on('click', null, null, function () {
             $('.admin-navbar > li>ul').slideUp();

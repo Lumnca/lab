@@ -198,7 +198,7 @@
                                 资源名称
                             </label>
                             <div class="col-sm-10">
-                                <input type="number"  min="2015" class="form-control" required data-max-width="500" id="inputPassword3"
+                                <input type="number" min="2015" class="form-control" required data-max-width="500" id="inputPassword3"
                                     placeholder="资源名称">
                             </div>
                         </div>
@@ -225,7 +225,7 @@
                                     <option value="2"> 视频资源</option>
                                     <option value="3"> 资源链接</option>
                                 </select>
-                                <span  class="help-block">
+                                <span class="help-block">
                                     只有视频资源才上传文件
                                 </span>
                             </div>
@@ -235,8 +235,8 @@
                                 <span class="glyphicon glyphicon-log-out"></span>
                                 资源链接</label>
                             <div class="col-sm-10">
-                                <input type="text"   class="form-control" id="inputPassword3" data-max-width="500"
-                                    placeholder="资源url链接"/>
+                                <input type="text" class="form-control" id="inputPassword3" data-max-width="500"
+                                    placeholder="资源url链接" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -245,7 +245,8 @@
                                 学习时长
                             </label>
                             <div class="col-sm-10">
-                                <input type="number" required min="20" class="form-control" data-max-width="500" id="studyTime" placeholder="最低学习时长">
+                                <input type="number" required min="20" class="form-control" data-max-width="500" id="studyTime"
+                                    placeholder="最低学习时长">
                             </div>
                         </div>
                         <div class="form-group">
@@ -261,15 +262,17 @@
                                 <span class="glyphicon glyphicon-eye-close"></span>
                                 资源备注</label>
                             <div class="col-sm-10">
-                                <textarea type="text"  rows="10"  class="form-control" id="inputPassword3" data-max-width="500"
+                                <textarea type="text" rows="10" class="form-control" id="inputPassword3" data-max-width="500"
                                     placeholder="准备信息"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" class="btn btn-success"> <span class="glyphicon glyphicon-send"></span> 返回页面 </button>
-                                <button type="submit" class="  margin-left-25px  btn btn-primary">  <span class="glyphicon glyphicon-floppy-saved"></span> 立即保存 </button>
+                                <button type="button" class="btn btn-success"> <span class="glyphicon glyphicon-send"></span>
+                                    返回页面 </button>
+                                <button type="submit" class="  margin-left-25px  btn btn-primary"> <span class="glyphicon glyphicon-floppy-saved"></span>
+                                    立即保存 </button>
                             </div>
                         </div>
                     </form>
@@ -382,10 +385,15 @@
                     <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中!!!</h4>
                 </div>
                 <div class="modal-body">
-                    <img src="../Resources/animation/Pacman-0.5s-200px.svg" width="90" class=" layout-center">
-                    <p class=" text-center">
-                            <span class=" glyphicon glyphicon-cloud-upload "></span>
-                            <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                            <span class="sr-only">30% 完成（信息）</span>
+                        </div>
+                    </div>
+                    <p class=" text-left">
+                        <span class=" glyphicon glyphicon-cloud-upload "></span>
+                        <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
                     </p>
                 </div>
             </div>

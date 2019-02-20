@@ -45,6 +45,8 @@ namespace LabExam
                 x.MultipartBodyLengthLimit = 3221225472; //3G
             });
 
+            //services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -65,6 +67,7 @@ namespace LabExam
             services.AddTransient<IEncryptionDataService, EncryptionDataService>();
             services.AddTransient<ILoadConfigFileService, LoadConfigFileService>();
             services.AddTransient<IHttpContextAnalysisService, HttpContextAnalysisService>();
+            services.AddTransient<ILoggerService, LoggerService>();
             
         }
 

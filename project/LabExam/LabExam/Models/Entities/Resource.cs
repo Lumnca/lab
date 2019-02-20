@@ -10,7 +10,7 @@ namespace LabExam.Models.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ResourceId { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(500)]
         public  String Name { get; set; }
 
         [ForeignKey("Cource")]
@@ -25,9 +25,15 @@ namespace LabExam.Models.Entities
 
         public  float LengthOfStudy { get; set; }
 
-        [MaxLength(600)]
+        [MaxLength(1000)]
         public String ResourceUrl { get; set; }
         
         public ResourceStatus ResourceStatus { get; set; }
+
+
+        [MaxLength(100)]
+        public String PrincipalId { get; set; }
+
+        public DateTime AddTime { get; set; }
     }
 }

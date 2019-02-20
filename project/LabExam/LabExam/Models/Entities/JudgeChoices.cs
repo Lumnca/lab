@@ -35,10 +35,10 @@ namespace LabExam.Models.Entities
         [MaxLength(200)]
         public String Key { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String A { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String B { get; set; }
     }
 }

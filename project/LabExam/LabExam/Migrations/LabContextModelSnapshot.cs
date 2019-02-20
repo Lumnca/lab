@@ -109,7 +109,10 @@ namespace LabExam.Migrations
                     b.Property<int>("ModuleId");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(300);
+                        .HasMaxLength(400);
+
+                    b.Property<string>("PrincipalId")
+                        .HasMaxLength(100);
 
                     b.HasKey("CourceId");
 
@@ -263,7 +266,7 @@ namespace LabExam.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("A")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<DateTime>("AddTime");
 
@@ -271,7 +274,7 @@ namespace LabExam.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("B")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("Content")
                         .HasColumnName("Content")
@@ -335,10 +338,10 @@ namespace LabExam.Migrations
                     b.Property<int>("PrincpalOperationCode");
 
                     b.Property<string>("PrincpalOperationContent")
-                        .HasMaxLength(300);
+                        .HasMaxLength(500);
 
                     b.Property<string>("PrincpalOperationName")
-                        .HasMaxLength(40);
+                        .HasMaxLength(400);
 
                     b.Property<int>("PrincpalOperationStatus");
 
@@ -428,7 +431,7 @@ namespace LabExam.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("A")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<DateTime>("AddTime");
 
@@ -436,10 +439,10 @@ namespace LabExam.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("B")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("C")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("Content")
                         .HasColumnName("Content")
@@ -448,21 +451,21 @@ namespace LabExam.Migrations
                     b.Property<int>("Count");
 
                     b.Property<string>("D")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<float>("DegreeOfDifficulty");
 
                     b.Property<string>("E")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("F")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("G")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("H")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("Key")
                         .HasMaxLength(200);
@@ -559,6 +562,8 @@ namespace LabExam.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("AddTime");
+
                     b.Property<int>("CourceId");
 
                     b.Property<string>("Description")
@@ -568,14 +573,17 @@ namespace LabExam.Migrations
                     b.Property<float>("LengthOfStudy");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(200);
+                        .HasMaxLength(500);
+
+                    b.Property<string>("PrincipalId")
+                        .HasMaxLength(100);
 
                     b.Property<int>("ResourceStatus");
 
                     b.Property<int>("ResourceType");
 
                     b.Property<string>("ResourceUrl")
-                        .HasMaxLength(600);
+                        .HasMaxLength(1000);
 
                     b.HasKey("ResourceId");
 
@@ -591,7 +599,7 @@ namespace LabExam.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("A")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<DateTime>("AddTime");
 
@@ -599,10 +607,10 @@ namespace LabExam.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("B")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("C")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("Content")
                         .HasColumnName("Content")
@@ -611,21 +619,21 @@ namespace LabExam.Migrations
                     b.Property<int>("Count");
 
                     b.Property<string>("D")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<float>("DegreeOfDifficulty");
 
                     b.Property<string>("E")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("F")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("G")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("H")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(2000);
 
                     b.Property<string>("Key")
                         .HasMaxLength(200);

@@ -23,10 +23,10 @@ namespace LabExam.Models.Entities
 
         public PrincpalOperationCode PrincpalOperationCode { get; set; }
 
-        [MaxLength(40)]
+        [MaxLength(400)]
         public String PrincpalOperationName { get; set; }
 
-        [MaxLength(300)]
+        [MaxLength(500)]
         public String PrincpalOperationContent { get; set; }
 
         public PrincpalOperationStatus PrincpalOperationStatus { get; set; }

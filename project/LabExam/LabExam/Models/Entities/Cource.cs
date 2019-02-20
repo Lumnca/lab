@@ -10,7 +10,7 @@ namespace LabExam.Models.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public  int CourceId { get; set; }
 
-        [MaxLength(300)]
+        [MaxLength(400)]
         public  String Name { get; set; }
 
         public DateTime AddTime { get; set; }
@@ -26,5 +26,7 @@ namespace LabExam.Models.Entities
 
         public CourceStatus CourceStatus { get; set; }
 
+        [MaxLength(100)]
+        public String PrincipalId { get; set; }
     }
 }

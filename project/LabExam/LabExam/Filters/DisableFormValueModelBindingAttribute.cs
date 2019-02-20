@@ -30,6 +30,7 @@ namespace LabExam.Filters
 
         public void OnResourceExecuted(ResourceExecutedContext context)
         {
+            
         }
     }
 }

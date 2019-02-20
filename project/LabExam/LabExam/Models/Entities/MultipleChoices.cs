@@ -32,28 +32,28 @@ namespace LabExam.Models.Entities
         [MaxLength(200)]
         public String Key { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String A { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String B { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String C { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String D { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String E { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String F { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String G { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(2000)]
         public String H { get; set; }
     }
 }

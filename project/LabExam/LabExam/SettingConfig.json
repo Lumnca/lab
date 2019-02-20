@@ -118,6 +118,26 @@
         "Count": 30,
         "Score": 1.0
       }
+    },
+    "11": {
+      "AllowExamTime": 3,
+      "ModuleId": 11,
+      "ModuleName": null,
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using LabExam.DataSource;
@@ -99,21 +100,10 @@ namespace LabExam.Controllers
             }
             else
             {
-                List<string> sb = new List<string>();
-                List<string> Keys = ModelState.Keys.ToList();
-                foreach (var key in Keys)
-                {
-                    var errors = ModelState[key].Errors.ToList();
-                    //将错误描述添加到sb中
-                    foreach (var error in errors)
-                    {
-                        sb.Add(error.ErrorMessage);
-                    }
-                }
                 return Json(new
                 {
                     isOk = false,
-                    error = sb,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
                     title = "错误提示",
                     message = "参数错误,传递了不符合规定的参数"
                 });
@@ -181,22 +171,10 @@ namespace LabExam.Controllers
             }
             else
             {
-                List<string> sb = new List<string>();
-                //获取所有错误的Key
-                List<string> Keys = ModelState.Keys.ToList();
-                foreach (var key in Keys)
-                {
-                    var errors = ModelState[key].Errors.ToList();
-                    //将错误描述添加到sb中
-                    foreach (var error in errors)
-                    {
-                        sb.Add(error.ErrorMessage);
-                    }
-                }
                 return Json(new
                 {
                     isOk = false,
-                    error = sb,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
                     message = $"参数错误,传递了不符合规定的参数"
                 });
             }
@@ -217,13 +195,21 @@ namespace LabExam.Controllers
                 }
 
                 #region 功能实现区域
-                Cource _item = _context.Cources.Include("Module").FirstOrDefault(j => j.CourceId == itemId);
+                var _item = _context.Cources.Include("Module").FirstOrDefault(j => j.CourceId == itemId);
                 if (_item != null)
                 {
                     return Json(new
                     {
                         isOk = true,
-                        item = _item,
+                        item = new
+                        {
+                            name = _item.Name,
+                            module = _item.Module,
+                            status = _item.CourceStatus == CourceStatus.Normal ? "未使用" : "使用中",
+                            addTime = _item.AddTime,
+                            introduction = _item.Introduction,
+                            cId = _item.CourceId
+                        },
                         title = "消息提示",
                         message = "加载成功"
                     });
@@ -241,21 +227,10 @@ namespace LabExam.Controllers
             }
             else
             {
-                List<string> sb = new List<string>();
-                List<string> Keys = ModelState.Keys.ToList();
-                foreach (var key in Keys)
-                {
-                    var errors = ModelState[key].Errors.ToList();
-                    //将错误描述添加到sb中
-                    foreach (var error in errors)
-                    {
-                        sb.Add(error.ErrorMessage);
-                    }
-                }
                 return Json(new
                 {
                     isOk = false,
-                    error = sb,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
                     title = "错误提示",
                     message = "参数错误,传递了不符合规定的参数"
                 });
@@ -266,13 +241,13 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_analysis.GetLoginUserConfig(HttpContext).Power.QuestionBankManager)
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.CourcesManager)
                 {
                     return Json(new
                     {
                         isOk = false,
                         title = "错误提示",
-                        message = "你并无题库管理操作权限"
+                        message = "你并无课程管理操作权限"
                     });
                 }
 
@@ -315,13 +290,13 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_analysis.GetLoginUserConfig(HttpContext).Power.QuestionBankManager)
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.CourcesManager)
                 {
                     return Json(new
                     {
                         isOk = false,
                         title = "错误提示",
-                        message = "你并无题库管理操作权限"
+                        message = "你并无课程管理操作权限"
                     });
                 }
 
@@ -347,6 +322,241 @@ namespace LabExam.Controllers
                         message = "资源不存在，或者已经被删除了"
                     });
                 }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        /// <summary>
+        /// 资源文件地址 有关需要改变文件目录的时候需要改变的地方
+        /// </summary>
+        /// <param name="cId"></param>
+        /// <returns></returns>
+        public IActionResult Delete([Required] int cId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.CourcesManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无课程管理操作权限"
+                    });
+                }
+
+                Cource c = _context.Cources.Find(cId);
+
+                if (c != null)
+                {
+                    //先把资源文件删除掉
+                    List<Resource> resources = _context.Resources.Where(r => r.CourceId == cId && r.ResourceType == ResourceType.Vedio).ToList();
+                    foreach (var res in resources)
+                    {
+                        String path = Path.GetFullPath($@"{_hosting.WebRootPath}/video/{res.ResourceUrl}");
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+                    }
+                    _context.RemoveRange(_context.Resources.Where(r => r.CourceId == cId));
+                    _context.Cources.Remove(c);
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "消息提示",
+                        message = "删除成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "课程不存在,或者已经被删除"
+                    });
+                }
+
+
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        public IActionResult Update([Required] int cId, [Required] String name)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.CourcesManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无课程管理操作权限"
+                    });
+                }
+                if (_context.Cources.Any(cr => cr.Name == name))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "此课程名称已经存在！或者你没有改变课程名称！"
+                    });
+                }
+
+                Cource c = _context.Cources.Find(cId);
+                if (c != null)
+                {
+                    c.Name = name.Trim();
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "消息提示",
+                        message = "修改成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "课程不存在或者已经被删除了"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+
+        }
+
+        public IActionResult All([Required] Int32 mId, [Required] int status, String content)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.CourcesManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无课程管理操作权限"
+                    });
+                }
+
+                String sql = "select * from Cources where CourceId > 0";
+                if (mId != -1)
+                {
+                    sql += $" and ModuleId = {mId}";
+                }
+
+                if (content != null && content.Trim() != "")
+                {
+                    sql += $" and name like '%{content.Trim().Replace(";", ".")}%'";
+                }
+
+                if (status != -1)
+                {
+                    sql += $" and CourceStatus = {status}";
+                }
+
+                List<Cource> list = _context.Cources.FromSql(sql).Where(c => c.CourceStatus == CourceStatus.Normal).ToList();
+                foreach (var item in list)
+                {
+                    item.CourceStatus = CourceStatus.Using;
+                }
+                _context.SaveChanges();
+                return Json(new
+                {
+                    isOk = true,
+                    title = "信息提示",
+                    message = "操作成功！"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        public IActionResult Not([Required] Int32 mId, [Required] int status, String content)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.QuestionBankManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无题库管理操作权限"
+                    });
+                }
+
+                String sql = "select * from Cources where CourceId > 0";
+                if (mId != -1)
+                {
+                    sql += $" and ModuleId = {mId}";
+                }
+
+                if (content != null && content.Trim() != "")
+                {
+                    sql += $" and name like '%{content.Trim().Replace(";", ".")}%'";
+                }
+
+                if (status != -1)
+                {
+                    sql += $" and CourceStatus = {status}";
+                }
+
+                List<Cource> list = _context.Cources.FromSql(sql).Where(c => c.CourceStatus == CourceStatus.Using).ToList();
+                foreach (var item in list)
+                {
+                    item.CourceStatus = CourceStatus.Normal;
+                }
+                _context.SaveChanges();
+                return Json(new
+                {
+                    isOk = true,
+                    title = "信息提示",
+                    message = "操作成功！"
+                });
             }
             else
             {

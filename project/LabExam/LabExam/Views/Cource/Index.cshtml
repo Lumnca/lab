@@ -32,19 +32,15 @@
             <span class="glyphicon glyphicon-plus"></span>
             添加课程
         </a>
-        <button class=" btn btn-sm btn-primary">
+        <button class=" btn btn-sm btn-primary" onclick="UseAll()">
             <span class="glyphicon glyphicon-hand-up"></span>
             全部使用
         </button>
-        <button class=" btn btn-sm btn-primary">
+        <button class=" btn btn-sm btn-primary" onclick="NotUseAll()">
             <span class="glyphicon glyphicon-hand-down"></span>
             全部停用
         </button>
-        <button class=" btn btn-sm btn-primary">
-            <span class="glyphicon glyphicon-user"></span>
-            我的课程
-        </button>
-        <button class=" btn btn-sm btn-default">
+        <button class=" btn btn-sm btn-default" onclick="Clear()" >
             <span class="glyphicon glyphicon-remove-circle"></span>
             清空筛选条件
         </button>
@@ -67,7 +63,7 @@
     </table>
     <div class=" float-layout bc-clr-white padding-10px ">
         <label class=" InspageCount float-left">
-            共 <span class="items-count">0</span> 个题目
+            共 <span class="items-count">0</span> 个课程
         </label>
         <div class=" float-right">
             <button class=" btn-default btn btn-sm ">
@@ -94,113 +90,12 @@
         </div>
     </div>
 </div>
-<div class="modal fade " id="CourceDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog  modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生信息详情</h4>
-            </div>
-            <div class="modal-body" data-min-height="300">
-                <div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">昵称</span>
-                            <span class="student-info-show-value border-light-down "> 李嘉坤</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">年级</span>
-                            <span class="student-info-show-value border-light-down "> 2018 级</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">学号</span>
-                            <span class="student-info-show-value border-light-down "> 2016110423</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">性别</span>
-                            <span class="student-info-show-value border-light-down "> 男</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">成绩</span>
-                            <span class="student-info-show-value border-light-down "> 85.5 [最好成绩]</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">身份</span>
-                            <span class="student-info-show-value border-light-down "> 本科生</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">学院</span>
-                            <span class="student-info-show-value border-light-down "> 计算机科学学院</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">专业</span>
-                            <span class="student-info-show-value border-light-down "> 软件工程</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">考试次数</span>
-                            <span class="student-info-show-value border-light-down "> 2 [次]</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">身份证号码</span>
-                            <span class="student-info-show-value border-light-down "> 5222624499705091755</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">登录次数</span>
-                            <span class="student-info-show-value border-light-down "> 56 [次]</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">申请重考次数</span>
-                            <span class="student-info-show-value border-light-down "> 0 [次]</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">学习时长</span>
-                            <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
-                        </div>
-                    </div>
-                    <div class="student-info-show">
-                        <div class="student-info-show-content padding-left-10px">
-                            <span class="student-info-show-title">异常情况</span>
-                            <span class="student-info-show-value border-light-down "> 150 [分钟]</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade " id="arrangeCource" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title font-weight-500 padding-top-10px text-info" >安排课程学习</h4>
+                <h4 class="modal-title font-weight-500 padding-top-10px text-info">安排课程学习</h4>
             </div>
             <div class="modal-body" data-min-height="400">
                 <!-- 搜索栏 -->
@@ -219,7 +114,7 @@
                             <option value="0">使用中</option>
                             <option value="1">未使用</option>
                         </select>
-                        <button class="float-right  btn btn-sm btn-primary " id="search-resource"  >
+                        <button class="float-right  btn btn-sm btn-primary " id="search-resource">
                             <span class="glyphicon glyphicon-search"></span>
                             立即搜索
                         </button>
@@ -227,20 +122,18 @@
                     <div class="border-little-grey-all padding-10px margin-top-10px margin-bottom-15px table-responsive">
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th>编号</th>
-                                    <th>资源名称</th>
-                                    <th>资源类型</th>
-                                    <th>学习时长</th>
-                                    <th>状态</th>
-                                    <th class=" text-right">
-                                        操作
-                                    </th>
-                                </tr>
+                            <tr>
+                                <th>编号</th>
+                                <th>资源名称</th>
+                                <th>资源类型</th>
+                                <th>学习时长</th>
+                                <th>状态</th>
+                                <th class=" text-right">
+                                    操作
+                                </th>
+                            </tr>
                             </thead>
-                            <tbody id="resource-section">
-
-                            </tbody>
+                            <tbody id="resource-section"></tbody>
                         </table>
                     </div>
                 </div>
@@ -251,27 +144,19 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="delete-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title font-weight-600 font-size-15 padding-top-10px text-primary" id="myModalLabel">删除提示</h4>
+                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中 <span id="val-speed"></span> </h4>
             </div>
             <div class="modal-body">
-                <p class=" text-primary font-size-14">
-                    你确定要删除此题目吗
+                <img src="~/Resources/animation/Pacman-0.5s-200px.svg" width="85" class="layout-center" />
+                <p class=" text-left">
+                    <span class=" glyphicon glyphicon-cloud-upload "></span>
+                    <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
                 </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm" id="deleteButton">
-                    <span class=" glyphicon glyphicon-trash "></span>
-                    立即删除
-                </button>
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                    <span class=" glyphicon glyphicon-folder-close "></span>
-                    关闭
-                </button>
             </div>
         </div>
     </div>
@@ -293,14 +178,18 @@
             <button class=" btn btn-default btn-sm  arrange-button" data-item-id="{{courceId}}">
                 <span class="glyphicon glyphicon-calendar"></span> 安排课程
             </button>
-            <button class=" btn btn-default btn-sm " data-item-id="{{courceId}}">
+            <button class=" btn btn-default btn-sm stopUse-button " data-item-id="{{courceId}}">
                 <span class="glyphicon glyphicon-lock"></span>
                 停用课程
             </button>
-            <button class=" btn btn-default btn-sm " data-item-id="{{courceId}}">
+            <button class=" btn btn-default btn-sm continue-button " data-item-id="{{courceId}}">
+                <span class=" glyphicon glyphicon-collapse-up "></span>
+                使用课程
+            </button>
+            <button class=" btn btn-default btn-sm detail-button " data-item-id="{{courceId}}">
                 <span class="glyphicon glyphicon-search"></span> 详情/修改
             </button>
-            <button class=" btn btn-primary btn-sm " data-item-id="{{courceId}}">
+            <button class=" btn btn-primary btn-sm delete-button " data-item-id="{{courceId}}">
                 <span class="glyphicon glyphicon-remove"></span>
                 删除
             </button>
@@ -308,6 +197,34 @@
     </tr>
     {{/items}}
 </script>
+<div class="modal fade" id="delete-dialog" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-size-15 font-weight-600 padding-top-10px text-info">
+                    <span class="glyphicon glyphicon-fire"></span>
+                    删除提示
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    你确定删除此课程吗？将同时删除课程的资源信息！
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary">
+                        <span class=" glyphicon glyphicon-trash "></span>
+                        立即删除
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                        <span class=" glyphicon glyphicon-bed "></span>
+                        稍后处理
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script id="resource-template" type="x-tmpl-mustache">
     {{#items}}
     <tr>
@@ -318,7 +235,7 @@
         <td>{{status}}</td>
         <td class=" text-right">
             <button class="function-stop btn btn-sm btn-primary" data-item-id="{{resourceId}}">
-                <span class=" glyphicon glyphicon-ok-sign "></span> 停用资源
+                <span class=" glyphicon glyphicon-ok-lock "></span> 停用资源
             </button>
             <button class="function-use btn btn-sm btn-primary" data-item-id="{{resourceId}}">
                 <span class=" glyphicon glyphicon-ok-sign "></span> 使用资源
@@ -327,7 +244,62 @@
     </tr>
     {{/items}}
 </script>
+<div class="modal fade " id="cource-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-info">课程详细信息</h4>
+            </div>
+            <div class="modal-body" data-min-height="300" id="cource-detail-gesture">
 
+            </div>
+            <div class="modal-footer">
+                <button class=" btn btn-primary btn-sm " >
+                    <span class="glyphicon glyphicon-hand-down"></span> 保存修改
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="cource-detail-template" type="x-tmpl-mustache">
+    <div class="student-info-show">
+        <div class="student-info-show-content padding-left-10px">
+            <span class="student-info-show-title">课程名称</span>
+
+            <span class="student-info-show-value border-light-down ">
+                <input type="text" value="{{name}}" class=" border-radius-2 padding-left-10px" name="courceName"
+                       style="width:400px; height:26px" data-item-id="{{cId}}" >
+            </span>
+        </div>
+    </div>
+    <div class="student-info-show">
+        <div class="student-info-show-content padding-left-10px">
+            <span class="student-info-show-title"> 所属模块</span>
+            <span class="student-info-show-value border-light-down "> {{module.name}}</span>
+        </div>
+    </div>
+    <div class="student-info-show">
+        <div class="student-info-show-content padding-left-10px">
+            <span class="student-info-show-title">课程状态</span>
+            <span class="student-info-show-value border-light-down "> {{status}}</span>
+        </div>
+    </div>
+    <div class="student-info-show">
+        <div class="student-info-show-content padding-left-10px">
+            <span class="student-info-show-title">添加时间</span>
+            <span class="student-info-show-value border-light-down "> {{addTime}}</span>
+        </div>
+    </div>
+    <div class="student-info-show">
+        <div class="student-info-show-content padding-left-10px">
+            <span class="student-info-show-title">资源简洁</span>
+            <span class="student-info-show-value border-light-down "> {{introduction}}</span>
+        </div>
+    </div>
+    
+</script>
 @section Scripts
 {
     <script>
@@ -336,7 +308,7 @@
                 url: "/Module/List",
                 type: "post",
                 dataType: "json",
-                success: function(data, textStatus, jqXHR) {
+                success: function (data, textStatus, jqXHR) {
                     $("#ModuleId")
                         .append('<option value="-1">所有模块</option>');
                     for (var index in data) {
@@ -345,7 +317,7 @@
                     }
                     loadPageByIndex(1);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     onMask("错误", errorThrown);
                 }
             });
@@ -377,11 +349,7 @@
                     status: $('#corporation select[name="ModuleStatus"]').val(),
                     content: $('#corporation input[name="KeyName"]').val()
                 },
-                success: function(json, textStatus, jqXhr) {
-                    //debug
-                    console.log(json);
-                    // end debug
-
+                success: function (json, textStatus, jqXhr) {
                     if (json.isOk) {
                         if (json.items == null) {
                             $('.section-items').html("");
@@ -411,29 +379,29 @@
                         onMask("错误", json.message);
                     }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     onMask("错误", `网络接连错误..${errorThrown}`);
                 }
             });
         }
 
-        $('.Next').click(function(jqEvent) {
+        $('.Next').click(function (jqEvent) {
             loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
         });
 
-        $('.First').click(function(jqEvent) {
+        $('.First').click(function (jqEvent) {
             loadPageByIndex(1);
         });
 
-        $('.Previous').click(function(jqEvent) {
+        $('.Previous').click(function (jqEvent) {
             loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
         });
 
-        $('.Last').click(function(jqEvent) {
+        $('.Last').click(function (jqEvent) {
             loadPageByIndex($('button[data-lastIndex]').attr("data-lastIndex").trim());
         });
 
-        $('button[data-skip]').click(function(jqEvent) {
+        $('button[data-skip]').click(function (jqEvent) {
             var pageIndex = parseInt($('.show-page-Index').text().trim());
             var skip = parseInt($('select[data-options]').val().trim());
             if (skip === pageIndex) {
@@ -443,14 +411,14 @@
             }
         });
 
-        $('#search-items').click(function(jqEvent) {
+        $('#search-items').click(function (jqEvent) {
             loadPageByIndex(1);
         });
 
         $('.section-items').on('click',
             '.arrange-button',
             null,
-            function(jqEvent) {
+            function (jqEvent) {
                 var id = $(this).attr("data-item-id");
 
                 $('#search-resource').attr("data-item-id", id);
@@ -464,7 +432,7 @@
                         type: -1,
                         status: -1
                     },
-                    success: function(json, textStatus, jqXhr) {
+                    success: function (json, textStatus, jqXhr) {
                         if (json.isOk) {
 
                             for (var i = 0; i < json.items.length; i++) {
@@ -480,13 +448,148 @@
                             onMask(json.title, json.message);
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         onMask("错误", "网络接连错误..");
                     }
                 });
             });
 
-        $('#search-resource').click(function(jqEvent) {
+        $('.section-items').on('click', '.detail-button', null, function(jqEvent){
+            var id = $(this).attr("data-item-id");
+
+            $.ajax({
+                url: "/Cource/Item",
+                type: "post",
+                dataType: "json",
+                data: {
+                    itemId: id
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+
+                        var template = $('#cource-detail-template').html();
+                        Mustache.parse(template);
+                        var result = Mustache.render(template, json.item);
+                        $('#cource-detail-gesture').html(result);
+
+                        $('#cource-detail').modal('show');
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+
+        $('.section-items').on('click', '.stopUse-button', null, function(jqEvent){
+            $('#program').modal('show');
+            var id = $(this).attr("data-item-id");
+            
+            $.ajax({
+                url: "/Cource/Stop",
+                type: "post",
+                dataType: "json",
+                data: {
+                    cId: id
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        $('#program').modal('hide');
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+
+        $('.section-items').on('click', '.continue-button', null, function (jqEvent) {
+            $('#program').modal('show');
+            var id = $(this).attr("data-item-id");
+            
+            $.ajax({
+                url: "/Cource/Use",
+                type: "post",
+                dataType: "json",
+                data: {
+                    cId: id
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        $('#program').modal('hide');
+                        loadPageByIndex(1);
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+
+        $('.section-items').on('click', '.delete-button', null, function (jqEvent) {
+            $('#delete-dialog button:eq(1)').attr("data-item-id", $(this).attr("data-item-id"));
+            $('#delete-dialog').modal('show');
+        });
+
+        $('#delete-dialog button:eq(1)').click(function(jqEvent) {
+            var id = $(this).attr('data-item-id');
+            $.ajax({
+                url: "/Cource/Delete",
+                type: "post",
+                dataType: "json",
+                data: {
+                    cId: id
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        onMask(json.title, json.message);
+                        loadPageByIndex(1);
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+
+        $('#cource-detail button:eq(1)').click(function (jqEvent) {
+            var _name = $('#cource-detail input[name="courceName"]').val();
+            if ( _name == null|| _name == "") {
+                onMask("消息提示", "请填写课程名称");
+                return;
+            }
+            var _id = $('#cource-detail input[name="courceName"]').attr('data-item-id');
+
+            console.log(_name,_id);
+
+            $.ajax({
+                url: "/Cource/Update",
+                type: "post",
+                dataType: "json",
+                data: {
+                    cId: _id,
+                    name:_name
+                },
+                success: function (json) {
+                    console.log(json);
+                    onMask(json.title, json.message);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误.. ${errorThrown}`);
+                }
+            });
+        });
+        
+        $('#search-resource').click(function (jqEvent) {
             LoadResource();
         });
 
@@ -500,7 +603,7 @@
                     type: $('#rType').val(),
                     status: $('#rStatus').val()
                 },
-                success: function(json, textStatus, jqXhr) {
+                success: function (json, textStatus, jqXhr) {
                     if (json.isOk) {
 
                         for (var i = 0; i < json.items.length; i++) {
@@ -513,7 +616,7 @@
                         $('#resource-section').html(result);
                     }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     onMask("错误", "网络接连错误..");
                 }
             });
@@ -522,7 +625,7 @@
         $('#resource-section').on('click',
             ".function-stop",
             null,
-            function(jqEvent) {
+            function (jqEvent) {
                 var id = $(this).attr("data-item-id");
 
                 $.ajax({
@@ -532,12 +635,12 @@
                     data: {
                         rId: id
                     },
-                    success: function(json) {
+                    success: function (json) {
                         console.log(json);
                         LoadResource();
                         onMask(json.title, json.message);
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         onMask("错误", `网络接连错误.. ${errorThrown}`);
                     }
                 });
@@ -546,7 +649,7 @@
         $('#resource-section').on('click',
             ".function-use",
             null,
-            function(jqEvent) {
+            function (jqEvent) {
                 var id = $(this).attr("data-item-id");
 
                 $.ajax({
@@ -556,15 +659,71 @@
                     data: {
                         rId: id
                     },
-                    success: function(json) {
+                    success: function (json) {
                         console.log(json);
                         LoadResource();
                         onMask(json.title, json.message);
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         onMask("错误", `网络接连错误.. ${errorThrown}`);
                     }
                 });
             });
+
+        function UseAll() {
+            $('#program').modal('show');
+            $.ajax({
+                url: "/Cource/All",
+                type: "post",
+                dataType: "json",
+                data: {
+                    mId: $('#corporation select[name="ModuleId"]').val(),
+                    status: $('#corporation select[name="ModuleStatus"]').val(),
+                    content: $('#corporation input[name="KeyName"]').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        $('#program').modal('hide');
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误..${errorThrown}`);
+                }
+            });
+        }
+
+        function NotUseAll() {
+            $('#program').modal('show');
+            $.ajax({
+                url: "/Cource/Not",
+                type: "post",
+                dataType: "json",
+                data: {
+                    mId: $('#corporation select[name="ModuleId"]').val(),
+                    status: $('#corporation select[name="ModuleStatus"]').val(),
+                    content: $('#corporation input[name="KeyName"]').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        $('#program').modal('hide');
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误..${errorThrown}`);
+                }
+            });
+        }
+
+        function Clear() {
+            $('#corporation select[name="ModuleId"]').val(-1);
+            $('#corporation select[name="ModuleStatus"]').val(-1);
+            $('#corporation input[name="KeyName"]').val("");
+        }
     </script>
 }

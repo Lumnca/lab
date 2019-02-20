@@ -13,21 +13,10 @@ if (ModelState.IsValid)
 }
 else
 {
-    List<string> sb = new List<string>();
-    List<string> Keys = ModelState.Keys.ToList();
-    foreach (var key in Keys)
-    {
-        var errors = ModelState[key].Errors.ToList();
-        //将错误描述添加到sb中
-        foreach (var error in errors)
-        {
-            sb.Add(error.ErrorMessage);
-        }
-    }
     return Json(new
     {
         isOk = false,
-        error = sb,
+        error = _analysis.ModelStateDictionaryError(ModelState),
         title = "错误提示",
         message = "参数错误,传递了不符合规定的参数"
     });

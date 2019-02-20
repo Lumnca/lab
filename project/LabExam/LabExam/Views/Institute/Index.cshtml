@@ -66,7 +66,7 @@
                                     <td ><label class="label label-primary">@(++index)</label></td>
                                     <td>@item.Name </td>
                                     <td>@item.InstituteId</td>
-                                    <td>@item.ModuleName</td>
+                                    <td><label class="label label-primary">@item.ModuleName</label></td>
                                     <td>正常</td>
                                     <td class=" text-right ">
                                         <button data-instituteId="@item.InstituteId" class="buttonDelete btn btn-primary btn-sm">
@@ -237,7 +237,7 @@
         <td class=" text-center"><label class="label label-primary">{{index}}</label></td>
         <td>{{name}} </td>
         <td>{{instituteId}}</td>
-        <td>{{moduleName}}</td>
+        <td><label class="label label-primary">{{moduleName}}</label></td>
         <td>正常</td>
         <td class=" text-right ">
             <button data-instituteId="{{instituteId}}" 

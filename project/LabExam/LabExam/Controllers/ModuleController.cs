@@ -5,9 +5,11 @@ using LabExam.DataSource;
 using LabExam.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 using LabExam.IServices;
 using LabExam.Models;
 using LabExam.Models.JsonModel;
+using LabExam.Models.Map;
 using LabExam.Services;
 using Microsoft.AspNetCore.Authorization;
 
@@ -21,11 +23,13 @@ namespace LabExam.Controllers
         private readonly LabContext _context;
         private readonly ILoadConfigFileService _config;
         private readonly IHttpContextAnalysisService _analysis;
-        public ModuleController(LabContext context, ILoadConfigFileService config, IHttpContextAnalysisService analysis)
+        private readonly ILoggerService _logger;
+        public ModuleController(LabContext context, ILoadConfigFileService config, IHttpContextAnalysisService analysis, ILoggerService logger)
         {
             _context = context;
             _config = config;
             _analysis = analysis;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -39,9 +43,13 @@ namespace LabExam.Controllers
             List<Module> modules = _context.Modules.ToList<Module>();
             return Json(modules);
         }
-
+        /// <summary>
+        /// 开启日志
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpPost]
-        public IActionResult Create([Required] String name)
+        public async Task<IActionResult> Create([Required] String name)
         {
             try
             {
@@ -56,11 +64,35 @@ namespace LabExam.Controllers
                         });
                     }
 
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.AddModule, $"添加模块 模块名称{name.Trim()}",$"添加新的的模块:{name.Trim()}");
+
                     if (_context.Modules.FirstOrDefault(m => m.Name.Equals(name)) == null)
                     {
-                        Module module = new Module {AddTime = DateTime.Now, Name = name, PrincipalId = "20020059"};
+                        operation.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+
+                        Module module = new Module {AddTime = DateTime.Now, Name = name.Trim(), PrincipalId = _analysis.GetLoginUserModel(HttpContext).UserId};
+
+                        _context.LogPricipalOperations.Add(operation);
                         _context.Modules.Add(module);
-                        _context.SaveChanges();
+
+                        await _context.SaveChangesAsync().ContinueWith(r =>
+                        {
+                            SystemSetting setting = _config.LoadSystemSetting();
+                            ModuleExamSetting mes = SystemSetting.GetDefault();
+                            mes.ModuleId = module.ModuleId;
+                            mes.ModuleName = module.Name;
+                            setting.ExamModuleSettings.Add(module.ModuleId,mes);
+                            _config.ReWriteSystemSetting(setting);
+
+                            Dictionary<int, ExamOpenSetting> es = _config.LoadModuleExamOpenSetting();
+                            ExamOpenSetting examSetting = new ExamOpenSetting();
+                            examSetting.ModuleId = module.ModuleId;
+                            examSetting.IsOpen = false;
+                            examSetting.ModuleName = module.Name;
+                            es.Add(module.ModuleId,examSetting);
+                            _config.ReWriteModuleExamOpenSetting(es);
+                        });
+
                         return Json(new
                         {
                             isOk = true
@@ -68,6 +100,7 @@ namespace LabExam.Controllers
                     }
                     else
                     {
+                        await _logger.LoggerAsync(operation);
                         return Json(new
                         {
                             isOk = false,
@@ -151,6 +184,9 @@ namespace LabExam.Controllers
                     Module module = _context.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
                     if (module != null)
                     {
+                        SystemSetting setting = _config.LoadSystemSetting();
+                        setting.ExamModuleSettings.Remove(moduleId);
+                        _config.ReWriteSystemSetting(setting);
                         _context.Remove(module); //删除这个模块
                         _context.SaveChanges();
                         return Json(new
