@@ -1,0 +1,434 @@
+﻿@model IEnumerable<LabExam.Models.Entities.Institute>
+
+@{
+    ViewData["Title"] = "实验室安全教育在线-加入申请";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+<div class="admin-searach">
+    <!-- 搜索栏 -->
+    <div id="Search-condition" class=" bc-clr-white margin-5px  padding-15px border-little-grey-all"
+         data-min-width="1250">
+        <div class="float-layout">
+            <span for="moduleId" class=" font-size-14 text-muted">所属学院:</span>
+            <select name="Institute" id="Institute" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                <option value="-1" selected>-- 全部 --</option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.InstituteId">@item.Name</option>
+                }
+            </select>
+            <span for="moduleId" class="margin-left-10px font-size-14 text-muted">学生类型:</span>
+            <select name="StudentType" id="StudentType" data-height="27" data-width="90" class="font-size-13 padding-left-5px ">
+                <option value="-1" >-- 全部 --</option>
+                <option value="0">本科生</option>
+                <option value="1">在使用</option>
+            </select>
+            <span for="Profession" class="margin-left-10px font-size-14 text-muted">所属专业:</span>
+            <select name="Profession" id="Profession" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+
+            </select>
+            <span for="ApplicationStatus" class="margin-left-10px font-size-14 text-muted">申请状态:</span>
+            <select name="ApplicationStatus" id="ApplicationStatus" data-height="27" data-width="80"
+                    class="font-size-13 padding-left-5px ">
+                <option value="-1">-- 全部 --</option>
+                <option value="0">未审核</option>
+                <option value="1">已通过</option>
+                <option value="2">未通过</option>
+            </select>
+            <span for="KeyName" class="margin-left-10px font-size-14 text-muted">关键字：</span>
+            <input placeholder="学号或者姓名" value="" type="text" id="KeyName" name="KeyName" data-height="22"
+                   data-width="150" class="font-size-12 padding-left-5px ">
+            <button id="search-items" class="float-right  btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-search"></span>
+                立即搜索
+            </button>
+        </div>
+    </div>
+    <div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
+        <span class=" font-size-14 text-muted">学生年级:</span>
+        <select name="studentGrade" id="studentGrade" data-height="27" data-width="150" class="font-size-14 font-weight-400 padding-left-5px "></select>
+        <button class="btn btn-sm btn-primary margin-left-30px">
+            <span class="glyphicon glyphicon-plus"></span>
+            全部审核通过
+        </button>
+        <button class=" btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-hand-up"></span>
+            全部不通过
+        </button>
+        <button class=" btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-hand-down"></span>
+            全部停用
+        </button>
+        <button class=" btn btn-sm btn-default">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+            清空筛选条件
+        </button>
+    </div>
+</div>
+<div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
+    <table class="table table-hover" id="student-list">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>申请学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>专业</th>
+            <th>学院</th>
+            <th>学生年级</th>
+            <th>学生类型</th>
+            <td>添加时间</td>
+            <th>申请状态</th>
+            <th>身份证号</th>
+            <th class=" text-right">数据操作</th>
+        </tr>
+        </thead>
+        <tbody class="section-items">
+
+        </tbody>
+    </table>
+    <div class=" float-layout bc-clr-white padding-10px ">
+        <label class=" InspageCount float-left">
+            共 <span class="items-count">0</span> 个资源
+        </label>
+        <div class=" float-right">
+            <button class=" btn-default btn btn-sm ">
+                <span>第</span>
+                <span class="show-page-Index">
+                    1
+                </span>
+                <span>
+                    /
+                </span>
+                <span class="show-page-Count">
+                    12
+                </span>
+                <span>
+                    页
+                </span>
+            </button>
+            <button class="First btn btn-primary btn-sm"> <span class="glyphicon glyphicon-backward"></span>  首页</button>
+            <button class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span> 上一页</button>
+            <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
+            <button data-lastIndex="" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
+            <select id="pageSkipNext" data-options="true" class=" margin-left-10px" data-height="27" data-width="45"></select>
+            <button class="pageSkip btn btn-sm btn-primary">跳转</button>
+        </div>
+    </div>
+</div>
+<script id="item-template" type="x-tmpl-mustache">
+    {{#items}}
+    <tr>
+        <td>
+            <label class=" label label-primary ">
+                {{index}}
+            </label>
+        </td>
+        <td>
+            {{application.studentId}}
+        </td>
+        <td>
+            {{application.name}}
+        </td>
+        <td>
+            {{sex}}
+        </td>
+        <td>
+            {{proName}}
+        </td>
+        <td>
+            {{insName}}
+        </td>
+        <td>
+            {{application.grade}}
+        </td>
+        <td>
+            {{application.addTime}}
+        </td>
+        <td>
+            {{type}}
+        </td>
+        <td>
+            {{status}}
+        </td>
+        <td>
+            <small class="font-size-12px">{{application.idNumber}}</small>
+        </td>
+        <td class=" text-right">
+            {{^isInspect}}
+            <button class=" btn btn-primary btn-sm ">
+                <span class="glyphicon glyphicon-remove"></span> 审核通过
+            </button>
+            <button class=" btn btn-primary btn-sm ">
+                <span class="glyphicon glyphicon-ok"></span> 审核不通过
+            </button>
+            {{/isInspect}}
+            <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                <span class="glyphicon glyphicon-remove"></span>
+                删除
+            </button>
+            <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#UserDetail">
+                <span class="glyphicon glyphicon-search"></span> 详情
+            </button>
+        </td>
+    </tr>
+    {{/items}}
+</script>
+<div class="modal fade " id="UserDetail" tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg" role="document">
+
+    </div>
+</div>
+<script id="detail-link-template" type="x-tmpl-mustache">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">申请信息详情</h4>
+        </div>
+        <div class="modal-body" data-min-height="300">
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">昵称</span>
+                    <span class="student-info-show-value border-light-down "> 李嘉坤</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">年级</span>
+                    <span class="student-info-show-value border-light-down "> 2018 级</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">学号</span>
+                    <span class="student-info-show-value border-light-down "> 2016110423</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">性别</span>
+                    <span class="student-info-show-value border-light-down "> 男</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">身份</span>
+                    <span class="student-info-show-value border-light-down "> 本科生</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">学院</span>
+                    <span class="student-info-show-value border-light-down "> 计算机科学学院</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">专业</span>
+                    <span class="student-info-show-value border-light-down "> 软件工程</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">身份证号码</span>
+                    <span class="student-info-show-value border-light-down "> 5222624499705091755</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">电子邮件</span>
+                    <span class="student-info-show-value border-light-down "> 1427035242@qq.com</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">申请原由</span>
+                    <span class="student-info-show-value border-light-down ">
+                        尊敬的老师你好！ 我是四川师范大学计算机科学学院的本科生因为降级原因在上一学年没有参加考试。所以今年特此申请
+                        加入开始完成实验室安全学习任务
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+        </div>
+    </div>
+</script>
+@section Scripts
+{
+    <script>
+        (function LoadYear() {
+            var yearNow = new Date().getFullYear();
+
+            $("#studentGrade").append('<option value="-1">所有年级</option>');
+            for (var index = yearNow; index > 2015; index--) {
+                $("#studentGrade")
+                    .append(`<option value="${index}">${index}</option>`);
+            }
+
+            loadProfession();
+        })();
+
+        function loadProfession() {
+            var id = $('#Institute').val();
+            $.ajax({
+                url: "/Profession/ListOnlyById",
+                type: "post",
+                dataType: "json",
+                data: {
+                    pid: id
+                },
+                success: function (data, textStatus, jqXHR) {
+                    $("#Profession option").remove();
+                    $("#Profession")
+                        .append('<option value="-1">所有专业</option>');
+                    for(var index in data.professions) {
+                        $("#Profession")
+                            .append(
+                                `<option value="${data.professions[index].id}">${data.professions[index].name
+                                }</option>`);
+                    }
+                    loadPageByIndex(1);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+        }
+
+        $('#Institute').change(function (jqEvent) {
+            loadProfession();
+        });
+
+        function stateManager() {
+            var pageIndex = parseInt($('.show-page-Index').text().trim()); //当前页
+            var pageCount = parseInt($('.show-page-Count').text().trim()); //总共多少页
+            if (pageIndex >= pageCount) {
+                $('.Next').prop("disabled", true);
+            } else {
+                $('.Next').prop("disabled", false);
+            }
+            if (pageIndex == 1) {
+                $('.Previous').prop("disabled", true);
+            } else {
+                $('.Previous').prop("disabled", false);
+            }
+        }
+
+        function loadPageByIndex(index) {
+            $.ajax({
+                url: "/Application/Page",
+                type: "post",
+                dataType: "json",
+                data: {
+                    index: index,
+                    iId: $('select[name="Institute"]').val(),
+                    pId: $('select[name="Profession"]').val(),
+                    status: $('select[name="ApplicationStatus"]').val(),
+                    type: $('select[name="StudentType"]').val(),
+                    keyName: $('input[name="KeyName"]').val(),
+                    grade: $('select[name="studentGrade"]').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    //debug
+                     console.log(json);
+                    //end Debug
+
+                    if (json.isOk) {
+                        if (json.items == null) {
+                            $('.section-items').html("");
+                        } else {
+                            for (var i = 0; i < json.items.length; i++) {
+                                json.items[i].index = (i + 1);
+                            }
+
+                            var template = $('#item-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('.section-items').html(result);
+                        }
+
+                        $('.items-count').text(json.lineCount); //总数
+                        $('.show-page-Count').text(`${json.pageCount}`); //分页总数
+                        $('.show-page-Index').text(`${json.pageNowIndex}`); //当前页
+                        $('button[data-lastIndex]').attr("data-lastIndex", json.pageCount); //最后一页 的index
+
+                        $('select[data-options] > option').remove();
+                        for (let index_ = 0; index_ < json.pageCount; index_++) {
+                            $('select[data-options]').append(`<option value="${index_ + 1}">${index_ + 1}</option>`);
+                        }
+                        $('select[data-options]').val(index);
+                        stateManager();
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误..${errorThrown}`);
+                }
+            });
+        }
+
+        $('.Next').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
+        });
+
+        $('.First').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.Previous').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
+        });
+
+        $('.Last').click(function (jqEvent) {
+            loadPageByIndex($('button[data-lastIndex]').attr("data-lastIndex").trim());
+        });
+
+        $('button[data-skip]').click(function (jqEvent) {
+            var pageIndex = parseInt($('.show-page-Index').text().trim());
+            var skip = parseInt($('select[data-options]').val().trim());
+            if (skip === pageIndex) {
+                onMask("提示信息", "跳转页面为当前页面");
+            } else {
+                loadPageByIndex($('select[data-options]').val());
+            }
+        });
+
+        $('#search-items').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.section-items').on('click',
+            ".detail-button",
+            null,
+            function (jqEvent) {
+                var id = $(this).attr("data-item-id");
+
+                $.ajax({
+                    url: "/Resource/Item",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        rId: id
+                    },
+                    success: function (json) {
+                        console.log(json);
+                        if (json.isOk) {
+                            var template = $('#detail-link-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('#ResourceDetail .modal-content').html(result);
+                            $('#ResourceDetail').modal('show');
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+            });
+    </script>
+}

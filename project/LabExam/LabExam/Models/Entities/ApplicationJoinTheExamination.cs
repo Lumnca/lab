@@ -41,5 +41,28 @@ namespace LabExam.Models.Entities
         public  StudentType StudentType { get; set; }
 
         public ApplicationStatus ApplicationStatus { get; set; }
+
+        public DateTime AddTime { get; set; }
+
+        public static explicit operator Student(ApplicationJoinTheExamination application)
+        {
+            Student student = new Student
+            {
+                StudentId = application.StudentId,
+                Name = application.Name,
+                Email = application.Email,
+                BirthDate = application.BirthDate,
+                Grade = application.Grade,
+                InstituteId = application.InstituteId,
+                Sex = application.Sex,
+                ProfessionId = application.ProfessionId,
+                IDNumber = application.IDNumber,
+                IsPassExam = false,
+                Phone = application.Phone,
+                StudentType = application.StudentType,
+                MaxExamScore = 0
+            };
+            return student;
+        }
     }
 }

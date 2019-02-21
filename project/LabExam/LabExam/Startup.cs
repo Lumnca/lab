@@ -68,7 +68,7 @@ namespace LabExam
             services.AddTransient<ILoadConfigFileService, LoadConfigFileService>();
             services.AddTransient<IHttpContextAnalysisService, HttpContextAnalysisService>();
             services.AddTransient<ILoggerService, LoggerService>();
-            
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

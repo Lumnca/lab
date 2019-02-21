@@ -49,9 +49,66 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_context.Student.Any(s=>s.StudentId == applicationJoinTheExamination.StudentId))
+                if (!_context.Institute.Any(i => i.InstituteId == applicationJoinTheExamination.InstituteId))
                 {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "学院不存在！"
+                    });
+                }
+
+                Profession pro = _context.Professions.Find(applicationJoinTheExamination.ProfessionId);
+                if (pro == null)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "专业不存在！"
+                    });
+                }
+
+                if (pro.InstituteId != applicationJoinTheExamination.InstituteId)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "此专业不属于这个学院！"
+                    });   
+                }
+
+                if ((int)pro.ProfessionType != (int)applicationJoinTheExamination.StudentType)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "学生性质和专业性质不正确！ 例如 研究生学生具有本科生专业！"
+                    });
+                }
+
+                if (_context.ApplicationJoinTheExaminations.Any(p => p.StudentId == applicationJoinTheExamination.StudentId && p.ApplicationStatus == ApplicationStatus.Submit  ))
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误信息",
+                        message = "请勿重复提交申请！你尚有尚未审核的申请等待处理中..."
+                    });
+                }
+
+                if (!_context.Student.Any(s=>s.StudentId == applicationJoinTheExamination.StudentId))
+                {
+                    applicationJoinTheExamination.Reason = applicationJoinTheExamination.Reason.Trim();
+                    applicationJoinTheExamination.AddTime = DateTime.Now;
+                    applicationJoinTheExamination.Name = applicationJoinTheExamination.Name.Trim();
+                    applicationJoinTheExamination.Email = applicationJoinTheExamination.Email.Trim();
+                    applicationJoinTheExamination.Phone = applicationJoinTheExamination.Phone.Trim();
                     applicationJoinTheExamination.ApplicationStatus = ApplicationStatus.Submit;
+
                     _context.ApplicationJoinTheExaminations.Add(applicationJoinTheExamination);
                     _context.SaveChanges();
                     return Json(new
@@ -66,7 +123,7 @@ namespace LabExam.Controllers
                     return Json(new
                     {
                         isOk = false,
-                        message = "学生不存在或者已经被删除了！"
+                        message = "你的信息已经录入考试系统中！无须申请"
                     });
                 }
             }

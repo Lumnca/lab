@@ -16,6 +16,7 @@ namespace LabExam.Models.Map
         UpdateResource = 6, //修改资源信息
         StopUseResource = 7, //停用资源
         UseResource = 8,//弃用课程资源,
-        AddModule = 9, 
+        AddModule = 9,
+        InspectJoinApplication = 10, //审核加入考试的申请
     }
 }

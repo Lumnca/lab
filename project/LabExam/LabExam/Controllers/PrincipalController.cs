@@ -86,7 +86,7 @@ namespace LabExam.Controllers
                     pageCount++;
                 }
 
-                if (index > pageCount)
+                if (index > pageCount || index <= 0)
                 {
                     return Json(new
                     {

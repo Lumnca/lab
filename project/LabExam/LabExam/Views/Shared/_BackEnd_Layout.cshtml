@@ -12,7 +12,7 @@
 </head>
 <body class=" bc-clr-grey-little">
     <div class="flex-layout">
-        <div class=" flex-item-3 layout-height-100 bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
+        <div class=" flex-item-3 layout-height-100 bc-clr-black-web" data-max-width="200" data-min-width="200" style=" position: relative;">
             <div class="font-color-black-153 font-size-12 padding-left-40px margin-bottom-10px " data-margin-top="150">
                 SICNUIE
             </div>
@@ -35,7 +35,7 @@
                     </a>
                     <ul>
                         <li><a asp-controller="Manager" asp-action="Create">1.添加学生</a></li>
-                        <li><a asp-controller="Manager" asp-action="list">2.学生列表</a></li>
+                        <li><a asp-controller="Manager" asp-action="List">2.学生列表</a></li>
                         <li><a href="#">3.统计情况</a></li>
                     </ul>
                 </li>
@@ -79,7 +79,7 @@
                         <span>申请事务</span>
                     </a>
                     <ul>
-                        <li><a href="#">1.处理学生申请</a></li>
+                        <li><a asp-controller="Application" asp-action="Join">1.处理考试申请</a></li>
                     </ul>
                 </li>
                 <li>
@@ -107,7 +107,7 @@
                 </li>
             </ul>
             <div class="admin-navbar-down font-color-white">
-                <img src="~/Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" />
+                <a href="/index" target="_blank" ><img src="~/Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" /></a>
                 <img src="~/Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
                 <img src="~/Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
             </div>

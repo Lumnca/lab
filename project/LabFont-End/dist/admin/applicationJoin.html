@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" />
+    <script src="../lib/jquery/dist/jquery.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../js/app.min.js"></script>
+    <link rel="stylesheet" href="../css/sass_product/fui.min.css" />
+    <link rel="stylesheet" href="../css/sass_product/fui-animation.min.css" />
+    <link rel="stylesheet" href="../css/AdminEntry.min.css" />
+    <link rel="icon" href="../Resources/system/icon/icon.png" />
+    <link rel="stylesheet" href="../css/video-js.min.css">
+    <script src="../js/videojs-ie8.min.js"></script>
+    <title>实验室安全教育在线-学生申请</title>
+</head>
+
+<body class=" bc-clr-grey-little">
+    <div class="flex-layout">
+        <div class=" flex-item-2 layout-height-100 bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
+            <div class="font-color-black-153 font-size-12 padding-left-45px margin-bottom-10px " data-margin-top="150">
+                SICNUIE
+            </div>
+            <ul class="admin-navbar ">
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/student2016110418.svg" width="20" />
+                        <span>学生管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学生信息</a></li>
+                        <li><a href="#">2.学生列表</a></li>
+                        <li><a href="#">3.管理学生</a></li>
+                        <li><a href="#">4.总体情况</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam2016110418.svg" width="20" />
+                        <span>考试管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.考试情况</a></li>
+                        <li><a href="#">2.考试试卷</a></li>
+                        <li><a href="#">3.生成试卷</a></li>
+                        <li><a href="#">4.出题历史</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam3.svg" width="20" />
+                        <span>题库管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加题目</a></li>
+                        <li><a href="#">2.题目列表</a></li>
+                        <li><a href="#">3.修改题目</a></li>
+                        <li><a href="#">4.题库使用分析</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam4.svg" width="20" />
+                        <span>模块管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学院列表</a></li>
+                        <li><a href="#">2.专业列表</a></li>
+                        <li><a href="#">3.模块信息</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam5.svg" width="20" />
+                        <span>申请事务</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.处理学生申请</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/question2016110418.svg" width="20" />
+                        <span>课程管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加课程</a></li>
+                        <li><a href="#">2.课程详情</a></li>
+                        <li><a href="#">3.课程资料</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/system2016110418.svg" width="20" />
+                        <span>系统配置</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.系统运行</a></li>
+                        <li><a href="#">2.系统配置</a></li>
+                        <li><a href="#">3.系统管理员</a></li>
+                        <li><a href="#">4.添加管理员</a></li>
+                        <li><a href="#">4.修改个人密码</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/message.svg" width="20" />
+                        <span>系统日志</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.管理员操作日志</a></li>
+                        <li><a href="#">2.学生操作日志</a></li>
+                        <li><a href="#">3.用户登陆日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="admin-navbar-down font-color-white">
+                <img src="../Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" />
+                <img src="../Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
+                <img src="../Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
+            </div>
+        </div>
+        <div class=" flex-item-12">
+            <div class="admin-narbar-top bc-clr-white border-light-down float-layout ">
+                <ul class="list-unstyled float-left  float-layout">
+                    <li>
+                        <a href="javascript:;" class="ban-bootsrap-a-style" id="admin-only-show-505">
+                            <img src="../Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
+                            <span class=" font-color-grey padding-left-25px">
+                                管理员： 蒋廖周
+                            </span>
+                        </a>
+                        <ul class="z-index-top" id="admin-only-show-505-content">
+                            <li class="bc-clr-white border-thumali" data-height="310" data-width="300">
+                                <div class=" border-light-down">
+                                    <h4 class=" text-danger font-size-15 font-weight-600 text-center">
+                                        <img src="../Resources/Admin/login/admin1.svg" width="20" class="icon-vertical" />
+                                        管理员信息
+                                        <a href="#" class="close padding-bottom-15px" id="admin-only-show-505-content-cancel">
+                                            &times;
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">姓名</span>
+                                    <span class="admin-user-content margin-left-15px">酱料周 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">工号</span>
+                                    <span class="admin-user-content margin-left-15px">2016110418 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">用户状态</span>
+                                    <span class="admin-user-content margin-left-15px">正常使用 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">登陆时间</span>
+                                    <span class="admin-user-content margin-left-15px">2018/10/27 17:59 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">操作总数</span>
+                                    <span class="admin-user-content margin-left-15px"> <span>50</span> 项操作 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">权限拥有</span>
+                                    <span class="admin-user-content margin-left-15px"> 部分权限 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">登陆选项</span>
+                                    <button class="margin-left-15px btn btn-sm btn-danger">退出登录</button>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class=" float-right padding-15px">
+                    <a href="#" data-toggle="modal" data-target="#User-warning"><img src="../Resources/Admin/login/message2.svg"
+                            width="25">
+                        <span class="info-warning">1</span> </a>
+                    <a href="#" data-toggle="modal" data-target="#User-danger" class=" margin-left-20px margin-right-10px ">
+                        <img src="../Resources/Admin/login/message.svg" width="22">
+                        <span class="info-warning-green">2</span></a>
+                </div>
+            </div>
+            <!-- 主要内容    -->
+            <div class="margin-5px  ">
+                <div class="admin-searach">
+                    <!-- 搜索栏 -->
+                    <div id="Search-condition" class=" bc-clr-white margin-5px  padding-15px border-little-grey-all"
+                        data-min-width="1250">
+                        <div class="float-layout">
+                            <!-- 模块 -->
+                            <span for="moduleId" class=" font-size-14 text-muted">所属学院:</span>
+                            <select name="Institute" id="Institute" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                                <option value="-1" selected>-- 全部 --</option>
+                                <option value="1">计算机科学学院</option>
+                            </select>
+                            <!-- 所属学院 -->
+                            <span for="moduleId" class="margin-left-10px font-size-14 text-muted">学生类型:</span>
+                            <select name="modules-name" id="moudle-name" data-height="27" data-width="90" class="font-size-13 padding-left-5px ">
+                                <option id="0" selected>-- 全部 --</option>
+                                <option value="0">本科生</option>
+                                <option value="1">在使用</option>
+                            </select>
+                            <span for="Profession" class="margin-left-10px font-size-14 text-muted">所属专业:</span>
+                            <select name="Profession" id="Profession" data-height="27" data-width="150" class="font-size-13 padding-left-5px ">
+                                <option id="0" selected>-- 全部 --</option>
+                                <option id="SD2">软件工程</option>
+                            </select>
+                            <span for="ApplicationStatus" class="margin-left-10px font-size-14 text-muted">申请状态:</span>
+                            <select name="ApplicationStatus" id="ApplicationStatus" data-height="27" data-width="80"
+                                class="font-size-13 padding-left-5px ">
+                                <option id="0" selected>-- 全部 --</option>
+                                <option id="SD2">未使用</option>
+                                <option id="SD3">在使用</option>
+                            </select>
+                            <span for="professionId" class="margin-left-10px font-size-14 text-muted">关键字：</span>
+                            <input placeholder="学号或者姓名" value="" type="text" id="KeyName" name="KeyName" data-height="22"
+                                data-width="150" class="font-size-12 padding-left-5px ">
+                            <button class="float-right  btn btn-sm btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                                立即搜索
+                            </button>
+                        </div>
+                    </div>
+                    <div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
+                        <span class=" font-size-14 text-muted">学生年级:</span>
+                        <select name="studentGrade" id="studentGrade" data-height="27" data-width="150" class="font-size-14 font-weight-400 padding-left-5px ">
+
+                        </select>
+                        <button class="btn btn-sm btn-primary margin-left-30px"> <span class="glyphicon glyphicon-plus"></span>
+                            全部审核通过</button>
+                        <button class=" btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-hand-up"></span>
+                            全部不通过</button>
+                        <button class=" btn btn-sm btn-primary">
+                            <span class="glyphicon glyphicon-hand-down"></span>
+                            全部停用</button>
+                        <button class=" btn btn-sm btn-default"> <span class="glyphicon glyphicon-remove-circle"></span>
+                            清空筛选条件</button>
+                    </div>
+                </div>
+                <div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
+                    <table class="table table-hover" id="student-list">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>申请学号</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>专业</th>
+                                <th>学院</th>
+                                <th>学生年级</th>
+                                <th>学生类型</th>
+                                <th>出生日期</th>
+                                <th>身份证号</th>
+                                <th class=" text-right">数据操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label class=" label label-primary ">
+                                        1
+                                    </label>
+                                </td>
+                                <td>
+                                    2018110418
+                                </td>
+                                <td>
+                                    将生
+                                </td>
+                                <td>
+                                    男
+                                </td>
+                                <td>
+                                    软件工程
+                                </td>
+                                <td>
+                                    计算机科学学院
+                                </td>
+                                <td>
+                                    2018
+                                </td>
+                                <td>
+                                    本科生
+                                </td>
+                                <td>
+                                    2018/5/21 15:52
+                                </td>
+                                <td>
+                                    511621199807091799
+                                </td>
+                                <td class=" text-right">
+                                    <button class=" btn btn-primary btn-sm ">
+                                        <span class="glyphicon glyphicon-remove"></span> 审核通过
+                                    </button>
+                                    <button class=" btn btn-primary btn-sm " >
+                                        <span class="glyphicon glyphicon-ok"></span> 审核不通过
+                                    </button>
+                                    <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        删除</button>
+                                    <button class=" btn btn-default btn-sm " data-toggle="modal" data-target="#UserDetail">
+                                        <span class="glyphicon glyphicon-search"></span> 详情</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class=" float-layout bc-clr-white padding-10px ">
+                        <label class=" InspageCount float-left">
+                            共 <span class="items-count">0</span> 个资源
+                        </label>
+                        <div class=" float-right">
+                            <button class=" btn-default btn btn-sm ">
+                                <span>第</span>
+                                <span class="show-page-Index">
+                                    1
+                                </span>
+                                <span>
+                                    /
+                                </span>
+                                <span class="show-page-Count">
+                                    12
+                                </span>
+                                <span>
+                                    页
+                                </span>
+                            </button>
+                            <button class="First btn btn-primary btn-sm"> <span class="glyphicon glyphicon-backward"></span>
+                                首页</button>
+                            <button class="Previous btn btn-primary btn-sm"> <span class="glyphicon glyphicon-chevron-left"></span>
+                                上一页</button>
+                            <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                            <button data-lastIndex="" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span>
+                            </button>
+                            <select id="pageSkipNext" data-options="true" class=" margin-left-10px" data-height="27"
+                                data-width="45"></select>
+                            <button class="pageSkip btn btn-sm btn-primary">跳转</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 主要内容 end    -->
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-primary" id="myModalLabel">删除提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p class=" text-primary font-size-14">
+                        确定删除吗？
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary btn-sm ">立即删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="UserDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生信息详情</h4>
+                </div>
+                <div class="modal-body" data-min-height="300">
+                    <div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">昵称</span>
+                                <span class="student-info-show-value border-light-down "> 李嘉坤</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">年级</span>
+                                <span class="student-info-show-value border-light-down "> 2018 级</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">学号</span>
+                                <span class="student-info-show-value border-light-down "> 2016110423</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">性别</span>
+                                <span class="student-info-show-value border-light-down "> 男</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">身份</span>
+                                <span class="student-info-show-value border-light-down "> 本科生</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">学院</span>
+                                <span class="student-info-show-value border-light-down "> 计算机科学学院</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">专业</span>
+                                <span class="student-info-show-value border-light-down "> 软件工程</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">身份证号码</span>
+                                <span class="student-info-show-value border-light-down "> 5222624499705091755</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">电子邮件</span>
+                                <span class="student-info-show-value border-light-down "> 1427035242@qq.com</span>
+                            </div>
+                        </div>
+                        <div class="student-info-show">
+                            <div class="student-info-show-content padding-left-10px">
+                                <span class="student-info-show-title">申请原由</span>
+                                <span class="student-info-show-value border-light-down ">
+                                    尊敬的老师你好！ 我是四川师范大学计算机科学学院的本科生因为降级原因在上一学年没有参加考试。所以今年特此申请
+                                    加入开始完成实验室安全学习任务
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../Scripts/video.min.js"></script>
+<script>
+    (function LoadYear() {
+        var yearNow = new Date().getFullYear();
+
+        $("#studentGrade").append('<option value="-1">所有年级</option>');
+        for (var index = yearNow; index > 2015; index--) {
+            $("#studentGrade")
+                .append(`<option value="${index}">${index}</option>`);
+        }
+    })();
+</script>
+<script>
+    $(document).ready(function () {
+        $('.admin-navbar > li>a').on('click', null, null, function () {
+            $('.admin-navbar > li>ul').slideUp();
+            if ($(this).next().css('display') == "block") {
+                $(this).next().slideUp();
+            } else {
+                $(this).next().slideDown();
+            }
+            $('.admin-navbar >li>a>span').removeClass('font-color-golden');
+            $(this).find('span').addClass('font-color-golden');
+        });
+
+        $('#shooseAllCode').on('click', function () {
+            $('#student-list > tbody > tr > td input[type=checkbox]').prop('checked', $(this).prop(
+                'checked'));
+        });
+
+    });
+</script>
+
+</html>
