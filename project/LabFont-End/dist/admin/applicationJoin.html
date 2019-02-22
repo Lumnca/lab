@@ -298,7 +298,7 @@
                                     <button class=" btn btn-primary btn-sm ">
                                         <span class="glyphicon glyphicon-remove"></span> 审核通过
                                     </button>
-                                    <button class=" btn btn-primary btn-sm " >
+                                    <button class=" btn btn-primary btn-sm ">
                                         <span class="glyphicon glyphicon-ok"></span> 审核不通过
                                     </button>
                                     <button class=" btn btn-primary btn-sm " data-toggle="modal" data-target="#delete">
@@ -448,8 +448,27 @@
         </div>
     </div>
 </body>
+<div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">拼命加载数据中 <span id="val-speed"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <img src="../Resources/animation/Spinner-0.3s-120px.svg" width="85" class="layout-center" />
+                <p class=" text-left">
+                    <span class=" glyphicon glyphicon-cloud-upload "></span>
+                    <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="../Scripts/video.min.js"></script>
 <script>
+    $('#program').modal('show');
     (function LoadYear() {
         var yearNow = new Date().getFullYear();
 

@@ -9,14 +9,14 @@ namespace LabExam.Services
 {
     public class EmailService: IEmailService
     {
-        System.Net.Mail.SmtpClient client = null;
+        public System.Net.Mail.SmtpClient client = null;
 
         public void SendEmail(string receiver, string subject, string content)
         {
             if (string.IsNullOrEmpty(receiver) || string.IsNullOrEmpty(subject)
                                                || string.IsNullOrEmpty(content))
             {
-                throw new ArgumentNullException("SendEmail参数空异常！");
+                throw new ArgumentNullException("sendEmail 参数空异常！");
             }
             if (client == null)
             {
@@ -40,7 +40,7 @@ namespace LabExam.Services
             }
             try
             {
-                System.Net.Mail.MailMessage Message = new System.Net.Mail.MailMessage
+                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage
                 {
                     SubjectEncoding = System.Text.Encoding.UTF8,
                     BodyEncoding = System.Text.Encoding.UTF8,
@@ -50,12 +50,12 @@ namespace LabExam.Services
 
                 //添加邮件接收人地址
                 string[] receivers = receiver.Split(new char[] { ',' });
-                Array.ForEach(receivers.ToArray(), ToMail => { Message.To.Add(ToMail); });
+                Array.ForEach(receivers.ToArray(), toMail => { message.To.Add(toMail); });
 
-                Message.Subject = subject;
-                Message.Body = content;
-                Message.IsBodyHtml = true;
-                client.Send(Message);
+                message.Subject = subject;
+                message.Body = content;
+                message.IsBodyHtml = true;
+                client.Send(message);
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace LabExam.Services
             else
             {
                 var str = $"<p><small> 学号为 <strong>{id}</strong>的{name}同学于{submiTime.ToLocalTime()}时间提交的考试加入申请审核并未通过</small></p>" +
-                          $"<div><small><b>原因:{why}</b></small></div>" +
+                          $"<div><small><b>可能原因:{why}</b></small></div>" +
                           $"<br/><br/> <hr/> <div><small>回复时间: {DateTime.Now.ToLocalTime()}</small></div>";
                 SendEmail(receiver, "[学生加入考试申请结果]", str);
             }

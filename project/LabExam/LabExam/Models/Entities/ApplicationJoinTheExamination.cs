@@ -48,17 +48,17 @@ namespace LabExam.Models.Entities
         {
             Student student = new Student
             {
-                StudentId = application.StudentId,
-                Name = application.Name,
+                StudentId = application.StudentId.Trim(),
+                Name = application.Name.Trim(),
                 Email = application.Email,
                 BirthDate = application.BirthDate,
                 Grade = application.Grade,
                 InstituteId = application.InstituteId,
                 Sex = application.Sex,
                 ProfessionId = application.ProfessionId,
-                IDNumber = application.IDNumber,
+                IDNumber = application.IDNumber.Trim(),
                 IsPassExam = false,
-                Phone = application.Phone,
+                Phone = application.Phone.Trim(),
                 StudentType = application.StudentType,
                 MaxExamScore = 0
             };

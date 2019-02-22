@@ -111,7 +111,7 @@ using LabExam.Models;
         ");
             EndContext();
             BeginContext(2637, 204, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "071cfb22b49d4f3d8160a8fc9b9bea30", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ad0d864959a497694a62d7619c4096b", async() => {
                 BeginContext(2749, 88, true);
                 WriteLiteral("\r\n            <span class=\"glyphicon glyphicon-plus\"></span>\r\n            添加学生\r\n        ");
                 EndContext();

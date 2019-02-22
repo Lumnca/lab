@@ -17,6 +17,8 @@ namespace LabExam.Models.Map
         StopUseResource = 7, //停用资源
         UseResource = 8,//弃用课程资源,
         AddModule = 9,
-        InspectJoinApplication = 10, //审核加入考试的申请
+        InspectJoinApplication = 10, //审核加入考试的申请,
+        InspectAllJoinApplicationFail = 11, //审核所有加入考试不通过
+        InspectAllJoinApplicationPass = 12,//审核所有加入考试通过
     }
 }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LabExam.DataSource;
+﻿using LabExam.DataSource;
 using LabExam.IServices;
 using LabExam.Models.Entities;
 using LabExam.Models.JsonModel;
@@ -15,6 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
 
 namespace LabExam.Controllers
 {
@@ -168,12 +167,13 @@ namespace LabExam.Controllers
                 });
             }
         }
-        
+
         /// <summary>
         /// 日志记录完成
         /// </summary>
         /// <param name="apId"></param>
         /// <returns></returns>
+        [HttpPost]
         public IActionResult Pass([Required] int apId)
         {
             if (ModelState.IsValid)
@@ -272,6 +272,7 @@ namespace LabExam.Controllers
         /// </summary>
         /// <param name="apId"></param>
         /// <returns></returns>
+        [HttpPost]
         public IActionResult Fail([Required] int apId)
         {
             if (ModelState.IsValid)
@@ -285,13 +286,13 @@ namespace LabExam.Controllers
                         message = "你并无学生管理操作权限"
                     });
                 }
-                LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectJoinApplication, $"{apId}", "审核学生加入考试申请 通过审核 操作类: ApplicationJoinTheExamination");
+                LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectJoinApplication, $"{apId}", "审核学生加入考试申请 不通过审核 操作类: ApplicationJoinTheExamination");
 
                 ApplicationJoinTheExamination applicationJoin = _context.ApplicationJoinTheExaminations.Find(apId);
                 if (applicationJoin != null)
                 {
                     applicationJoin.ApplicationStatus = ApplicationStatus.Fail;
-                    _email.SendJoinEmail(applicationJoin.Email, applicationJoin.StudentId, applicationJoin.Name, applicationJoin.AddTime, false, "");
+                    _email.SendJoinEmail(applicationJoin.Email, applicationJoin.StudentId, applicationJoin.Name, applicationJoin.AddTime, false, "申请原因说明不详细！或者个人信息有误！");
                     _context.LogPricipalOperations.Add(operation);
                     _context.SaveChanges();
                     return Json(new
@@ -323,7 +324,7 @@ namespace LabExam.Controllers
                 });
             }
         }
-
+        [HttpPost]
         public IActionResult Item([Required] int apId)
         {
             if (ModelState.IsValid)
@@ -354,7 +355,6 @@ namespace LabExam.Controllers
                             type = applicationJoin.StudentType == StudentType.UnderGraduate?"本科生":"研究生",
                             insName = _context.Institute.Find(applicationJoin.InstituteId)?.Name,
                             proName = _context.Professions.Find(applicationJoin.ProfessionId)?.Name,
-                            idNumber = applicationJoin.IDNumber,
                             email = applicationJoin.Email,
                             reason = applicationJoin.Reason
                         },
@@ -384,6 +384,7 @@ namespace LabExam.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult Delete([Required] int apId)
         {
             if (ModelState.IsValid)
@@ -431,5 +432,219 @@ namespace LabExam.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public IActionResult Not([Required] int iId, [Required] int type, [Required] int pId, [Required] int status, [Required] int grade, String keyName)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无学生管理操作权限"
+                    });
+                }
+
+                StringBuilder builder =
+                    new StringBuilder("select * from  ApplicationJoinTheExaminations where ApplicationJoinId > 0");
+                if (iId > 0)
+                {
+                    builder.Append($" and InstituteId = {iId}");
+                }
+
+                if (type >= 0)
+                {
+                    builder.Append($" and StudentType = {type}");
+                }
+
+                if (pId >= 0)
+                {
+                    builder.Append($" and ProfessionId = {pId}");
+                }
+
+                if (status >= 0)
+                {
+                    builder.Append($" and ApplicationStatus = {status}");
+                }
+
+                if (grade >= 0)
+                {
+                    builder.Append($" and Grade = {grade}");
+                }
+
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                if (keyName != null && keyName.Trim() != "")
+                {
+                    builder.Append($" and Name like '%@keyName%'");
+
+                    SqlParameter parameter = new SqlParameter
+                    {
+                        SqlDbType = SqlDbType.NVarChar,
+                        ParameterName = "@keyName",
+                        Value = keyName
+                    };
+                    parameters.Add(parameter);
+
+                    builder.Append($" or StudentId like '@id'");
+
+                    SqlParameter parameterId = new SqlParameter
+                    {
+                        SqlDbType = SqlDbType.NVarChar,
+                        ParameterName = "@id",
+                        Value = keyName
+                    };
+                    parameters.Add(parameterId);
+                }
+                // ReSharper disable once CoVariantArrayConversion
+                List<ApplicationJoinTheExamination> list = _context.ApplicationJoinTheExaminations
+                    .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Where(app => app.ApplicationStatus == ApplicationStatus.Submit).ToList();
+
+                foreach (var item in list)
+                {
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationFail, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
+                    item.ApplicationStatus = ApplicationStatus.Fail;
+                    _context.LogPricipalOperations.Add(operation);
+                    _email.SendJoinEmail(item.Email, item.StudentId, item.Name, item.AddTime, false, "申请原因说明不详细！或者个人信息有误！");
+                }
+                _context.SaveChanges();
+                return Json(new
+                {
+                    isOk = true,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "消息提示",
+                    message = "审核成功！"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult All([Required] int iId, [Required] int type, [Required] int pId, [Required] int status, [Required] int grade, String keyName)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_analysis.GetLoginUserConfig(HttpContext).Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "你并无学生管理操作权限"
+                    });
+                }
+
+                StringBuilder builder =
+                    new StringBuilder("select * from  ApplicationJoinTheExaminations where ApplicationJoinId > 0");
+                if (iId > 0)
+                {
+                    builder.Append($" and InstituteId = {iId}");
+                }
+
+                if (type >= 0)
+                {
+                    builder.Append($" and StudentType = {type}");
+                }
+
+                if (pId >= 0)
+                {
+                    builder.Append($" and ProfessionId = {pId}");
+                }
+
+                if (status >= 0)
+                {
+                    builder.Append($" and ApplicationStatus = {status}");
+                }
+
+                if (grade >= 0)
+                {
+                    builder.Append($" and Grade = {grade}");
+                }
+
+                List<SqlParameter> parameters = new List<SqlParameter>();
+                if (keyName != null && keyName.Trim() != "")
+                {
+                    builder.Append($" and Name like '%@keyName%'");
+
+                    SqlParameter parameter = new SqlParameter
+                    {
+                        SqlDbType = SqlDbType.NVarChar,
+                        ParameterName = "@keyName",
+                        Value = keyName
+                    };
+                    parameters.Add(parameter);
+
+                    builder.Append($" or StudentId like '@id'");
+
+                    SqlParameter parameterId = new SqlParameter
+                    {
+                        SqlDbType = SqlDbType.NVarChar,
+                        ParameterName = "@id",
+                        Value = keyName
+                    };
+                    parameters.Add(parameterId);
+                }
+                // ReSharper disable once CoVariantArrayConversion
+                List<ApplicationJoinTheExamination> list = _context.ApplicationJoinTheExaminations
+                    .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Where(app => app.ApplicationStatus == ApplicationStatus.Submit).ToList();
+
+                SystemSetting setting = _config.LoadSystemSetting();//记载配置文件
+
+                foreach (var item in list)
+                {
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationFail, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
+                    item.ApplicationStatus = ApplicationStatus.Pass;
+                    _context.LogPricipalOperations.Add(operation);
+                    Student student = (Student)item;
+                    //身份证后六位就是密码
+                    student.Password = _encryption.EncodeByMd5(_encryption.EncodeByMd5(student.IDNumber.Substring(student.IDNumber.Length - 6, 6)));
+                    if (_context.InstituteToModules.Find(student.InstituteId) != null)
+                    {
+                        //如果这个模块具有加载类
+                        Boolean isHave = setting.ExamModuleSettings.TryGetValue(_context.InstituteToModules.Find(student.InstituteId).ModuleId, out var meSetting);
+                        student.MaxExamCount = isHave ? meSetting.AllowExamTime : 2;
+                    }
+                    else
+                    {
+                        //如果学院没有属于哪个模块 默认为 2
+                        student.MaxExamCount = 2;
+                    }
+
+                    _context.Student.Add(student);
+                    //邮件通知
+                    _email.SendJoinEmail(item.Email, item.StudentId, item.Name, item.AddTime, true, "");
+                }
+                _context.SaveChanges();
+                return Json(new
+                {
+                    isOk = true,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "消息提示",
+                    message = "审核成功！"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
     }
 }
