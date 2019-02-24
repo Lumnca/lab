@@ -26,5 +26,7 @@ namespace LabExam.Models.Entities
         public String Email { get; set; }
 
         public ApplicationStatus ApplicationStatus { get; set; }
+
+        public DateTime AddTime { get; set; }
     }
 }

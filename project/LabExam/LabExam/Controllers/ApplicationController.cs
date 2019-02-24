@@ -38,7 +38,7 @@ namespace LabExam.Controllers
             _config = config;
         }
 
-        public IActionResult Join()
+        public IActionResult Index()
         {
             return View(_context.Institute.ToList());
         }
@@ -96,7 +96,7 @@ namespace LabExam.Controllers
 
                 int pageSize = 12; //每一页的题目数量
                 // ReSharper disable once CoVariantArrayConversion
-                int dataCount = _context.Resources.FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Count();
+                int dataCount = _context.ApplicationJoinTheExaminations.FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Count();
                 int pageCount = dataCount / pageSize; //有多少页
                 int lastCount = dataCount % pageSize; //最后一页的题目数量
                 if (lastCount > 0)
@@ -115,11 +115,11 @@ namespace LabExam.Controllers
                     });
                 }
 
-                //做了两个内连接  查询错学院 和专业
+                //做了两个内连接  查询出学院 和专业
                 // ReSharper disable once CoVariantArrayConversion
                 var list = _context.ApplicationJoinTheExaminations
                     .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>())
-                    .OrderByDescending(item => item.ApplicationStatus)
+                    .OrderBy(item => item.ApplicationStatus)
                     .ThenBy(ap => ap.InstituteId)
                     .ThenBy(ap => ap.AddTime)
                     .Join(_context.Institute, p => p.InstituteId, i => i.InstituteId, (application, institute) => new
@@ -142,6 +142,7 @@ namespace LabExam.Controllers
                         application = v.applicationForm,
                         insName = v.instName,
                         proName =v.profesName,
+                        addTime = _logger.FormatDateLocal(v.applicationForm.AddTime),
                         isInspect = v.applicationForm.ApplicationStatus != ApplicationStatus.Submit,
                         status = v.applicationForm.ApplicationStatus == ApplicationStatus.Submit? "尚未审核":v.applicationForm.ApplicationStatus == ApplicationStatus.Fail? "未通过审核":"已通过审核"
                     })
@@ -214,11 +215,11 @@ namespace LabExam.Controllers
 
                         SystemSetting setting = _config.LoadSystemSetting();
                         //如果这个学院有对应的模块 然后找到这个模块的 考试设置类
-
-                        if (_context.InstituteToModules.Find(student.InstituteId)!= null)
+                        var  insModule = _context.InstituteToModules.FirstOrDefault(im => im.InstituteId == student.InstituteId);
+                        if (insModule != null)
                         {
                             //如果这个模块具有加载类
-                            Boolean isHave = setting.ExamModuleSettings.TryGetValue(_context.InstituteToModules.Find(student.InstituteId).ModuleId, out var meSetting);
+                            Boolean isHave = setting.ExamModuleSettings.TryGetValue(insModule.ModuleId, out var meSetting);
                             student.MaxExamCount = isHave? meSetting.AllowExamTime:2;
                         }
                         else
@@ -502,6 +503,16 @@ namespace LabExam.Controllers
                 List<ApplicationJoinTheExamination> list = _context.ApplicationJoinTheExaminations
                     .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Where(app => app.ApplicationStatus == ApplicationStatus.Submit).ToList();
 
+                if (list.Count == 0)
+                {
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "信息提示",
+                        message = "并无未审核的考试申请"
+                    });
+                }
+
                 foreach (var item in list)
                 {
                     LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationFail, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
@@ -513,7 +524,6 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = true,
-                    error = _analysis.ModelStateDictionaryError(ModelState),
                     title = "消息提示",
                     message = "审核成功！"
                 });
@@ -599,20 +609,31 @@ namespace LabExam.Controllers
                 List<ApplicationJoinTheExamination> list = _context.ApplicationJoinTheExaminations
                     .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Where(app => app.ApplicationStatus == ApplicationStatus.Submit).ToList();
 
+                if (list.Count == 0)
+                {
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "信息提示",
+                        message = "并无未审核的考试申请"
+                    });
+                }
+
                 SystemSetting setting = _config.LoadSystemSetting();//记载配置文件
 
                 foreach (var item in list)
                 {
-                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationFail, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationPass, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
                     item.ApplicationStatus = ApplicationStatus.Pass;
                     _context.LogPricipalOperations.Add(operation);
                     Student student = (Student)item;
                     //身份证后六位就是密码
                     student.Password = _encryption.EncodeByMd5(_encryption.EncodeByMd5(student.IDNumber.Substring(student.IDNumber.Length - 6, 6)));
-                    if (_context.InstituteToModules.Find(student.InstituteId) != null)
+                    var insModule = _context.InstituteToModules.FirstOrDefault(im => im.InstituteId == student.InstituteId);
+                    if (insModule != null)
                     {
                         //如果这个模块具有加载类
-                        Boolean isHave = setting.ExamModuleSettings.TryGetValue(_context.InstituteToModules.Find(student.InstituteId).ModuleId, out var meSetting);
+                        Boolean isHave = setting.ExamModuleSettings.TryGetValue(insModule.ModuleId, out var meSetting);
                         student.MaxExamCount = isHave ? meSetting.AllowExamTime : 2;
                     }
                     else
@@ -629,7 +650,6 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = true,
-                    error = _analysis.ModelStateDictionaryError(ModelState),
                     title = "消息提示",
                     message = "审核成功！"
                 });

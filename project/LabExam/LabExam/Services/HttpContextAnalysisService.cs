@@ -70,12 +70,12 @@ namespace LabExam.Services
         {
             try
             {
-                LoginUserModel principal = GetLoginUserModel(httpContext);
-                if (principal == null)
+                LoginUserModel user = GetLoginUserModel(httpContext);
+                if (user == null)
                 {
                     throw new Exception("用户尚未登录成功！");
                 }
-                PrincipalConfig setting = _config.LoadPrincipalConfig(principal.UserId);
+                PrincipalConfig setting = _config.LoadPrincipalConfig(user.UserId);
                 return setting;
             }
             catch (Exception e)

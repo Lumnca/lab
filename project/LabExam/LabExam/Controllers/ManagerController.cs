@@ -22,17 +22,17 @@ namespace LabExam.Controllers
 
         private readonly IEncryptionDataService _ncryption;
         private readonly LabContext _context;
-        private readonly IHttpContextAccessor _accessor;
         private readonly ILoadConfigFileService _config;
         private readonly IHttpContextAnalysisService _analysis;
+        private readonly ILoggerService _logger;
 
-        public ManagerController(IEncryptionDataService ncryption, LabContext context, IHttpContextAccessor accessor, ILoadConfigFileService config, IHttpContextAnalysisService analysis)
+        public ManagerController(IEncryptionDataService ncryption, LabContext context, IHttpContextAccessor accessor, ILoadConfigFileService config, IHttpContextAnalysisService analysis, ILoggerService logger)
         {
             _ncryption = ncryption;
             _context = context;
-            _accessor = accessor;
             _config = config;
             _analysis = analysis;
+            _logger = logger;
         }
 
         public IActionResult Page([Required] int index, String sName, String sId,[Required] int iId, [Required] int pid,Boolean isUnder,Boolean isPost,[Required] int grade)
@@ -214,9 +214,17 @@ namespace LabExam.Controllers
                         student.MaxExamCount = 3; //系统默认考试次数三次
                     }
 
+                    /* logger start */
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(
+                        PrincpalOperationCode.AddStudent, $"{student.StudentId}",
+                        $"增加学生 学号{student.InstituteId} 名称:{student.Name} ");
+                    operation.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    /* logger end*/
+
                     student.IsPassExam = false;
                     student.MaxExamScore = 0;
                     student.Password = _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(student.IDNumber.Substring(student.IDNumber.Length - 6,6)));
+                    _context.LogPricipalOperations.Add(operation);
                     _context.Student.Add(student);
                     _context.SaveChanges();
                     return Json(new

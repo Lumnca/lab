@@ -299,6 +299,34 @@
                 });
             })();
 
+            $("#module-list").change(function(jqEvent) {
+                loadInstitute();
+            });
+
+            function loadInstitute() {
+                $.ajax({
+                    url: "/Institute/ListByModule",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        mId: $('select[name="module-list"]').val()
+                    },
+                    success: function(data, textStatus, jqEvent) {
+                        $("#InstituteName option").remove();
+                        $("#InstituteName")
+                            .append('<option value="-1">所有学院</option>');
+                        for (var index in data) {
+                            $("#InstituteName")
+                                .append(`<option value="${data[index].instituteId}">${data[index].name}</option>`);
+                        }
+                    },
+                    error: function(jqEvent, textStatus, errorThrown) {
+                        onMask("错误", errorThrown);
+                    }
+                });
+            }
+
+
             $('#AddInstituteButton').click(function(jqEvent) {
 
                 var name = $('#newInstituteName').val();
@@ -316,8 +344,8 @@
                         Name: name,
                         ModuleId: module
                     },
-                    success: function (json, textStatus, jqXhr) {
-                        if (json.isOk) {                            
+                    success: function(json, textStatus, jqXhr) {
+                        if (json.isOk) {
                             onMask("提示信息", "添加成功！");
                             loadPageByIndex(1);
                         } else {
@@ -330,6 +358,7 @@
                 });
             });
             stateManager();
+
             function loadPageByIndex(index) {
                 $.ajax({
                     url: "/Institute/Page",
@@ -395,26 +424,26 @@
                 }
             }
 
-            $('.Next').click(function (jqEvent) {
+            $('.Next').click(function(jqEvent) {
                 loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
             });
 
-            $('.First').click(function (jqEvent) {
+            $('.First').click(function(jqEvent) {
                 loadPageByIndex(1);
             });
 
-            $('.Previous').click(function (jqEvent) {
+            $('.Previous').click(function(jqEvent) {
                 loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
             });
 
-            $('.Last').click(function (jqEvent) {
+            $('.Last').click(function(jqEvent) {
                 loadPageByIndex($('button[data-pageLastIndex]').attr("data-pageLastIndex").trim());
             });
 
-            $('.pageSkip').click(function (jqEvent) {
+            $('.pageSkip').click(function(jqEvent) {
                 loadPageByIndex($('#pageSkipNext').val());
             });
-            
+
             $('#searchInstitute').click(function(jqEvent) {
                 loadPageByIndex(1);
             });
@@ -458,16 +487,16 @@
                     $('#updateInsititute').modal('show');
                     $('#SubmitUpdatebutton').attr("data-deleteId", insId);
 
-                    $('#fuiUpdateName').val($(this).attr("data-name") );
+                    $('#fuiUpdateName').val($(this).attr("data-name"));
                 });
             $('#SubmitUpdatebutton').click(function(jqevent) {
                 var insId = $(this).attr("data-deleteId");
 
-                console.log($('#fuiUpdateName').val(),insId);
+                console.log($('#fuiUpdateName').val(), insId);
 
                 $.ajax({
                     url: "/Institute/Update",
-                    type: "post", 
+                    type: "post",
                     dataType: "json",
                     data: {
                         newName: $('#fuiUpdateName').val(),
@@ -477,7 +506,7 @@
                         if (json.isOk) {
                             loadPageByIndex(1);
                             onMask("提示信息", json.info);
-                        }else {
+                        } else {
                             onMask("错误", json.error);
                         }
                     },
@@ -495,9 +524,9 @@
         InstituteChart_.showLoading();
         $.ajax({
             url: "/Institute/EchartData",
-            type: "post", 
+            type: "post",
             dataType: "json",
-            success: function (json, textStatus, jqXhr) {
+            success: function(json, textStatus, jqXhr) {
                 var option = {
                     title: {
                         text: "尚未通过考试学生情况"

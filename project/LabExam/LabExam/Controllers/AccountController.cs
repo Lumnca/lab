@@ -1,22 +1,20 @@
 ﻿using LabExam.DataSource;
 using LabExam.IServices;
+using LabExam.Models;
 using LabExam.Models.Entities;
+using LabExam.Models.JsonModel;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using LabExam.Models;
-using LabExam.Models.JsonModel;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace LabExam.Controllers
 {
@@ -145,7 +143,6 @@ namespace LabExam.Controllers
             return View();
         }
 
-
         /// <summary>
         ///  用户登录
         /// </summary>
@@ -184,7 +181,7 @@ namespace LabExam.Controllers
                 //如果是学生判断密码是正确
                 if (type == UserType.Student)
                 {
-                    if (_context.Student.Any(stu => stu.Password != _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(userPassword))))
+                    if (!_context.Student.Any(stu => stu.Password == _ncryption.EncodeByMd5(_ncryption.EncodeByMd5(userPassword))))
                     {
                         return Json(new
                         {
@@ -256,6 +253,16 @@ namespace LabExam.Controllers
                         {
                             isOk = false,
                             message = "系统尚未允许学生登录！请等待通知...",
+                        });
+                    }
+
+                    //模块判断
+                    if (!_context.InstituteToModules.Any(im => im.InstituteId == student.InstituteId ))
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            message = "你所在学院并没有被规划在考试模块内,你无法参与实验室安全学习...",
                         });
                     }
 

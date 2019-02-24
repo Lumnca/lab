@@ -81,7 +81,7 @@ using LabExam.Models;
                 ");
             EndContext();
             BeginContext(595, 36, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "92e767f5ded04ed9a4cbebe966aa8b5d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6ecc31443c344222b5a3257c671fdb90", async() => {
                 BeginContext(614, 8, true);
                 WriteLiteral("-- 全部 --");
                 EndContext();
@@ -112,7 +112,7 @@ using LabExam.Models;
             WriteLiteral("                    ");
             EndContext();
             BeginContext(718, 50, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0876b22a8c0e440db5a38aef550dfa55", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d17489914de942689a0df151e0e2196b", async() => {
                 BeginContext(750, 9, false);
 #line 17 "F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\Views\Resource\Index.cshtml"
                                               Write(item.Name);
@@ -156,7 +156,7 @@ using LabExam.Models;
                 ");
             EndContext();
             BeginContext(1067, 36, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "32f13c41fdae4290b2745e1d55ea9e3c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a01f6b96994f4e91989ef67c223cc690", async() => {
                 BeginContext(1086, 8, true);
                 WriteLiteral("-- 全部 --");
                 EndContext();
@@ -178,7 +178,7 @@ using LabExam.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(1121, 30, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6757055e4ba04ad794be5227b4b59e0c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f02c6c65fb74ea8af5d4daa87431ddf", async() => {
                 BeginContext(1139, 3, true);
                 WriteLiteral("未使用");
                 EndContext();
@@ -200,7 +200,7 @@ using LabExam.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(1169, 30, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5d25849e158b4a339e23802a2b36acfc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8d64a0b12f04eb18e368c1fc7891dd0", async() => {
                 BeginContext(1187, 3, true);
                 WriteLiteral("在使用");
                 EndContext();
@@ -226,7 +226,7 @@ using LabExam.Models;
                 ");
             EndContext();
             BeginContext(1473, 36, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2a5a35db81cd48d1977237185b639381", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b3e0a7dcddc94102a6d56404432697f7", async() => {
                 BeginContext(1492, 8, true);
                 WriteLiteral("-- 全部 --");
                 EndContext();
@@ -248,7 +248,7 @@ using LabExam.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(1527, 31, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f9d647100eaa4aaeb01f4511f27564e8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ad00949b6a4b41e9aef1b3f245ec2db7", async() => {
                 BeginContext(1545, 4, true);
                 WriteLiteral("链接资源");
                 EndContext();
@@ -270,7 +270,7 @@ using LabExam.Models;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(1576, 31, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0e0f29a1124f4b348749df46933dedb3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6e391964c7be4dcabf5c78848df51f6a", async() => {
                 BeginContext(1594, 4, true);
                 WriteLiteral("视频资源");
                 EndContext();
@@ -304,7 +304,7 @@ using LabExam.Models;
         ");
             EndContext();
             BeginContext(2229, 172, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "752515613bbb47b6be801942328d8fb1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b2e03e71ed149d28420d3136d819e63", async() => {
                 BeginContext(2309, 88, true);
                 WriteLiteral("\r\n            <span class=\"glyphicon glyphicon-plus\"></span>\r\n            添加课程\r\n        ");
                 EndContext();
@@ -461,7 +461,7 @@ using LabExam.Models;
                 ");
             EndContext();
             BeginContext(8103, 90, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "2e911a3880034375afa616bd7741182f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "1acdb3545eec4415969c37d059ea5ab8", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

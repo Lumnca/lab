@@ -213,6 +213,10 @@
   border: 1px solid gainsboro;
 }
 
+.font-shadow-gray {
+  text-shadow: 4px 3px 8px rgba(7, 17, 27, 0.5);
+}
+
 .padding-15 {
   padding: 15px;
 }
@@ -1295,10 +1299,28 @@
   height: 15px;
 }
 
-.layout-position-bottom {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
+@media screen and (min-width: 750px) and (max-width: 970px) {
+  .layout-position-bottom {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 970px) and (max-width: 1170px) {
+  .layout-position-bottom {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1170px) {
+  .layout-position-bottom {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+  }
 }
 
 .layout-shooseOnlyOne > a {
@@ -1461,13 +1483,19 @@
   resize: none;
   padding-top: 5px;
   line-height: 25px;
-  font-size: 16px;
+  font-size: 14px;
   text-indent: 15px;
   text-shadow: 2px 2px 3px rgba(38, 38, 38, 0.5);
 }
 
 .applicationForm:focus {
   outline: none;
+}
+
+.layout-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 * {

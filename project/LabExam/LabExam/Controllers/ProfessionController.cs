@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using LabExam.DataSource;
+﻿using LabExam.DataSource;
 using LabExam.IServices;
 using LabExam.Models.Entities;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace LabExam.Controllers
 {

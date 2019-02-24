@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<LabExam.Models.Entities.Institute>
 
 @{
-    ViewData["Title"] = "实验室安全教育在线-加入申请";
+    ViewData["Title"] = "实验室安全教育在线-申请重考";
     Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
 }
+
 <div class="admin-searach">
     <!-- 搜索栏 -->
     <div id="Search-condition" class=" bc-clr-white margin-5px  padding-15px border-little-grey-all"
@@ -45,19 +46,15 @@
     <div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
         <span class=" font-size-14 text-muted">学生年级:</span>
         <select name="studentGrade" id="studentGrade" data-height="27" data-width="150" class="font-size-14 font-weight-400 padding-left-5px "></select>
-        <button class="btn btn-sm btn-primary margin-left-30px">
+        <button class="btn btn-sm btn-primary margin-left-30px" onclick="UseAll()">
             <span class="glyphicon glyphicon-plus"></span>
-            全部审核通过
+            审核全部通过 [当前选项条件]
         </button>
-        <button class=" btn btn-sm btn-primary">
+        <button class=" btn btn-sm btn-primary" onclick="NotUseAll()">
             <span class="glyphicon glyphicon-hand-up"></span>
-            全部不通过
+            审核全部不通过 [当前选项条件]
         </button>
-        <button class=" btn btn-sm btn-primary">
-            <span class="glyphicon glyphicon-hand-down"></span>
-            全部停用
-        </button>
-        <button class=" btn btn-sm btn-default">
+        <button class=" btn btn-sm btn-default" onclick="Clear()">
             <span class="glyphicon glyphicon-remove-circle"></span>
             清空筛选条件
         </button>
@@ -75,13 +72,14 @@
                 <th>学院</th>
                 <th>学生年级</th>
                 <th>学生类型</th>
-                <th>添加时间</th>
+                <th>申请时间</th>
                 <th>申请状态</th>
-                <th>身份证号</th>
                 <th class=" text-right">数据操作</th>
             </tr>
         </thead>
-        <tbody class="section-items"></tbody>
+        <tbody class="section-items">
+  
+        </tbody>
     </table>
     <div class=" float-layout bc-clr-white padding-10px ">
         <label class=" InspageCount float-left">
@@ -121,49 +119,46 @@
             </label>
         </td>
         <td>
-            {{application.studentId}}
+            {{detail.studentId}}
         </td>
         <td>
-            {{application.name}}
+            {{detail.name}}
         </td>
         <td>
             {{sex}}
         </td>
         <td>
-            {{proName}}
+            {{detail.professionName}}
         </td>
         <td>
-            {{insName}}
+            {{detail.instituteName}}
         </td>
         <td>
-            {{application.grade}}
+            {{detail.grade}}
         </td>
         <td>
             {{type}}
         </td>
         <td>
-            <small>{{application.addTime}}</small>
+            <small>{{addTime}}</small>
         </td>
         <td>
-            {{status}}
-        </td>
-        <td>
-            <small class="font-size-12px">{{application.idNumber}}</small>
+            <label class="label label-primary">{{status}}</label> 
         </td>
         <td class=" text-right">
             {{^isInspect}}
-            <button class=" btn btn-primary btn-sm function-use" data-item-id="{{application.applicationJoinId}}">
+            <button class=" btn btn-primary btn-sm function-use" data-item-id="{{detail.applicationExamId}}">
                 <span class="glyphicon glyphicon-remove"></span> 审核通过
             </button>
-            <button class=" btn btn-primary btn-sm function-stop" data-item-id="{{application.applicationJoinId}}">
+            <button class=" btn btn-primary btn-sm function-stop" data-item-id="{{detail.applicationExamId}}">
                 <span class="glyphicon glyphicon-ok "></span> 审核不通过
             </button>
             {{/isInspect}}
-            <button class=" btn btn-primary btn-sm delete-button" data-item-id="{{application.applicationJoinId}}">
+            <button class=" btn btn-primary btn-sm delete-button" data-item-id="{{detail.applicationExamId}}">
                 <span class="glyphicon glyphicon-remove"></span>
                 删除
             </button>
-            <button class=" btn btn-default btn-sm detail-button" data-item-id="{{application.applicationJoinId}}">
+            <button class=" btn btn-default btn-sm detail-button" data-item-id="{{detail.applicationExamId}}">
                 <span class="glyphicon glyphicon-search"></span> 详情
             </button>
         </td>
@@ -276,6 +271,24 @@
             </div>
             <div class="student-info-show">
                 <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">考试次数</span>
+                    <span class="student-info-show-value border-light-down "> {{examTime}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">学习时长</span>
+                    <span class="student-info-show-value border-light-down "> {{learing}}分钟</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">最高分数</span>
+                    <span class="student-info-show-value border-light-down "> {{score}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
                     <span class="student-info-show-title">申请原由</span>
                     <span class="student-info-show-value border-light-down ">
                         {{reason}}
@@ -351,7 +364,7 @@
 
         function loadPageByIndex(index) {
             $.ajax({
-                url: "/Application/Page",
+                url: "/ReExam/Page",
                 type: "post",
                 dataType: "json",
                 data: {
@@ -440,7 +453,7 @@
                 $('#program').modal('show');
                 var id = $(this).attr("data-item-id");
                 $.ajax({
-                    url: "/Application/Item",
+                    url: "/ReExam/Item",
                     type: "post",
                     dataType: "json",
                     data: {
@@ -472,7 +485,7 @@
                 $('#program').modal('show');
                 var id = $(this).attr("data-item-id");
                 $.ajax({
-                    url: "/Application/Fail",
+                    url: "/ReExam/Fail",
                     type: "post",
                     dataType: "json",
                     data: {
@@ -500,7 +513,7 @@
                 var id = $(this).attr("data-item-id");
 
                 $.ajax({
-                    url: "/Application/Pass",
+                    url: "/ReExam/Pass",
                     type: "post",
                     dataType: "json",
                     data: {
@@ -510,10 +523,10 @@
                         console.log(json);
                         if (json.isOk) {
                             loadPageByIndex(1);
-                        } 
+                        }
                         $('#program').modal('hide');
                         onMask(json.title, json.message);
-                      
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         onMask("错误", `网络接连错误.. ${errorThrown}`);
@@ -523,18 +536,18 @@
 
         $('.section-items').on('click', '.delete-button', null, function (jqEvent) {
             $('#delete-dialog button:eq(1)').attr("data-item-id", $(this).attr("data-item-id"));
-            $('#delete-dialog').modal('show');            
+            $('#delete-dialog').modal('show');
         });
 
         $('#delete-dialog button:eq(1)').click(function (jqEvent) {
             var id = $(this).attr('data-item-id');
             $('#delete-dialog button:eq(1)').prop("disable", true);
             $.ajax({
-                url: "/Application/Delete",
+                url: "/ReExam/Delete",
                 type: "post",
                 dataType: "json",
                 data: {
-                    apId : id
+                    apId: id
                 },
                 success: function (json, textStatus, jqXhr) {
                     console.log(json);
@@ -550,5 +563,73 @@
                 }
             });
         });
+
+        function Clear() {
+            $('select[name="Institute"]').val(-1);
+            $('select[name="Profession"]').val(-1);
+            $('select[name="ApplicationStatus"]').val(-1);
+            $('select[name="StudentType"]').val(-1);
+            $('input[name="KeyName"]').val("");
+            $('select[name="studentGrade"]').val(-1);
+        }
+
+        function UseAll() {
+            $('#program').modal('show');
+            $.ajax({
+                url: "/ReExam/All",
+                type: "post",
+                dataType: "json",
+                data: {
+                    iId: $('select[name="Institute"]').val(),
+                    pId: $('select[name="Profession"]').val(),
+                    status: $('select[name="ApplicationStatus"]').val(),
+                    type: $('select[name="StudentType"]').val(),
+                    keyName: $('input[name="KeyName"]').val(),
+                    grade: $('select[name="studentGrade"]').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        $('#program').modal('hide');
+                        onMask(json.title, json.message);
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误..${errorThrown}`);
+                }
+            });
+        }
+
+        function NotUseAll() {
+            $('#program').modal('show');
+            $.ajax({
+                url: "/ReExam/Not",
+                type: "post",
+                dataType: "json",
+                data: {
+                    iId: $('select[name="Institute"]').val(),
+                    pId: $('select[name="Profession"]').val(),
+                    status: $('select[name="ApplicationStatus"]').val(),
+                    type: $('select[name="StudentType"]').val(),
+                    keyName: $('input[name="KeyName"]').val(),
+                    grade: $('select[name="studentGrade"]').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    if (json.isOk) {
+                        loadPageByIndex(1);
+                        $('#program').modal('hide');
+                        onMask(json.title, json.message);
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", `网络接连错误..${errorThrown}`);
+                }
+            });
+        }
+
     </script>
 }

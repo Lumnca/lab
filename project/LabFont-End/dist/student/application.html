@@ -1,28 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="../Resources/Image/Icon/PageIconOnline.png" />
-    <link rel="stylesheet" href="../Content/css/stuNarbar.min.css">
-    <link rel="stylesheet" href="../Content/css/stuLayout.min.css">
-    <link rel="stylesheet" href="../Content/css/stuFont.min.css">
-    <link rel="stylesheet" href="../Content/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../Content/bootstrap.min.css" />
-    <script src="../Scripts/jquery-3.3.1.min.js"></script>
-    <script src="../Scripts/bootstrap.min.js"></script>
+    <link rel="icon" href="../Resources/system/icon/icon.png" />
+    <script src="../lib/jquery/dist/jquery.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../js/app.min.js"></script>
+    <link rel="stylesheet" href="../css/sass_product/stuEntry.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" />
     <title>实验室安全教育在线-申请重考</title>
+    <style>
+        .navbar{
+            background-color: #fff;
+        }
+        @media screen and (max-width:768px){
+            .navbar-normal{
+                display: none;
+            }
+            .navbar-default{
+                display: block;
+            }
+            .container{
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+    </style>
 </head>
-
 <body class="bc-clr-grey-little">
+    <nav class="navbar navbar-default border-thumali padding-5px display-none" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <span class="text-primary font-size-20 font-weight-500">SICNU 实验室安全教育</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse  " id="example-navbar-collapse">
+                <ul class="nav  navbar-right padding-top-5px " >
+                    <li role="presentation"><a href="#"> <span class=" text-primary font-weight-500 ">学生主页</span> </a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">参加考试</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">申请重考</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">退出登录</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="navbar-normal bc-clr-white">
         <div class="container">
             <div class="navbar-normal-brand">
                 <img src="../Resources/Image/Icon/PageIconOnline.png" class="img-circle img-thumbnail" alt="系统图标" width="56px" />
                 <div class="navbar-normal-brand-title">
-                    实验室安全教育
+                    SICNU 实验室安全教育
                 </div>
             </div>
             <div class="navbar-normal-navlist ">
@@ -36,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class=" container border-thumali margin-top-25px bc-clr-white">
+    <div class=" container border-thumali margin-top-20px bc-clr-white">
         <div class=" row">
             <div class=" col-md-6 col-sm-12 margin-top-25px  col-md-offset-3 ">
                 <h4 class="title-Splitter text-info">
@@ -47,7 +82,7 @@
                     请填写申请说明！<small>[请字数不少于五十字]</small>
                 </div>
                 <div>
-                    <textarea class="applicationForm" autofocus >
+                    <textarea class="applicationForm" autofocus>
 
                     </textarea>
                 </div>
@@ -62,9 +97,9 @@
                     <p>
                         [<span class="glyphicon glyphicon-leaf"></span>]
                         <span class=" font-size-13">
-                           请谨慎选择！
+                            请谨慎选择！
                             <span class=" text-danger font-weight-600">
-                                申请成功后！你的所有考试信息都会被删除！    
+                                申请成功后！你的所有考试信息都会被删除！
                             </span>
                         </span>
                     </p>
@@ -72,20 +107,15 @@
                         [<span class="glyphicon glyphicon-question-sign"></span>]
                         <span class=" font-size-13">
                             <span class=" text-warning font-weight-600">
-                                请深刻检讨为什么要重考！ 
+                                请深刻检讨为什么要重考！
                             </span>
                         </span>
                     </p>
                 </div>
                 <div class=" text-right margin-bottom-10px">
-                      <button class=" btn btn-primary">提交申请</button>  
+                    <button class=" btn btn-primary">提交申请</button>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container-fluid bc-clr-grey-little margin-top-15px layout-position-bottom">
-        <div class="text-center font-size-16 padding-bottom-10px">
-            <small>© All Right Reserved . 四川师范大学计算机科学学院 版权所有 版本号1.0.0.2018.9</small>
         </div>
     </div>
 </body>

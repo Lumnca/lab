@@ -1,0 +1,15 @@
+﻿@using LabExam.Models.Map
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@{
+    Array eArray = System.Enum.GetValues(typeof(PrincpalOperationCode));
+    foreach(PrincpalOperationCode status in eArray){
+        <option value="@((int)status)" >@status.ToString()</option>
+    }
+}

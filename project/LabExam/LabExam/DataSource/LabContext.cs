@@ -33,6 +33,9 @@ namespace LabExam.DataSource
             modelBuilder.Query<vProfessionMap>().ToView("ProfessionView", "dbo");
 
             modelBuilder.Query<vStudentMap>().ToView("StudentView", "dbo");
+
+            modelBuilder.Query<vReExamApplicationMap>().ToView("ReExamApplicationView", "dbo");
+
             
         }
         /* 视图 View */
@@ -49,8 +52,8 @@ namespace LabExam.DataSource
 
         public virtual DbQuery<vStudentMap> VStudentMaps { get; set; }
 
-
-
+        public virtual DbQuery<vReExamApplicationMap> VReExamApplicationMaps { get; set; }
+        
         /* 表 Table */
         public virtual DbSet<Module> Modules { get; set; }
 

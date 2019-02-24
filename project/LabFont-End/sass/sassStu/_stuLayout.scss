@@ -192,9 +192,30 @@ $layout-gap-down:-30px;
     height: 15px;
 }
 .layout-position-bottom{
-    position:absolute;
-    bottom: 0px;
-    width: 100%;
+    @media screen and (max-width:750px)  {
+        //手机    
+    }
+
+    @media screen and (min-width:750px) and (max-width:970px)  {
+        //平板
+        position:fixed;
+        bottom: 0px;
+        width: 100%;
+    }
+
+    @media screen and (min-width:970px) and (max-width:1170px)  {
+        //小电脑屏幕
+        position:fixed;
+        bottom: 0px;
+        width: 100%;
+    }
+    
+    @media screen and (min-width:1170px)  {
+        //手机    
+        position:fixed;
+        bottom: 0px;
+        width: 100%;
+    }
 }
 .layout-shooseOnlyOne{
     $clr-val:rgba(255,0,0,0.5);
@@ -365,10 +386,17 @@ $layout-gap-down:-30px;
     resize: none;
     padding-top: 5px;
     line-height: 25px;
-    font-size: 16px;
+    font-size: 14px;
     text-indent: 15px;
     text-shadow: 2px 2px 3px rgba(38,38,38,0.5);
 }
 .applicationForm:focus{
     outline: none;
 }
+
+
+.layout-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+} 

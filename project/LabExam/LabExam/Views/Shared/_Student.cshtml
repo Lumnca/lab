@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="~/css/stuEntry.min.css" rel="stylesheet" />
+    <link rel="icon" href="~/Resources/system/icon/icon.png" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .navbar{
+            background-color: #fff;
+        }
+        @@media screen and (max-width:768px){
+        .navbar-normal{
+            display: none;
+        }
+        .navbar-default{
+            display: block;
+        }
+        .container{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        }
+        </style>
+</head>
+<body>
+    <nav class="navbar navbar-default border-thumali padding-5px display-none" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <span class="text-primary font-size-20 font-weight-500">SICNU 实验室安全教育</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse  " id="example-navbar-collapse">
+                <ul class="nav  navbar-right padding-top-5px ">
+                    <li role="presentation"><a href="#"> <span class=" text-primary font-weight-500 ">学生主页</span> </a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">参加考试</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">申请重考</span></a></li>
+                    <li role="presentation"><a href="#"><span class=" text-primary font-weight-500 ">退出登录</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="navbar-normal bc-clr-white">
+        <div class="container">
+            <div class="navbar-normal-brand">
+                <img src="../Resources/Image/Icon/PageIconOnline.png" class="img-circle img-thumbnail" alt="系统图标" width="56px" />
+                <div class="navbar-normal-brand-title">
+                    SICNU 实验室安全教育
+                </div>
+            </div>
+            <div class="navbar-normal-navlist ">
+                <nav class="navbar-normal-list-right">
+                    <a asp-controller="Student" asp-action="Index" >学生主页</a>
+                    <a href="#">参加考试</a>
+                    <a asp-controller="Student" asp-action="Application" >申请重考</a>
+                    <a asp-controller="Account" asp-action="LoginOut" class="nav-border-capsule" title="你想要一声不啃的离我而去吗？">
+                        <span class="glyphicon glyphicon glyphicon-share"
+                              aria-hidden="true"></span> 退出登录
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <div class="layout-position-bottom border-radius-4 container-fluid border-little-grey-all padding-10px  bc-clr-white margin-top-10px">
+        <div class="text-center font-size-16 ">
+            <small>© All Right Reserved . 四川师范大学计算机科学学院 版权所有 版本号1.0.0.2018.9</small>
+        </div>
+    </div>
+    <div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">
+                        拼命加载数据中 <span id="val-speed"></span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <img src="~/Resources/animation/Spinner-0.3s-120px.svg" width="85" class="layout-center" />
+                    <p class=" text-left">
+                        <span class=" glyphicon glyphicon-cloud-upload "></span>
+                        <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade mask" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h5 class="modal-title text-primary">
+                        <span class=" glyphicon glyphicon-cloud-download "></span> <span class=" font-weight-600 mask-module-title">提示信息</span>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class="  font-size-14 text-primary mask-module-content">你的权限不足！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/app.min.js"></script>
+</body>
+@RenderSection("Scripts", required: false)
+</html>

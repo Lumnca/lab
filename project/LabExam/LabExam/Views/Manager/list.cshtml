@@ -67,6 +67,7 @@
                 <th>性别</th>
                 <th>专业</th>
                 <th>学院</th>
+                <th>最大考试次数</th>
                 <th>学生年级</th>
                 <th>学生类型</th>
                 <th>出生日期</th>
@@ -80,7 +81,7 @@
     </table>
     <div class=" float-layout ">
         <label class=" float-left">
-            共 <span class="items-count">3</span> 名学生
+            共 <span class="items-count">0</span> 名学生
         </label>
         <div class=" float-right">
             <a href="#" class=" btn-default btn btn-sm ">
@@ -172,6 +173,7 @@
         <td>
             {{instituteName}}
         </td>
+        <td>{{maxExamCount}}</td>
         <td>
             {{grade}}
         </td>
@@ -185,7 +187,7 @@
             {{idNumber}}
         </td>
         <td>
-            <button class=" btn btn-primary btn-sm dialog-delete"  data-delete-id="{{studentId}}" >
+            <button class=" btn btn-primary btn-sm dialog-delete" data-delete-id="{{studentId}}">
                 <span class="glyphicon glyphicon-remove"></span>
                 删除
             </button>
@@ -262,6 +264,12 @@
                     <div class="student-info-show-content padding-left-10px">
                         <span class="student-info-show-title">身份证号码</span>
                         <span class="student-info-show-value border-light-down "> {{idNumber}}</span>
+                    </div>
+                </div>
+                <div class="student-info-show">
+                    <div class="student-info-show-content padding-left-10px">
+                        <span class="student-info-show-title">电子邮箱</span>
+                        <span class="student-info-show-value border-light-down "> {{email}}</span>
                     </div>
                 </div>
                 <div class="student-info-show">

@@ -9,7 +9,7 @@ namespace LabExam.Models.Map
     {
         AddStudent = 0, //添加学生
         AddResource = 3,
-        DelelteStudent = 1,//删除学生
+        DeleteStudent = 1,//删除学生
         DealApplication = 2, //处理申请
         DeleteResource = 4,
         SearchData = 5,
@@ -20,5 +20,8 @@ namespace LabExam.Models.Map
         InspectJoinApplication = 10, //审核加入考试的申请,
         InspectAllJoinApplicationFail = 11, //审核所有加入考试不通过
         InspectAllJoinApplicationPass = 12,//审核所有加入考试通过
+        InspectReExamApplication = 13,//审核重新考试的申请
+        InspectAllReExamApplicationFail = 14,//审核重新考试的申请全部不通过
+        InspectAllReExamApplicationPass = 15,
     }
 }

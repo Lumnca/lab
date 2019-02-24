@@ -79,7 +79,8 @@
                         <span>申请事务</span>
                     </a>
                     <ul>
-                        <li><a asp-controller="Application" asp-action="Join">1.处理考试申请</a></li>
+                        <li><a asp-controller="Application" asp-action="Index">1.处理考试申请</a></li>
+                        <li><a asp-controller="ReExam" asp-action="Index">2.处理重考申请</a></li>
                     </ul>
                 </li>
                 <li>
@@ -106,7 +107,7 @@
                     </ul>
                 </li>
             </ul>
-            <div class="admin-navbar-down font-color-white">
+            <div class="admin-navbar-down font-color-white text-center">
                 <a href="/index" target="_blank" ><img src="~/Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" /></a>
                 <img src="~/Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
                 <img src="~/Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
@@ -203,14 +204,14 @@
             </div>
         </div>
     </div>
-    <div class="modal fade mask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade mask" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <h5 class="modal-title text-primary" id="myModalLabel">
+                    <h5 class="modal-title text-primary">
                         <span class=" glyphicon glyphicon-cloud-download "></span> <span class=" font-weight-600 mask-module-title">提示信息</span>
                     </h5>
                 </div>

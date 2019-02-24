@@ -61,4 +61,8 @@ F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Manager\Index.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Resource\Index.g.cshtml.cs
 F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Resource\Create.g.cshtml.cs
-F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Application\Join.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Application\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Student.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\Student\Application.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\ReExam\Index.g.cshtml.cs
+F:\四川师范大学实验室安全考试项目\lab\project\LabExam\LabExam\obj\Debug\netcoreapp2.1\Razor\Views\LogP\Index.g.cshtml.cs

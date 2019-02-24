@@ -220,16 +220,18 @@ namespace LabExam.Controllers
 
                 LogPricipalOperation operation =
                     _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.AddResource,
-                        $"添加课程资源:资源链接{resource.ResourceUrl}", "添加课程资源");
+                        $"查询编码:无", "添加课程资源:资源链接{resource.ResourceUrl}");
 
                 if(_context.Cources.Any(c => c.CourceId == resource.CourceId))
                 {
                     if (_context.Resources.Any(r => r.Name == resource.Name && r.ResourceType == ResourceType.Link))
                     {
-                        await _context.LogPricipalOperations.AddAsync(operation).ContinueWith(r =>
+                        await _context.LogPricipalOperations.AddAsync(operation).ContinueWith( async r =>
                         {
-                            _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync();
                         });
+
+
                         return Json(new
                         {
                             isOk = false,
@@ -245,6 +247,7 @@ namespace LabExam.Controllers
                     resource.AddTime = DateTime.Now;
                     resource.PrincipalId = _analysis.GetLoginUserModel(HttpContext).UserId;
                     _context.Resources.Add(resource);
+
                     await _context.SaveChangesAsync().ContinueWith( async result =>
                     {
                         operation.PrincpalOperationContent = $"添加资源ID {resource.ResourceId}";
@@ -736,7 +739,7 @@ namespace LabExam.Controllers
 
                 Resource r = _context.Resources.Find(rId);
                 LogPricipalOperation log =
-                    _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.SearchData, $"修改资源信息 修改资源编码:{rId}, 修改新名称:{name}", "查询课程资源信息");
+                    _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.UpdateResource,$"查询编码:{rId}", $"修改链接资源信息 新连接{link}, 修改新名称:{name}");
                 if (r != null)
                 {
                     try

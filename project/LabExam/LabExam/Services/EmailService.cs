@@ -63,7 +63,7 @@ namespace LabExam.Services
             }
         }
 
-        public void SendJoinEmail(String receiver,String id, String name, DateTime submiTime,Boolean result,String why)
+        public void SendJoinEmail(String receiver,String id, String name, DateTime submiTime,Boolean result,String why = "")
         {
             if (result)
             {
@@ -80,5 +80,24 @@ namespace LabExam.Services
                 SendEmail(receiver, "[学生加入考试申请结果]", str);
             }
         }
+
+        public void SendReEmail(String receiver, String id, String name, DateTime submiTime, Boolean result, String why = "综合你学习行为得出的结果！")
+        {
+            if (result)
+            {
+                var str = $"<p><small> 学号为 <strong>{id}</strong>的{name}同学于{submiTime.ToLocalTime()}时间提交增加考试次数的重考申请已经通过</small></p>" +
+                          $"<div><small>如果你尚未通过考试,请抓紧学习通过考试！</small></div>" +
+                          $"<br/><br/> <hr/> <div><small>回复时间: {DateTime.Now.ToLocalTime()}</small></div>";
+                SendEmail(receiver, "[重考申请结果]", str);
+            }
+            else
+            {
+                var str = $"<p><small> 学号为 <strong>{id}</strong>的{name}同学于{submiTime.ToLocalTime()}时间提交增加考试次数的重考申请未通过</small></p>" +
+                          $"<div><small><b>可能原因:{why}</b></small></div>" +
+                          $"<br/><br/> <hr/> <div><small>回复时间: {DateTime.Now.ToLocalTime()}</small></div>";
+                SendEmail(receiver, "[重考申请结果]", str);
+            }
+        }
+
     }
 }

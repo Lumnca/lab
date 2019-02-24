@@ -25,6 +25,8 @@ namespace LabExam.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("AddTime");
+
                     b.Property<int>("ApplicationStatus");
 
                     b.Property<string>("Email")

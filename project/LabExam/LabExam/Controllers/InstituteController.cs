@@ -49,8 +49,19 @@ namespace LabExam.Controllers
 
         public IActionResult List()
         {
-            var list = _context.VInstituteMaps.ToList();
-            return Json(list);
+            return Json(_context.VInstituteMaps.ToList());
+        }
+
+        public IActionResult ListByModule([Required] int mId)
+        {
+            if (mId <= 0)
+            {
+                return Json(_context.VInstituteMaps.ToList());
+            }
+            else
+            {
+                return Json(_context.VInstituteMaps.Where(m => m.ModuleId == mId).ToList());
+            }
         }
 
         public async Task<IActionResult> Create([Required] String Name,[Required] int ModuleId)

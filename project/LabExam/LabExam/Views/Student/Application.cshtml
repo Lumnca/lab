@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewData["Title"] = "实验室安全教育在线-申请重考";
+    Layout = "~/Views/Shared/_Student.cshtml";
+}
+<script src="~/lib/validation/jquery.validate.min.js"></script>
+<script src="~/lib/validation/messages_zh.js"></script>
+<div class=" container border-thumali margin-top-25px bc-clr-white">
+    <div class=" row">
+        <form class=" col-md-6 col-sm-12 margin-top-25px  col-md-offset-3 ">
+            <h4 class="title-Splitter text-info">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span class=" font-size-18 font-weight-600">申请重新安排考试</span>
+            </h4>
+            <div class=" font-size-15 font-weight-600 margin-bottom-15px">
+                请填写申请说明！<small>[请字数不少于五十字]</small>
+            </div>
+            <div>
+                <textarea name="Result" class="applicationForm " autofocus></textarea>
+                @Html.AntiForgeryToken()
+            </div>
+            <div class=" margin-top-20px">
+                <p>
+                    [<span class="glyphicon glyphicon-share"></span>]
+                    <span class=" font-size-13">
+                        请保证你的邮箱已经绑定! 申请结果我们会以邮箱的形式通知你! 你也可以在主页的申请里面
+                        查看申请结果！
+                    </span>
+                </p>
+                <p>
+                    [<span class="glyphicon glyphicon-leaf"></span>]
+                    <span class=" font-size-13">
+                        重考只是增加你的考试次数！成功后你可以增加两次再次考试的机会
+                        <span class=" text-danger font-weight-600">
+                            最终成绩以最高分为有效！
+                        </span>
+                    </span>
+                </p>
+                <p>
+                    [<span class="glyphicon glyphicon-question-sign"></span>]
+                    <span class=" font-size-13">
+                        <span class=" text-warning font-weight-600">
+                            请深刻检讨为什么要重考！
+                        </span>
+                    </span>
+                </p>
+            </div>
+            <div class=" text-right margin-bottom-10px">
+                <button type="submit" class=" btn btn-primary">提交申请</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        $("form").validate({
+            //错误提示信息
+            messages: {
+                Result: {
+                    required: "请填写你的申请原因",
+                    maxlength: "原因过长！请不要超过{0}字！",
+                    minlength: "请至少填写{0}字的说明！"
+                }
+            },
+            //验证规则
+            rules: {
+                Result: {
+                    required: true,
+                    maxlength: 400,
+                    minlength: 20
+                }
+            },
+            errorClass: "text-primary",
+            submitHandler: function(form) {
+                $('#program').modal('show');
+                $.ajax({
+                    url: "/Student/Application",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        reason: $('textarea[name="Result"]').val(),
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (json, textStatus, jqXhr) {
+                        $('#program').modal('hide');
+                        if (json.isOk) {
+                           
+                            onMask(json.title, json.message);
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误..${errorThrown}`);
+                    }
+                });
+            }
+        });
+    </script>
+}
