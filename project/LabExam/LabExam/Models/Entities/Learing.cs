@@ -13,16 +13,13 @@ namespace LabExam.Models.Entities
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public  int  LearingId { get; set; }
 
-        [ForeignKey("Student"),MaxLength(40)]
+        [MaxLength(40)]
         public String StudentId { get; set; }
 
-        [ForeignKey("Cource")]
         public int CourceId { get; set; }
 
         public DateTime AddTime { get; set; }
 
-        public virtual  Student Student { get; set; }
-
-        public  virtual Cource Cource { get; set; }
+        public Boolean IsFinish { get; set; }
     }
 }

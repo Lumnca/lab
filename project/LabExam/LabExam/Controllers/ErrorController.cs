@@ -13,6 +13,11 @@ namespace LabExam.Controllers
             return View();
         }
 
+        public IActionResult Wrong(String data)
+        {
+            ViewBag.ErrorInfo = data;
+            return View();
+        }
 
         [Route("error/404")]
         public IActionResult Error404()

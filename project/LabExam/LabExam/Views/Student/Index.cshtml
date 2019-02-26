@@ -1,4 +1,4 @@
-﻿
+﻿@model LabExam.Models.StudentViewModel
 @{
     ViewData["Title"] = "实验室安全教育在线-学生主页";
     Layout = "~/Views/Shared/_Student.cshtml";
@@ -10,7 +10,6 @@
             margin-left: -25px;
         }
     }
-
     a:link {
         text-decoration: none;
     }
@@ -24,21 +23,20 @@
     <div class=" padding-15 border-thumali bc-clr-white">
         <div class="row">
             <div class=" col-md-2 col-sm-2" title="想换头像吗？ 不可能的！考个试 有必要换头像吗？">
-                <img src="../Resources/Image/Icon/student_nv.png" style="display:block;" class="img-hover-func img-circle img-thumbnail dispaly-center"
-                     width="100px">
+                <img src="~/Resources/Image/Icon/@Model.HeadPortrait" style="display:block;" class="img-hover-func img-circle img-thumbnail dispaly-center"  width="100">
             </div>
             <div class="col-md-3 col-sm-3" id="student-info">
                 <div class="title-student-name padding-top-15px " title="你摸到自己的名字了">
                     <span class="glyphicon glyphicon-user"></span>
-                    李嘉坤 - 同学
+                    @Model.Name - 同学 [@Model.StudentId]
                 </div>
                 <div class=" padding-top-20px ">
                     <span class="glyphicon glyphicon-education"></span>
-                    <span class="word-one padding-right-10px" title="看不出来吗 你是女生欸 (～￣▽￣)→))*￣▽￣*)o" ">女</span>
+                    <span class="word-one padding-right-10px" title="看不出来吗 你是@{ @Model.Sex}生欸 (～￣▽￣)→))*￣▽￣*)o">@{ @Model.Sex}</span>
 
                     <span class="
                             title-name-little">
-                        2016级本科
+                        @(Model.Grade)级 @Model.StudentType
                     </span>
                     <span class="glyphicon glyphicon-text-color"></span>
                 </div>
@@ -46,23 +44,23 @@
             <div class="col-md-7 col-sm-12 float-layout">
                 <div class=" padding-15 float-right">
                     <div class="follows-item">
-                        <b>25h</b><br />
+                        <b>@(Model.LearningTime)M</b><br />
                         <span>学习时长</span>
                     </div>
                     <div class="follows-item">
-                        <b>85分</b><br />
+                        <b>@(Model.MaxScore)分</b><br />
                         <span>最好成绩</span>
                     </div>
                     <div class="follows-item">
-                        <b>Yes</b><br />
+                        <b>@Model.IsPass</b><br />
                         <span>是否通过</span>
                     </div>
                     <div class="follows-item">
-                        <b>2</b><br />
+                        <b>@Model.ExamTime</b><br />
                         <span>考试次数</span>
                     </div>
                     <div class="follows-item" title="就是说，你申请重考的次数啊！">
-                        <b>0</b><br />
+                        <b>@Model.ApplicationTime</b><br />
                         <span>申请次数</span>
                     </div>
                     <div class="follows-item">
@@ -75,317 +73,130 @@
 </div>
 <div class=" container ">
     <div class="margin-top-15px  border-thumali bc-clr-white" data-min-height="1000">
-        <nav class="nav-list">
+        <nav class="nav-list ">
             <a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> 个人动态</a>
             <a href="#ios" data-toggle="tab"><span class="glyphicon glyphicon-expand"></span>学习课程</a>
-            <a href="#jmeter" data-toggle="tab">
-                <span class="glyphicon glyphicon-folder-open"></span>
-                &nbsp;&nbsp;考试记录
-            </a>
+            <a href="#jmeter" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span>考试记录</a>
             <a href="#ejb" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> 个人申请</a>
         </nav>
-        <div id="myTabContent" class="tab-content padding-15">
+        <div id="myTabContent " class="tab-content padding-15 ">
             <div class="tab-pane fade  in active " id="home">
-                <div>
-                    <img src="../Resources/Image/Icon/shuqian_heng_lan.png" height="38px" /> 2018/9/27 15:32
-                    第二次登陆系统
-                </div>
-                <div>
-                    <img src="../Resources/Image/Icon/shuqian_xie_heng_hong.png" height="38px" /> 2018/9/27 15:32
-                    学习了第一个视频 《我的第一本世界》
-                </div>
-                <div>
-                    <img src="../Resources/Image/Icon/shuqian_xie_hong_lv.png" height="38px" /> 2018/9/27 15:32
-                    学习了第一个视频 《我的第一本世界》
-                </div>
-                <div>
-                    <img src="../Resources/Image/Icon/shuqian_heng_lan.png" height="38px" /> 2018/9/27 15:32
-                    第一次登陆系统
-                </div>
+
             </div>
             <div class="tab-pane fade " id="ios">
-                <h4 class="title-Splitter text-info">
-                    <span class="glyphicon glyphicon-expand"></span>学习课程 <small>计算机科学学院</small>
+                <h4 class="title-Splitter text-info margin-top-0px">
+                    <small>所属模块: @ViewBag.ModuleName</small>
                 </h4>
-                <div class="layout-vedio">
-                    <div class="media">
-                        <div class="media-left media-top">
-                            <img src="../Resources/CourceImg/JavascriptZj.png" class="media-object img-thumbnail"
-                                 style="height:150px">
-                        </div>
-                        <div class="media-body padding-left-20px">
-                            <h4 class="media-heading video-title">
-                                Javascript 正则表达式
-                                <small>必修课 规定时间：35分钟</small>
-                            </h4>
-                            <div class="padding-top-15px padding-bottom-10px">
-                                <span class="text-red  font-size-15">已学时间:30分钟</span>
-                            </div>
-                            <div class=" padding-top-15px">
-                                <span class="title-small-grey">视频数量：2</span>
-                                <span class="title-small-grey padding-left-30px">其他资料数目：0</span>
-                                <span class="glyphicon glyphicon-play padding-left-30px"></span>
-                                <span class="title-small-grey ">1352</span>
-                            </div>
-                            <div class="float-layout">
-                                <a href="#" class="float-right btn btn-default">
-                                    <span class="glyphicon glyphicon-play"></span>
-                                    立即学习
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="video-list-open">
-                        <div class=" text-right padding-right-30px">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse margin-bottom-15px ">
-                            <h4 class="title-Splitter text-info">
-                                <span class="glyphicon glyphicon-expand">资料列表
-                            </h4>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第一节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <span class=" font-size-13">  要求时长：30分钟 </span>
-                                <span class=" text-red">已学:26 分钟 </span>
-
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第二节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第三节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-top-15px">
-                        <div class="progress progress-striped  active" style="height:15px;">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                80%
-                                <span class="sr-only">40% 完成</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layout-vedio">
-                    <div class="media">
-                        <div class="media-left media-top">
-                            <img src="../Resources/CourceImg/JavascriptZj.png" class="media-object img-thumbnail"
-                                 style="height:150px">
-                        </div>
-                        <div class="media-body padding-left-20px">
-                            <h4 class="media-heading video-title">
-                                Javascript 正则表达式
-                                <small>必修课 规定时间：35分钟</small>
-                            </h4>
-                            <div class="padding-top-15px padding-bottom-10px">
-                                <span class="text-red  font-size-15">已学时间:30分钟</span>
-                            </div>
-                            <div class=" padding-top-15px">
-                                <span class="title-small-grey">视频数量：2</span>
-                                <span class="title-small-grey padding-left-30px">其他资料数目：0</span>
-                                <span class="glyphicon glyphicon-play padding-left-30px"></span>
-                                <span class="title-small-grey ">1352</span>
-                            </div>
-                            <div class="float-layout">
-                                <a href="#" class="float-right btn btn-default ">
-                                    <span class="glyphicon glyphicon-play"></span>
-                                    立即学习
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="video-list-open">
-                        <div class=" text-right padding-right-30px">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                        </div>
-                        <div id="collapse5" class="collapse margin-bottom-15px ">
-                            <h4 class="title-Splitter text-info">
-                                <span class="glyphicon glyphicon-expand">资料列表
-                            </h4>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第一节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第二节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第三节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-top-15px">
-                        <div class="progress progress-striped active" style="height:15px;">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                80%
-                                <span class="sr-only">40% 完成</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layout-vedio">
-                    <div class="media">
-                        <div class="media-left media-top">
-                            <img src="../Resources/CourceImg/JavascriptZj.png" class="media-object img-thumbnail"
-                                 style="height:150px">
-                        </div>
-                        <div class="media-body padding-left-20px">
-                            <h4 class="media-heading video-title">
-                                Javascript 正则表达式
-                                <small>必修课 规定时间：35分钟</small>
-                            </h4>
-                            <div class="padding-top-15px padding-bottom-10px">
-                                <span class="text-red  font-size-15">已学时间:30分钟</span>
-                            </div>
-                            <div class=" padding-top-15px">
-                                <span class="title-small-grey">视频数量：2</span>
-                                <span class="title-small-grey padding-left-30px">其他资料数目：0</span>
-                                <span class="glyphicon glyphicon-play padding-left-30px"></span>
-                                <span class="title-small-grey ">1352</span>
-                            </div>
-                            <div class="float-layout">
-                                <a href="#" class="float-right btn btn-default">
-                                    <span class="glyphicon glyphicon-play"></span>
-                                    立即学习
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="video-list-open">
-                        <div class=" text-right padding-right-30px">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                        </div>
-                        <div id="collapse4" class="collapse margin-bottom-15px ">
-                            <h4 class="title-Splitter text-info">
-                                <span class="glyphicon glyphicon-expand">资料列表
-                            </h4>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第一节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第二节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                            <div class="float-layout margin-bottom-15px">
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-play-circle"></span> 第三节
-                                    化学元素和实验器具的基本使用
-                                </a>
-                                <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-top-15px">
-                        <div class="progress progress-striped active" style="height:15px;">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                80%
-                                <span class="sr-only">40% 完成</span>
-                            </div>
-                        </div>
-                    </div>
+                <div id="course-table">
+                    
                 </div>
             </div>
             <div class="tab-pane fade" id="jmeter">
+                <h4 class="title-Splitter text-info margin-top-0px">
+                    <small>
+                        考试次数:@Model.ExamTime <span class=" margin-left-15px">最好成绩:</span> <label class=" label label-primary"> @Model.MaxScore</label> 分
+                    </small>
+                </h4>
                 <table class="table table-hover">
-                    <caption>考试几率</caption>
                     <thead>
                         <tr>
-                            <th>名称</th>
-                            <th>城市</th>
-                            <th>邮编</th>
-                            <th>分数</th>
+                            <th>编号</th>
+                            <th>学号</th>
+                            <th>通过分数</th>
+                            <th>允许考试时间</th>
+                            <th>试卷总分</th>
+                            <th>考试得分</th>
+                            <th>考试时间</th>
+                            <th>是否完成</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Tanmay</td>
-                            <td>Bangalore</td>
-                            <td>560001</td>
-                            <td>86.5</td>
+                            <td> <label class=" label label-info">1</label></td>
+                            <td>2019110418</td>
+                            <td>60</td>
+                            <td>120M</td>
+                            <td>100</td>
+                            <td> <label class=" label label-danger">86.5分</label> </td>
+                            <td>2019/5/6 12:23:55</td>
+                            <td>完成</td>
                         </tr>
                         <tr>
-                            <td>Sachin</td>
-                            <td>Mumbai</td>
-                            <td>400003</td>
-                            <td>86.5</td>
+                            <td> <label class=" label label-info">2</label></td>
+                            <td>2019110418</td>
+                            <td>60</td>
+                            <td>120M</td>
+                            <td>100</td>
+                            <td> <label class=" label label-danger">86.5分</label> </td>
+                            <td>2019/5/6 12:23:55</td>
+                            <td>完成</td>
                         </tr>
                         <tr>
-                            <td>Uma</td>
-                            <td>Pune</td>
-                            <td>411027</td>
-                            <td>86.5</td>
+                            <td> <label class=" label label-info">3</label></td>
+                            <td>2019110418</td>
+                            <td>60</td>
+                            <td>120M</td>
+                            <td>100</td>
+                            <td> <label class=" label label-danger">86.5分</label> </td>
+                            <td>2019/5/6 12:23:55</td>
+                            <td>完成</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="tab-pane fade" id="ejb">
-                <table class="table table-hover">
-                    <caption>申请列表</caption>
+                <h4 class="title-Splitter text-info margin-top-0px">
+                    <small>申请重考次数:1 </small>
+                </h4>
+                <table class="table table-hover" id="student-list">
                     <thead>
                         <tr>
-                            <th>名称</th>
-                            <th>城市</th>
-                            <th>邮编</th>
-                            <th>状态</th>
+                            <th>编号</th>
+                            <th>申请学号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>专业</th>
+                            <th>学院</th>
+                            <th>学生年级</th>
+                            <th>学生类型</th>
+                            <th>申请时间</th>
+                            <th class=" text-right ">申请状态</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Tanmay</td>
-                            <td>Bangalore</td>
-                            <td>560001</td>
-                            <td>同意</td>
-                        </tr>
-                        <tr>
-                            <td>Sachin</td>
-                            <td>Mumbai</td>
-                            <td>400003</td>
-                            <td>同意</td>
-                        </tr>
-                        <tr>
-                            <td>Uma</td>
-                            <td>Pune</td>
-                            <td>411027</td>
-                            <td>同意</td>
+                            <td>
+                                <label class=" label label-primary ">
+                                    1
+                                </label>
+                            </td>
+                            <td>
+                                2018110418
+                            </td>
+                            <td>
+                                将生
+                            </td>
+                            <td>
+                                男
+                            </td>
+                            <td>
+                                软件工程
+                            </td>
+                            <td>
+                                计算机科学学院
+                            </td>
+                            <td>
+                                2018
+                            </td>
+                            <td>
+                                本科生
+                            </td>
+                            <td>
+                                2018/5/21 15:52
+                            </td>
+                            <td class=" text-right">
+                                <label class=" label label-info">通过</label>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -393,3 +204,11 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script>
+        $("#home").load("/Student/Log");
+        $("#course-table").load("/Student/Course");
+        
+    </script>
+}

@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using LabExam.Models.EntitiyViews;
 
 namespace LabExam.Controllers
 {
@@ -146,9 +148,9 @@ namespace LabExam.Controllers
         /// <summary>
         ///  用户登录
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="userPassword"></param>
-        /// <returns></returns>
+        /// <param name="userId">账号</param>
+        /// <param name="userPassword">密码</param>
+        /// <returns>是否登录成功</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public  IActionResult Login([Required] String userId,[Required] String userPassword)
@@ -265,6 +267,56 @@ namespace LabExam.Controllers
                             message = "你所在学院并没有被规划在考试模块内,你无法参与实验室安全学习...",
                         });
                     }
+                    InstituteToModule itm = _context.InstituteToModules.FirstOrDefault(m => m.InstituteId == student.InstituteId);
+                    
+                    /* 学习任务安排 -- 判断是否安排了学习任务 */
+                    if (!_context.VLearningMaps.Any(l => l.StudentId == student.StudentId && l.ModuleId == itm.ModuleId))
+                    {
+                        /* CourceView 自动统计了 每个课程的 在用的视频资源数量 */
+                        List<vCourceMap> courceMaps = _context.VCourceMaps
+                            .Where(vc => vc.ModuleId == itm.ModuleId && vc.RCount != 0 && vc.CourceStatus == CourceStatus.Using)
+                            .ToList(); //找出在用的所有课程
+
+                        /* 如果有学习任务*/
+                        if (courceMaps.Count > 0)
+                        {
+                            //安排学习课程
+                            foreach (var item in courceMaps)
+                            {
+                                Learing learning = new Learing
+                                {
+                                    StudentId = student.StudentId,
+                                    CourceId = item.CourceId,
+                                    IsFinish = false,
+                                    AddTime = DateTime.Now
+                                };
+                                _context.Learings.Add(learning);
+                                //记录学习进度
+
+                                List<Resource> resources = _context.Resources
+                                    .Where(r => r.CourceId == item.CourceId)
+                                    .Where(r => r.ResourceStatus == ResourceStatus.Using)
+                                    .Where(r => r.ResourceType == ResourceType.Vedio)
+                                    .ToList();
+
+                                foreach (var res in resources)
+                                {
+                                    Progress progress = new Progress
+                                    {
+                                        AddTime = DateTime.Now,
+                                        NeedTime = res.LengthOfStudy,
+                                        StudyTime = 0,
+                                        StudentId = student.StudentId,
+                                        ResourceId = res.ResourceId
+                                    };
+                                    _context.Progresses.Add(progress);
+                                }
+                            }
+                        }
+                        /*如果没有学习任务*/
+                    }
+
+                    _context.SaveChanges();
 
                     LoginUserModel user = new LoginUserModel()
                     {
@@ -412,7 +464,6 @@ namespace LabExam.Controllers
                     LoginIp = _accessor.HttpContext.Connection.RemoteIpAddress.ToString(),
                     LoginTime = DateTime.Now
                 };
-
                 _context.LogUserLogin.Add(log);
                 await _context.SaveChangesAsync();
             }

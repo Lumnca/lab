@@ -189,7 +189,7 @@ namespace LabExam.Controllers
                     });
                 }
                 LogPricipalOperation operation = 
-                    _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectJoinApplication, $"{apId}", $"审核学生加入考试申请 通过审核 操作类:{nameof(ApplicationJoinTheExamination)}");
+                    _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectJoinApplication, $"{apId}", $"审核学生加入考试申请 通过审核");
 
                 ApplicationJoinTheExamination applicationJoin = _context.ApplicationJoinTheExaminations.Find(apId);
 
@@ -287,7 +287,7 @@ namespace LabExam.Controllers
                         message = "你并无学生管理操作权限"
                     });
                 }
-                LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectJoinApplication, $"{apId}", "审核学生加入考试申请 不通过审核 操作类: ApplicationJoinTheExamination");
+                LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectJoinApplication, $"{apId}", "审核学生加入考试申请 不通过审核 ");
 
                 ApplicationJoinTheExamination applicationJoin = _context.ApplicationJoinTheExaminations.Find(apId);
                 if (applicationJoin != null)
@@ -515,7 +515,8 @@ namespace LabExam.Controllers
 
                 foreach (var item in list)
                 {
-                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationFail, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationFail,
+                        $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过");
                     item.ApplicationStatus = ApplicationStatus.Fail;
                     _context.LogPricipalOperations.Add(operation);
                     _email.SendJoinEmail(item.Email, item.StudentId, item.Name, item.AddTime, false, "申请原因说明不详细！或者个人信息有误！");
@@ -623,7 +624,8 @@ namespace LabExam.Controllers
 
                 foreach (var item in list)
                 {
-                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationPass, $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 操作类: ApplicationJoinTheExamination");
+                    LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.InspectAllJoinApplicationPass,
+                        $"{item.ApplicationJoinId}", "审核所有学生加入考试申请 不允许通过 ");
                     item.ApplicationStatus = ApplicationStatus.Pass;
                     _context.LogPricipalOperations.Add(operation);
                     Student student = (Student)item;

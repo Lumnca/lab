@@ -21,9 +21,15 @@ namespace LabExam.Models.Entities
         public float TotleScore { get; set; }
 
         public DateTime AddTime { get; set; }
+        
+        public float Score { get; set; }
+
+        public Boolean IsFinish { get; set; }
 
         public virtual List<ExamSingleChoices> ExamSingleChoices { get; set; } //试卷含有的单选题
 
         public virtual List<ExamMultipleChoices> ExamMultipleChoices { get; set; } //试卷含有的多选题
+
+        public virtual List<ExamJudgeChoices> ExamJudgeChoiceses { get; set; } //判断题
     }
 }

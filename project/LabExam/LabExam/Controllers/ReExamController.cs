@@ -26,16 +26,14 @@ namespace LabExam.Controllers
         private readonly ILoggerService _logger;
         private readonly ILoadConfigFileService _config;
         private readonly IHttpContextAnalysisService _analysis;
-        private readonly IEncryptionDataService _encryption;
 
-        public ReExamController(IEmailService email, LabContext context, ILoggerService logger, ILoadConfigFileService config, IHttpContextAnalysisService analysis, IEncryptionDataService encryption)
+        public ReExamController(IEmailService email, LabContext context, ILoggerService logger, ILoadConfigFileService config, IHttpContextAnalysisService analysis)
         {
             _email = email;
             _context = context;
             _logger = logger;
             _config = config;
             _analysis = analysis;
-            _encryption = encryption;
         }
 
         public IActionResult Index()
@@ -47,8 +45,7 @@ namespace LabExam.Controllers
         {
             if(ModelState.IsValid)
             {
-                StringBuilder builder =
-                    new StringBuilder("select * from  ReExamApplicationView where ApplicationExamId > 0");
+                StringBuilder builder = new StringBuilder("select * from  ReExamApplicationView where ApplicationExamId > 0");
                 if (iId > 0)
                 {
                     builder.Append($" and InstituteId = {iId}");
@@ -120,20 +117,21 @@ namespace LabExam.Controllers
                 }
                 // ReSharper disable once CoVariantArrayConversion
                 var list = _context.VReExamApplicationMaps
-                    .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>())
-                    .OrderBy(item => item.ApplicationStatus)
-                    .ThenBy(ap => ap.InstituteId)
-                    .ThenBy(ap => ap.AddTime)
-                    .Skip((index - 1) * pageSize)
-                    .Take(pageSize).Select(v => new
-                    {
-                        addTime = v.AddTime.ToLocalTime(),
-                        type = v.StudentType == StudentType.UnderGraduate? "本科生":"研究生",
-                        sex = v.Sex? "男":"女",
-                        detail = v,
-                        isInspect = v.ApplicationStatus != ApplicationStatus.Submit,
-                        status = v.ApplicationStatus == ApplicationStatus.Submit ? "尚未审核" : v.ApplicationStatus == ApplicationStatus.Fail ? "未通过审核" : "已通过审核"
-                    }).ToList();
+                .FromSql(builder.ToString(), parameters.ToArray<SqlParameter>())
+                .OrderBy(item => item.ApplicationStatus)
+                .ThenBy(ap => ap.InstituteId)
+                .ThenBy(ap => ap.AddTime)
+                .Skip((index - 1) * pageSize)
+                .Take(pageSize).Select(v => new
+                {
+                    addTime = v.AddTime.ToLocalTime(),
+                    type = v.StudentType == StudentType.UnderGraduate? "本科生":"研究生",
+                    sex = v.Sex? "男":"女",
+                    detail = v,
+                    isInspect = v.ApplicationStatus != ApplicationStatus.Submit,
+                    status = v.ApplicationStatus == ApplicationStatus.Submit ? "尚未审核" : v.ApplicationStatus == ApplicationStatus.Fail ? "未通过审核" : "已通过审核"
+                }).ToList();
+
                 return Json(new
                 {
                     isOk = true,
@@ -494,7 +492,6 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = true,
-                    error = _analysis.ModelStateDictionaryError(ModelState),
                     title = "消息提示",
                     message = "审核成功！"
                 });

@@ -301,10 +301,6 @@
                         Answer: $("#Answer").val()
                     },
                     success: function (json, textStatus, jqXhr) {
-                        //debug
-                          console.log(json);
-
-                        //end debug
                         if (json.isOk) {
                             form.reset();
                             loadPageByIndex(1);

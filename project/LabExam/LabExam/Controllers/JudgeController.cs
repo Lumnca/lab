@@ -20,15 +20,15 @@ namespace LabExam.Controllers
     {
         private readonly LabContext _context;
         private readonly IEncryptionDataService _encryption;
-        private readonly IHostingEnvironment _hosting;
+        private readonly ILoggerService _logger;
         private readonly IHttpContextAnalysisService _analysis;
 
-        public JudgeController(IHttpContextAnalysisService analysis, IHostingEnvironment hosting, IEncryptionDataService encryption, LabContext context)
+        public JudgeController(IHttpContextAnalysisService analysis, IEncryptionDataService encryption, LabContext context, ILoggerService logger)
         {
             _analysis = analysis;
-            _hosting = hosting;
             _encryption = encryption;
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -108,6 +108,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 记录日志
+        /// </summary>
+        /// <param name="judge"></param>
+        /// <returns></returns>
         public IActionResult Create([Bind(include: "ModuleId,Content,Answer")] JudgeChoices judge)
         {
             if (ModelState.IsValid)
@@ -121,6 +126,10 @@ namespace LabExam.Controllers
                         message = "你并无题库管理操作权限"
                     });
                 }
+
+                LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.AddJudge,
+                    "查询Id:无", $"增加判断题 题目内容{judge.Content}");
+
                 #region 功能实现区域
                 LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
                 String Key = _encryption.EncodeByMd5(judge.Content.Trim());
@@ -146,6 +155,9 @@ namespace LabExam.Controllers
 
                 _context.JudgeChoices.Add(judge);
                 _context.SaveChanges();
+
+                log.PrincpalOperationName = $"查询Id:{judge.JudgeId}";
+                _logger.Logger(log);
                 return Json(new
                 {
                     isOk = true,

@@ -1,14 +1,22 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using LabExam.DataSource;
+﻿using LabExam.DataSource;
 using LabExam.IServices;
+using LabExam.Models;
 using LabExam.Models.Entities;
 using LabExam.Models.Map;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
+using LabExam.Models.EntitiyViews;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,9 +43,31 @@ namespace LabExam.Controllers
         }
 
         // GET: /<controller>/ 学生主页
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+             try{
+
+                LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+                Student student = _context.Student.Find(model.UserId);
+                
+                //错误情况： 学生已经被删除 但是浏览器Cookie 中仍然保存着学生账号！
+                if (student == null)
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    RedirectToAction("Error", "Error",new
+                    {
+                        data = "错误信息！ 你的登录账号已经被删除不存在！请重新登录账号"
+                    });
+                }
+
+                ViewBag.ModuleName = _context.VStudentMaps.FirstOrDefault(vm => vm.StudentId == student.StudentId)?.ModuleName;
+                return View(new StudentViewModel(student, _context));
+             }
+             catch (Exception e)
+             {
+                Console.WriteLine(e);
+                throw;
+             }
         }
 
         [HttpGet]
@@ -127,6 +157,40 @@ namespace LabExam.Controllers
             }
         }
 
-    
+
+        public IActionResult Log()
+        {
+            LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
+            return PartialView(_context.VLogStudentMaps.Where(l => l.ID == userModel.UserId).ToList());
+        }
+
+        
+        public IActionResult Course()
+        {
+            LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
+            return PartialView(_context.VLearningMaps.Where(l => l.StudentId == userModel.UserId).ToList());
+        }
+
+        public IActionResult Video([Required] Int32 lId)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
+                if (_context.Learings.Any(l => l.LearingId == lId))
+                {
+                    ViewData["learning"] = _context.VLearningMaps.FirstOrDefault(v => v.LearingId == lId);
+                    List<Progress> list = _context.Progresses.Where(p => p.StudentId == user.UserId).Include("Resource").ToList();
+                    return View(list);
+                }
+                else
+                {
+                    return RedirectToAction("Wrong", "Error",new {data = "参数错误! 并无此学习记录"});
+                }
+            }
+            else
+            {
+                return RedirectToAction("ParameterError", "Error");
+            }
+        }
     }
 }

@@ -36,10 +36,16 @@ namespace LabExam.DataSource
 
             modelBuilder.Query<vReExamApplicationMap>().ToView("ReExamApplicationView", "dbo");
 
+            modelBuilder.Query<vLearningMap>().ToView("LearningView", "dbo");
+
+            modelBuilder.Query<vLogStudentMap>().ToView("LogStudentView", "dbo");
+
+            modelBuilder.Query<vCourceMap>().ToView("CourceView", "dbo");
             
         }
         /* 视图 View */
         public virtual DbQuery<vInstituteToModuleMap> VInstituteToModuleMaps { get; set; }
+
         public virtual DbQuery<vInstituteWithoutModuleMap> VInstituteWithoutModuleMaps { get; set; }
 
         public virtual DbQuery<vInstituteStudentCountMap> VInstituteStudentCountMaps { get; set; }
@@ -53,6 +59,12 @@ namespace LabExam.DataSource
         public virtual DbQuery<vStudentMap> VStudentMaps { get; set; }
 
         public virtual DbQuery<vReExamApplicationMap> VReExamApplicationMaps { get; set; }
+
+        public virtual DbQuery<vLearningMap> VLearningMaps { get; set; }
+
+        public virtual DbQuery<vLogStudentMap> VLogStudentMaps { get; set; }
+
+        public virtual DbQuery<vCourceMap> VCourceMaps { get; set; }
         
         /* 表 Table */
         public virtual DbSet<Module> Modules { get; set; }

@@ -98,7 +98,7 @@
             <button class="Next btn btn-primary btn-sm">下一页 <span class="glyphicon glyphicon-chevron-right"></span> </button>
             <button data-lastIndex="" class="Last btn btn-primary btn-sm">尾页 <span class="glyphicon glyphicon-forward"></span> </button>
             <select id="pageSkipNext" data-options="true" class=" margin-left-10px" data-height="27" data-width="45"></select>
-            <button class="pageSkip btn btn-sm btn-primary">跳转</button>
+            <button data-skip class="pageSkip btn btn-sm btn-primary">跳转</button>
         </div>
     </div>
 </div>
@@ -124,11 +124,11 @@
                 <span class="glyphicon glyphicon-lock"></span>
                 停用
             </button>
-            <button class=" btn btn-default btn-sm function-use" data-item-id="{{resourceId}}">
+            <button class=" btn btn-primary btn-sm function-use" data-item-id="{{resourceId}}">
                 <span class="glyphicon glyphicon-collapse-up"></span>
                 使用
             </button>
-            <button class=" btn btn-default btn-sm delete-button" data-item-id="{{resourceId}}">
+            <button class=" btn btn-danger btn-sm delete-button" data-item-id="{{resourceId}}">
                 <span class="glyphicon glyphicon-collapse-up"></span>
                 删除
             </button>

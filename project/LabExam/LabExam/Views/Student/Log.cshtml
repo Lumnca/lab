@@ -1,0 +1,11 @@
+﻿@model IEnumerable<LabExam.Models.EntitiyViews.vLogStudentMap>
+@{
+    String[] val = new String[3]{ "shuqian_heng_lan.png", "shuqian_xie_heng_hong.png", "shuqian_xie_hong_lv.png" };
+    Random rand = new Random();
+}
+@foreach (var item in Model)
+{
+    <div>
+        <img src="~/Resources/Image/Icon/@val[rand.Next(0, 3)]" height="38px" /> @item.DoTime 你@(item.Content)
+    </div>
+}

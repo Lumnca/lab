@@ -1,0 +1,44 @@
+﻿@model IEnumerable<LabExam.Models.EntitiyViews.vLearningMap>
+
+<table class="table table-hover" id="student-list">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>课程名称</th>
+            <th>学习视频数目</th>
+            <th>学分</th>
+            <th>添加时间</th>
+            <th>是否完成</th>
+            <th class="text-right">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int index = 1; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <label class=" label label-primary ">
+                         @(index++)
+                    </label>
+                </td>
+                <td>@item.Name</td>
+                <td>@item.RCount</td>
+                <td>
+                    <label class=" label label-primary">@item.Credit</label>
+                </td>
+                <td>
+                    <small>@item.AddTime</small>
+                </td>
+                <td>
+                    <label class="label label-warning  ">@(item.IsFinish?"完成":"未完成")</label>
+                </td>
+                <td class=" text-right">
+                    <a href="/Student/Video?lId=@item.LearingId" target="_blank"  class=" btn btn-primary btn-sm ">
+                        <span class="glyphicon glyphicon-ok"></span> 开始学习
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

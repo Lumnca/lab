@@ -135,9 +135,13 @@ namespace LabExam.Migrations
 
                     b.Property<float>("ExamTime");
 
+                    b.Property<bool>("IsFinish");
+
                     b.Property<float>("LeaveExamTime");
 
                     b.Property<float>("PassScore");
+
+                    b.Property<float>("Score");
 
                     b.Property<string>("StudentId")
                         .HasMaxLength(40);
@@ -313,14 +317,12 @@ namespace LabExam.Migrations
 
                     b.Property<int>("CourceId");
 
+                    b.Property<bool>("IsFinish");
+
                     b.Property<string>("StudentId")
                         .HasMaxLength(40);
 
                     b.HasKey("LearingId");
-
-                    b.HasIndex("CourceId");
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Learings");
                 });
@@ -720,7 +722,7 @@ namespace LabExam.Migrations
             modelBuilder.Entity("LabExam.Models.Entities.ExamJudgeChoices", b =>
                 {
                     b.HasOne("LabExam.Models.Entities.ExaminationPaper", "ExaminationPaper")
-                        .WithMany()
+                        .WithMany("ExamJudgeChoiceses")
                         .HasForeignKey("PaperId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -760,18 +762,6 @@ namespace LabExam.Migrations
                         .WithMany()
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("LabExam.Models.Entities.Learing", b =>
-                {
-                    b.HasOne("LabExam.Models.Entities.Cource", "Cource")
-                        .WithMany()
-                        .HasForeignKey("CourceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("LabExam.Models.Entities.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("LabExam.Models.Entities.MultipleChoices", b =>

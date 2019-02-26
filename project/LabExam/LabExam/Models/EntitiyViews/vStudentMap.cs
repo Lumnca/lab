@@ -50,5 +50,9 @@ namespace LabExam.Models.EntitiyViews
         public float MaxExamScore { get; set; }
 
         public float MaxExamCount { get; set; }
+
+        public String ModuleName { get; set; }
+
+        public int ModuleId { get; set; }
     }
 }

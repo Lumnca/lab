@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LabExam.DataSource;
+﻿using LabExam.DataSource;
 using LabExam.IServices;
 using LabExam.Models.Entities;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LabExam.Services
 {
@@ -93,8 +91,7 @@ namespace LabExam.Services
             String hour = dt.Hour > 9 ? dt.Hour.ToString() : $"0{dt.Hour}";
             String m = dt.Minute > 9 ? dt.Minute.ToString() : $"0{dt.Minute}";
             String s = dt.Second > 9 ? dt.Second.ToString() : $"0{dt.Second}";
-            int ms = dt.Millisecond;
-            return $"{year}/{month}/{day} {hour}:{m}:{s}:{ms}";
+            return $"{year}/{month}/{day} {hour}:{m}:{s}";
         }
     }
 }
