@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LabExam.Models.Entities.ExaminationPaper>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>学号</th>
+            <th>通过分数</th>
+            <th>允许考试时间</th>
+            <th>试卷总分</th>
+            <th>考试得分</th>
+            <th>考试时间</th>
+            <th>是否完成</th>
+            <th class=" text-right">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    @{
+        int index = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> <label class=" label label-info"> @(index++)</label></td>
+            <td>@item.StudentId</td>
+            <td>@item.PassScore</td>
+            <td>@item.ExamTime</td>
+            <td>@item.TotleScore</td>
+            <td><label class=" label label-danger">@(item.Score)分</label> </td>
+            <td>@item.AddTime</td>
+            <td>@(item.IsFinish?"完成":"未完成")</td>
+            <td class=" text-right">
+               @if (!item.IsFinish)
+               {
+                  <button class="btn btn-sm btn-primary abandon-exam" data-item-id="@item.PaperId">放弃考试</button>
+               }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

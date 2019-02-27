@@ -1,0 +1,41 @@
+﻿@using LabExam.Models.Map
+@model IEnumerable<LabExam.Models.Entities.LogStudentOperation>
+
+<table class="table table-hover" id="student-list">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>操作人员</th>
+            <th>操作时间</th>
+            <th>操作内容</th>
+            <th class=" text-right">操作结果</th>
+        </tr>
+    </thead>
+    <tbody class="section-items">
+    @{
+        int index = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <label class=" label label-primary ">
+                    @(index++)
+                </label>
+            </td>
+            <td>
+                @item.StudentId
+            </td>
+            <td>
+                <small>@item.AddTime</small>
+            </td>
+            <td>
+                <small>@item.StuOperationContent</small>
+            </td>
+            <td class=" text-right">
+                <label class="label label-primary">@(item.StuOperationStatus == StuOperationStatus.Success ? "操作成功" : "操作失败")</label> 
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

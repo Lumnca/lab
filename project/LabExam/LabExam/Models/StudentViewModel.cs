@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LabExam.DataSource;
+﻿using LabExam.DataSource;
 using LabExam.Models.Entities;
+using System;
+using System.Linq;
 
 namespace LabExam.Models
 {
@@ -32,7 +30,16 @@ namespace LabExam.Models
             this.IsPass = student.IsPassExam ? "Yes" : "No";
             this.StudentType = student.StudentType == Map.StudentType.PostGraduate ? "研究生" : "本科生";
             this.HeadPortrait = student.Sex ? "student_nan.png" : "student_nv.png";
+            this.Email = student.Email;
+            this.InstituteName = context.Institute.Find(student.InstituteId).Name;
+            this.ProfessionName = context.Professions.Find(student.ProfessionId).Name;
+            this.Phone = student.Phone;
         }
+        public String Phone { get; set; } 
+        public String InstituteName { get; set; }
+
+        public String ProfessionName { get; set; }
+
         public String StudentId { get; set; }
 
         public String Name { get; set;}
@@ -55,6 +62,7 @@ namespace LabExam.Models
 
         public Int32 ApplicationTime { get; set; }
 
+        public String Email { get; set; }
 
     }
 }

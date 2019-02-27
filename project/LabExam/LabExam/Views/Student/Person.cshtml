@@ -1,0 +1,288 @@
+﻿@model LabExam.Models.StudentViewModel
+@{
+    ViewData["Title"] = "实验室安全教育在线-个人中心";
+    Layout = "~/Views/Shared/_Student.cshtml";
+}
+<script src="~/js/fui.js"></script>
+<div class=" container margin-top-15px ">
+    <div class="row">
+        <div class=" col-md-3 col-sm-4 bc-clr-white border-thumali">
+            <div class="padding-15">
+                <div class="person-info">
+                    <img src="~/Resources/Image/Icon/@Model.HeadPortrait" style="display:block;" class="img-hover-func img-circle img-thumbnail dispaly-center" width="100">
+                </div>
+
+                <div class=" text-center margin-top-10px">
+                    @if (Model.Email != null && Model.Email != "")
+                    {
+                        <span class="glyphicon glyphicon-envelope glyphicon-active padding-left-right-normal" title="已经绑定邮箱">
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-envelope  padding-left-right-normal" title="已经绑定邮箱">
+                        </span>
+                    }
+
+                    <span class="glyphicon glyphicon-education glyphicon-disabled padding-left-right-normal">
+                    </span>
+                    <span class="glyphicon glyphicon-cog glyphicon-disabled padding-left-right-normal">
+                    </span>
+                </div>
+                <div class=" text-center  margin-top-20px">
+                    <small class=" font-size-14">@Model.InstituteName @(Model.Grade)级 @Model.StudentType <br> @Model.Name</small>
+                </div>
+                <div class=" margin-top-25px text-left">
+                    <h4 class="title-Splitter font-weight-600  font-size-17">
+                        账号管理
+                    </h4>
+                </div>
+                <div>
+                    <ul id="narbar-list-caidan" class="stu-nav-list list-unstyled">
+                        <li class="stu-nav-list-item stu-nav-list-item-active">
+                            <a data-toggle="tab" href="#AccountManagement">
+                                账号绑定
+                                <span class="glyphicon glyphicon-menu-right float-right padding-left-45px"></span>
+                            </a>
+                        </li>
+                        <li class="stu-nav-list-item ">
+                            <a data-toggle="tab" href="#personinfostudent">
+                                个人信息
+                                <span class="glyphicon glyphicon-menu-right float-right padding-left-45px"></span>
+                            </a>
+                        </li>
+                        <li class="stu-nav-list-item ">
+                            <a data-toggle="tab" href="#examRecord">
+                                考试记录
+                                <span class="glyphicon glyphicon-menu-right float-right padding-left-45px"></span>
+                            </a>
+                        </li>
+                        <li class="stu-nav-list-item ">
+                            <a data-toggle="tab" href="#corporationRecord">
+                                操作记录
+                                <span class="glyphicon glyphicon-menu-right float-right padding-left-45px"></span>
+                            </a>
+                        </li>
+                        <li class="stu-nav-list-item ">
+                            <a data-toggle="tab" href="#vedioOpen">
+                                视频学习
+                                <span class="glyphicon glyphicon-menu-right float-right padding-left-45px"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+            <div class=" border-thumali bc-clr-white height-value-900" id="tab-change-load">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active padding-15" id="AccountManagement">
+                        <div class=" title-Splitter margin-top-15px">
+                            <span class=" font-size-18 font-weight-600">账号管理</span>
+                        </div>
+                        <div>
+                            <div class=" padding-15 boder-down-grey float-layout">
+                                <div class=" float-left">
+                                    <img src="~/Resources/Image/Icon/accountIcon_email.png" width="50px" />
+                                </div>
+                                <div class=" float-left margin-left-15px">
+                                    <b>
+                                        邮箱 <input data-change-button="#chengeEmail" id="student-email" type="text"
+                                                  disabled class="input-down-border" value="@Model.Email">
+                                    </b>
+                                    <button class="btn btn-sm btn-info margin-left-15px " disabled id="chengeEmail">修改</button>
+                                    <br />
+                                    <span class="title-small-grey font-size-13">可用邮箱 接受考试成绩和 申请通知</span>
+                                </div>
+                                <div class=" float-right">
+                                    <button class=" btn btn-default" data-student-update="#student-email">修改邮箱</button>
+                                </div>
+                            </div>
+                            <div class=" padding-15 boder-down-grey float-layout">
+                                <div class=" float-left">
+                                    <img src="~/Resources/Image/Icon/accountIcon_phone_o.png" width="50px" />
+                                </div>
+                                <div class=" float-left margin-left-15px">
+                                    <b>
+                                        手机 <input data-change-button="#chengePhone" id="student-phone" type="text"
+                                                  disabled class="input-down-border" value="@Model.Phone">
+                                    </b>
+                                    <button class="btn btn-sm btn-info margin-left-15px " disabled id="chengePhone">修改</button>
+                                    <br />
+                                    <span class="title-small-grey font-size-13">其实我们并不关注 你可以绑定 也可以不绑定</span>
+                                </div>
+                                <div class=" float-right">
+                                    <button class=" btn btn-default" data-student-update="#student-phone">修改手机</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane padding-15" id="personinfostudent">
+                        <div class=" title-Splitter margin-top-15px">
+                            <span class=" font-size-18 font-weight-600">个人信息</span>
+                        </div>
+                        <div>
+                            <div class="student-info-show">
+                                <div class="student-info-show-content padding-left-30px">
+                                    <span class="student-info-show-title">昵称</span>
+                                    <span class="student-info-show-value boder-down-grey "> @Model.Name</span>
+                                </div>
+                            </div>
+                            <div class="student-info-show">
+                                <div class="student-info-show-content padding-left-30px">
+                                    <span class="student-info-show-title">年级</span>
+                                    <span class="student-info-show-value boder-down-grey "> @Model.Grade 级</span>
+                                </div>
+                            </div>
+                            <div class="student-info-show">
+                                <div class="student-info-show-content padding-left-30px">
+                                    <span class="student-info-show-title">学号</span>
+                                    <span class="student-info-show-value boder-down-grey "> @Model.StudentId</span>
+                                </div>
+                            </div>
+                            <div class="student-info-show">
+                                <div class="student-info-show-content padding-left-30px">
+                                    <span class="student-info-show-title">性别</span>
+                                    <span class="student-info-show-value boder-down-grey "> @Model.Sex</span>
+                                </div>
+                            </div>
+                            <div class="student-info-show">
+                                <div class="student-info-show-content padding-left-30px">
+                                    <span class="student-info-show-title">最好成绩</span>
+                                    <span class="student-info-show-value boder-down-grey "> @Model.MaxScore</span>
+                                </div>
+                            </div>
+                            <div class="student-info-show">
+                                <div class="student-info-show-content padding-left-30px">
+                                    <span class="student-info-show-title">身份</span>
+                                    <span class="student-info-show-value boder-down-grey "> @Model.StudentType</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane padding-15" id="examRecord">
+                        <div class=" title-Splitter margin-top-15px">
+                            <span class=" font-size-18 font-weight-600">考试记录</span>
+                        </div>
+                        <div class="table-responsive padding-15" id="examRecord-table">
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane padding-15" id="corporationRecord">
+                        <div class=" title-Splitter margin-top-15px">
+                            <span class=" font-size-18 font-weight-600">操作记录</span>
+                        </div>
+                        <div class="table-responsive padding-15" id="corporationRecord-table">
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane padding-15" id="vedioOpen">
+                        <div class=" title-Splitter margin-top-15px">
+                            <span class=" font-size-18 font-weight-600">视频学习</span>
+                        </div>
+                        <div class=" padding-15" id="vedioOpen-table">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+
+        $("#corporationRecord-table").load("/Student/Operations");
+        $("#examRecord-table").load("/Student/Paper");
+        $("#vedioOpen-table").load("/Student/Progress");
+
+        $(document).ready(function () {
+            $("#narbar-list-caidan > li").on("click", null, null, function () {
+                $(this).siblings().removeClass("stu-nav-list-item-active");
+                $(this).addClass("stu-nav-list-item-active");
+            });
+            //alert($("Button[data-student-update]").length);
+            // 处理 账号管理 的修改 增加
+            $("Button[data-student-update]").on('click', null, null, function (jqEvent) {
+                var input_id = $(this).attr("data-student-update");
+                $(input_id).prop("disabled", false);
+                $(input_id).focus();
+                var btn_name = $(input_id).attr("data-change-button");
+                $(btn_name).prop("disabled", false);
+            });
+
+            $("#chengeEmail").click(function () {
+                $('#program').modal('show');
+                var em = $('#student-email').val();
+
+                if (!window.f.IsEmail(em) ) {
+                    onMask("错误提示", "邮件格式错误！");
+                    return;
+                }
+
+                if (em.length > 120) {
+                    onMask("错误提示", "邮箱长度不正常！");
+                    return;
+                }
+                
+                $.ajax({
+                    url: "/Student/Email",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        email: em
+                    },
+                    success: function (json) {
+                        $('#program').modal('hide');
+                        if (json.isOk) {
+                            
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+                $(this).prop("disabled", true);
+                $(this).parent().find("input").prop("disabled", true);
+            });
+
+            $("#chengePhone").click(function () {
+                $('#program').modal('show');
+                var ph = $('#student-phone').val();
+
+                if (ph.length > 20) {
+                    onMask("错误提示", "手机长度不正常！");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Student/Phone",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        phone: ph
+                    },
+                    success: function (json) {
+                        $('#program').modal('hide');
+                        if (json.isOk) {
+                            
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+
+
+                $(this).prop("disabled", true);
+                $(this).parent().find("input").prop("disabled", true);
+            });
+        });
+    </script>
+}

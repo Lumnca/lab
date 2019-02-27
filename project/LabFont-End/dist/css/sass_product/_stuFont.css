@@ -172,23 +172,30 @@
   }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 992px) {
+  .student-info-show {
+    margin-top: 2px;
+  }
   .student-info-show .student-info-show-content {
-    padding-top: 20px;
+    padding-top: 10px;
   }
   .student-info-show .student-info-show-content .student-info-show-title {
-    display: block;
-    padding: 15px;
-    width: 100px;
+    display: inline-block;
+    text-align: center;
+    width: 110px;
+    font-size: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     background-color: rgba(243, 245, 247, 0.99);
     font-weight: 600;
   }
   .student-info-show .student-info-show-content .student-info-show-value {
-    display: block;
-    width: 400px;
-    margin-top: 10px;
-    padding-left: 10px;
-    font-size: 15px;
+    display: inline-block;
+    width: 580px;
+    padding-left: 30px;
+    padding-bottom: 5px;
+    letter-spacing: 1px;
+    font-weight: 500;
   }
 }
 

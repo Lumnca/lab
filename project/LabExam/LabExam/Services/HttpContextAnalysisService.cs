@@ -52,6 +52,7 @@ namespace LabExam.Services
                     String uData = httpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData)?.Value;
 
                     LoginUserModel user = JsonConvert.DeserializeObject<LoginUserModel>(uData);
+                    user.UserId = user.UserId.Trim();
                     return user;
                 }
                 else

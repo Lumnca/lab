@@ -536,10 +536,12 @@
         $('.section-items').on('click', '.delete-button', null, function (jqEvent) {
             $('#delete-dialog button:eq(1)').attr("data-item-id", $(this).attr("data-item-id"));
             $('#delete-dialog').modal('show');
+            $('#delete-dialog button:eq(1)').prop("disable", true);
         });
 
         $('#delete-dialog button:eq(1)').click(function(jqEvent) {
             var id = $(this).attr('data-item-id');
+            $('#delete-dialog button:eq(1)').prop("disable", false);
             $.ajax({
                 url: "/Cource/Delete",
                 type: "post",

@@ -157,6 +157,9 @@ namespace LabExam.Controllers
         {   
             if (ModelState.IsValid)
             {
+                userId = userId.Trim();
+                userPassword = userPassword.Trim();
+
                 //判断用户身份
                 UserType type = _analysis.GetUserType(userId);
                 if (type == UserType.Anonymous) //匿名用户
@@ -273,15 +276,15 @@ namespace LabExam.Controllers
                     if (!_context.VLearningMaps.Any(l => l.StudentId == student.StudentId && l.ModuleId == itm.ModuleId))
                     {
                         /* CourceView 自动统计了 每个课程的 在用的视频资源数量 */
-                        List<vCourceMap> courceMaps = _context.VCourceMaps
+                        List<vCourceMap> courseMaps = _context.VCourceMaps
                             .Where(vc => vc.ModuleId == itm.ModuleId && vc.RCount != 0 && vc.CourceStatus == CourceStatus.Using)
                             .ToList(); //找出在用的所有课程
 
                         /* 如果有学习任务*/
-                        if (courceMaps.Count > 0)
+                        if (courseMaps.Count > 0)
                         {
                             //安排学习课程
-                            foreach (var item in courceMaps)
+                            foreach (var item in courseMaps)
                             {
                                 Learing learning = new Learing
                                 {
@@ -315,7 +318,6 @@ namespace LabExam.Controllers
                         }
                         /*如果没有学习任务*/
                     }
-
                     _context.SaveChanges();
 
                     LoginUserModel user = new LoginUserModel()

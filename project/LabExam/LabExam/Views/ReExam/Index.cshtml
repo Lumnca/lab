@@ -536,6 +536,7 @@
 
         $('.section-items').on('click', '.delete-button', null, function (jqEvent) {
             $('#delete-dialog button:eq(1)').attr("data-item-id", $(this).attr("data-item-id"));
+            $('#delete-dialog button:eq(1)').prop("disable", false);
             $('#delete-dialog').modal('show');
         });
 
@@ -550,7 +551,7 @@
                     apId: id
                 },
                 success: function (json, textStatus, jqXhr) {
-                    console.log(json);
+                    
                     if (json.isOk) {
                         $('#delete-dialog').modal('hide');
                         loadPageByIndex(1);

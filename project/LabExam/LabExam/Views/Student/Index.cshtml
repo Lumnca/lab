@@ -3,7 +3,7 @@
     ViewData["Title"] = "实验室安全教育在线-学生主页";
     Layout = "~/Views/Shared/_Student.cshtml";
 }
-
+<script src="~/lib/mustache/mustache.min.js"></script>
 <style>
     @@media screen and (min-width:1100px) {
         #student-info {
@@ -64,7 +64,7 @@
                         <span>申请次数</span>
                     </div>
                     <div class="follows-item">
-                        <a href="#" class="capsule "> <span class="glyphicon glyphicon-cog"></span> 个人设置</a>
+                        <a  asp-controller="Student" asp-action="Person"  class="capsule "> <span class="glyphicon glyphicon-cog"></span> 个人设置</a>
                     </div>
                 </div>
             </div>
@@ -97,118 +97,211 @@
                         考试次数:@Model.ExamTime <span class=" margin-left-15px">最好成绩:</span> <label class=" label label-primary"> @Model.MaxScore</label> 分
                     </small>
                 </h4>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>编号</th>
-                            <th>学号</th>
-                            <th>通过分数</th>
-                            <th>允许考试时间</th>
-                            <th>试卷总分</th>
-                            <th>考试得分</th>
-                            <th>考试时间</th>
-                            <th>是否完成</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> <label class=" label label-info">1</label></td>
-                            <td>2019110418</td>
-                            <td>60</td>
-                            <td>120M</td>
-                            <td>100</td>
-                            <td> <label class=" label label-danger">86.5分</label> </td>
-                            <td>2019/5/6 12:23:55</td>
-                            <td>完成</td>
-                        </tr>
-                        <tr>
-                            <td> <label class=" label label-info">2</label></td>
-                            <td>2019110418</td>
-                            <td>60</td>
-                            <td>120M</td>
-                            <td>100</td>
-                            <td> <label class=" label label-danger">86.5分</label> </td>
-                            <td>2019/5/6 12:23:55</td>
-                            <td>完成</td>
-                        </tr>
-                        <tr>
-                            <td> <label class=" label label-info">3</label></td>
-                            <td>2019110418</td>
-                            <td>60</td>
-                            <td>120M</td>
-                            <td>100</td>
-                            <td> <label class=" label label-danger">86.5分</label> </td>
-                            <td>2019/5/6 12:23:55</td>
-                            <td>完成</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="paper-items">
+
+                </div>
             </div>
             <div class="tab-pane fade" id="ejb">
                 <h4 class="title-Splitter text-info margin-top-0px">
-                    <small>申请重考次数:1 </small>
+                    <small>申请重考次数:@Model.ApplicationTime </small>
                 </h4>
-                <table class="table table-hover" id="student-list">
-                    <thead>
-                        <tr>
-                            <th>编号</th>
-                            <th>申请学号</th>
-                            <th>姓名</th>
-                            <th>性别</th>
-                            <th>专业</th>
-                            <th>学院</th>
-                            <th>学生年级</th>
-                            <th>学生类型</th>
-                            <th>申请时间</th>
-                            <th class=" text-right ">申请状态</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <label class=" label label-primary ">
-                                    1
-                                </label>
-                            </td>
-                            <td>
-                                2018110418
-                            </td>
-                            <td>
-                                将生
-                            </td>
-                            <td>
-                                男
-                            </td>
-                            <td>
-                                软件工程
-                            </td>
-                            <td>
-                                计算机科学学院
-                            </td>
-                            <td>
-                                2018
-                            </td>
-                            <td>
-                                本科生
-                            </td>
-                            <td>
-                                2018/5/21 15:52
-                            </td>
-                            <td class=" text-right">
-                                <label class=" label label-info">通过</label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="application-list">
+
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade " id="application-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+
+    </div>
+</div>
+<script id="detail-template" type="x-tmpl-mustache">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">申请信息详情</h4>
+        </div>
+        <div class="modal-body" data-min-height="300">
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">昵称</span>
+                    <span class="student-info-show-value border-light-down "> {{name}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">年级</span>
+                    <span class="student-info-show-value border-light-down "> {{grade}} 级</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">学号</span>
+                    <span class="student-info-show-value border-light-down "> {{id}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">性别</span>
+                    <span class="student-info-show-value border-light-down "> {{sex}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">身份</span>
+                    <span class="student-info-show-value border-light-down "> {{type}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">学院</span>
+                    <span class="student-info-show-value border-light-down "> {{insName}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">专业</span>
+                    <span class="student-info-show-value border-light-down "> {{proName}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">电子邮件</span>
+                    <span class="student-info-show-value border-light-down "> {{email}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">考试次数</span>
+                    <span class="student-info-show-value border-light-down "> {{examTime}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">学习时长</span>
+                    <span class="student-info-show-value border-light-down "> {{learing}}分钟</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">最高分数</span>
+                    <span class="student-info-show-value border-light-down "> {{score}}</span>
+                </div>
+            </div>
+            <div class="student-info-show">
+                <div class="student-info-show-content padding-left-10px">
+                    <span class="student-info-show-title">申请原由</span>
+                    <span class="student-info-show-value border-light-down ">
+                        {{reason}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+        </div>
+    </div>
+</script>                
+
+<div class="modal fade" id="delete-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 font-size-15 padding-top-10px text-primary">删除提示</h4>
+            </div>
+            <div class="modal-body">
+                <p class=" text-primary font-size-14">
+                    你确定要删除此资源信息吗?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="deleteButton">
+                    <span class=" glyphicon glyphicon-trash "></span>
+                    立即删除
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                    <span class=" glyphicon glyphicon-folder-close "></span>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>                
 @section Scripts
 {
     <script>
         $("#home").load("/Student/Log");
         $("#course-table").load("/Student/Course");
-        
+        $("#paper-items").load("/Student/Paper");
+        $("#application-list").load("/Student/ReApplications");
+
+        $('#application-list').on('click', ".delete-button", null, function (jqEvent) {
+            $('#delete-dialog button:eq(1)').prop("disable", false);
+            $('#delete-dialog button:eq(1)').attr("data-item-id", $(this).attr("data-item-id"));
+            $('#delete-dialog').modal('show');
+         });
+
+        $('#delete-dialog button:eq(1)').click(function (jqEvent) {
+            var id = $(this).attr('data-item-id');
+            $('#delete-dialog button:eq(1)').prop("disable", true);
+            $.ajax({
+                url: "/Student/DeleteApp",
+                type: "post",
+                dataType: "json",
+                data: {
+                    apId: id
+                },
+                success: function (json, textStatus, jqXhr) {
+                    $('#delete-dialog').modal('hide');
+                    if (json.isOk) {
+                        $("#application-list").load("/Student/ReApplications");
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+
+        $('#application-list').on('click',
+            ".detail-button",
+            null,
+            function(jqEvent) {
+                $('#program').modal('show');
+                var id = $(this).attr("data-item-id");
+                $.ajax({
+                    url: "/Student/Item",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        apId: id
+                    },
+                    success: function(json) {
+                        console.log(json);
+                        $('#program').modal('hide');
+                        if (json.isOk) {
+                            var template = $('#detail-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json.item);
+                            $('#application-detail .modal-dialog').html(result);
+
+                            $('#application-detail').modal('show');
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+            });
+
+
     </script>
 }

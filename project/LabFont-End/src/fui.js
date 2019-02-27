@@ -19,4 +19,9 @@ fui.Terminal = function () {
     };
 };
 
+fui.IsEmail = function(email) {
+    var myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+    return myReg.test(email);
+}
+
 window.f = fui;

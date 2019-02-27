@@ -13,7 +13,7 @@
   ],
   "LoginSetting": {
     "StudentLogin": true,
-    "PrincipalLogin": false,
+    "PrincipalLogin": true,
     "IsOpenExam": true,
     "AllowPastJoinExam": true
   },

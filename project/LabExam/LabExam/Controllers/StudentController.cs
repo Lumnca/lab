@@ -157,14 +157,12 @@ namespace LabExam.Controllers
             }
         }
 
-
         public IActionResult Log()
         {
             LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
             return PartialView(_context.VLogStudentMaps.Where(l => l.ID == userModel.UserId).ToList());
         }
 
-        
         public IActionResult Course()
         {
             LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
@@ -190,6 +188,241 @@ namespace LabExam.Controllers
             else
             {
                 return RedirectToAction("ParameterError", "Error");
+            }
+        }
+
+        public IActionResult Paper()
+        {
+            LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
+            return PartialView(_context.ExaminationPapers.Where(ep => ep.StudentId == userModel.UserId).ToList());
+        }
+
+        public IActionResult ReApplications()
+        {
+            LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
+            return PartialView(_context.ApplicationForReExaminations.Include("Student").Where(ep => ep.StudentId == userModel.UserId).ToList());
+        }
+
+        public IActionResult Item([Required] int apId)
+        {
+            if (ModelState.IsValid)
+            {
+                vReExamApplicationMap application = _context.VReExamApplicationMaps.FirstOrDefault(v => v.ApplicationExamId == apId);
+
+                if (application != null)
+                {
+                    LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
+
+                    if (application.StudentId != userModel.UserId)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "错误提示",
+                            message = "你无法查看其他人的申请信息！"
+                        });
+                    }
+
+                    float learingSum = _context.Progresses.Where(p => p.StudentId == application.StudentId).Sum(pl => pl.StudyTime);
+                    int time = _context.ExaminationPapers.Count(pa => pa.StudentId == application.StudentId);
+                    float maxScore = application.MaxExamScore;
+                    return Json(new
+                    {
+                        isOk = true,
+                        item = new
+                        {
+                            name = application.Name,
+                            grade = application.Grade,
+                            id = application.StudentId,
+                            sex = application.Sex ? "女" : "男",
+                            type = application.StudentType == StudentType.UnderGraduate ? "本科生" : "研究生",
+                            insName = _context.Institute.Find(application.InstituteId)?.Name,
+                            proName = _context.Professions.Find(application.ProfessionId)?.Name,
+                            email = application.Email,
+                            reason = application.Reason,
+                            score = maxScore,
+                            examTime = time,
+                            learing = learingSum
+                        },
+                        title = "信息提示",
+                        message = "加载成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "申请记录不存在,或者已经被删除!"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        public IActionResult Person()
+        {
+            LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+            Student student = _context.Student.Find(model.UserId);
+
+            return View(new StudentViewModel(student, _context));
+        }
+
+        public IActionResult Operations()
+        {
+            LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+            return PartialView(_context.LogStudentOperations.Where(log => log.StudentId == model.UserId));
+        }
+
+        public IActionResult Progress()
+        {
+            LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+            return PartialView(_context.Progresses.Include("Resource").Where(pro => pro.StudentId == model.UserId));
+        }
+
+        [HttpPost]
+        public IActionResult DeleteApp([Required] int apId)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+                ApplicationForReExamination application = _context.ApplicationForReExaminations.Find(apId);
+                if (application != null)
+                {
+                    if (application.ApplicationStatus != ApplicationStatus.Submit)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "错误提示",
+                            message = "申请已经被审核学生无权限无法删除！"
+                        });
+                    }
+
+                    if (application.StudentId != model.UserId)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "错误提示",
+                            message = "你无法删除其他人的申请信息!"
+                        });
+                    }
+                    _context.ApplicationForReExaminations.Remove(application);
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "信息提示",
+                        message = "删除成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "申请记录不存在,或者已经被删除"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Email([Required,EmailAddress] String email)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+                Student student = _context.Student.Find(model.UserId);
+                if (student != null)
+                {
+                    student.Email = email.Trim();
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "消息提示",
+                        message = "邮件修改成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "学生不存在或者已经被删除！"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数,或者邮件格式错误"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Phone([Required,Phone] String phone)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+                Student student = _context.Student.Find(model.UserId);
+                if (student != null)
+                {
+                    student.Phone = phone.Trim();
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "消息提示",
+                        message = "邮件修改成功！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "学生不存在或者已经被删除！"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数,或者手机格式错误"
+                });
             }
         }
     }
