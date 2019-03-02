@@ -196,6 +196,8 @@ public enum ResourceStatus{
 |`StudyTime`|`float`|`已经学习的时长`|
 |`NeedTime`|`float`|`需要的学习时间`|
 |`AddTime`|`DateTime`|`学习任务安排时间`|
+|`Version`|`DateTime`|`防止作弊的版本时间控制`|
+
 
 #####  :octocat: [4.题库管理权限](#top) <b id="bank"></b>
 

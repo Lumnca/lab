@@ -10,7 +10,12 @@
 - [x] [`5.InstituteStudentNotPassCountView`](#target5)
 - [x] [`6.ProfessionView`](#target6)
 - [x] [`7.StudentView`](#target7)
-
+- [x] [`8.ExamGradeResultView`](#target8)
+- [x] [`9.ExamResultView`](#target9)
+- [x] [`10.ReExamApplicationView`](#target10)
+- [x] [`11.LogStudentView`](#target11)
+- [x] [`12.LearningView`](#target12)
+- [x] [`13.CourceView`](#target12)
 
 ------
 
@@ -32,12 +37,12 @@ FROM dbo.Institute LEFT OUTER JOIN
 #####  :octocat: [2.InstituteStudentCountView](#top) <b id="target2"></b> 
 `概括`:`查询类型 vInstituteStudentCountMap`:`检索每个学院有多少人`
 ```sql
-SELECT InstituteId, Name, CASE WHEN Scount IS NULL THEN 0 ELSE Scount END AS StuCount
-FROM  (SELECT dbo.Institute.InstituteId, dbo.Institute.Name, c.id, c.Scount
- FROM dbo.Institute LEFT OUTER JOIN
-     (SELECT   InstituteId AS id, COUNT(*) AS Scount
-      FROM      dbo.Student
-      GROUP BY InstituteId) AS c ON c.id = dbo.Institute.InstituteId) AS D
+SELECT   InstituteId, Name, CASE WHEN Scount IS NULL THEN 0 ELSE Scount END AS StuCount
+FROM  (SELECT   dbo.Institute.InstituteId, dbo.Institute.Name, c.id, c.Scount
+FROM  dbo.Institute LEFT OUTER JOIN
+   (SELECT   InstituteId AS id, COUNT(*) AS Scount
+    FROM      dbo.Student
+    GROUP BY InstituteId) AS c ON c.id = dbo.Institute.InstituteId) AS D
 ```
 #####  :octocat: [3.InstituteToModuleView](#top) <b id="target3"></b> 
 `概括`:`查询类型 vInstituteToModuleMap`:`减少每个模块下辖那些学院`
@@ -66,12 +71,13 @@ WHERE  (InstituteId NOT IN
 #####  :octocat: [5.InstituteStudentNotPassCountView](#top) <b id="target5"></b> 
 `概括`:`查询类型 vInstituteStudentNotPassCountMap`:`统计每个学院的没有通过考试的学生数量`
 ```sql
-SELECT InstituteId, Name, CASE WHEN Scount IS NULL THEN 0 ELSE Scount END AS StuCount
-FROM  (SELECT   dbo.Institute.InstituteId, dbo.Institute.Name, c.id, c.Scount
-     FROM  dbo.Institute LEFT OUTER JOIN
-       (SELECT   InstituteId AS id, COUNT(*) AS Scount
-        FROM      dbo.Student
-        GROUP BY InstituteId) AS c ON c.id = dbo.Institute.InstituteId) AS D
+SELECT   InstituteId, Name, CASE WHEN Scount IS NULL THEN 0 ELSE Scount END AS StuCount
+FROM   (SELECT   dbo.Institute.InstituteId, dbo.Institute.Name, c.id, c.Scount
+FROM   dbo.Institute LEFT OUTER JOIN
+     (SELECT   InstituteId AS id, COUNT(*) AS Scount
+      FROM      dbo.Student
+      WHERE   (IsPassExam = 0)
+      GROUP BY InstituteId) AS c ON c.id = dbo.Institute.InstituteId) AS D
 ```
 #####  :octocat: [6.ProfessionView](#top) <b id="target6"></b> 
 `概括`:`查询类型 vProfessionMap`
@@ -86,28 +92,121 @@ FROM    dbo.Institute INNER JOIN
 #####  :octocat: [7.StudentView](#top) <b id="target7"></b> 
 `概括`:`查询类型 vStudentMap`
 ```sql
-SELECT dbo.Institute.InstituteId, dbo.Institute.Name AS InstituteName,
-      dbo.Professions.Name AS ProfessionName, 
-      dbo.Professions.ProfessionType, dbo.Student.StudentId, 
-      dbo.Student.Name AS StudentName, dbo.Student.Grade, 
-      dbo.Student.Phone, dbo.Student.BirthDate, dbo.Student.Sex, 
-      dbo.Student.StudentType, dbo.Student.IsPassExam, 
-      dbo.Student.MaxExamScore, dbo.Student.MaxExamCount, 
-      dbo.Student.ProfessionId, dbo.Student.Email, 
-      dbo.Student.IDNumber
-FROM dbo.Institute INNER JOIN
-      dbo.Professions 
-      ON dbo.Institute.InstituteId = dbo.Professions.InstituteId
-      INNER JOIN
-      dbo.Student ON dbo.Professions.ProfessionId = dbo.Student.ProfessionId
+SELECT   dbo.Institute.InstituteId, dbo.Institute.Name AS InstituteName, 
+  dbo.Professions.Name AS ProfessionName, 
+  dbo.Professions.ProfessionType, dbo.Student.StudentId, dbo.Student.Name AS StudentName, dbo.Student.Grade, 
+  dbo.Student.Phone, dbo.Student.BirthDate, dbo.Student.Sex, dbo.Student.StudentType, dbo.Student.IsPassExam, 
+  dbo.Student.ProfessionId, dbo.Student.Email, dbo.Student.IDNumber, 
+  CASE WHEN dbo.InstituteToModules.ModuleId IS NULL 
+  THEN 0 ELSE dbo.InstituteToModules.ModuleId END AS ModuleId, CASE WHEN dbo.Module.Name IS NULL 
+  THEN '没有模块归属' ELSE dbo.Module.Name END AS ModuleName, dbo.Student.MaxExamScore, 
+  dbo.Student.MaxExamCount
+FROM      dbo.Module INNER JOIN
+  dbo.InstituteToModules ON dbo.Module.ModuleId = dbo.InstituteToModules.ModuleId RIGHT OUTER JOIN
+  dbo.Institute INNER JOIN
+  dbo.Professions ON dbo.Institute.InstituteId = dbo.Professions.InstituteId INNER JOIN
+  dbo.Student ON dbo.Professions.ProfessionId = dbo.Student.ProfessionId ON 
+  dbo.InstituteToModules.InstituteId = dbo.Student.InstituteId
 ```
-#####  :octocat: [2.](#top) <b id="target2"></b> 
-`概括`:`查询类型 v Map`
+#####  :octocat: [8.ExamGradeResultView](#top) <b id="target8"></b> 
+`概括`:`查询类型 vExamGradeResultMap 统计每一个年级的考试通过情况`
 ```sql
-
+Create View ExamGradeResultView 
+as
+Select  
+*,
+CONVERT(decimal(18,2),PassTotal * 1.0 / Total * 100) as PassTotleRate,
+case 
+  when UnderCount = 0 then 0.00 
+  else Convert(decimal(18,2),(UnderPassCount * 1.0 /UnderCount) * 100) end  as 'UnderPassRate',
+case 
+  when PostCount = 0 then 0.00 
+  else Convert(decimal(18,2),(PostPassCount * 1.0 /PostCount) * 100) end  as 'PostPassRate'
+from 
+(select 
+	Grade,
+	count(*) as 'Total',
+	sum(case when Student.IsPassExam = 1 then 1 else 0 end ) as 'PassTotal',
+	Sum(case when Student.StudentType = 1 then 1  else  0 end) as 'PostCount',
+	Sum(case when Student.StudentType = 0 then 1  else  0 end) as 'UnderCount',
+	Sum(case when Student.StudentType = 1 and Student.IsPassExam = 1 then 1  else  0 end) 
+  as 'PostPassCount',
+	Sum(case when Student.StudentType = 0 and Student.IsPassExam = 1 then 1  else  0 end) 
+  as 'UnderPassCount'   
+from student group by Grade) as c
+```
+#####  :octocat: [9.ExamResultView](#top) <b id="target9"></b> 
+```sql
+SELECT   dbo.Institute.InstituteId, dbo.Institute.Name AS InstituteName, 
+dbo.Professions.Name AS ProfessionName, 
+  dbo.Professions.ProfessionType, dbo.Student.StudentId, dbo.Student.Name AS StudentName,
+  dbo.Student.Grade, 
+  dbo.Student.Phone, dbo.Student.BirthDate, dbo.Student.Sex, dbo.Student.StudentType, 
+  dbo.Student.IsPassExam, 
+  dbo.Student.ProfessionId, dbo.Student.Email, dbo.Student.IDNumber, 
+  CASE WHEN dbo.InstituteToModules.ModuleId IS NULL 
+  THEN 0 ELSE dbo.InstituteToModules.ModuleId END AS ModuleId, 
+  CASE WHEN dbo.Module.Name IS NULL 
+  THEN '没有模块归属' ELSE dbo.Module.Name END AS ModuleName, dbo.Student.MaxExamScore, 
+  dbo.Student.MaxExamCount
+FROM   dbo.Module INNER JOIN
+  dbo.InstituteToModules ON dbo.Module.ModuleId = dbo.InstituteToModules.ModuleId 
+  RIGHT OUTER JOIN
+  dbo.Institute INNER JOIN
+  dbo.Professions ON dbo.Institute.InstituteId = dbo.Professions.InstituteId INNER JOIN
+  dbo.Student ON dbo.Professions.ProfessionId = dbo.Student.ProfessionId ON 
+  dbo.InstituteToModules.InstituteId = dbo.Student.InstituteId
 ```
 
-
+#####  :octocat: [10.ReExamApplicationView](#top) <b id="target10"></b> 
+`重考申请`
+```sql
+SELECT   dbo.ApplicationForReExaminations.ModuleId, dbo.ApplicationForReExaminations.ApplicationExamId, 
+  dbo.ApplicationForReExaminations.StudentId, dbo.ApplicationForReExaminations.InstituteId, 
+  dbo.ApplicationForReExaminations.Reason, dbo.ApplicationForReExaminations.Email, 
+  dbo.ApplicationForReExaminations.ApplicationStatus, dbo.Student.Name, dbo.Student.Grade, 
+  dbo.Student.MaxExamScore, dbo.Student.MaxExamCount, dbo.Student.IsPassExam, 
+  dbo.Professions.Name AS ProfessionName, dbo.Student.ProfessionId, dbo.Module.Name AS ModuleName, 
+  dbo.Institute.Name AS InstituteName, dbo.Student.Sex, dbo.Student.StudentType, 
+  dbo.ApplicationForReExaminations.AddTime
+FROM      dbo.ApplicationForReExaminations INNER JOIN
+  dbo.Student ON dbo.ApplicationForReExaminations.StudentId = dbo.Student.StudentId INNER JOIN
+  dbo.Institute ON dbo.ApplicationForReExaminations.InstituteId = dbo.Institute.InstituteId INNER JOIN
+  dbo.Module ON dbo.ApplicationForReExaminations.ModuleId = dbo.Module.ModuleId INNER JOIN
+  dbo.Professions ON dbo.Student.ProfessionId = dbo.Professions.ProfessionId
+```
+#####  :octocat: [11.LogStudentView](#top) <b id="target11"></b> 
+```sql
+SELECT ID, uTime AS DoTime, content
+FROM   (SELECT   ID, LoginTime AS uTime, '登陆了系统' AS content
+   FROM      dbo.LogUserLogin
+   UNION ALL
+   SELECT   StudentId, AddTime, StuOperationContent
+   FROM      dbo.LogStudentOperations) AS LogStudent_1
+```
+#####  :octocat: [12.LearningView](#top) <b id="target12"></b> 
+```sql
+SELECT   dbo.Learings.CourceId, dbo.Learings.StudentId, dbo.Learings.LearingId,
+  dbo.Learings.AddTime, dbo.CourceView.Name, 
+  dbo.CourceView.RCount, dbo.CourceView.Introduction, dbo.CourceView.Credit, dbo.CourceView.ModuleId, 
+  dbo.CourceView.CourceStatus, dbo.Learings.IsFinish
+FROM      dbo.CourceView RIGHT OUTER JOIN
+  dbo.Learings ON dbo.CourceView.CourceId = dbo.Learings.CourceId
+```
+#####  :octocat: [13.CourceView](#top) <b id="target13"></b> 
+`课程信息 每一个课程包含的视频资源个数`
+```sql
+SELECT   dbo.Cources.CourceId, 
+  CASE WHEN [ResourceCount] IS NULL THEN 0 ELSE [ResourceCount] END AS RCount, 
+  dbo.Cources.Name, dbo.Cources.AddTime, dbo.Cources.Introduction, 
+  dbo.Cources.Credit, dbo.Cources.ModuleId, 
+  dbo.Cources.CourceStatus
+FROM      dbo.Cources LEFT OUTER JOIN
+  (SELECT   CourceId, COUNT(*) AS ResourceCount
+   FROM      dbo.Resources
+   WHERE   (ResourceStatus = 0) AND (ResourceType = 1)
+   GROUP BY CourceId) AS Cc ON dbo.Cources.CourceId = Cc.CourceId
+```
 
 --------------------
 `作者:` `KickGod` 
