@@ -23,6 +23,8 @@ namespace LabExam.Models.Map
         InspectReExamApplication = 13,//审核重新考试的申请
         InspectAllReExamApplicationFail = 14,//审核重新考试的申请全部不通过
         InspectAllReExamApplicationPass = 15,
-        AddJudge = 16,
+        AddJudge = 16, //天机判断题
+        UploadInsertStudent = 17,//导入学生信息
+        ExportExamData = 18,//导出学生考试信息
     }
 }

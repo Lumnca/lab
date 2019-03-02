@@ -44,16 +44,16 @@
                         模块下辖学院列表
                     </div>
                     <div class=" float-right">
-                        <button id="addInstituteThanWithModule" class="btn btn-default btn-sm margin-right-10px" 
-                               >
+                        <button id="addInstituteThanWithModule" class="btn btn-default btn-sm margin-right-10px" >
                             添加学院
                         </button>
                     </div>
                 </div>
-                <table class="table table-hover">
-                    <thead>
+                <div class="overflow-y-scroll" data-max-height="600">
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
-                            <th>编号</th>
+                            <th class="text-center">编号</th>
                             <th>学院名称</th>
                             <th>所属模块</th>
                             <th>学院ID</th>
@@ -62,9 +62,10 @@
                                 操作
                             </th>
                         </tr>
-                    </thead>
-                    <tbody id="InstituteListHave"></tbody>
-                </table>
+                        </thead>
+                        <tbody id="InstituteListHave"></tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade in active" id="addModule">
                 <div class="admin-title-moudle float-layout">
@@ -162,7 +163,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>学院名称</th>
-                                <th>人数</th>
+                                <th>模块</th>
                                 <th>学院ID</th>
                                 <th>状态</th>
                                 <th>
@@ -228,7 +229,7 @@
 <script id="InstituteInfo" type="x-tmpl-mustache">
     {{#data}}
     <tr>
-        <td>{{index}}</td>
+        <td class="text-center">{{index}}</td>
         <td>{{instituteName}}</td>
         <th>{{moduleName}}</th>
         <td>{{instituteId}}</td>
@@ -239,7 +240,25 @@
     </tr>
     {{/data}}
 </script>
-
+<div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">
+                    拼命加载数据中 <span id="val-speed"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <img src="~/Resources/animation/Spinner-0.3s-120px.svg" width="85" class="layout-center" />
+                <p class=" text-left">
+                    <span class=" glyphicon glyphicon-cloud-upload "></span>
+                    <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <script id="WithOutModuleInstituteTemplate" type="x-tmpl-mustache">
     {{#institutes}}
     <tr>
@@ -262,11 +281,13 @@
             $('#create').on("click",
                 null,
                 null,
-                function(jqEvent) {
+                function (jqEvent) {
+
                     var moduleName = $('input[name="moduleNewName"]').val();
                     if (moduleName == "") {
                         onMask("错误", "你没有填写新模块的名称");
                     }
+                    $('#program').modal('show');
                     $.ajax({
                         url: "/Module/Create",
                         type: "post",
@@ -274,7 +295,8 @@
                         data: {
                             name: moduleName
                         },
-                        success: function(data, textStatus, jqXHR) {
+                        success: function (data, textStatus, jqXHR) {
+                            $('#program').modal('hide');
                             if (!data.isOk) {
                                 onMask("错误信息", data.error);
                             } else {

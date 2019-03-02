@@ -17,27 +17,16 @@ namespace LabExam.Models.JsonModel
 
         public static ModuleExamSetting GetDefault()
         {
-            ModuleExamSetting msetting = new ModuleExamSetting();
-            msetting.AllowExamTime = 3;
-            msetting.ExamTime = 120;
-            msetting.PassFloat = 60;
-            msetting.TotalScore = 100;
-            msetting.Multiple = new Multiple()
+            return new ModuleExamSetting
             {
-                Count = 20,
-                Score = 2
+                AllowExamTime = 3,
+                ExamTime = 120,
+                PassFloat = 60,
+                TotalScore = 100,
+                Multiple = new Multiple() {Count = 20, Score = 2},
+                Single = new LabExam.Models.JsonModel.Single() {Count = 30, Score = 1},
+                Judge = new Judge() {Count = 30, Score = 1}
             };
-            msetting.Single = new LabExam.Models.JsonModel.Single()
-            {
-                Count = 30,
-                Score = 1
-            };
-            msetting.Judge = new Judge()
-            {
-                Count = 30,
-                Score = 1
-            };
-            return msetting;
         }
     }
 }

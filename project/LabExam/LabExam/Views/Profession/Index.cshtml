@@ -454,6 +454,7 @@
                 },
                 success: function(json, textStatus, jqXhr) {
                     if (json.isOk) {
+                        loadPageByIndex(1);
                         $('#deleteProfessionl').modal('hide');
                         onMask("提示信息", json.info);
                     } else {

@@ -254,7 +254,25 @@
     </tr>
     {{/institutes}}
 </script>
-
+<div class="modal fade" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 font-size-14 padding-top-10px text-info">
+                    拼命加载数据中 <span id="val-speed"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <img src="~/Resources/animation/Spinner-0.3s-120px.svg" width="85" class="layout-center" />
+                <p class=" text-left">
+                    <span class=" glyphicon glyphicon-cloud-upload "></span>
+                    <span id="data-info">疯狂拼命搬运数据中, 请勿中途关闭窗口........</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts
 {
     <script>
@@ -336,6 +354,7 @@
                     onMask("提示信息", "请填写学院名称！");
                     return;
                 }
+                $('#program').modal('show');
                 $.ajax({
                     url: "/Institute/Create",
                     type: "post",
@@ -345,6 +364,7 @@
                         ModuleId: module
                     },
                     success: function(json, textStatus, jqXhr) {
+                        $('#program').modal('hide');
                         if (json.isOk) {
                             onMask("提示信息", "添加成功！");
                             loadPageByIndex(1);
@@ -460,6 +480,8 @@
 
             $('#deleteInstitute button:last').click(function(jqEvent) {
                 var insId = $(this).attr("data-deleteId");
+                $('#deleteInstitute').modal('hide');
+                $('#program').modal('show');
                 $.ajax({
                     url: "/Institute/Delete",
                     type: "post",
@@ -467,9 +489,11 @@
                     data: {
                         instituteId: insId
                     },
-                    success: function(json, textStatus, jqXhr) {
+                    success: function (json, textStatus, jqXhr) {
+                        $('#program').modal('hide');
                         if (json.isOk) {
                             onMask("提示信息", json.info);
+                            loadPageByIndex(1);
                         } else {
                             onMask("错误", json.error);
                         }

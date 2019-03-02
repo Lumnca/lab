@@ -5,6 +5,9 @@ window.onMask = function (title, content) {
     $(`.mask .mask-module-title`).text(title);
     $(`.mask .mask-module-content`).text(content);
 }
+window.closeMask = function () {
+    $(".mask").modal("hide");
+}
 $(function(){
     // 全高度
     function set_layout_height_100(){

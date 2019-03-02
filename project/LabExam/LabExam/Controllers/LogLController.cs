@@ -90,7 +90,7 @@ namespace LabExam.Controllers
                         uid = log.ID,
                         addTime = _logger.FormatDateLocal(log.LoginTime),
                         ip = log.LoginIp,
-                        terminal = log.Terminal
+                        terminal = log.Terminal == Terminal.Pc?"电脑终端":(log.Terminal == Terminal.Phone? "手机终端":"平板终端")
                     })
                     .ToList();
 

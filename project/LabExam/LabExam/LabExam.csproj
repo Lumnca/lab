@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
     <PackageReference Include="LitJson" Version="0.13.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.1.1" />
@@ -21,7 +22,7 @@
 
   <ItemGroup>
     <Folder Include="JsonConfig\" />
-    <Folder Include="wwwroot\video\" />
+    <Folder Include="wwwroot\excel\" />
   </ItemGroup>
 
   <ItemGroup>

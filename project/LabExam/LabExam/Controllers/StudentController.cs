@@ -2,21 +2,20 @@
 using LabExam.IServices;
 using LabExam.Models;
 using LabExam.Models.Entities;
+using LabExam.Models.EntitiyViews;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
-using LabExam.Models.EntitiyViews;
-using Microsoft.EntityFrameworkCore;
+using LabExam.Models.JsonModel;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,8 +30,9 @@ namespace LabExam.Controllers
         private readonly ILoadConfigFileService _config;
         private readonly IHttpContextAnalysisService _analysis;
         private readonly IEncryptionDataService _encryption;
+        private readonly IFileHandleService _handle;
 
-        public StudentController(IEmailService email, LabContext context, ILoggerService logger, ILoadConfigFileService config, IHttpContextAnalysisService analysis, IEncryptionDataService encryption)
+        public StudentController(IEmailService email, LabContext context, ILoggerService logger, ILoadConfigFileService config, IHttpContextAnalysisService analysis, IEncryptionDataService encryption, IFileHandleService handle)
         {
             _email = email;
             _context = context;
@@ -40,6 +40,7 @@ namespace LabExam.Controllers
             _config = config;
             _analysis = analysis;
             _encryption = encryption;
+            _handle = handle;
         }
 
         // GET: /<controller>/ 学生主页
@@ -160,7 +161,7 @@ namespace LabExam.Controllers
         public IActionResult Log()
         {
             LoginUserModel userModel = _analysis.GetLoginUserModel(HttpContext);
-            return PartialView(_context.VLogStudentMaps.Where(l => l.ID == userModel.UserId).ToList());
+            return PartialView(_context.VLogStudentMaps.Where(l => l.ID == userModel.UserId).OrderByDescending(l=>l.DoTime).ToList());
         }
 
         public IActionResult Course()
@@ -174,14 +175,34 @@ namespace LabExam.Controllers
             if (ModelState.IsValid)
             {
                 LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
-                if (_context.Learings.Any(l => l.LearingId == lId))
-                {
-                    ViewData["learning"] = _context.VLearningMaps.FirstOrDefault(v => v.LearingId == lId);
-                    List<Progress> list = _context.Progresses.Where(p => p.StudentId == user.UserId).Include("Resource").ToList();
+
+                Learing learing = _context.Learings.FirstOrDefault(l => l.LearingId == lId); 
+                if (learing != null){
+
+                    vLearningMap learningMap = _context.VLearningMaps
+                            .FirstOrDefault(v => v.LearingId == lId);
+                    ViewData["learning"] = learningMap;
+                    List<Progress> list = _context.Progresses
+                            .Where(p => p.StudentId == user.UserId)
+                            .Where(p => p.Resource.CourceId == learing.CourceId)
+                            .Include("Resource")
+                            .OrderBy(p =>p.ProgressId)
+                            .ToList();
+
+                    List<Resource> resources = _context
+                            .Resources
+                            .Where(r => r.CourceId == learing.CourceId)
+                            .Where(r => r.ResourceType == ResourceType.Link)
+                            .ToList();
+                    ViewData["links"] = resources;
+
+                    LogStudentOperation log = _logger.GetDefaultLogStudentOperation(StuOperationCode.StudyCourse, $"学习视频编码:{learing.CourceId}", $"打开或刷新了课程{learningMap?.Name}页面");
+
+                    _context.LogStudentOperations.Add(log);
+                    _context.SaveChanges();
+
                     return View(list);
-                }
-                else
-                {
+                }else{
                     return RedirectToAction("Wrong", "Error",new {data = "参数错误! 并无此学习记录"});
                 }
             }
@@ -290,6 +311,7 @@ namespace LabExam.Controllers
             return PartialView(_context.Progresses.Include("Resource").Where(pro => pro.StudentId == model.UserId));
         }
 
+        //删除未审核申请
         [HttpPost]
         public IActionResult DeleteApp([Required] int apId)
         {
@@ -297,10 +319,15 @@ namespace LabExam.Controllers
             {
                 LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
                 ApplicationForReExamination application = _context.ApplicationForReExaminations.Find(apId);
+
+                LogStudentOperation operation = _logger.GetDefaultLogStudentOperation(
+                    StuOperationCode.DeleteReExamApplication, $"查询编码:{application?.ApplicationExamId}", $"删除重考申请 重考申请时间{application?.AddTime}");
+                operation.Title = "删除重考申请";
                 if (application != null)
                 {
                     if (application.ApplicationStatus != ApplicationStatus.Submit)
                     {
+                        _logger.Logger(operation);
                         return Json(new
                         {
                             isOk = false,
@@ -311,6 +338,7 @@ namespace LabExam.Controllers
 
                     if (application.StudentId != model.UserId)
                     {
+                        _logger.Logger(operation);
                         return Json(new
                         {
                             isOk = false,
@@ -318,8 +346,12 @@ namespace LabExam.Controllers
                             message = "你无法删除其他人的申请信息!"
                         });
                     }
+
+                    operation.StuOperationStatus = StuOperationStatus.Success;
                     _context.ApplicationForReExaminations.Remove(application);
+                    _context.LogStudentOperations.Add(operation);
                     _context.SaveChanges();
+
                     return Json(new
                     {
                         isOk = true,
@@ -329,6 +361,7 @@ namespace LabExam.Controllers
                 }
                 else
                 {
+                    _logger.Logger(operation);
                     return Json(new
                     {
                         isOk = false,
@@ -348,16 +381,23 @@ namespace LabExam.Controllers
             }
         }
 
+        //修改学生邮件
         [HttpPost]
         public IActionResult Email([Required,EmailAddress] String email)
         {
             if (ModelState.IsValid)
             {
+                
                 LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
-                Student student = _context.Student.Find(model.UserId);
+                Student student = _context.Student.FirstOrDefault(s => s.StudentId == model.UserId);
+                LogStudentOperation operation =
+                    _logger.GetDefaultLogStudentOperation(StuOperationCode.ChangeEmail, $"查询编码:{student?.StudentId}",$"修改邮箱为:{email.Trim()}");
+                operation.Title = "修改邮箱账号";
                 if (student != null)
                 {
                     student.Email = email.Trim();
+                    operation.StuOperationStatus = StuOperationStatus.Success;
+                    _context.LogStudentOperations.Add(operation);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -368,6 +408,7 @@ namespace LabExam.Controllers
                 }
                 else
                 {
+                    _logger.Logger(operation);
                     return Json(new
                     {
                         isOk = false,
@@ -387,6 +428,7 @@ namespace LabExam.Controllers
             }
         }
 
+        //修改学生手机信息
         [HttpPost]
         public IActionResult Phone([Required,Phone] String phone)
         {
@@ -394,9 +436,14 @@ namespace LabExam.Controllers
             {
                 LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
                 Student student = _context.Student.Find(model.UserId);
+                LogStudentOperation operation =
+                    _logger.GetDefaultLogStudentOperation(StuOperationCode.ChangePhone, $"查询编码:{student?.StudentId}", $"修改手机为:{phone.Trim()}");
+                operation.Title = "修改手机号码";
                 if (student != null)
                 {
+                    operation.StuOperationStatus = StuOperationStatus.Success;
                     student.Phone = phone.Trim();
+                    _context.LogStudentOperations.Add(operation);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -407,6 +454,7 @@ namespace LabExam.Controllers
                 }
                 else
                 {
+                    _logger.Logger(operation);
                     return Json(new
                     {
                         isOk = false,
@@ -424,6 +472,241 @@ namespace LabExam.Controllers
                     message = "参数错误,传递了不符合规定的参数,或者手机格式错误"
                 });
             }
+        }
+
+        [HttpPost]
+        public IActionResult Finish([Required] int learningId)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+                Learing learning = _context.Learings.Find(learningId);
+                if (learning != null)
+                {
+                    if (learning.StudentId != model.UserId)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "错误提示",
+                            message = "你无法操控别人的学习记录！"
+                        });
+                    }
+
+                    learning.IsFinish = true;
+                    LogStudentOperation log = _logger.GetDefaultLogStudentOperation(StuOperationCode.FinishCourseBySelf,
+                        $"完成学习记录编码:{learningId}", "手动完成课程学习");
+                    _context.LogStudentOperations.Add(log);
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "提示",
+                        message = "已经完成了！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "学习记录不存在！"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Study([Required] int progressId)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+                Progress progress = _context.Progresses.Find(progressId);
+                if (progress != null)
+                {
+                    if (progress.StudentId != model.UserId)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "错误提示",
+                            message = "你无法操控别人的学习进度！"
+                        });
+                    }
+
+                    if (progress.NeedTime <= progress.StudyTime)
+                    {
+                        progress.StudyTime = progress.NeedTime;
+
+                        vProgressMap pMap = _context.VProgressMaps.FirstOrDefault(vp => vp.ProgressId == progressId);
+                        if (pMap != null)
+                        {
+                            Learing learning = _context.Learings.FirstOrDefault(l => l.CourceId == pMap.CourceId && l.StudentId == model.UserId);
+                            if (learning != null)
+                            {
+                                if (!learning.IsFinish)
+                                {
+                                    List<Progress> progresses = _context.Progresses.Where(p =>
+                                            p.Resource.CourceId == learning.CourceId && p.StudentId == learning.StudentId)
+                                        .ToList();
+                                    Boolean isFinishAll = true;
+                                    if (progresses.Count <= 1)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        foreach (var v in progresses)
+                                        {
+                                            if (v.StudyTime < v.NeedTime)
+                                            {
+                                                isFinishAll = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    learning.IsFinish = isFinishAll;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        progress.StudyTime += 2;
+                    }
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        isOk = true,
+                        title = "提示",
+                        message = "完成记录！"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误提示",
+                        message = "学习记录不存在！"
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult Take()
+        {
+            LoginUserModel model = _analysis.GetLoginUserModel(HttpContext);
+            vStudentMap vStudent = _context.VStudentMaps.FirstOrDefault(v => v.StudentId == model.UserId);
+            if (vStudent != null)
+            {
+                SystemSetting setting = _config.LoadSystemSetting();
+                if(!setting.ExamModuleSettings.TryGetValue(vStudent.ModuleId, out var moduleExamSetting))
+                {
+                    return RedirectToAction("Wrong", "Error", new { data = "无法查询你所在的规划模块,请重新登录或查询你的学院是否加入到考试规划模块中！" });
+                }
+                else
+                {
+                    ViewBag.ExamCount = _context.ExaminationPapers.Count(e => e.StudentId == model.UserId && e.IsFinish);
+                    ViewBag.PassScore =  moduleExamSetting.PassFloat;
+                    return View(vStudent);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Wrong", "Error", new {data = "无法查询你的个人信息！请重新登录或查询你的学院是否加入到考试规划模块中！"});
+            }
+        }
+        /// <summary>
+        /// 参加考试入口-
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Exam()
+        {
+            LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
+
+            vStudentMap vStudent = _context.VStudentMaps.FirstOrDefault(v => v.StudentId == user.UserId);
+
+            if (vStudent == null)
+            {
+                return RedirectToAction("Wrong", "Error", new { data = "无法查询你的个人信息！请重新登录或查询你的个人信息是否错误！" });
+            }
+            SystemSetting setting = _config.LoadSystemSetting(); /* 考试出题配置 和系统开发情况 ---是否允许往届考试 */
+
+            if (!setting.ExamModuleSettings.TryGetValue(vStudent.ModuleId, out var moduleExamSetting))
+            {
+                //学生所在模块必须有 考试出题策略 不然不允许参加考试 或者学生所在学院没有模块所属
+                return RedirectToAction("Wrong", "Error", new { data = "[错误-严重级别]:你所在学院未加入考试规划中！或考试规划未设置！ 请联系系统维护人员！" });
+            }
+            /* 先判断是否可以考试 ---是否是往届 */
+            if (vStudent.Grade <= DateTime.Now.Year)
+            {
+                if (!setting.LoginSetting.AllowPastJoinExam)
+                {
+                    return RedirectToAction("Wrong", "Error", new { data = "未开放往届考试！" });
+                }
+            }
+            Dictionary<Int32, ExamOpenSetting> openSettings = _config.LoadModuleExamOpenSetting(); /* 是否开发每个模块的考试 */
+            //没有 模块开发配置 或者 没有开发模块
+            if (!openSettings.TryGetValue(vStudent.ModuleId,out var moduleOpenSetting) || !moduleOpenSetting.IsOpen)
+            {
+                return RedirectToAction("Wrong", "Error", new { data = $"未开放你学院当前所在模块的考试通道！你所在学院{vStudent.InstituteName}所属模块:{vStudent.ModuleName} " });
+            }
+            /* 判断是否具有未完成的考试 让他继续考试 */
+            ExaminationPaper paper = _context.ExaminationPapers.Include("ExamSingleChoices").Include("ExamMultipleChoices").Include("ExamJudgeChoices")
+                .FirstOrDefault(p => p.StudentId == user.UserId && !p.IsFinish);
+
+            ViewBag.Name = vStudent.StudentName;
+            ViewBag.PaperCode = _handle.GetDateTimeFileName();
+            ViewBag.ModuleName = vStudent.ModuleName;
+            
+            if (paper != null)
+            {
+                return View(paper);
+            }
+
+            var examCount = _context.ExaminationPapers.Count(e => e.StudentId == user.UserId && e.IsFinish);
+
+            if (vStudent.IsPassExam)
+            {
+                return RedirectToAction("Wrong", "Error", new { data = "你已经通过考试了！不能再次参加考试." });
+            }
+
+            if (vStudent.MaxExamCount <= examCount)
+            {
+                return RedirectToAction("Wrong", "Error", new { data = "你的考试次数已经用尽了" });
+            }
+            /* 参加考试 开始出题 */
+            
+
+            
+
+
+            return View();
         }
     }
 }

@@ -59,7 +59,7 @@ namespace LabExam
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/LoginOut";
             });
-
+            
             services.AddDistributedMemoryCache();
             services.AddSession(); 
 
@@ -69,6 +69,7 @@ namespace LabExam
             services.AddTransient<IHttpContextAnalysisService, HttpContextAnalysisService>();
             services.AddTransient<ILoggerService, LoggerService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IFileHandleService, FileHandleService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

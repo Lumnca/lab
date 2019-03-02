@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using LabExam.DataSource;
 using LabExam.IServices;
@@ -96,6 +98,7 @@ namespace LabExam.Controllers
                         lineCount = 0,
                         pageCount = 1, //总共是多少页
                         pageNowIndex = 1, //当前是第几页
+                        size = pageSize
                     });
                 }
                 var items = _context.VStudentMaps.FromSql(sql).OrderBy(item => item.InstituteId)
@@ -109,7 +112,7 @@ namespace LabExam.Controllers
                         studentName =  val.StudentName,
                         grade = val.Grade,
                         phone = val.Phone,
-                        birthDate = val.BirthDate,
+                        birthDate = _logger.FormatDateShortLocal(val.BirthDate),
                         sex = val.Sex == true?"男":"女",
                         studentType =val.StudentType == StudentType.UnderGraduate? "本科生":"研究生",
                         isPassExam = val.IsPassExam? "通过":"未通过",
@@ -126,7 +129,8 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    Items = items
+                    Items = items,
+                    size = pageSize
                 });
 
             }
@@ -135,11 +139,143 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = false,
-                    message = $"参数错误,{ModelState.ErrorCount} {ModelState.Keys.FirstOrDefault().ToString()} 传递了不符合规定的参数"
+                    message = $"参数错误,传递了不符合规定的参数"
                 });
             }
         }
-    
+
+        public IActionResult EPage([Required] int index, String sName, String sId, [Required] int iId, [Required] int pid, Boolean isUnder, Boolean isPost, [Required] int grade,[Required] int isPass,float leftScore = 0,float rightScore = Int32.MinValue  )
+        {
+            if (ModelState.IsValid && index > 0)
+            {
+                String sql = "select * from StudentView where  InstituteId > 0";
+
+                List<SqlParameter> parameters = new List<SqlParameter>();
+
+                if (sName != null && sName.Trim() != "")
+                {
+                    sql += $" and StudentName like @Name";
+                    
+                    parameters.Add(new SqlParameter{ ParameterName = "@Name",  Value = $"%{sName.Trim()}%",  SqlDbType = SqlDbType.NVarChar});
+                }
+
+                if (sId != null && sId.Trim() != "")
+                {
+                    sql += $" and StudentId = @StudentId";
+
+                    parameters.Add(new SqlParameter{ ParameterName = "@StudentId", Value = sId.Trim(), SqlDbType = SqlDbType.NVarChar });
+                }
+
+                if (iId > 0)
+                {
+                    sql += $" and InstituteId = @InstituteId";
+
+                    parameters.Add(new SqlParameter { ParameterName = "@InstituteId", Value = iId, SqlDbType = SqlDbType.Int });
+                }
+
+                if (pid > 0)
+                {
+                    sql += $" and ProfessionId = @pid";
+                    parameters.Add(new SqlParameter { ParameterName = "@pid", Value = pid, SqlDbType = SqlDbType.Int });
+                }
+
+                if (isUnder == !isPost)
+                {
+                    if (isPost)
+                    {
+                        sql += $" and StudentType = @sType";
+                        parameters.Add(new SqlParameter { ParameterName = "@sType", Value = 1, SqlDbType = SqlDbType.Int });
+                    }
+
+                    if (isUnder)
+                    {
+                        sql += $" and StudentType = @uType";
+                        parameters.Add(new SqlParameter { ParameterName = "@uType", Value = 0, SqlDbType = SqlDbType.Int });
+                    }
+                }
+
+                if (grade > 2015)
+                {
+                    sql += $" and Grade = @grade";
+                    parameters.Add(new SqlParameter { ParameterName = "@grade", Value = grade, SqlDbType = SqlDbType.Int });
+                }
+
+                if (isPass >= 0  )
+                {
+                    sql += $" and IsPassExam = @PassState";
+                    Boolean val = (isPass != 0);
+                    parameters.Add(new SqlParameter { ParameterName = "@PassState", Value = val, SqlDbType = SqlDbType.Bit });
+                }
+
+                sql += $" and MaxExamScore >= @left and  MaxExamScore <= @right";
+
+                parameters.Add(new SqlParameter { ParameterName = "@left", Value = leftScore, SqlDbType = SqlDbType.Real });
+                parameters.Add(new SqlParameter { ParameterName = "@right", Value = rightScore, SqlDbType = SqlDbType.Real });
+
+                int pageSize = 12;
+
+                // ReSharper disable once CoVariantArrayConversion
+                int dataCount = _context.VStudentMaps.FromSql(sql, parameters.ToArray()).Count();
+                int pageCount = dataCount / pageSize;
+                int lastCount = dataCount % pageSize;
+                if (lastCount > 0)
+                {
+                    pageCount++;
+                }
+
+                if (index > pageCount || index <= 0)
+                {
+                    return Json(new
+                    {
+                        isOk = true,
+                        lineCount = 0,
+                        pageCount = 1, //总共是多少页
+                        pageNowIndex = 1, //当前是第几页
+                        size = pageSize
+                    });
+                }
+
+                // ReSharper disable once CoVariantArrayConversion
+                var items = _context.VStudentMaps.FromSql(sql, parameters.ToArray())
+                    .OrderBy(item => item.InstituteId)
+                    .ThenBy(item => item.ProfessionId)
+                    .ThenByDescending(item => item.MaxExamScore)
+                    .Skip((index - 1) * pageSize).Take(pageSize).Select(val => new
+                    {
+                        instituteName = val.InstituteName,
+                        professionName = $"{val.ProfessionName}" + (val.ProfessionType == ProfessionType.UnderGraduate ? "[本科生]" : "[研究生]"),
+                        professionType = val.ProfessionType,
+                        studentId = val.StudentId,
+                        studentName = val.StudentName,
+                        grade = val.Grade,
+                        sex = val.Sex == true ? "男" : "女",
+                        studentType = val.StudentType == StudentType.UnderGraduate ? "本科生" : "研究生",
+                        isPassExam = val.IsPassExam ? "通过" : "未通过",
+                        maxExamScore = val.MaxExamScore,
+                    }).ToList();
+
+                return Json(new
+                {
+                    isOk = true,
+                    lineCount = dataCount,
+                    PageCount = pageCount, //总共是多少页
+                    pageNowIndex = index, //当前是第几页
+                    Items = items,
+                    size = pageSize
+                });
+
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    message = $"参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

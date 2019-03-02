@@ -1,0 +1,104 @@
+﻿@using LabExam.Models.Map
+@model LabExam.Models.EntitiyViews.vStudentMap
+@{
+    ViewData["Title"] = "实验室安全教育在线-参加考试";
+    Layout = "~/Views/Shared/_Student.cshtml";
+}
+
+<div class=" container border-thumali margin-top-25px bc-clr-white">
+    <div class=" row">
+        <div class=" col-md-6 col-sm-12 margin-top-25px  col-md-offset-3 ">
+            <h4 class="title-Splitter text-info">
+                <span class="glyphicon glyphicon-send"></span>
+                <span class=" font-size-18 font-weight-600">四川师范大学实验室安全考试入口</span>
+            </h4>
+            <div class="font-first-word" style=" text-indent:15px">
+                陆游有一首诗这样说过,古人学问无遗力，少壮工夫老始成。纸上得来终觉浅，绝知此事要躬行。为今人,博学多才,以通东西南北,古往今来。
+                才高八斗,肚中有墨而满腹经纶,方下笔有文,出口成章,风华绝代。治学以谨,质疑革新,虚怀求教,君当勉励.来此之人,读书十载,笔墨功夫,是否已成
+                途径此地,想来已学完所授, 求此一考,超脱而出!
+            </div>
+            <div class=" margin-top-20px text-center boder-down-grey padding-bottom-10px">
+                <span class=" text-info  font-size-15 font-weight-600">
+                    姓名:
+                </span>
+                <span class=" font-size-14">
+                    @Model.StudentName
+                </span>
+                <span class="text-info padding-left-15px font-size-15 font-weight-600">
+                    身份:
+                </span>
+                <span class=" font-size-14">
+                    @(Model.Grade)级 @(Model.StudentType == StudentType.UnderGraduate?"本科生":"研究生")
+                </span>
+                <span class="text-info padding-left-15px font-size-15 font-weight-600">
+                    已经考试次数：
+                </span>
+                <span class=" font-size-14">
+                    @ViewBag.ExamCount
+                </span>
+            </div>
+            <div class=" margin-top-20px text-center boder-down-grey padding-bottom-10px">
+                <span class=" text-info  font-size-15 font-weight-600">
+                    是否通过考试:
+                </span>
+                <span class=" font-size-14">
+                    @(Model.IsPassExam?"已经通过":"未通过")
+                </span>
+                <span class="text-info padding-left-15px font-size-15 font-weight-600">
+                    学院:
+                </span>
+                <span class=" font-size-14">
+                    @Model.InstituteName
+                </span>
+                <span class="text-info padding-left-15px font-size-15 font-weight-600">
+                    模块：
+                </span>
+                <span class=" font-size-14">
+                    @Model.ModuleName
+                </span>
+                <span class="text-info padding-left-15px font-size-15 font-weight-600">
+                    通过分数：
+                </span>
+                <span class=" font-size-14">
+                    @ViewBag.PassScore 分
+                </span>
+            </div>
+            <div class=" margin-top-20px">
+                <p>
+                    [<span class="glyphicon glyphicon-flash"></span>]
+                    <span class=" font-size-13">
+                        如果考试过程中,发生断电,地震等等不抗力,再次考试,将回复上次未完成的考试。
+                    </span>
+                </p>
+                <p>
+                    [<span class="glyphicon glyphicon-apple"></span>]
+                    <span class=" font-size-13">
+                        请先学习再进入考试！如果你天资非凡,不用学习,考试也通过了！我们也认！感谢百度！
+                        <span class=" text-danger font-weight-600">如果你多次重考 存在刷分情况。我们将会对你的行为进行限制！</span>
+                    </span>
+                </p>
+                <p>
+                    [<span class="glyphicon glyphicon-fire"></span>]
+                    <span class=" font-size-13">
+                        <span class=" font-weight-600 text-danger">化学生科物理的同学请注意</span>,实验室安全关乎生命,今后的学习里面,你们将离不开实验.关爱自己的生命,
+                        同时关爱与你一起做实验室的同学老师的生命安全,学习实验室安全准则,切勿马虎！
+                    </span>
+                </p>
+                <p>
+                    <label class=" font-size-13 text-success">
+                        <input type="checkbox" id="isOk" /> 我已经仔细阅读,并且同意以上所述
+                    </label>
+                </p>
+            </div>
+            <div class="text-center margin-top-20px margin-bottom-25px">
+                <button type="button" class="btn btn-primary">我已准备好,立即考试</button>
+            </div>
+            <div class=" margin-bottom-15px text-danger">
+                [<span class="glyphicon glyphicon-info-sign"></span>]
+                <span class=" font-size-13">
+                    你已经用完考试次数! 去申请重考吧！<a href="#">申请重考</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

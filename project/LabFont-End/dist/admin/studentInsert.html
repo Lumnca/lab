@@ -185,10 +185,12 @@
                 </div>
             </div>
             <div class="margin-10px bc-clr-defalut">
+                
                 <div class=" bc-clr-white padding-10px  border-little-grey-all" data-height-all>
                     <h4 class="border-light-down font-size-15 font-weight-500 padding-bottom-10px ">
                         <span class="glyphicon glyphicon-collapse-down"></span> 导入学生信息
-                        <small class=" padding-left-10px"> 请注意:按照规定的Excel格式 导入学生信息 </small>
+                        <small class=" padding-left-10px"> 请注意:按照规定的Excel格式 导入学生信息 
+                            [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]</small>
 
                     </h4>
                     <form action="" class=" float-layout">
@@ -198,8 +200,17 @@
                         <button class=" btn btn-primary btn-sm " style=" height:34px">立即上传文件</button>
                         <span class=" glyphicon glyphicon-question-sign curcor-pointer " title="请注意了" data-container="body"
                             data-toggle="popover" data-placement="right" data-content="仅仅支持Excel 格式的文件上传 请严格上传给定格式的Excel模板"></span>
+                        <label class=" margin-left-30px bootstrap-checkbox">
+                            <input type="checkbox" id="isCanNewColleage" />
+                            <label for="isCanNewColleage" class="checkout-label"> 是否允许增加新学院</label>
+                        </label>
+                        <label class=" margin-left-30px bootstrap-checkbox">
+                            <input type="checkbox" id="isCanNewProfession" />
+                            <label for="isCanNewProfession" class="checkout-label"> 是否允许增加新专业</label>
+                        </label>
                         <a class=" btn btn-danger  float-right" href="#">下载标准导入Excel 模板</a>
                     </form>
+
                     <hr>
                     <div class=" margin-top-10px">
                         <div class="font-color-link font-size-12 text-center border-little-grey-all padding-5px bc-clr-grey-little  "
@@ -229,7 +240,8 @@
                                 <div class="student-info-show-content padding-left-10px">
                                     <span class="student-info-show-title">异常情况:</span>
                                     <span class="student-info-show-value border-light-down font-size-13 text-danger">
-                                        无法识别文件内容</span>
+                                            <button class="btn btn-sm btn-info"  data-toggle="modal" data-target="#ErrorInfo">查看异常信息</button> 
+                                    </span>
                                 </div>
                             </div>
                             <div class="student-info-show">
@@ -242,33 +254,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="student-info-show">
-                                <div class="student-info-show-content padding-left-10px">
-                                    <span class="student-info-show-title">异常情况:</span>
-                                    <label class=" margin-left-30px bootstrap-checkbox">
-                                        <input type="checkbox" id="isCanNewColleage" />
-                                        <label for="isCanNewColleage" class="checkout-label"> 是否允许增加新学院</label>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="student-info-show">
-                                <div class="student-info-show-content padding-left-10px">
-                                    <span class="student-info-show-title">异常情况:</span>
-                                    <label class=" margin-left-30px bootstrap-checkbox">
-                                        <input type="checkbox" id="isCanNewProfession" />
-                                        <label for="isCanNewProfession" class="checkout-label"> 是否允许增加新专业</label>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="student-info-show">
-                                <div class="student-info-show-content padding-left-10px">
-                                    <span class="student-info-show-title">继续操作:</span>
-                                    <button class=" btn btn-danger btn-sm   margin-left-30px">导入学生进入数据库</button>
-                                </div>
-                            </div>
+
                         </div>
                         <hr>
-                        <div class=" margin-10px">
+                        <div>
                             <div
                              class="  
                              font-color-link 
@@ -307,80 +296,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             </div>
         </div>
@@ -447,15 +362,33 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="update-inlow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="ErrorInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content modal-lg">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">修改结果</h4>
+                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" >错误信息</h4>
                 </div>
-                <div class="modal-body">
-                    修改中......
+                <div class="modal-body text-muted font-size-11">
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本] <br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
+                        [请注意 Excel数字超过15位 后续数字自动变成0 注意身份证号列 改变单元格格式为 文本]<br/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
@@ -466,6 +399,13 @@
 
 </body>
 <script>
+    
+
+    window.setTimeout(function(){
+        $('#ErrorInfo').modal('show');
+    },1000);
+
+
     $(document).ready(function () {
 
         $(function () {

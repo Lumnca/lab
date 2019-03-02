@@ -23,5 +23,10 @@
     "ModuleName": "文史艺体（影传专用课）",
     "ModuleId": 5,
     "IsOpen": true
+  },
+  "11": {
+    "ModuleName": "文史艺体（国教必修补充）",
+    "ModuleId": 11,
+    "IsOpen": true
   }
 }

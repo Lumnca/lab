@@ -59,6 +59,7 @@ namespace LabExam.Controllers
             });
         }
 
+        [AllowAnonymous]
         public IActionResult ListById([Required] int pid, ProfessionType type)
         {
             if (ModelState.IsValid)
@@ -86,6 +87,7 @@ namespace LabExam.Controllers
             }
         }
 
+        [AllowAnonymous]
         public IActionResult ListOnlyById([Required] int pid)
         {
             if (ModelState.IsValid)

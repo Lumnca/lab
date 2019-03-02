@@ -22,5 +22,7 @@ namespace LabExam.IServices
         int Logger(LogStudentOperation operation);
 
         String FormatDateLocal(DateTime dt);
+
+        String FormatDateShortLocal(DateTime dt);
     }
 }

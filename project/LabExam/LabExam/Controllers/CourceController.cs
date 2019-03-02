@@ -1,19 +1,21 @@
-﻿using System;
+﻿using LabExam.DataSource;
+using LabExam.IServices;
+using LabExam.Models.Entities;
+using LabExam.Models.Map;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LabExam.DataSource;
-using LabExam.IServices;
-using LabExam.Models.Entities;
-using LabExam.Models.Map;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LabExam.Controllers
 {
+    [Authorize(Roles = "Principal")]
     public class CourceController : Controller
     {
         private readonly LabContext _context;

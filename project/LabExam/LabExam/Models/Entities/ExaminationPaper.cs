@@ -30,6 +30,6 @@ namespace LabExam.Models.Entities
 
         public virtual List<ExamMultipleChoices> ExamMultipleChoices { get; set; } //试卷含有的多选题
 
-        public virtual List<ExamJudgeChoices> ExamJudgeChoiceses { get; set; } //判断题
+        public virtual List<ExamJudgeChoices> ExamJudgeChoices { get; set; } //判断题
     }
 }

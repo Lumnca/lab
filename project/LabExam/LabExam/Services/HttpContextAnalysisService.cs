@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LabExam.DataSource;
 using LabExam.IServices;
@@ -101,6 +102,20 @@ namespace LabExam.Services
                 }
             }
             return sb;
+        }
+
+        public bool TryConvertDateTime(string waitConvert, out DateTime result)
+        {
+            try
+            {
+                result = Convert.ToDateTime(waitConvert);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                result = DateTime.Now;
+                return false;
+            }
         }
     }
 }

@@ -4,18 +4,15 @@
 }
 
 <div class="admin-searach">
-    <!-- 搜索栏 -->
     <div id="Search-condition" class=" bc-clr-white margin-5px  padding-15px border-little-grey-all"
          data-min-width="1250">
         <div class="float-layout">
             <span for="InstituteId" class="font-size-14 text-muted">所属学院：</span>
             <select id="InstituteId" name="InstituteId"  data-height="26" data-width="180" class="font-size-12 padding-left-5px " >
             </select>
-            <!-- 所属专业 -->
             <span for="ProfessionId" class="margin-left-20px font-size-14 text-muted">所属专业：</span>
             <select id="ProfessionId" name="ProfessionId" data-height="26" data-width="150" class="font-size-12 padding-left-5px ">
             </select>
-            <!-- 名称  -->
             <span for="studentNameId" class="margin-left-20px font-size-14 text-muted">名字：</span>
             <input value="" type="text" id="studentName" name="studentName" data-height="22"
                    data-width="100" class="font-size-12 padding-left-5px ">
@@ -28,7 +25,6 @@
             </button>
         </div>
     </div>
-    <!--  操作栏 -->
     <div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
         <label class=" bootstrap-checkbox">
             <input type="checkbox" id="shooseAllCode" />
@@ -51,10 +47,10 @@
             <span class="glyphicon glyphicon-plus"></span>
             添加学生
         </a>
-        <button class=" btn btn-sm btn-primary">
+        <a asp-controller="Excel" asp-action="Insert" class=" btn btn-sm btn-primary">
             <span class="glyphicon glyphicon-plus-sign"></span>
             导入学生
-        </button>
+        </a>
     </div>
 </div>
 <div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
@@ -408,8 +404,9 @@
                         if (json.items == null) {
                             $('.section-items').html("");
                         } else {
+                            var incre = json.size * (index - 1);
                             for (var i = 0; i < json.items.length; i++) {
-                                json.items[i].index = (i + 1);
+                                json.items[i].index = (i + 1 + incre);
                             }
 
                             var template = $('#item-template').html();

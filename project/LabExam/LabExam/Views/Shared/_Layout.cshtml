@@ -13,6 +13,16 @@
     <script src="~/lib/validation/jquery.validate.min.js"></script>
     <script src="~/lib/validation/messages_zh.js"></script>
     <title>@ViewData["Title"]</title>
+    <style>
+        @@media screen and (min-width:750px) {
+            .footer-bottom {
+                border-top: 1px solid rgba(38,38,38,0.15);
+                width: 100%;
+                position: fixed;
+                bottom: 0px;
+            }
+        }
+    </style>
 </head>
 <body class=" bc-clr-grey-little">
     <div class="narbar-pc-fui bc-clr-white border-little-grey-all">
@@ -65,7 +75,7 @@
         </div>
     </div>
     @RenderBody()
-    <div class=" margin-top-5px">
+    <div class=" margin-top-5px footer-bottom ">
         <div class=" bc-clr-white text-center padding-10px">
             <a class=" font-weight-600 font-size-12 " href="#">Server Right 2019-2021 Support by 505 mobile lab</a>
             <a class=" font-weight-600 font-size-12 " href="#">四川师范大学 实验设备处 维护运行 </a>

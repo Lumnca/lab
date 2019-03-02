@@ -678,7 +678,7 @@ namespace LabExam.Migrations
 
                     b.Property<bool>("IsPassExam");
 
-                    b.Property<float>("MaxExamCount");
+                    b.Property<int>("MaxExamCount");
 
                     b.Property<float>("MaxExamScore");
 
@@ -698,6 +698,8 @@ namespace LabExam.Migrations
                     b.Property<int>("StudentType");
 
                     b.HasKey("StudentId");
+
+                    b.HasIndex("MaxExamScore");
 
                     b.HasIndex("ProfessionId");
 

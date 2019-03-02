@@ -19,5 +19,6 @@ namespace LabExam.IServices
 
         List<string> ModelStateDictionaryError(ModelStateDictionary modelState);
 
+        Boolean TryConvertDateTime(String waitConvert, out DateTime result);
     }
 }

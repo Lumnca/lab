@@ -25,6 +25,9 @@ namespace LabExam.Models.EntitiyViews
 
         public String StudentId { get; set; }
 
+        /// <summary>
+        /// 身份证
+        /// </summary>
         [MaxLength(800)]
         public String IDNumber { get; set; }
 
@@ -47,9 +50,14 @@ namespace LabExam.Models.EntitiyViews
 
         public Boolean IsPassExam { get; set; }
 
+        /// <summary>
+        /// 最好成绩
+        /// </summary>
         public float MaxExamScore { get; set; }
-
-        public float MaxExamCount { get; set; }
+        /// <summary>
+        /// 允许最大考试次数
+        /// </summary>
+        public int MaxExamCount { get; set; }
 
         public String ModuleName { get; set; }
 

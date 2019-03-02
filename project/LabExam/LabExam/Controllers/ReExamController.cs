@@ -95,7 +95,7 @@ namespace LabExam.Controllers
                     parameters.Add(parameterId);
                 }
 
-                int pageSize = 12; //每一页的题目数量
+                int pageSize = 14; //每一页的题目数量
                 // ReSharper disable once CoVariantArrayConversion
                 int dataCount = _context.VReExamApplicationMaps.FromSql(builder.ToString(), parameters.ToArray<SqlParameter>()).Count();
                 int pageCount = dataCount / pageSize; //有多少页

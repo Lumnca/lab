@@ -7,6 +7,6 @@ namespace LabExam.IServices
 {
     public interface IFileHandleService
     {
-        
+        String GetDateTimeFileName();
     }
 }

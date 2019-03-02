@@ -93,5 +93,13 @@ namespace LabExam.Services
             String s = dt.Second > 9 ? dt.Second.ToString() : $"0{dt.Second}";
             return $"{year}/{month}/{day} {hour}:{m}:{s}";
         }
+
+        public String FormatDateShortLocal(DateTime dt)
+        {
+            int year = dt.Year;
+            String month = dt.Month > 9 ? dt.Month.ToString() : $"0{dt.Month}";
+            String day = dt.Day > 9 ? dt.Day.ToString() : $"0{dt.Day}";
+            return $"{year}/{month}/{day}";
+        }
     }
 }

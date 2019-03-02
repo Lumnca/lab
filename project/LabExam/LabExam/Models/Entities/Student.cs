@@ -48,7 +48,7 @@ namespace LabExam.Models.Entities
 
         public  float MaxExamScore { get; set; }
 
-        public  float MaxExamCount { get; set; }
+        public  int MaxExamCount { get; set; }
 
     }
 }

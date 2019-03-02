@@ -1,28 +1,42 @@
-﻿@model IEnumerable<LabExam.Models.Entities.Progress>
+﻿@using LabExam.Models.Entities
+@using LabExam.Models.EntitiyViews
+@model IEnumerable<LabExam.Models.Entities.Progress>
 @{
     ViewData["Title"] = "实验室安全教育在线-视频学习";
     Layout = "~/Views/Shared/_Student.cshtml";
 }
+@{
+    vLearningMap learning = (vLearningMap)ViewData["learning"];
 
-<div class=" container margin-top-15px">
+    List<Resource> links = (List<Resource>)ViewData["links"];
+}
+
+<script src="~/js/videojs-ie8.min.js"></script>
+<link href="~/css/video-js.min.css" rel="stylesheet" />
+<div class=" container margin-top-15px margin-bottom-65px" data-learing-id="@learning.LearingId">
     <div class="row  bc-clr-white border-thumali">
         <div id="col-md-9-ms" class="  padding-15  col-md-9 ">
             <div id="vedio-open-layout" data-vedio-open-style="html5" muted preload="metadata">
-                <video id="my-video" class="video-js" controls preload="auto" width="100%"
-                       data-setup="{}">
-                    <source src="../Resources/VedioList/1.mp4" type="video/mp4">
-                    <source src="../Resources/VedioList/2015419433498.mp4" type="video/mp4">
+                <video id="my-video" class="video-js" controls preload="auto" width="100%" >
+                    <source src="~/video/@(Model.First().Resource.ResourceUrl)" type="video/mp4">
                     <p class="vjs-no-js">
                         不支持
                     </p>
                 </video>
             </div>
             <div class="vedio-control float-layout">
-                <span class=" glyphicon glyphicon-play"></span>
-                <label class=" padding-left-35px"><input type="checkbox" name="isAutoOpen" id="isAutoOpen"> 自动播放下一个视频</label>
-                <a href="#" class=" padding-left-15px"><span class=" glyphicon glyphicon-fire"></span> Flash播放器</a>
-                <a href="#" class=" padding-left-15px"><span class=" glyphicon glyphicon-header"></span> Html播放</a>
-                <button class="btn btn-default margin-left-15px float-right"> <span class=" glyphicon glyphicon-ok"></span> 看过啦</button>
+                <span class=" glyphicon glyphicon-cd"></span>
+                <a class=" padding-left-15px padding-top-10px"><span class=" glyphicon glyphicon-fire"></span>支持 Flash播放器 和</a>
+                <a class=" padding-left-5px padding-top-10px"><span class=" glyphicon glyphicon-header"></span> Html播放</a>
+                @if (learning.IsFinish)
+                {
+                    <button class="btn btn-sm btn-success margin-left-15px float-right" > <span class=" glyphicon glyphicon-ok"></span> 你已完成</button>
+                }
+                else
+                {
+                    <button class="btn btn-sm btn-default margin-left-15px float-right" id="fininsh-button"> <span class=" glyphicon glyphicon-ok"></span> 已经学完课程</button>
+                }
+
             </div>
             <div class=" margin-top-15px">
                 <div class="alert alert-danger alert-dismissible" role="alert">
@@ -34,70 +48,165 @@
                 <h4 class="title-Splitter text-info">
                     <span class="glyphicon glyphicon-expand"></span>视频列表
                 </h4>
-                <div class="float-layout margin-bottom-15px">
-                    <a href="#" class="color-grey">
-                        <span class="glyphicon glyphicon-play-circle"></span> 第一节
-                        化学元素和实验器具的基本使用
-                    </a>
-                    <span>
-                        规定时间:35 分钟 已完成
-                    </span>
+                @foreach (var val in Model)
+                {
+                    <div class="float-layout margin-bottom-15px">
+                        <a href="/video/@val.Resource.ResourceUrl" class="color-grey" data-item-id="@val.ProgressId">
+                            <span class="glyphicon glyphicon-play-circle"></span>
+                            @val.Resource.Name
+                        </a>
+                        <span>
+                            <label class="label label-primary">规定时间:@val.NeedTime 分钟 @(val.StudyTime >= val.NeedTime ? "已完成" : "未完成")</label>
+                        </span>
 
-                    <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                </div>
-                <div class="float-layout margin-bottom-15px">
-                    <a href="#" class=" color-red">
-                        <span class="glyphicon glyphicon-play-circle"></span> 第二节
-                        化学元素和实验器具的基本使用
-                    </a>
-                    <span>
-                        规定时间:35 分钟 正在进行
-                    </span>
-                    <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                </div>
-                <div class="float-layout margin-bottom-15px">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-play-circle"></span> 第三节
-                        化学元素和实验器具的基本使用
-                    </a>
-                    <span>
-                        规定时间:35 分钟 尚未观看
-                    </span>
-                    <a href="#" class=" btn btn-info btn-sm float-right">播放 </a>
-                </div>
+                        <button data-href="/video/@val.Resource.ResourceUrl" data-item-id="@val.ProgressId" class=" btn btn-info btn-sm float-right">播放 </button>
+                    </div>
+                }
             </div>
+            @if (links.Count > 0)
+            {
+                <div class="margin-top-25px">
+                    <h4 class=" font-size-14 boder-down-grey padding-bottom-10px  text-info">
+                        <span class="glyphicon glyphicon-send"></span>课程连接
+                    </h4>
+                    @foreach (var item in links)
+                    {
+                        <div class="float-layout margin-bottom-15px">
+                            <a href="@item.ResourceUrl"><span class="glyphicon glyphicon-random"></span> @item.Name</a>
+                            <a href="@item.ResourceUrl" class=" btn btn-primary btn-sm float-right">
+                                <span class="glyphicon glyphicon-sunglasses"></span>
+                                打开连接
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+
         </div>
         <div class=" col-md-3 padding-15">
             <div class=" row">
                 <div class=" col-md-5">
-                    <img src="../Resources/PagesStudent/Icon/teacherIcon.png" width="100px" class=" img-circle img-thumbnail " alt="老师图片" />
+                    <img src="~/Resources/PagesStudent/Icon/teacherIcon.png" width="100" class=" img-circle img-thumbnail " alt="老师图片" />
                 </div>
                 <div class=" col-md-7">
                     <div>
-                        <p class=" font-weight-600 margin-top-20px font-size-16">主讲人：高育梁</p>
-                        <p class=" font-weight-500 margin-top-20px font-size-14 text-info ">职称：副教授</p>
+                        <p class=" font-weight-600 margin-top-20px font-size-15">主讲人：相关老师</p>
+                        <p class=" font-weight-500 margin-top-20px font-size-14 text-info ">职称：未明确</p>
                     </div>
                 </div>
             </div>
             <div>
                 <div class=" margin-top-25px">
                     <div class=" title-Splitter">
-                        <span class=" font-size-16 font-weight-500 text-danger">课程简介</span>
+                        <span class=" font-size-16 font-weight-500 text-danger" data-learingId="@learning.LearingId">课程简介</span>
                     </div>
                     <div class="text-indent-15px  padding-top-15px">
-                        到目前为止，我们已经在本课程中查看了很多文本，但是网页只会使用文本而感到无聊。
-                        让我们开始研究如何使网络变得活跃，内容更加有趣！本单元探讨了如何使用HTML在您
-                        的网页中包含多媒体，包括可以包含图像的不同方式，以及如何嵌入视频，音频甚至整个网页。
+                        @learning.Introduction
                     </div>
                 </div>
             </div>
             <div>
-                <p class=" font-weight-300 margin-top-20px font-size-14">课程学分: 2分</p>
+                <p class=" font-weight-300 margin-top-20px font-size-14">课程学分: @(learning.Credit)分</p>
                 <p class=" font-weight-300 margin-top-10px font-size-14">是否必修: 必修</p>
                 <p class=" font-weight-300 margin-top-20px font-size-14">
-                    <span class=" glyphicon glyphicon-play-circle"></span> 1345
+                    学习状态:
+                    <label class=" label label-info"><span class=" glyphicon glyphicon-play-circle"></span> @(learning.IsFinish ? "已经学习完成" : "尚未完成")</label>
                 </p>
+                <span data-video-progress-id="@Model.First().ProgressId" ></span>
             </div>
         </div>
     </div>
 </div>
+<script src="~/js/video.min.js"></script>
+@section Scripts
+{
+    <script>
+        var width = $('#vedio-open-layout').width();
+
+        var player = videojs('my-video',
+            {
+                muted: false,
+                controls: true,
+                height: width * 0.6,
+                width: width,
+                loop: true,
+                fluid:true
+            });
+
+        player.width = 600;
+
+
+        $('.vedio-open-need-waiting-list').on('click',
+            'a',
+            null,
+            function (jqEvent) {
+                jqEvent.preventDefault();
+                var url = $(this).attr("href");
+                var progressItemKey = $(this).attr("data-item-id");
+                $('video').attr("src", url);
+                $('span[data-video-progress-id]').attr("data-video-progress-id", progressItemKey);
+            });
+
+        $('.vedio-open-need-waiting-list').on('click',
+            'button',
+            null,
+            function (jqEvent) {
+                jqEvent.preventDefault();
+                var progressItemKey = $(this).attr("data-item-id");
+                var url = $(this).attr("data-href");
+                $('video').attr("src", url);
+                $('span[data-video-progress-id]').attr("data-video-progress-id", progressItemKey);
+            });
+
+        $('#fininsh-button').click(function(){
+            $('#program').modal('show');
+            var lid = $('span[data-learingId]').attr("data-learingId");
+            $.ajax({
+                url: "/Student/Finish",
+                type: "post",
+                dataType: "json",
+                data: {
+                    learningId: lid
+                },
+                success: function (json, textStatus, jqXhr) {
+                    $('#program').modal('hide');
+                    if (json.isOk) {
+                        onMask(json.title, json.message);
+                        $('#fininsh-button').removeClass('btn-default');
+                        $('#fininsh-button').addClass('btn-success');
+                        $('#fininsh-button').html('<span class=" glyphicon glyphicon-ok"></span> 你已完成');
+                        $("#fininsh-button").off("click");
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        });
+
+        window.setInterval(function () {
+            var key = $('span[data-video-progress-id]').attr("data-video-progress-id");
+            $.ajax({
+                url: "/Student/Study",
+                type: "post",
+                dataType: "json",
+                data: {
+                    progressId: key
+                },
+                success: function (json, textStatus, jqXhr) {
+                    console.log(json);
+                    if (json.isOk) {
+                        
+                    } else {
+                        onMask(json.title, json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        },120000);
+    </script>
+}

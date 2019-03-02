@@ -9,6 +9,11 @@
     <link href="~/css/AdminEntry.min.css" rel="stylesheet" />
     <link rel="icon" href="~/Resources/system/icon/backEnd.png" />
     <title>@ViewBag.Title</title>
+    <style>
+        body{
+            padding-right:0!important;
+        }
+    </style>
 </head>
 <body class=" bc-clr-grey-little">
     <div class="flex-layout">
@@ -35,8 +40,9 @@
                     </a>
                     <ul>
                         <li><a asp-controller="Manager" asp-action="Create">1.添加学生</a></li>
-                        <li><a asp-controller="Manager" asp-action="List">2.学生列表</a></li>
-                        <li><a href="#">3.统计情况</a></li>
+                        <li><a asp-controller="Excel" asp-action="Insert">2.导入学生</a></li>
+                        <li><a asp-controller="Manager" asp-action="List">3.学生列表</a></li>
+                        <li><a href="#">4.统计情况</a></li>
                     </ul>
                 </li>
                 <li>
@@ -48,6 +54,7 @@
                         <li><a asp-controller="Single" asp-action="Index">1.单择题</a></li>
                         <li><a asp-controller="Judge" asp-action="Index">2.判断题</a></li>
                         <li><a asp-controller="Multiple" asp-action="Index">3.多选题</a></li>
+                        <li><a asp-controller="Excel" asp-action="Ieq">4.导入题库</a></li>
                     </ul>
                 </li>
                 <li>
@@ -59,6 +66,7 @@
                         <li><a asp-controller="Setting" asp-action="Index">1.考试出题</a></li>
                         <li><a href="#">2.考试试卷</a></li>
                         <li><a href="#">3.考试情况</a></li>
+                        <li><a asp-controller="Excel" asp-action="Report">4.考试报表</a></li>
                     </ul>
                 </li>
                 <li>

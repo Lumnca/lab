@@ -10,9 +10,9 @@
     <script src="../js/app.min.js"></script>
     <link rel="stylesheet" href="../css/stuEntry.min.css">
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" />
-    <link href="../Content/video-js.min.css" rel="stylesheet">
+    <link href="../css/video-js.min.css" rel="stylesheet">
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-    <script src="../Scripts/videojs-ie8.min.js"></script>
+    <script src="../js/videojs-ie8.min.js"></script>
 
     <title>实验室安全教育在线-视频播放</title>
 </head>
@@ -46,7 +46,6 @@
                    <video id="my-video" class="video-js" controls preload="auto"  width="100%"
                     data-setup="{}">
                         <source src="../Resources/VedioList/1.mp4" type="video/mp4">
-                        <source src="../Resources/VedioList/2015419433498.mp4" type="video/mp4">
                         <p class="vjs-no-js">
                             不支持
                         </p>
@@ -79,7 +78,7 @@
                 </div>
                 <div  class=" vedio-open-need-waiting-list margin-top-25px">
                     <h4 class=" font-size-14 boder-down-grey padding-bottom-10px  text-info">
-                        <span class="glyphicon glyphicon-send">课程视频
+                        <span class="glyphicon glyphicon-send"></span>课程视频
                     </h4>
                     <div class="float-layout margin-bottom-15px">
                         <a href="#" class="color-grey" ><span class="glyphicon glyphicon-play-circle"></span> 第一节
@@ -109,7 +108,7 @@
                 </div>
                 <div class="">
                     <h4 class=" font-size-14 boder-down-grey padding-bottom-10px  text-info">
-                        <span class="glyphicon glyphicon-send">课程连接
+                        <span class="glyphicon glyphicon-send"></span>课程连接
                     </h4>
                     <div class="float-layout margin-bottom-15px">
                         <a href="#"><span class="glyphicon glyphicon-random"></span> 连接：化学元素和实验器具的基本使用</a>
@@ -159,7 +158,7 @@
         </div>
     </div>
 </body>
-<script src="../Scripts/video.min.js"></script>
+<script src="../js/video.min.js"></script>
 <script>
     window.onload = function(){
         window.onresize = function(){

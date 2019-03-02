@@ -22,7 +22,7 @@
     "1": {
       "AllowExamTime": 3,
       "ModuleId": 1,
-      "ModuleName": "其他理工类",
+      "ModuleName": "其它理工类",
       "PassFloat": 60.0,
       "ExamTime": 100.0,
       "TotalScore": 100.0,
@@ -122,7 +122,7 @@
     "11": {
       "AllowExamTime": 3,
       "ModuleId": 11,
-      "ModuleName": null,
+      "ModuleName": "文史艺体（国教必修补充）",
       "PassFloat": 60.0,
       "ExamTime": 120.0,
       "TotalScore": 100.0,

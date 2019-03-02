@@ -47,6 +47,7 @@ namespace LabExam.Controllers
             return View(list);
         }
 
+        [AllowAnonymous]
         public IActionResult List()
         {
             return Json(_context.VInstituteMaps.ToList());
@@ -252,7 +253,7 @@ namespace LabExam.Controllers
                         return Json(new
                         {
                             isOk = false,
-                            info = "此学院下具有专业信息！ 请先删除此学院下辖的所有专业后再来删除学院！"
+                            error = "此学院下具有专业信息！ 请先删除此学院下辖的所有专业后再来删除学院！"
                         });
                     }
                     else

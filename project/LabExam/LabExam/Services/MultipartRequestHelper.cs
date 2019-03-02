@@ -18,7 +18,9 @@ namespace LabExam.Services
                 throw new InvalidDataException("Missing content-type boundary.");
             }
 
-            //注意这里的boundary.Length指的是boundary=---------------------------99614912995中等号后面---------------------------99614912995字符串的长度，也就是section分隔符的长度，上面也说了这个长度一般不会超过70个字符是比较合理的
+            //注意这里的boundary.Length指的是
+            //boundary=---------------------------99614912995中等号后面---------------------------99614912995字符串的长度
+            //也就是section分隔符的长度，上面也说了这个长度一般不会超过70个字符是比较合理的
             if (boundary.Length > lengthLimit)
             {
                 throw new InvalidDataException(

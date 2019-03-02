@@ -159,6 +159,42 @@ namespace LabExam.Controllers
                     {
                         ModuleExamSetting setting = JsonConvert.DeserializeObject<ModuleExamSetting>(data);
                         setting.ModuleName = module.Name;
+
+                        int judgeCount = _context.JudgeChoices.Count(j => j.ModuleId == setting.ModuleId);
+                        int multiCount = _context.MultipleChoices.Count(m => m.ModuleId == setting.ModuleId);
+                        int singleCount = _context.SingleChoices.Count(s => s.ModuleId == setting.ModuleId);
+
+
+                        if (setting.Judge.Count > judgeCount)
+                        {
+                            return Json(new
+                            {
+                                isOk = false,
+                                title = "提示！",
+                                message = "判断题出题个数大于了题库中判断题题目的个数！"
+                            });
+                        }
+
+                        if (setting.Multiple.Count > multiCount)
+                        {
+                            return Json(new
+                            {
+                                isOk = false,
+                                title = "提示！",
+                                message = "多选题出题个数大于了题库中多选题题目的个数！"
+                            });
+                        }
+
+                        if (setting.Single.Count > singleCount)
+                        {
+                            return Json(new
+                            {
+                                isOk = false,
+                                title = "提示！",
+                                message = "单选题出题个数大于了题库中单选题题目的个数！"
+                            });
+                        }
+
                         SystemSetting systemSetting = _config.LoadSystemSetting();
                         systemSetting.ExamModuleSettings[setting.ModuleId] = setting;
                         _config.ReWriteSystemSetting(systemSetting);
@@ -190,10 +226,27 @@ namespace LabExam.Controllers
 
         public IActionResult Sys()
         {
+            Dictionary<int, ExamOpenSetting> examOpenSettings =  _config.LoadModuleExamOpenSetting();
+            List<Module> modules = _context.Modules.ToList();
+            foreach (var item in modules)
+            {
+                if(!examOpenSettings.TryGetValue(item.ModuleId, out var moduleExamOpenSetting))
+                {
+                    examOpenSettings.Add(item.ModuleId,new ExamOpenSetting
+                    {
+                        IsOpen = false,
+                        ModuleId = item.ModuleId,
+                        ModuleName = item.Name
+                    });
+                }
+            }
+
+            _config.ReWriteModuleExamOpenSetting(examOpenSettings);
+
             SystemSetting setting = _config.LoadSystemSetting();
             setting.Staffs = setting.Staffs.OrderBy(s => s.Name).ToList(); //按照名称排序
 
-            ViewData["ModuleSetting"] = _config.LoadModuleExamOpenSetting();
+            ViewData["ModuleSetting"] = examOpenSettings;
             return View(setting);
         }
 
@@ -221,12 +274,23 @@ namespace LabExam.Controllers
                         keys.Add(moduleKey);
                     }
                 }
+
+                /*考试开放配置*/
+                Dictionary<int, ExamOpenSetting> examOpenSettings = _config.LoadModuleExamOpenSetting();
+
+
                 foreach (var key in keys)
                 {
                     systemSetting.ExamModuleSettings.Remove(key);
+                    examOpenSettings.Remove(key);
                 }
-
+                _config.ReWriteModuleExamOpenSetting(examOpenSettings);
                 _config.ReWriteSystemSetting(systemSetting);
+               
+
+
+
+
 
                 return Json(new
                 {

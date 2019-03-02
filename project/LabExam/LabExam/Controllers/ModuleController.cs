@@ -77,6 +77,7 @@ namespace LabExam.Controllers
 
                         await _context.SaveChangesAsync().ContinueWith(r =>
                         {
+                            /* 考试出题配置 */
                             SystemSetting setting = _config.LoadSystemSetting();
                             ModuleExamSetting mes = SystemSetting.GetDefault();
                             mes.ModuleId = module.ModuleId;
@@ -84,6 +85,7 @@ namespace LabExam.Controllers
                             setting.ExamModuleSettings.Add(module.ModuleId,mes);
                             _config.ReWriteSystemSetting(setting);
 
+                            /* 考试开放配置 */
                             Dictionary<int, ExamOpenSetting> es = _config.LoadModuleExamOpenSetting();
                             ExamOpenSetting examSetting = new ExamOpenSetting();
                             examSetting.ModuleId = module.ModuleId;
@@ -184,9 +186,17 @@ namespace LabExam.Controllers
                     Module module = _context.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
                     if (module != null)
                     {
+                        /* 重写考试配置 */
                         SystemSetting setting = _config.LoadSystemSetting();
                         setting.ExamModuleSettings.Remove(moduleId);
                         _config.ReWriteSystemSetting(setting);
+
+                        /* 重写开发配置*/
+                        Dictionary<int, ExamOpenSetting> es = _config.LoadModuleExamOpenSetting();
+                        es.Remove(module.ModuleId);
+                        _config.ReWriteModuleExamOpenSetting(es);
+
+
                         _context.Remove(module); //删除这个模块
                         _context.SaveChanges();
                         return Json(new

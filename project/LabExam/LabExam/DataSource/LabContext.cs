@@ -13,7 +13,36 @@ namespace LabExam.DataSource
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            /* 建立索引*/
+
+            modelBuilder.Entity<InstituteToModule>()
+                .HasIndex(b => b.InstituteId)
+                .IsUnique(false);
+
+            modelBuilder.Entity<Student>()
+                .HasIndex(s => s.MaxExamScore)
+                .IsUnique(false);
+
+            modelBuilder.Entity<Learing>()
+                .HasIndex(s => s.CourceId)
+                .IsUnique(false);
+
+
+            modelBuilder.Entity<Learing>()
+                .HasIndex(s => s.StudentId)
+                .IsUnique(false);
+
+            modelBuilder.Entity<Progress>()
+                .HasIndex(s => s.StudentId)
+                .IsUnique(false);
+
+            modelBuilder.Entity<Progress>()
+                .HasIndex(s => s.ResourceId)
+                .IsUnique(false);
+
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<Student>()
                 .Property(b => b.BirthDate)
@@ -41,7 +70,12 @@ namespace LabExam.DataSource
             modelBuilder.Query<vLogStudentMap>().ToView("LogStudentView", "dbo");
 
             modelBuilder.Query<vCourceMap>().ToView("CourceView", "dbo");
-            
+
+            modelBuilder.Query<vProgressMap>().ToView("ProgressView", "dbo");
+
+            modelBuilder.Query<vExamResultMap>().ToView("ExamResultView", "dbo");
+
+            modelBuilder.Query<vExamGradeResultMap>().ToView("ExamGradeResultView", "dbo");
         }
         /* 视图 View */
         public virtual DbQuery<vInstituteToModuleMap> VInstituteToModuleMaps { get; set; }
@@ -65,7 +99,13 @@ namespace LabExam.DataSource
         public virtual DbQuery<vLogStudentMap> VLogStudentMaps { get; set; }
 
         public virtual DbQuery<vCourceMap> VCourceMaps { get; set; }
-        
+
+        public virtual DbQuery<vProgressMap> VProgressMaps { get; set; }
+
+        public virtual DbQuery<vExamResultMap> VExamResultMaps { get; set; }
+
+        public virtual DbQuery<vExamGradeResultMap> VExamGradeResultMaps { get; set; }
+
         /* 表 Table */
         public virtual DbSet<Module> Modules { get; set; }
 

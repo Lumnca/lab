@@ -20,6 +20,7 @@ using LabExam.Models.EntitiyViews;
 
 namespace LabExam.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
 
@@ -138,7 +139,7 @@ namespace LabExam.Controllers
             }
         }
         
-        [AllowAnonymous]
+        
         public IActionResult Login(string returnUrl = null)
         {
             TempData["returnUrl"] = returnUrl;

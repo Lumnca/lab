@@ -11,6 +11,11 @@ namespace LabExam.Models.Map
         ChangePassword = 1, // 修改密码
         JoinExam = 2, // 参加考试
         BindEmail = 4,// 绑定邮箱
-        PassExam = 8 //通过考试
+        PassExam = 8 ,//通过考试,
+        ChangeEmail =  10, //修改邮箱
+        ChangePhone = 12 , //修改手机
+        DeleteReExamApplication = 14,//删除未审核申请
+        StudyCourse = 15,//学习视频资料
+        FinishCourseBySelf = 16,//自己手动完成课程学习
     }
 }
