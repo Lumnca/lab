@@ -115,7 +115,7 @@ Create View ExamGradeResultView
 as
 Select  
 *,
-CONVERT(decimal(18,2),PassTotle * 1.0 / Total * 100) as PassTotleRate,
+CONVERT(decimal(18,2),PassTotal * 1.0 / Total * 100) as PassTotleRate,
 case 
   when UnderCount = 0 then 0.00 
   else Convert(decimal(18,2),(UnderPassCount * 1.0 /UnderCount) * 100) end  as 'UnderPassRate',
@@ -126,7 +126,7 @@ from
 (select 
 	Grade,
 	count(*) as 'Total',
-	sum(case when Student.IsPassExam = 1 then 1 else 0 end ) as 'PassTotle',
+	sum(case when Student.IsPassExam = 1 then 1 else 0 end ) as 'PassTotal',
 	Sum(case when Student.StudentType = 1 then 1  else  0 end) as 'PostCount',
 	Sum(case when Student.StudentType = 0 then 1  else  0 end) as 'UnderCount',
 	Sum(case when Student.StudentType = 1 and Student.IsPassExam = 1 then 1  else  0 end) 
