@@ -222,7 +222,7 @@ select
 	StudentId,
 	PaperId,
 	count(*) as SingleCount,
-	Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as TotalScore,
+	Cast(Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as real)as TotalScore,
 	Score,Sum(case when RealAnswer = StudentAnswer then 1 else 0 end) as RightCount 
 from ExamSingleChoices  Group by  ExamSingleChoices.PaperId,Score,StudentId;
 
@@ -234,7 +234,7 @@ select
 	StudentId,
 	PaperId,
 	count(*) as SingleCount,
-	Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as TotalScore,
+	Cast(Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as real)as TotalScore,
 	Score,Sum(case when RealAnswer = StudentAnswer then 1 else 0 end) as RightCount 
 from ExamMultipleChoices  Group by  ExamMultipleChoices.PaperId,Score,StudentId;
 
@@ -247,7 +247,7 @@ select
 	StudentId,
 	PaperId,
 	count(*) as SingleCount,
-	Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as TotalScore,
+	Cast(Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as real)as TotalScore,
 	Score,Sum(case when RealAnswer = StudentAnswer then 1 else 0 end) as RightCount 
 from ExamJudgeChoices  Group by  ExamJudgeChoices.PaperId,Score,StudentId;
 ```
@@ -256,11 +256,11 @@ from ExamJudgeChoices  Group by  ExamJudgeChoices.PaperId,Score,StudentId;
 `方便出题的视图！`
 
 ```sql
- go
+go
 
- create view RandomMultipleView 
- as
- select MultipleId,newid() as RandomId ,ModuleId from MultipleChoices;
+create view RandomMultipleView 
+as
+select MultipleId,newid() as RandomId ,ModuleId from MultipleChoices;
   
 go
 create view MultipleRandomView 
