@@ -15,7 +15,9 @@
 - [x] [`10.ReExamApplicationView`](#target10)
 - [x] [`11.LogStudentView`](#target11)
 - [x] [`12.LearningView`](#target12)
-- [x] [`13.CourceView`](#target12)
+- [x] [`13.CourceView`](#target13)
+- [x] [`14.StatisticSingleView,StatisticMultipleView,StatisticJudgeView`](#target14)
+- [x] [`15.RandomMultipleView,MultipleRandomView,RandomSingleView`](#target15)
 
 ------
 
@@ -94,15 +96,19 @@ FROM    dbo.Institute INNER JOIN
 ```sql
 SELECT   dbo.Institute.InstituteId, dbo.Institute.Name AS InstituteName, 
   dbo.Professions.Name AS ProfessionName, 
-  dbo.Professions.ProfessionType, dbo.Student.StudentId, dbo.Student.Name AS StudentName, dbo.Student.Grade, 
-  dbo.Student.Phone, dbo.Student.BirthDate, dbo.Student.Sex, dbo.Student.StudentType, dbo.Student.IsPassExam, 
+  dbo.Professions.ProfessionType, dbo.Student.StudentId, 
+  dbo.Student.Name AS StudentName, dbo.Student.Grade, 
+  dbo.Student.Phone, dbo.Student.BirthDate, dbo.Student.Sex, 
+  dbo.Student.StudentType, dbo.Student.IsPassExam, 
   dbo.Student.ProfessionId, dbo.Student.Email, dbo.Student.IDNumber, 
   CASE WHEN dbo.InstituteToModules.ModuleId IS NULL 
-  THEN 0 ELSE dbo.InstituteToModules.ModuleId END AS ModuleId, CASE WHEN dbo.Module.Name IS NULL 
+  THEN 0 ELSE dbo.InstituteToModules.ModuleId END AS ModuleId, 
+  CASE WHEN dbo.Module.Name IS NULL 
   THEN '没有模块归属' ELSE dbo.Module.Name END AS ModuleName, dbo.Student.MaxExamScore, 
   dbo.Student.MaxExamCount
 FROM      dbo.Module INNER JOIN
-  dbo.InstituteToModules ON dbo.Module.ModuleId = dbo.InstituteToModules.ModuleId RIGHT OUTER JOIN
+  dbo.InstituteToModules ON dbo.Module.ModuleId = dbo.InstituteToModules.ModuleId 
+  RIGHT OUTER JOIN
   dbo.Institute INNER JOIN
   dbo.Professions ON dbo.Institute.InstituteId = dbo.Professions.InstituteId INNER JOIN
   dbo.Student ON dbo.Professions.ProfessionId = dbo.Student.ProfessionId ON 
@@ -206,6 +212,65 @@ FROM      dbo.Cources LEFT OUTER JOIN
    FROM      dbo.Resources
    WHERE   (ResourceStatus = 0) AND (ResourceType = 1)
    GROUP BY CourceId) AS Cc ON dbo.Cources.CourceId = Cc.CourceId
+```
+#####  :octocat: [14.StatisticSingleView,StatisticMultipleView,StatisticJudgeView](#top) <b id="target14"></b> 
+`统计试卷的每种题型的做题结果！`
+```sql
+Create View StatisticSingleView
+as
+select 
+	StudentId,
+	PaperId,
+	count(*) as SingleCount,
+	Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as TotalScore,
+	Score,Sum(case when RealAnswer = StudentAnswer then 1 else 0 end) as RightCount 
+from ExamSingleChoices  Group by  ExamSingleChoices.PaperId,Score,StudentId;
+
+go
+
+Create View StatisticMultipleView
+as
+select 
+	StudentId,
+	PaperId,
+	count(*) as SingleCount,
+	Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as TotalScore,
+	Score,Sum(case when RealAnswer = StudentAnswer then 1 else 0 end) as RightCount 
+from ExamMultipleChoices  Group by  ExamMultipleChoices.PaperId,Score,StudentId;
+
+
+go
+
+Create View StatisticJudgeView
+as
+select 
+	StudentId,
+	PaperId,
+	count(*) as SingleCount,
+	Sum(case when RealAnswer = StudentAnswer then Score else 0 end) as TotalScore,
+	Score,Sum(case when RealAnswer = StudentAnswer then 1 else 0 end) as RightCount 
+from ExamJudgeChoices  Group by  ExamJudgeChoices.PaperId,Score,StudentId;
+```
+
+#####  :octocat: [15.RandomMultipleView,MultipleRandomView,RandomSingleView](#top) <b id="target15"></b> 
+`方便出题的视图！`
+
+```sql
+ go
+
+ create view RandomMultipleView 
+ as
+ select MultipleId,newid() as RandomId ,ModuleId from MultipleChoices;
+  
+go
+create view MultipleRandomView 
+as
+select JudgeId,newid() as RandomId ,ModuleId from JudgeChoices;
+  
+go
+create view RandomSingleView 
+as
+select SingleId,newid() as RandomId ,ModuleId from SingleChoices;
 ```
 
 --------------------
