@@ -112,7 +112,8 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    Items = list
+                    Items = list,
+                    size = pageSize
                 });
             }
             else

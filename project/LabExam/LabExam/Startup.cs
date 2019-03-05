@@ -61,7 +61,11 @@ namespace LabExam
             });
             
             services.AddDistributedMemoryCache();
-            services.AddSession(); 
+            services.AddSession(opts =>
+            {
+                opts.IdleTimeout = TimeSpan.FromHours(3); //Session 三个小时后自动失效
+                opts.Cookie.HttpOnly = true;
+            }); 
 
             /* 注册自己的服务 */
             services.AddTransient<IEncryptionDataService, EncryptionDataService>();
@@ -70,6 +74,8 @@ namespace LabExam
             services.AddTransient<ILoggerService, LoggerService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IFileHandleService, FileHandleService>();
+            services.AddScoped<IDataBaseService, DataBaseService>();
+            
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

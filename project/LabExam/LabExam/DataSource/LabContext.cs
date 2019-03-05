@@ -13,40 +13,35 @@ namespace LabExam.DataSource
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             /* 建立索引*/
 
-            modelBuilder.Entity<InstituteToModule>()
-                .HasIndex(b => b.InstituteId)
-                .IsUnique(false);
+            modelBuilder.Entity<InstituteToModule>().HasIndex(b => b.InstituteId).IsUnique(false);
 
-            modelBuilder.Entity<Student>()
-                .HasIndex(s => s.MaxExamScore)
-                .IsUnique(false);
+            modelBuilder.Entity<Student>().HasIndex(s => s.MaxExamScore).IsUnique(false);
 
-            modelBuilder.Entity<Learing>()
-                .HasIndex(s => s.CourceId)
-                .IsUnique(false);
+            modelBuilder.Entity<Learing>().HasIndex(s => s.CourceId).IsUnique(false);
 
 
-            modelBuilder.Entity<Learing>()
-                .HasIndex(s => s.StudentId)
-                .IsUnique(false);
+            modelBuilder.Entity<Learing>().HasIndex(s => s.StudentId).IsUnique(false);
 
-            modelBuilder.Entity<Progress>()
-                .HasIndex(s => s.StudentId)
-                .IsUnique(false);
+            modelBuilder.Entity<Progress>().HasIndex(s => s.StudentId).IsUnique(false);
 
-            modelBuilder.Entity<Progress>()
-                .HasIndex(s => s.ResourceId)
-                .IsUnique(false);
+            modelBuilder.Entity<Progress>().HasIndex(s => s.ResourceId).IsUnique(false);
 
+            modelBuilder.Entity<JudgeChoices>().HasIndex(s => s.ModuleId).IsUnique(false);
+            modelBuilder.Entity<MultipleChoices>().HasIndex(s => s.ModuleId).IsUnique(false);
+            modelBuilder.Entity<SingleChoices>().HasIndex(s => s.ModuleId).IsUnique(false);
+
+            modelBuilder.Entity<ExamJudgeChoices>().HasIndex(s => s.PaperId).IsUnique(false);
+            modelBuilder.Entity<ExamMultipleChoices>().HasIndex(s => s.PaperId).IsUnique(false);
+            modelBuilder.Entity<ExamSingleChoices>().HasIndex(s => s.PaperId).IsUnique(false);
+
+            modelBuilder.Entity<LogStudentOperation>().HasIndex(s => s.StudentId).IsUnique(false);
+            modelBuilder.Entity<ExaminationPaper>().HasIndex(s => s.StudentId).IsUnique(false);
+            modelBuilder.Entity<ExaminationPaper>().HasIndex(s => s.IsFinish).IsUnique(false);
             base.OnModelCreating(modelBuilder);
 
-
-            modelBuilder.Entity<Student>()
-                .Property(b => b.BirthDate)
-                .HasDefaultValueSql("getdate()");
+            modelBuilder.Entity<Student>().Property(b => b.BirthDate).HasDefaultValueSql("getdate()");
 
 
             modelBuilder.Query<vInstituteToModuleMap>().ToView("InstituteToModuleView", "dbo");
@@ -76,6 +71,18 @@ namespace LabExam.DataSource
             modelBuilder.Query<vExamResultMap>().ToView("ExamResultView", "dbo");
 
             modelBuilder.Query<vExamGradeResultMap>().ToView("ExamGradeResultView", "dbo");
+
+            modelBuilder.Query<vRandomJudgeMap>().ToView("RandomJudgeView", "dbo");
+
+            modelBuilder.Query<vRandomMultipleMap>().ToView("RandomMultipleView", "dbo");
+
+            modelBuilder.Query<vRandomSingleMap>().ToView("RandomSingleView", "dbo");
+
+            modelBuilder.Query<vStatisticJudgeMap>().ToView("StatisticJudgeView", "dbo");
+
+            modelBuilder.Query<vStatisticMultipleMap>().ToView("StatisticMultipleView", "dbo");
+
+            modelBuilder.Query<vStatisticSingleMap>().ToView("StatisticSingleView", "dbo");
         }
         /* 视图 View */
         public virtual DbQuery<vInstituteToModuleMap> VInstituteToModuleMaps { get; set; }
@@ -105,6 +112,18 @@ namespace LabExam.DataSource
         public virtual DbQuery<vExamResultMap> VExamResultMaps { get; set; }
 
         public virtual DbQuery<vExamGradeResultMap> VExamGradeResultMaps { get; set; }
+
+        public virtual DbQuery<vRandomJudgeMap> VRandomJudgeMaps { get; set; }
+
+        public virtual DbQuery<vRandomMultipleMap> VRandomMultipleMaps { get; set; }
+
+        public virtual DbQuery<vRandomSingleMap> VRandomSingleMaps { get; set; }
+
+        public virtual DbQuery<vStatisticMultipleMap> VStatisticMultipleMaps { get; set; }
+
+        public virtual DbQuery<vStatisticJudgeMap> VStatisticJudgeMaps { get; set; }
+
+        public virtual DbQuery<vStatisticSingleMap> VStatisticSingleMaps { get; set; }
 
         /* 表 Table */
         public virtual DbSet<Module> Modules { get; set; }
@@ -138,6 +157,9 @@ namespace LabExam.DataSource
         public virtual DbSet<ExamSingleChoices> ExamSingleChoices { get; set; }
 
         public virtual DbSet<ExamJudgeChoices> ExamJudgeChoices { get; set; }
+
+        public virtual DbSet<ExamMultipleChoices> ExamMultipleChoices { get; set; }
+        
 
         public virtual DbSet<ApplicationJoinTheExamination> ApplicationJoinTheExaminations { get; set; }
 

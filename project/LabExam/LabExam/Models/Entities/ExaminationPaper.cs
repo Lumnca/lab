@@ -26,6 +26,9 @@ namespace LabExam.Models.Entities
 
         public Boolean IsFinish { get; set; }
 
+        [MaxLength(600)]
+        public String Review { get; set; }
+
         public virtual List<ExamSingleChoices> ExamSingleChoices { get; set; } //试卷含有的单选题
 
         public virtual List<ExamMultipleChoices> ExamMultipleChoices { get; set; } //试卷含有的多选题

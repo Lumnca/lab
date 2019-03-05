@@ -7,6 +7,7 @@ using LabExam.DataSource;
 using LabExam.IServices;
 using LabExam.Models;
 using LabExam.Models.Entities;
+using LabExam.Models.JsonModel;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -22,13 +23,14 @@ namespace LabExam.Controllers
         private readonly IEncryptionDataService _encryption;
         private readonly ILoggerService _logger;
         private readonly IHttpContextAnalysisService _analysis;
-
-        public JudgeController(IHttpContextAnalysisService analysis, IEncryptionDataService encryption, LabContext context, ILoggerService logger)
+        private readonly ILoadConfigFileService _config;
+        public JudgeController(IHttpContextAnalysisService analysis, IEncryptionDataService encryption, LabContext context, ILoggerService logger, ILoadConfigFileService config)
         {
             _analysis = analysis;
             _encryption = encryption;
             _context = context;
             _logger = logger;
+            _config = config;
         }
 
         public IActionResult Index()
@@ -81,7 +83,8 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    Items = list
+                    Items = list,
+                    size = pageSize
                 });
             }
             else
@@ -348,6 +351,17 @@ namespace LabExam.Controllers
                 JudgeChoices judge = _context.JudgeChoices.Find(judgeId);
                 if (judge != null)
                 {
+                    SystemSetting setting = _config.LoadSystemSetting();
+                    if (setting.LoginSetting.StudentLogin)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "信息提示",
+                            message = "无法删除,当前系统打开了学生学习通道,在实验室安全考试期间无法删除任何考题！以免引起数据不正常！"
+                        });
+                    }
+
                     _context.JudgeChoices.Remove(judge);
                     _context.SaveChanges();
                     return Json(new

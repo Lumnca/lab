@@ -27,12 +27,18 @@
             <td>@item.TotleScore</td>
             <td><label class=" label label-danger">@(item.Score)分</label> </td>
             <td>@item.AddTime</td>
-            <td>@(item.IsFinish?"完成":"未完成")</td>
+            <td class="font-weight-600">@(item.IsFinish?"完成":"未完成")</td>
             <td class=" text-right">
-               @if (!item.IsFinish)
-               {
-                  <button class="btn btn-sm btn-primary abandon-exam" data-item-id="@item.PaperId">放弃考试</button>
-               }
+                @if (!item.IsFinish)
+                {
+                    <a asp-controller="Student" asp-action="Exam" class="btn btn-sm btn-info continue-exam" data-item-id="@item.PaperId">继续考试</a>
+                    <button class="btn btn-sm btn-primary abandon-exam" data-item-id="@item.PaperId">放弃考试</button>
+                }
+                else
+                {
+                    <button class="btn btn-sm btn-default " data-item-id="@item.PaperId">无可操作</button>    
+                }
+                
             </td>
         </tr>
     }

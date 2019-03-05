@@ -8,6 +8,7 @@ using LabExam.IServices;
 using LabExam.Migrations;
 using LabExam.Models;
 using LabExam.Models.Entities;
+using LabExam.Models.JsonModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,13 +24,15 @@ namespace LabExam.Controllers
         private readonly IEncryptionDataService _encryption;
         private readonly IHostingEnvironment _hosting;
         private readonly IHttpContextAnalysisService _analysis;
+        private readonly ILoadConfigFileService _config;
 
-        public SingleController(LabContext context, IEncryptionDataService encryption, IHostingEnvironment hosting, IHttpContextAnalysisService analysis)
+        public SingleController(LabContext context, IEncryptionDataService encryption, IHostingEnvironment hosting, IHttpContextAnalysisService analysis, ILoadConfigFileService config)
         {
             _context = context;
             _encryption = encryption;
             _hosting = hosting;
             _analysis = analysis;
+            _config = config;
         }
 
         // GET: Single
@@ -83,7 +86,8 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    Items = list
+                    Items = list,
+                    size = pageSize
                 });
             }
             else
@@ -351,6 +355,17 @@ namespace LabExam.Controllers
                 SingleChoices item = _context.SingleChoices.Find(singleId);
                 if (item != null)
                 {
+                    SystemSetting setting = _config.LoadSystemSetting();
+                    if (setting.LoginSetting.StudentLogin)
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title = "信息提示",
+                            message = "无法删除,当前系统打开了学生学习通道,在实验室安全考试期间无法删除任何考题！以免引起数据不正常！"
+                        });
+                    }
+
                     _context.SingleChoices.Remove(item);
                     _context.SaveChanges();
                     return Json(new

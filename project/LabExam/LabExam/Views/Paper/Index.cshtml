@@ -1,0 +1,348 @@
+﻿@{
+    ViewData["Title"] = "实验室安全教育在线-考试试卷";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+
+<div class="admin-searach">
+    <div id="Search-condition" class=" bc-clr-white margin-5px  padding-15px border-little-grey-all"
+         data-min-width="1250">
+        <div class="float-layout">
+            <span for="isFinish" class="font-size-14 text-muted">是否完成：</span>
+            <select id="isFinish" name="isFinish" data-height="26" data-width="180" class="font-size-12 padding-left-5px ">
+                <option value="-1">-- 全部 --</option>
+                <option value="0">-- 未完成 --</option>
+                <option value="1">-- 已完成 --</option>
+            </select>
+            <span for="studentId" class="margin-left-10px font-size-14 text-muted">学生学号：</span>
+            <input value="" type="text" id="studentId" name="studentId" data-height="22" data-width="120" class="font-size-12 padding-left-5px ">
+            <span for="PaperId" class="margin-left-20px font-size-14 text-muted">试卷编号：</span>
+            <input value="" type="text" id="PaperId" name="PaperId" data-height="22"
+                   data-width="100" class="font-size-12 padding-left-5px ">
+            <span for="scoreLeft" class="margin-left-10px font-size-14 text-muted">分数范围：</span>
+            <input type="number" min="0" id="scoreLeft" name="scoreLeft" data-width="75" />
+            <span for="scoreRight" class="font-size-14 text-muted"> ~ </span>
+            <input type="number" min="0" id="scoreRight" name="scoreRight" data-width="70" />
+            <button id="searchInstitute" class="float-right  btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-search"></span>
+                立即搜索
+            </button>
+        </div>
+    </div>
+
+</div>
+<div class=" bc-clr-white margin-5px  padding-15px border-little-grey-all" data-min-width="1250">
+    <table class="table table-hover" id="student-list">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>学号</th>
+                <th>试卷编号</th>
+                <th>通过分数</th>
+                <th>考试时间</th>
+                <th>剩余考试时间</th>
+                <th>试卷总分</th>
+                <th>参考时间</th>
+                <th>分数</th>
+                <th>是否完成</th>
+                <th class="text-right">操作</th>
+            </tr>
+        </thead>
+        <tbody class="section-items"></tbody>
+    </table>
+    <div class=" float-layout ">
+        <label class=" float-left">
+            共 <span class="items-count">0</span> 张试卷
+        </label>
+        <div class=" float-right">
+            <a href="#" class=" btn-default btn btn-sm ">
+                <span>第</span>
+                <span class="show-page-Index">
+                    1
+                </span>
+                <span>
+                    /
+                </span>
+                <span class="show-page-Count">
+                    12
+                </span>
+                <span>
+                    页
+                </span>
+            </a>
+            <button class="First btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-backward"></span>
+                首页
+            </button>
+            <button class="Previous btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                上一页
+            </button>
+            <button class="Next btn btn-primary btn-sm">
+                下一页 <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+            <button class="Last btn btn-primary btn-sm" data-lastIndex="1">
+                尾页 <span class="glyphicon glyphicon-forward"></span>
+            </button>
+            <select data-options="true" class=" margin-left-10px text-center" data-height="27" data-width="45"></select>
+            <button data-skip="true" class="btn btn-sm btn-primary">跳转</button>
+        </div>
+    </div>
+</div>
+<script id="item-template" type="x-tmpl-mustache">
+    {{#items}}
+    <tr>
+        <td>
+            <label class="label label-primary">{{index}}</label>
+        </td>
+        <td>
+            {{studentId}}
+        </td>
+        <td>
+            {{paperId}}
+        </td>
+        <td>
+            {{passScore}}
+        </td>
+        <td>
+            {{examTime}}分钟
+        </td>
+        <td>
+            {{leaveExamTime}}分钟
+        </td>
+        <td>
+            {{totleScore}}
+        </td>
+        <td>
+            {{addTime}}
+        </td>
+        <td>
+            <label class="label label-danger">{{score}}分</label>
+        </td>
+        <td>
+            {{isFinish}}
+        </td>
+        <td class="text-right">
+            <button class="btn btn-sm btn-primary detail-button" data-item-id="{{paperId}}"><span class="glyphicon glyphicon-zoom-in"></span>详情</button>
+        </td>
+    </tr>
+    {{/items}}
+</script>
+<script id="detail-template" type="x-tmpl-mustache">
+    <table class=" table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    题目类型
+                </th>
+                <th>
+                    题目数量
+                </th>
+                <th>
+                    正确数量
+                </th>
+                <th>
+                    每题分数
+                </th>
+                <th>
+                    总得分
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>单选题</td>
+                <td>{{judge.allCount}}</td>
+                <td>{{judge.rightCount}}</td>
+                <td>{{judge.score}}</td>
+                <td>{{judge.totalScore}} 分</td>
+            </tr>
+            <tr>
+                <td>多选题</td>
+                <td>{{multiple.allCount}}</td>
+                <td>{{multiple.rightCount}}</td>
+                <td>{{multiple.score}}</td>
+                <td>{{multiple.totalScore}} 分</td>
+            </tr>
+            <tr>
+                <td>判断题</td>
+                <td>{{single.allCount}}</td>
+                <td>{{single.rightCount}}</td>
+                <td>{{single.score}}</td>
+                <td>{{single.totalScore}} 分</td>
+            </tr>
+            <tr>
+                <td>简答题</td>
+                <td>1</td>
+                <td>无正确判断</td>
+                <td>0</td>
+                <td>0 分</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div class=" margin-top-10px padding-10px">
+        <div class="font-weight-600">
+            <span class=" glyphicon glyphicon-ok-sign "></span> 学生评论:
+            {{review}}
+        </div>
+    </div>
+</script>
+<div class="modal fade" id="Detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font-weight-600 padding-top-10px text-primary">
+                    <span class=" glyphicon glyphicon-cog "></span>
+                    试卷详情
+                </h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">立即关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/mustache/mustache.min.js"></script>
+@section Scripts
+{
+    <script>
+        function stateManager() {
+            var pageIndex = parseInt($('.show-page-Index').text().trim()); //当前页
+            var pageCount = parseInt($('.show-page-Count').text().trim()); //总共多少页
+            if (pageIndex >= pageCount) {
+                $('.Next').prop("disabled", true);
+            } else {
+                $('.Next').prop("disabled", false);
+            }
+            if (pageIndex == 1) {
+                $('.Previous').prop("disabled", true);
+            } else {
+                $('.Previous').prop("disabled", false);
+            }
+        }
+
+        loadPageByIndex(1);
+        function loadPageByIndex(index) {
+            $.ajax({
+                url: "/Paper/Page",
+                type: "post",
+                dataType: "json",
+                data: {
+                    index: index,
+                    isFinish: $('select[name="isFinish"]').val(),
+                    studentId: $('#studentId').val(),
+                    PaperId: $('#PaperId').val() == "" ? -1 : $('#PaperId').val(),
+                    leftScore: $('#scoreLeft').val() == "" ? 0 : $('#scoreLeft').val(),
+                    rightScore: $('#scoreRight').val() == "" ? 5112116 : $('#scoreRight').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    console.log(json);
+                    if (json.isOk) {
+                        if (json.items == null) {
+                            $('.section-items').html("");
+                        }
+                        else {
+                            var inCre = json.size * (index - 1);
+                            for (var i = 0; i < json.items.length; i++) {
+                                json.items[i].index = (i + 1 + inCre);
+                            }
+
+                            var template = $('#item-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('.section-items').html(result);
+                        }
+
+
+                        $('.items-count').text(json.lineCount);
+                        $('.show-page-Count').text(`${json.pageCount}`); //分页总数
+                        $('.show-page-Index').text(`${json.pageNowIndex}`); //当前页
+                        $('button[data-lastIndex]').attr("data-lastIndex", json.pageCount); //最后一页 的index
+
+
+                        $('select[data-options] > option').remove();
+
+                        for (let index_ = 0; index_ < json.pageCount; index_++) {
+                            $('select[data-options]').append(`<option value="${index_ + 1}">${index_ + 1}</option>`);
+                        }
+
+                        $('select[data-options]').val(index);
+
+                        stateManager();
+                    } else {
+                        onMask("错误", json.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", "网络接连错误..");
+                }
+            });
+        }
+
+        $('.Next').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) + 1);
+        });
+
+        $('.First').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.Previous').click(function (jqEvent) {
+            loadPageByIndex(parseInt($('.show-page-Index').text().trim()) - 1);
+        });
+
+        $('.Last').click(function (jqEvent) {
+            loadPageByIndex($('button[data-lastIndex]').attr("data-lastIndex").trim());
+        });
+
+        $('button[data-skip]').click(function (jqEvent) {
+            var pageIndex = parseInt($('.show-page-Index').text().trim());
+            var skip = parseInt($('select[data-options]').val().trim());
+            if (skip === pageIndex) {
+                onMask("提示信息", "跳转页面为当前页面");
+            } else {
+                loadPageByIndex($('select[data-options]').val());
+            }
+        });
+
+        $('#searchInstitute').click(function (jqEvent) {
+            loadPageByIndex(1);
+        });
+
+        $('.section-items').on('click',
+            ".detail-button",
+            null,
+            function (jqEvent) {
+
+                var id = $(this).attr("data-item-id");
+                $.ajax({
+                    url: "/Paper/Detail",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        pId: id
+                    },
+                    success: function (json) {
+                        console.log(json);
+                        if (json.isOk) {
+                            var template = $('#detail-template').html();
+                            Mustache.parse(template);
+                            var result = Mustache.render(template, json);
+                            $('#Detail .modal-body').html(result);
+
+                            $('#Detail').modal('show');
+
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+            });
+    </script>
+}

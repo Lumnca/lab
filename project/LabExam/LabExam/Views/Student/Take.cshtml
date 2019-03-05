@@ -91,14 +91,26 @@
                 </p>
             </div>
             <div class="text-center margin-top-20px margin-bottom-25px">
-                <button type="button" class="btn btn-primary">我已准备好,立即考试</button>
+                <button id="takeExam"  class="btn btn-primary"> 我已准备好,立即考试 </button>
             </div>
-            <div class=" margin-bottom-15px text-danger">
-                [<span class="glyphicon glyphicon-info-sign"></span>]
-                <span class=" font-size-13">
-                    你已经用完考试次数! 去申请重考吧！<a href="#">申请重考</a>
-                </span>
-            </div>
+            @if (ViewBag.ExamCount >= Model.MaxExamCount)
+            {
+                <div class=" margin-bottom-15px text-danger">
+                    [<span class="glyphicon glyphicon-info-sign"></span>]
+                    <span class=" font-size-13">
+                        你已经用完考试次数! 去申请重考吧！<a asp-controller="Student" asp-action="Application" >申请重考</a>
+                    </span>
+                </div>
+            }
         </div>
     </div>
 </div>
+<script>
+    $('#takeExam').click(function() {
+        if (!$('#isOk').prop('checked')) {
+            onMask("消息", "尚未阅读完成考试规定！");
+            return;
+        }
+        window.location.href = "/Student/Exam";
+    });
+</script>

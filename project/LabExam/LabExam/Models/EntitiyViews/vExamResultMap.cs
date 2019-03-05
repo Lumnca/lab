@@ -29,10 +29,10 @@ namespace LabExam.Models.EntitiyViews
 
         public int UnderNotPassCount { get; set; }
 
-        public float TotalPassRate { get; set; }
+        public System.Decimal TotalPassRate { get; set; }
 
-        public int PostPassRate { get; set; }
+        public System.Decimal PostPassRate { get; set; }
 
-        public float UnderPassRate { get; set; }
+        public System.Decimal UnderPassRate { get; set; }
     }
 }

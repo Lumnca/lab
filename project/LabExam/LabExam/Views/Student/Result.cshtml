@@ -1,0 +1,125 @@
+﻿@using LabExam.Models.EntitiyViews
+@model LabExam.Models.Entities.ExaminationPaper
+@{
+    ViewData["Title"] = "实验室安全教育在线-考试结果";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="~/css/stuEntry.min.css" rel="stylesheet" />
+    <link rel="icon" href="~/Resources/system/icon/icon.png" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body class="bc-clr-grey-little">
+    <div class="navbar-normal bc-clr-white">
+        <div class="container">
+            <div class="navbar-normal-brand">
+                <img src="~/Resources/Img/calo.png" alt="系统图标" class="img-circle img-thumbnail" width="56" />
+                <div class="navbar-normal-brand-title">
+                    SICNU  实验室安全考试 End
+                </div>
+            </div>
+            <div id="wang" class="navbar-normal-navlist">
+                <nav class="navbar-normal-list-right">
+                    <a  asp-controller="Student" asp-action="Index"  class="btn  btn-default"  title="这是一件严肃的事情你要知道">
+                        <span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span>
+                        返回首页
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-10px">
+        <div class="row border-thumali bc-clr-white">
+            <div class="col-md-6 col-md-offset-3 padding-15">
+                <h4 class="title-Splitter text-info">
+                    <span class="glyphicon glyphicon-ok-circle"></span>
+                    <span class=" font-size-18 font-weight-600">@(ViewBag.Name)的考试结果</span>
+                </h4>
+                <div class="lab-exam-result">
+                    <table class=" table table-hover">
+                        <thead>
+                        <tr>
+                            <th>题目类型</th>
+                            <th>题目数量</th>
+                            <th>正确数量</th>
+                            <th>每题分数</th>
+                            <th>总得分</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @{
+                                    vStatisticJudgeMap judge = ((vStatisticJudgeMap) ViewData["judge"]);
+                                    vStatisticMultipleMap multiple = ((vStatisticMultipleMap)ViewData["multiple"]);
+                                    vStatisticSingleMap single = ((vStatisticSingleMap)ViewData["single"]);
+                                }
+                                <td>单选题</td>
+                                <td>@(judge.AllCount)</td>
+                                <td>@(judge.RightCount)</td>
+                                <td>@judge.Score</td>
+                                <td>@judge.TotalScore 分</td>
+                            </tr>
+                            <tr>
+                                <td>多选题</td>
+                                <td>@multiple.AllCount</td>
+                                <td>@multiple.RightCount</td>
+                                <td>@multiple.Score</td>
+                                <td>@multiple.TotalScore 分</td>
+                            </tr>
+                            <tr>
+                                <td>判断题</td>
+                                <td>@single.AllCount</td>
+                                <td>@single.RightCount</td>
+                                <td>@single.Score</td>
+                                <td>@single.TotalScore 分</td>
+                            </tr>
+                            <tr>
+                                <td>简答题</td>
+                                <td>1</td>
+                                <td>无正确判断</td>
+                                <td>0</td>
+                                <td>0 分</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div>
+                        <button class="btn btn-sm btn-primary text-center" style=" width:100%;">
+
+
+                            <span class=" font-weight-500 ">
+                                总分:@(Model.TotleScore)分
+                            </span>
+                            <span class="font-weight-500 ">
+                                得分:
+                            </span>
+                            <span class=" ">
+                                @(Model.Score)分
+                            </span>
+                            @if (Model.PassScore <= Model.Score)
+                            {
+                                <span>恭喜你通过考试！</span>
+                            }
+                            else
+                            {
+                                <span>此次考核不合格!</span>
+                            }
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bc-clr-grey-little margin-top-15px layout-position-bottom">
+        <div class="text-center font-size-16 padding-bottom-10px">
+            <small>© All Right Reserved . 四川师范大学计算机科学学院 版权所有 版本号1.0.0.2018.9</small>
+        </div>
+    </div>
+</body>
+</html>

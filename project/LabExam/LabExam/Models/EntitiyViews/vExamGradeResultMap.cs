@@ -16,13 +16,15 @@ namespace LabExam.Models.EntitiyViews
         public Int32 PostCount { get; set; }
 
         public Int32 UnderCount { get; set; }
+        
+        public int UnderPassCount { get; set; }
 
         public int PostPassCount { get; set; }
 
-        public float PassTotalRate { get; set; }
+        public System.Decimal PassTotleRate { get; set; }
 
-        public float PostPassRate { get; set; }
+        public System.Decimal PostPassRate { get; set; }
 
-        public float UnderPassRate { get; set; }
+        public System.Decimal UnderPassRate { get; set; }
     }
 }

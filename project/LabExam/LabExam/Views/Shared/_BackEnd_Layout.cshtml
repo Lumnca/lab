@@ -64,9 +64,10 @@
                     </a>
                     <ul>
                         <li><a asp-controller="Setting" asp-action="Index">1.考试出题</a></li>
-                        <li><a href="#">2.考试试卷</a></li>
-                        <li><a href="#">3.考试情况</a></li>
-                        <li><a asp-controller="Excel" asp-action="Report">4.考试报表</a></li>
+                        <li><a asp-controller="Paper" asp-action="Index">2.考试试卷</a></li>
+                        <li><a asp-controller="Statistics" asp-action="Institute">3.学院统计</a></li>
+                        <li><a asp-controller="Statistics" asp-action="Grade">4.年度统计</a></li>
+                        <li><a asp-controller="Excel" asp-action="Report">5.学生成绩</a></li>
                     </ul>
                 </li>
                 <li>
@@ -127,22 +128,22 @@
                     <li>
                         <a asp-controller="Principal" asp-action="Index" class="ban-bootsrap-a-style" >
                             <img src="~/Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
-                            <span class=" font-color-grey padding-left-25px">
-                                管理员： 蒋廖周
+                            <span class=" font-color-grey padding-left-10px">
+                                管理员个人中心
                             </span>
                         </a>
                     </li>
                 </ul>
                 <div class=" float-right padding-15px">
-                    <a href="#" data-toggle="modal" data-target="#User-warning">
-                        <img src="~/Resources/Admin/login/message2.svg"
-                             width="25">
-                        <span class="info-warning">1</span>
-                    </a>
-                    <a href="#" data-toggle="modal" data-target="#User-danger" class=" margin-left-20px margin-right-10px ">
-                        <img src="~/Resources/Admin/login/message.svg" width="22">
+                    <a href="#" data-toggle="modal" data-target="#User-danger"  class=" margin-left-20px margin-right-10px ">
+                        <img src="~/Resources/Admin/login/message2.svg" width="22">
                         <span class="info-warning-green">2</span>
                     </a>
+                    <a  asp-controller="Account" asp-action="LoginOut"  title="你要退出登录吗？" >
+                        <img src="~/Resources/Admin/close.svg"
+                             width="22">
+                    </a>
+
                 </div>
             </div>
             <div class="margin-10px ">

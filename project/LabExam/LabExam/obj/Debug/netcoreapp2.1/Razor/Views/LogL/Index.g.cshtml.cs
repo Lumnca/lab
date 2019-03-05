@@ -70,7 +70,7 @@ using LabExam.Models.Map;
 #line default
 #line hidden
             BeginContext(187, 50, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "6b84b9eea39841eeb9f09c2a76cc248d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "afb5ef61532a4d8596f378d10c30bcee", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -89,7 +89,7 @@ using LabExam.Models.Map;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(239, 39, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b733d9bec07b42819be339d99ebebd66", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "46af2dd803874c0daf8f3241c79309b3", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -116,7 +116,7 @@ using LabExam.Models.Map;
                 ");
             EndContext();
             BeginContext(760, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fabcb44cb121469b9d1ca54b5cbde3a3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "283ec5c86b6e46488cb39236919d9b5f", async() => {
                 BeginContext(779, 10, true);
                 WriteLiteral("--  全部  --");
                 EndContext();
@@ -138,7 +138,7 @@ using LabExam.Models.Map;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(816, 29, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "430072c1ef3c46aa86bba5eca4f021e1", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "23746592c21348028831ade8b628c867", async() => {
                 BeginContext(834, 2, true);
                 WriteLiteral("手机");
                 EndContext();
@@ -160,7 +160,7 @@ using LabExam.Models.Map;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(863, 29, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e28afe73279b49aa880eef74e045bec2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3b9f87c784a340baa5e5d359449d7d87", async() => {
                 BeginContext(881, 2, true);
                 WriteLiteral("平板");
                 EndContext();
@@ -182,7 +182,7 @@ using LabExam.Models.Map;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(910, 29, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7d8620fcb8c645eea4628cee24b943bc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bb71150067924487859a0b29eb3c2524", async() => {
                 BeginContext(928, 2, true);
                 WriteLiteral("电脑");
                 EndContext();

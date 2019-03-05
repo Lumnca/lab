@@ -1104,7 +1104,7 @@
   }
 }
 
-.layout-shooseOnlyOne > a {
+.layout-shooseOnlyOne > a, .layout-shooseOnlyOne button {
   margin-left: 5px;
   width: 28px;
   margin-top: 5px;
@@ -1121,7 +1121,7 @@
   color: white;
 }
 
-.layout-shooseNotOnlyOne > a {
+.layout-shooseNotOnlyOne > a, .layout-shooseNotOnlyOne button {
   margin-left: 5px;
   width: 28px;
   margin-top: 5px;
@@ -1138,7 +1138,7 @@
   color: white;
 }
 
-.layout-panduanTimu > a {
+.layout-panduanTimu > a, .layout-panduanTimu button {
   margin-left: 5px;
   width: 28px;
   margin-top: 5px;
@@ -1172,85 +1172,85 @@
   color: white;
 }
 
-.labOnlyOneShoose > .lab-SubjectContent::first-letter {
+.labOnlyOneShoose .lab-SubjectContent::first-letter {
   font-weight: 600;
   font-size: 16px;
 }
 
-.labOnlyOneShoose > .lab-SubjectContent {
+.labOnlyOneShoose .lab-SubjectContent {
   font-weight: 500;
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.labOnlyOneShoose > .lab-Option {
+.labOnlyOneShoose .lab-Option {
   text-indent: 10px;
 }
 
-.labOnlyOneShoose > .lab-Option .lab-Option-Content {
+.labOnlyOneShoose .lab-Option .lab-Option-Content {
   font-size: 13px;
   font-weight: 400;
   padding-left: 10px;
 }
 
-.labjudgementAnt > .lab-MoreShoose::first-letter {
+.labjudgementAnt .lab-MoreShoose::first-letter {
   font-weight: 600;
   font-size: 16px;
 }
 
-.labjudgementAnt > .lab-judgementAnt {
+.labjudgementAnt .lab-judgementAnt {
   font-weight: 500;
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.labjudgementAnt > .lab-Option {
+.labjudgementAnt .lab-Option {
   text-indent: 10px;
 }
 
-.labjudgementAnt > .lab-Option .lab-Option-Content {
+.labjudgementAnt .lab-Option .lab-Option-Content {
   font-size: 13px;
   font-weight: 400;
   padding-left: 10px;
 }
 
-.labMoreShoose > .lab-MoreShoose::first-letter {
+.labMoreShoose .lab-MoreShoose::first-letter {
   font-weight: 600;
   font-size: 16px;
 }
 
-.labMoreShoose > .lab-MoreShoose {
+.labMoreShoose .lab-MoreShoose {
   font-weight: 500;
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.labMoreShoose > .lab-Option {
+.labMoreShoose .lab-Option {
   text-indent: 10px;
 }
 
-.labMoreShoose > .lab-Option .lab-Option-Content {
+.labMoreShoose .lab-Option .lab-Option-Content {
   font-size: 13px;
   font-weight: 400;
   padding-left: 10px;
 }
 
-.labAwnserAnt > .lab-MoreShoose::first-letter {
+.labAwnserAnt .lab-MoreShoose::first-letter {
   font-weight: 600;
   font-size: 16px;
 }
 
-.labAwnserAnt > .lab-labAwnserAnt {
+.labAwnserAnt .lab-labAwnserAnt {
   font-weight: 500;
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.labAwnserAnt > .lab-Option > textarea {
+.labAwnserAnt .lab-Option > textarea {
   width: 100%;
   height: 150px;
   resize: vertical;

@@ -17,5 +17,11 @@ namespace LabExam.Models.Map
         DeleteReExamApplication = 14,//删除未审核申请
         StudyCourse = 15,//学习视频资料
         FinishCourseBySelf = 16,//自己手动完成课程学习
+        EnterTheExamAgain = 17, //再次进入考试
+        IllegalAttack = 18,//非法攻击
+        DisruptingExamination = 19,//扰乱考试 企图干扰考试时间
+        GiveUpTheExam = 20,//放弃考试
+        SubmitExam = 30,//提交考试
+        SubmitExamBySystem = 31,//系统帮他提交了考试
     }
 }

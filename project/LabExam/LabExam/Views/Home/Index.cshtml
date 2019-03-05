@@ -16,7 +16,8 @@
 </div>
 <div class="border-light-down  bc-clr-white">
     <div class="  padding-top-20px font-size-15 text-muted padding-bottom-30px  text-center ">
-        <span class=" text-primary font-size-20 font-weight-700  ">请</span> 各位同学按照 <span class=" border-light-down  font-weight-700 text-primary font-color-blue-light">学校相关规则</span>
+        <span class=" text-primary font-size-20 font-weight-700  ">请</span> 各位同学按照 
+        <span class=" border-light-down  font-weight-700 text-primary font-color-blue-light">学校相关规则</span>
         按时完成学习任务,通过四川师范大学实验室安全考试 <br />
     </div>
 </div>
@@ -51,7 +52,7 @@
                             <h4 class=" margin-top-30px text-center">密码修改</h4>
                         </a>
                         <div class="text-center text-muted padding-20px font-size-16 ">
-                            学生可以更具自己是身份证号修改密码,系统默认密码是身份证后六位
+                            学生可以根据自己的身份证号修改密码,系统默认密码是身份证后六位
                         </div>
                     </div>
                 </div>
@@ -65,7 +66,7 @@
                     <div>
                         <h4 class=" margin-top-30px text-center">后台监控</h4>
                         <div class="text-center text-muted padding-20px font-size-16 ">
-                            学生考试行为后台监控,请仔细学习,完成各项学习任务！
+                            学生考试行为后台监控,请认真学习,完成各项学习任务！
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,7 @@
         </div>
     </div>
 </div>
-<div class=" margin-top-10px  bc-clr-white">
+<div class=" margin-top-10px  bc-clr-white padding-bottom-50px">
     <div class=" container padding-10px">
         <div class=" row">
             <div class=" col-md-3 col-sm-6 ">
@@ -137,22 +138,20 @@
                 <h5 class=" font-weight-700 ">使用链接</h5>
                 <ul class=" list-unstyled font-size-12">
                     <li class=" margin-top-10px">
-                        <a href="#" class=" btn btn-sm btn-primary">立即进入学生系统</a>
+                        <a asp-controller="Student" asp-action="Index" class=" btn btn-sm btn-primary">立即进入学生系统</a>
                     </li>
                     <li class=" margin-top-10px">
-                        <a href="#" class=" btn btn-sm btn-primary">考试入口</a>
+                        <a asp-controller="Student" asp-action="Take" class=" btn btn-sm btn-primary">考试入口</a>
                     </li>
                     <li class=" margin-top-10px">
                         <a asp-controller="Principal" asp-action="Index" class=" btn btn-sm btn-primary">管理入口</a>
-                    </li>
-                    <li class=" margin-top-10px">
-                        <a href="#" class=" btn btn-sm btn-primary">意见反馈</a>
                     </li>
                 </ul>
             </div>
             <div class=" col-md-3 col-sm-6 float">
                 <h5 class=" font-weight-700 padding-left-10px  ">二维码扫一扫</h5>
-                <img src="../Resources/product/二维码-lan.png" width="140px" class="  img-thumbnail">
+                <img src="../Resources/product/二维码-lan.png" width="100" class="  img-thumbnail">
+
             </div>
         </div>
     </div>

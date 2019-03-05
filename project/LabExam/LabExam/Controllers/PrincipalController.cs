@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using LabExam.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,6 +38,32 @@ namespace LabExam.Controllers
 
         public IActionResult Index()
         {
+            LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
+            Principal principal = _context.Principals.Find(user.UserId);
+
+            if (principal != null)
+            {
+                ViewBag.reExam =
+                    _context.ApplicationForReExaminations.Count(a => a.ApplicationStatus == ApplicationStatus.Submit);
+                ViewBag.join =
+                    _context.ApplicationJoinTheExaminations.Count(a => a.ApplicationStatus == ApplicationStatus.Submit);
+
+                ViewBag.moduleCount = _context.Modules.Count();
+                ViewBag.instituteCount = _context.Institute.Count();
+                ViewBag.professionCount = _context.Professions.Count();
+
+                ViewBag.adminCount = _context.Principals.Count();
+                ViewBag.underCount = _context.Student.Count(s => s.StudentType == StudentType.UnderGraduate);
+                ViewBag.postCount = _context.Student.Count(s => s.StudentType == StudentType.PostGraduate);
+                ViewBag.courseCount = _context.Cources.Count();
+                ViewBag.resourceCount = _context.Resources.Count();
+                return View(principal);
+            }
+            else
+            {
+                RedirectToAction("Wrong", "Error", new {data = "请从新登录系统!"});
+            }
+
             return View();
         }
 
@@ -113,7 +142,8 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     PageCount = pageCount, //总共是多少页
                     pageNowIndex = index, //当前是第几页
-                    Items = items
+                    Items = items,
+                    size = pageSize
                 });
             }
             else
@@ -625,6 +655,60 @@ namespace LabExam.Controllers
                 return Json(new
                 {
                     isOk = false,
+                    message = $"参数错误！输入了不合规范的参数。 "
+                });
+            }
+        }
+
+        public IActionResult Password([Required,MinLength(6)] String password,[Required] String lastPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
+                Principal principal = _context.Principals.Find(user.UserId);
+                
+                if (principal != null)
+                {
+                    String dbLastPassword = _encryption.DecryptByRsa(principal.Password);
+                    String lastPasswordMd5 = _encryption.EncodeByMd5Times(lastPassword,2);
+                    if (lastPasswordMd5 == dbLastPassword)
+                    {
+                        principal.Password = _encryption.EncodeByRsa(_encryption.EncodeByMd5Times(password, 2));
+                        _context.SaveChanges();
+                        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                        return Json(new
+                        {
+                            isOk = true,
+                            title = "提示",
+                            message = $"修改成功"
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            isOk = false,
+                            title ="错误",
+                            message = $"旧密码错误！"
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误",
+                        message = $"用户不存在或者已经被删除！。 "
+                    });
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    title = "错误",
                     message = $"参数错误！输入了不合规范的参数。 "
                 });
             }

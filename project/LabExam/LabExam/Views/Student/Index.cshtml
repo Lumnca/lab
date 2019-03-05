@@ -64,7 +64,7 @@
                         <span>申请次数</span>
                     </div>
                     <div class="follows-item">
-                        <a  asp-controller="Student" asp-action="Person"  class="capsule "> <span class="glyphicon glyphicon-cog"></span> 个人设置</a>
+                        <a  asp-controller="Student" asp-action="Person" target="_blank" class="capsule "> <span class="glyphicon glyphicon-cog"></span> 个人中心</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
     </div>
 </div>
 <div class=" container ">
-    <div class="margin-top-15px  border-thumali bc-clr-white" data-min-height="1000">
+    <div class="margin-top-15px margin-bottom-55px  border-thumali bc-clr-white" data-min-height="1000" >
         <nav class="nav-list ">
             <a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> 个人动态</a>
             <a href="#ios" data-toggle="tab"><span class="glyphicon glyphicon-expand"></span>学习课程</a>
@@ -80,7 +80,7 @@
             <a href="#ejb" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> 个人申请</a>
         </nav>
         <div id="myTabContent " class="tab-content padding-15 ">
-            <div class="tab-pane fade  in active " id="home">
+            <div class="tab-pane fade overflow-y-scroll in active " id="home"  data-max-height="1000">
 
             </div>
             <div class="tab-pane fade " id="ios">
@@ -97,7 +97,7 @@
                         考试次数:@Model.ExamTime <span class=" margin-left-15px">最好成绩:</span> <label class=" label label-primary"> @Model.MaxScore</label> 分
                     </small>
                 </h4>
-                <div class="paper-items">
+                <div id="paper-items">
 
                 </div>
             </div>
@@ -303,5 +303,34 @@
             });
 
 
+        $('#paper-items').on('click',
+            '.abandon-exam',
+            null,
+            function (jqEvent) {
+                $('#program').modal('show');
+
+                var pId = $(this).attr('data-item-id');
+
+                $.ajax({
+                    url: "/Student/Exit",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        pId: pId
+                    },
+                    success: function(json) {
+                        console.log(json);
+                        $('#program').modal('hide');
+                        if (json.isOk) {
+                            $("#paper-items").load("/Student/Paper");
+                        } else {
+                            onMask(json.title, json.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        onMask("错误", `网络接连错误.. ${errorThrown}`);
+                    }
+                });
+            });
     </script>
 }

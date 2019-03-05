@@ -141,6 +141,9 @@ namespace LabExam.Migrations
 
                     b.Property<float>("PassScore");
 
+                    b.Property<string>("Review")
+                        .HasMaxLength(600);
+
                     b.Property<float>("Score");
 
                     b.Property<string>("StudentId")
@@ -324,6 +327,10 @@ namespace LabExam.Migrations
 
                     b.HasKey("LearingId");
 
+                    b.HasIndex("CourceId");
+
+                    b.HasIndex("StudentId");
+
                     b.ToTable("Learings");
                 });
 
@@ -371,7 +378,7 @@ namespace LabExam.Migrations
 
                     b.Property<string>("StuOperationContent")
                         .HasColumnName("StuOperationContent")
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<string>("StuOperationName")
                         .HasMaxLength(40);
@@ -724,7 +731,7 @@ namespace LabExam.Migrations
             modelBuilder.Entity("LabExam.Models.Entities.ExamJudgeChoices", b =>
                 {
                     b.HasOne("LabExam.Models.Entities.ExaminationPaper", "ExaminationPaper")
-                        .WithMany("ExamJudgeChoiceses")
+                        .WithMany("ExamJudgeChoices")
                         .HasForeignKey("PaperId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

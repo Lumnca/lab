@@ -26,5 +26,6 @@ namespace LabExam.Models.Map
         AddJudge = 16, //天机判断题
         UploadInsertStudent = 17,//导入学生信息
         ExportExamData = 18,//导出学生考试信息
+        SystemRuntimeError = 19,
     }
 }

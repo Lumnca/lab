@@ -27,7 +27,7 @@ namespace LabExam.Models.Entities
 
         public DateTime AddTime { get; set; }
 
-        [Column("StuOperationContent",TypeName = "nvarchar(300)")]
+        [Column("StuOperationContent",TypeName = "nvarchar(600)")]
         public String StuOperationContent { get; set; }
 
         [MaxLength(50)]

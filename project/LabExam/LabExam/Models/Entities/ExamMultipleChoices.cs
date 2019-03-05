@@ -19,6 +19,7 @@ namespace LabExam.Models.Entities
 
         public int MultipleId { get; set; }
 
+
         [MaxLength(10)]
         public String StudentAnswer { get; set; }
 

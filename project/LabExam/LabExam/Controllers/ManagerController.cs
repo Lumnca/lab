@@ -43,14 +43,20 @@ namespace LabExam.Controllers
             {
                 String sql = "select * from StudentView where  InstituteId > 0";
 
+                List<SqlParameter> parameters = new List<SqlParameter>();
+
                 if (sName != null && sName.Trim() != "")
                 {
-                    sql += $" and StudentName like '%{sName.Trim().Replace(";", ".")}%'";
+                    sql += $" and StudentName like @Name";
+
+                    parameters.Add(new SqlParameter { ParameterName = "@Name", Value = $"%{sName.Trim()}%", SqlDbType = SqlDbType.NVarChar });
                 }
 
                 if (sId != null && sId.Trim() != "")
                 {
-                    sql += $" and StudentId = {sId.Trim().Replace(";", ".")}";
+                    sql += $" and StudentId = @StudentId";
+
+                    parameters.Add(new SqlParameter { ParameterName = "@StudentId", Value = sId.Trim(), SqlDbType = SqlDbType.NVarChar });
                 }
 
                 if (iId > 0)
@@ -82,7 +88,8 @@ namespace LabExam.Controllers
                 }
 
                 int pageSize = 10;
-                int dataCount = _context.VStudentMaps.FromSql(sql).Count();
+                // ReSharper disable once CoVariantArrayConversion
+                int dataCount = _context.VStudentMaps.FromSql(sql,parameters.ToArray()).Count();
                 int pageCount = dataCount / pageSize;
                 int lastCount = dataCount % pageSize;
                 if (lastCount > 0)
@@ -101,7 +108,8 @@ namespace LabExam.Controllers
                         size = pageSize
                     });
                 }
-                var items = _context.VStudentMaps.FromSql(sql).OrderBy(item => item.InstituteId)
+                // ReSharper disable once CoVariantArrayConversion
+                var items = _context.VStudentMaps.FromSql(sql, parameters.ToArray()).OrderBy(item => item.InstituteId)
                     .ThenBy(item => item.ProfessionId)
                     .Skip((index - 1) * pageSize).Take(pageSize).Select(val => new
                     {
@@ -548,6 +556,11 @@ namespace LabExam.Controllers
                     message = "传递的参数错误"
                 });
             }
+        }
+        [HttpGet]
+        public IActionResult Report()
+        {
+            return View();
         }
     }
 }

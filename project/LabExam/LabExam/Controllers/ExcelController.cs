@@ -12,6 +12,7 @@ using LabExam.DataSource;
 using LabExam.IServices;
 using LabExam.Models;
 using LabExam.Models.Entities;
+using LabExam.Models.EntitiyViews;
 using LabExam.Models.JsonModel;
 using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authorization;
@@ -345,10 +346,22 @@ namespace LabExam.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Export( String sName, String sId, [Required] int iId, [Required] int pid, Boolean isUnder, Boolean isPost, [Required] int grade, [Required] int isPass, float leftScore = 0, float rightScore = Int32.MinValue)
         {
             if (ModelState.IsValid )
             {
+                var userConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!userConfig.Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误",
+                        message = "你并无学生管理操作权限! 无法导入"
+                    });
+                }
+
                 String sql = "select * from StudentView where  InstituteId > 0";
 
                 List<SqlParameter> parameters = new List<SqlParameter>();
@@ -415,7 +428,7 @@ namespace LabExam.Controllers
 
                 LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.ExportExamData,
                     $"导出学生信息", "导出学习信息到Excel中!");
-
+                
                 // ReSharper disable once CoVariantArrayConversion
                 var items = _context.VStudentMaps.FromSql(sql, parameters.ToArray())
                     .OrderBy(item => item.InstituteId)
@@ -481,6 +494,7 @@ namespace LabExam.Controllers
                     }
                 }
 
+                log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
                 _context.LogPricipalOperations.Add(log);
                 _context.SaveChanges();
                 return Json(new
@@ -521,7 +535,7 @@ namespace LabExam.Controllers
                     {
                         isOk = false,
                         title = "错误",
-                        message = "你并无学生管理操作权限"
+                        message = "你并无学生管理操作权限! 无法导入"
                     });
                 }
 
@@ -834,6 +848,251 @@ namespace LabExam.Controllers
                     isOk = false,
                     error = _analysis.ModelStateDictionaryError(ModelState),
                     message = $"参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Statistics([Required] int instituteId, [Required] int grade, [Required] int orderOne)
+        {
+            if (ModelState.IsValid)
+            {
+                var userConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!userConfig.Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误",
+                        message = "你并无学生管理操作权限! 无法导出"
+                    });
+                }
+                StringBuilder builder = new StringBuilder("select * from  [ExamResultView] where [InstituteId] > 0");
+
+                if (instituteId > 0)
+                {
+                    builder.Append($" and [InstituteId] = {instituteId}");
+                }
+
+                if (grade > -1)
+                {
+                    builder.Append($" and [Grade] = {grade}");
+                }
+
+                List<vExamResultMap> list = null;
+
+                if (orderOne == 0)
+                {
+                    list = _context.VExamResultMaps
+                        .FromSql(builder.ToString())
+                        .OrderByDescending(v => v.TotalPassRate).ToList();
+                }
+                else if (orderOne > 0)
+                {
+                    list = _context.VExamResultMaps
+                        .FromSql(builder.ToString())
+                        .OrderByDescending(v => v.PostPassRate).ToList();
+                }
+                else
+                {
+                    list = _context.VExamResultMaps
+                        .FromSql(builder.ToString())
+                        .OrderByDescending(v => v.UnderPassRate).ToList();
+                }
+
+                String sFileName = $"四川师范大学考试学院考试情况统计.xlsx";
+                FileInfo file = new FileInfo($"{ _hosting.WebRootPath}/excel/{sFileName}");
+
+                using (var stream = new FileStream(file.ToString(), FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+                {
+                    using (ExcelPackage package = new ExcelPackage(stream))
+                    {
+                        //添加worksheet
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("考试结果统计");
+                        //添加头
+                        worksheet.Cells[1, 1].Value = "编号";
+                        worksheet.Cells[1, 2].Value = "年级";
+                        worksheet.Cells[1, 3].Value = "学院";
+                        worksheet.Cells[1, 4].Value = "总人数";
+                        worksheet.Cells[1, 5].Value = "总通过人数";
+                        worksheet.Cells[1, 6].Value = "研究生";
+                        worksheet.Cells[1, 7].Value = "本科生";
+                        worksheet.Cells[1, 8].Value = "研究生通过";
+                        worksheet.Cells[1, 9].Value = "研究生未通过";
+                        worksheet.Cells[1, 10].Value = "本科生通过";
+                        worksheet.Cells[1, 11].Value = "本科生未通过";
+                        worksheet.Cells[1, 12].Value = "总通过率";
+                        worksheet.Cells[1, 13].Value = "研究生通过率";
+                        worksheet.Cells[1, 14].Value = "本科生通过率";
+                        
+                        for (int i = 1; i <= 14; i++)
+                        {
+                            worksheet.Cells[1, i].Style.Font.Bold = true;
+                        }
+                        int row = 2;
+                        int indexNumber = 1;
+                        //添加数据
+                        foreach (var item in list)
+                        {
+                            worksheet.Cells[row, 1].Value = indexNumber;
+                            worksheet.Cells[row, 2].Value = item.Grade;
+                            worksheet.Cells[row, 3].Value = item.Name;
+                            worksheet.Cells[row, 4].Value = item.Total;
+                            worksheet.Cells[row, 5].Value = item.PassTotal;
+                            worksheet.Cells[row, 6].Value = item.PostCount;
+                            worksheet.Cells[row, 7].Value = item.UnderCount;
+                            worksheet.Cells[row, 8].Value = item.PostPassCount;
+                            worksheet.Cells[row, 9].Value = item.PostNotPassCount;
+                            worksheet.Cells[row, 10].Value = item.UnderPassCount;
+                            worksheet.Cells[row, 11].Value = item.UnderNotPassCount ;
+                            worksheet.Cells[row, 12].Value = item.TotalPassRate + "%";
+                            worksheet.Cells[row, 13].Value = item.PostPassRate + "%";
+                            worksheet.Cells[row, 14].Value = item.UnderPassRate + "%";
+                            
+                            row++;
+                            indexNumber++;
+                        }
+                        package.Save();
+                    }
+                }
+                LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.ExportExamData,
+                    $"导出考试统计信息", "导出各学院考试统计信息到Excel中!");
+                _context.LogPricipalOperations.Add(log);
+                _context.SaveChanges();
+                return Json(new
+                {
+                    isOk = true,
+                    url = $"/excel/{sFileName}",
+                    title = "提示",
+                    message = "导出成功!"
+
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Grade( [Required] int grade, [Required] int orderOne)
+        {
+            if (ModelState.IsValid)
+            {
+                var userConfig = _analysis.GetLoginUserConfig(HttpContext);
+                if (!userConfig.Power.StudentManager)
+                {
+                    return Json(new
+                    {
+                        isOk = false,
+                        title = "错误",
+                        message = "你并无学生管理操作权限! 无法导出"
+                    });
+                }
+                StringBuilder builder = new StringBuilder("select * from  [ExamGradeResultView] where [Grade] > 0");
+
+                if (grade > -1)
+                {
+                    builder.Append($" and [Grade] = {grade}");
+                }
+
+                List<vExamGradeResultMap> list = null;
+
+                if (orderOne == 0)
+                {
+                    list = _context.VExamGradeResultMaps
+                        .FromSql(builder.ToString())
+                        .OrderByDescending(v => v.PassTotleRate).ToList();
+                }
+                else if (orderOne > 0)
+                {
+                    list = _context.VExamGradeResultMaps
+                        .FromSql(builder.ToString())
+                        .OrderByDescending(v => v.PostPassRate).ToList();
+                }
+                else
+                {
+                    list = _context.VExamGradeResultMaps
+                        .FromSql(builder.ToString())
+                        .OrderByDescending(v => v.UnderPassRate).ToList();
+                }
+
+                String sFileName = $"四川师范大学考试年度考试情况统计.xlsx";
+                FileInfo file = new FileInfo($"{ _hosting.WebRootPath}/excel/{sFileName}");
+
+                using (var stream = new FileStream(file.ToString(), FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+                {
+                    using (ExcelPackage package = new ExcelPackage(stream))
+                    {
+                        //添加worksheet
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("考试结果统计");
+                        //添加头
+                        worksheet.Cells[1, 1].Value = "编号";
+                        worksheet.Cells[1, 2].Value = "年级";
+                        worksheet.Cells[1, 3].Value = "总人数";
+                        worksheet.Cells[1, 4].Value = "总通过人数";
+                        worksheet.Cells[1, 5].Value = "研究生";
+                        worksheet.Cells[1, 6].Value = "本科生";
+                        worksheet.Cells[1, 7].Value = "研究生通过";
+                        worksheet.Cells[1, 8].Value = "本科生通过";
+                        worksheet.Cells[1, 9].Value = "总通过率";
+                        worksheet.Cells[1, 10].Value = "研究生通过率";
+                        worksheet.Cells[1, 11].Value = "本科生通过率";
+
+                        for (int i = 1; i <= 14; i++)
+                        {
+                            worksheet.Cells[1, i].Style.Font.Bold = true;
+                        }
+                        int row = 2;
+                        int indexNumber = 1;
+                        //添加数据
+                        foreach (var item in list)
+                        {
+                            worksheet.Cells[row, 1].Value = indexNumber;
+                            worksheet.Cells[row, 2].Value = item.Grade;
+                            worksheet.Cells[row, 3].Value = item.Total;
+                            worksheet.Cells[row, 4].Value = item.PassTotal;
+                            worksheet.Cells[row, 5].Value = item.PostCount;
+                            worksheet.Cells[row, 6].Value = item.UnderCount;
+                            worksheet.Cells[row, 7].Value = item.PostPassCount;
+                            worksheet.Cells[row, 8].Value = item.UnderPassCount;
+                            worksheet.Cells[row, 9].Value = item.PassTotleRate + "%";
+                            worksheet.Cells[row, 10].Value = item.PostPassRate + "%";
+                            worksheet.Cells[row, 11].Value = item.UnderPassRate + "%";
+
+                            row++;
+                            indexNumber++;
+                        }
+                        package.Save();
+                    }
+                }
+                LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.ExportExamData,
+                    $"导出考试统计信息", "导出各学院考试统计信息到Excel中!");
+                _context.LogPricipalOperations.Add(log);
+                _context.SaveChanges();
+                return Json(new
+                {
+                    isOk = true,
+                    url = $"/excel/{sFileName}",
+                    title = "提示",
+                    message = "导出成功!"
+
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = _analysis.ModelStateDictionaryError(ModelState),
+                    title = "错误提示",
+                    message = "参数错误,传递了不符合规定的参数"
                 });
             }
         }

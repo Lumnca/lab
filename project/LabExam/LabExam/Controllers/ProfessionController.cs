@@ -237,7 +237,8 @@ namespace LabExam.Controllers
                     lineCount = dataCount,
                     pageCount = pageCount,//总共是多少页
                     pageNowIndex = pageIndex, //当前是第几页
-                    professions = listResultMaps
+                    professions = listResultMaps,
+                    size = pageSize
                 });
 
             }
