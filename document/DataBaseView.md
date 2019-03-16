@@ -280,9 +280,9 @@ select SingleId,newid() as RandomId ,ModuleId from SingleChoices;
 ```sql
 create View UserLoginStatisticView
 as
-select count(*) as LoginCount,ateLogin from
+select count(*) as LoginCount,DateLogin from
 (
-select *, CONVERT(nvarchar,LoginTime,111) as dateLogin from LogUserLogin
+select *, CONVERT(nvarchar,LoginTime,111) as DateLogin from LogUserLogin
 ) as s
 group by s.dateLogin;
 
