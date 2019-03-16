@@ -18,6 +18,9 @@
 - [x] [`13.CourceView`](#target13)
 - [x] [`14.StatisticSingleView,StatisticMultipleView,StatisticJudgeView`](#target14)
 - [x] [`15.RandomMultipleView,MultipleRandomView,RandomSingleView`](#target15)
+- [x] [`16.UserLoginStatisticView`](#target16)
+- [x] [`17.ProgressView`](#target17)
+
 
 ------
 
@@ -272,9 +275,32 @@ create view RandomSingleView
 as
 select SingleId,newid() as RandomId ,ModuleId from SingleChoices;
 ```
+#####  :octocat: [16.UserLoginStatisticView](#top) <b id="target16"></b> 
+`统计学生登录情况 创建视图语句`
+```sql
+create View UserLoginStatisticView
+as
+select count(*) as LoginCount,dateLogin from
+(
+select *, CONVERT(nvarchar,LoginTime,111) as dateLogin from LogUserLogin
+) as s
+group by s.dateLogin;
 
+go;
+```
+#####  :octocat: [17.ProgressView](#top) <b id="target17"></b> 
+`学生学习进度 创建视图语句`
+```sql
+Create view ProgressView
+SELECT  dbo.Progresses.ProgressId, dbo.Progresses.StudentId, dbo.Progresses.ResourceId, 
+	dbo.Resources.CourceId, 
+        dbo.Progresses.StudyTime, dbo.Progresses.AddTime, dbo.Progresses.NeedTime,
+	dbo.Resources.ResourceType
+FROM    dbo.Progresses INNER JOIN
+        dbo.Resources ON dbo.Progresses.ResourceId = dbo.Resources.ResourceId
+```
 --------------------
 `作者:` `KickGod` 
-`完成时间`:`2018年12月31日18:33:38`
+`完成时间`:`2019年3月16日18:36:36`
 `备注信息`: `禁止转载` 
 
