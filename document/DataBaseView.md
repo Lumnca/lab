@@ -20,6 +20,7 @@
 - [x] [`15.RandomMultipleView,MultipleRandomView,RandomSingleView`](#target15)
 - [x] [`16.UserLoginStatisticView`](#target16)
 - [x] [`17.ProgressView`](#target17)
+- [x] [`18.StudentDistributionView`](#target18)
 
 
 ------
@@ -299,6 +300,16 @@ SELECT  dbo.Progresses.ProgressId, dbo.Progresses.StudentId, dbo.Progresses.Reso
 FROM    dbo.Progresses INNER JOIN
         dbo.Resources ON dbo.Progresses.ResourceId = dbo.Resources.ResourceId
 ```
+#####  :octocat: [18.StudentDistributionView](#top) <b id="target18"></b> 
+```sq
+create view StudentDistributionView
+as
+   select count(*) as SumStudent ,Grade,StudentType from Student group by StudentType,Grade; 
+go
+
+```
+
+
 --------------------
 `作者:` `KickGod` 
 `完成时间`:`2019年3月16日18:36:36`
