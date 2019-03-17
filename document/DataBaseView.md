@@ -21,6 +21,7 @@
 - [x] [`16.UserLoginStatisticView`](#target16)
 - [x] [`17.ProgressView`](#target17)
 - [x] [`18.StudentDistributionView`](#target18)
+- [x] [`19.UserLoginTerminalView`](#target19)
 
 
 ------
@@ -308,7 +309,16 @@ as
 go
 
 ```
+#####  :octocat: [19.UserLoginTerminalView](#top) <b id="target19"></b> 
+```sql
+Create View UserLoginTerminalView
+as
+SELECT Count(*) LoginCount,[Terminal]
+FROM [LabTest2].[dbo].[LogUserLogin]
+group by Terminal;
 
+go
+```
 
 --------------------
 `作者:` `KickGod` 
