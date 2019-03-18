@@ -22,6 +22,7 @@
 - [x] [`17.ProgressView`](#target17)
 - [x] [`18.StudentDistributionView`](#target18)
 - [x] [`19.UserLoginTerminalView`](#target19)
+- [x] [`20.ExamAllStatisticView`](#target20)
 
 
 ------
@@ -318,6 +319,32 @@ FROM [LabTest2].[dbo].[LogUserLogin]
 group by Terminal;
 
 go
+```
+#####  :octocat: [20.ExamAllStatisticView](#top) <b id="target20"></b> 
+`统计每个学院考试结果,通过多少人 没有通过多少人 总人数`
+```sql
+Create View ExamAllStatisticView
+as
+SELECT   
+	InstituteId, 
+	Name,
+	CASE WHEN NotPassScount IS NULL THEN 0 ELSE NotPassScount END AS StuNotPassCount,
+	PassScount,
+	AllCount
+FROM     
+ (SELECT   dbo.Institute.InstituteId, dbo.Institute.Name, c.id, c.NotPassScount,PassScount,AllCount
+   FROM      dbo.Institute LEFT OUTER JOIN
+    (
+	SELECT   InstituteId AS id, 
+	Sum(case when IsPassExam = 0 then 1 else 0 end) AS NotPassScount,
+	Sum(case when IsPassExam = 1 then 1 else 0 end) AS PassScount,
+	Count(*) AllCount
+    FROM   dbo.Student
+
+    GROUP BY InstituteId
+	) AS c ON c.id = dbo.Institute.InstituteId
+  ) 
+  AS D
 ```
 
 --------------------
