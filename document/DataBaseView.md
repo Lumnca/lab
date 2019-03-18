@@ -23,7 +23,7 @@
 - [x] [`18.StudentDistributionView`](#target18)
 - [x] [`19.UserLoginTerminalView`](#target19)
 - [x] [`20.ExamAllStatisticView`](#target20)
-
+- [x] [`21.ExamGradeStatisticView`](#target21)
 
 ------
 
@@ -346,6 +346,16 @@ FROM
   ) 
   AS D
 ```
+
+#####  :octocat: [21.ExamGradeStatisticView](#top) <b id="target21"></b> 
+`考试分数`
+
+```sql
+Create View  ExamGradeStatisticView
+as
+select count(*) as Count,MaxExamScore from Student group by MaxExamScore;
+```
+
 
 --------------------
 `作者:` `KickGod` 
