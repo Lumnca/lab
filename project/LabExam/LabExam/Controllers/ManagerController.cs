@@ -290,6 +290,11 @@ namespace LabExam.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 添加一个学生系统 完成日志记录
+        /// </summary>
+        /// <param name="student">新的学生信息</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Create([Bind(include: "StudentId,IDNumber,InstituteId,Name,ProfessionId,BirthDate,Sex,StudentType,Grade,Email")] Student student)
         {
@@ -473,6 +478,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录 删除学生
+        /// </summary>
+        /// <param name="sId"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Delete([Required] String sId)
         {
@@ -490,12 +500,17 @@ namespace LabExam.Controllers
                 Student stu = _context.Student.Find(sId);
                 if (stu != null)
                 {
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(
+                        PrincpalOperationCode.DeleteStudent, $"查询编码:{stu.StudentId}", $"删除学生{stu.Name}");
                     List<ApplicationForReExamination> apps = _context.ApplicationForReExaminations
                         .Where(app => app.StudentId == sId).ToList();
                     if (apps.Count > 0 )
                     {
                         _context.ApplicationForReExaminations.RemoveRange(apps);
                     }
+
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.Add(log);
                     _context.Student.Remove(stu);
                     _context.SaveChanges();
                     return Json(new
@@ -562,5 +577,69 @@ namespace LabExam.Controllers
         {
             return View();
         }
+
+        
+        public IActionResult Warning()
+        {
+            ViewBag.reExam =
+                _context.ApplicationForReExaminations.Count(a => a.ApplicationStatus == ApplicationStatus.Submit);
+            ViewBag.join =
+                _context.ApplicationJoinTheExaminations.Count(a => a.ApplicationStatus == ApplicationStatus.Submit);
+            return PartialView();
+        }
+
+        [Route("/api/student")]
+        [AllowAnonymous]
+        public IActionResult Search([Required, MaxLength(20)] String sId)
+        {
+            if (sId == null)
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "参数错误！"
+                });
+            }
+            vStudentMap stu = _context.VStudentMaps.FirstOrDefault(v => v.StudentId == sId.Trim());
+            if (stu != null)
+            {
+                float studyTime = _context.Progresses.Where(prg => prg.StudentId == sId).Sum(p => p.StudyTime);
+                int examCount = _context.ExaminationPapers.Count(p => p.StudentId == sId);
+                return Json(new
+                {
+                    isOk = true,
+                    sId = stu.StudentId,
+                    isPassExam = stu.IsPassExam,
+                    maxScore = stu.MaxExamScore,
+                    institute = stu.InstituteName,
+                    type = stu.StudentType,
+                    sex = stu.Sex ?"男":"女",
+                    grade = stu.Grade,
+                    studyTime = studyTime,
+                    examCount = examCount
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isOk = false,
+                    error = "学号在数据库中不存在"
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        public IActionResult Keeper()
+        {
+            Random rand = new Random();
+            int index = rand.Next(0, 2);
+            ViewBag.StaffName = _config.LoadSystemSetting().Staffs[index].Name;
+            ViewBag.StaffPhone = _config.LoadSystemSetting().Staffs[index].Phone;
+            ViewBag.StaffQQ = _config.LoadSystemSetting().Staffs[index].QQ;
+            ViewBag.index = index;
+            return PartialView();
+        }
+
     }
 }

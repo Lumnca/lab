@@ -1,0 +1,13 @@
+{
+  "PrincipalId": "adminLmc",
+  "Power": {
+    "StudentManager": true,
+    "ExamManager": true,
+    "CourcesManager": true,
+    "QuestionBankManager": true,
+    "SystemSettingManager": true,
+    "SystemInfoManager": true,
+    "SystemManager": true
+  },
+  "SettingTime": "2019-03-05T13:10:58.6826061+08:00"
+}

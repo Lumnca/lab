@@ -1,0 +1,143 @@
+{
+  "Staffs": [
+    {
+      "Name": "蒋星",
+      "Phone": "15982690985",
+      "QQ": "1427035242"
+    },
+    {
+      "Name": "刘闽川",
+      "Phone": "17721953180",
+      "QQ": "1235465855"
+    }
+  ],
+  "LoginSetting": {
+    "StudentLogin": true,
+    "PrincipalLogin": true,
+    "IsOpenExam": true,
+    "AllowPastJoinExam": true
+  },
+  "Version": "2019.2.00.00.12",
+  "ExamModuleSettings": {
+    "1": {
+      "AllowExamTime": 3,
+      "ModuleId": 1,
+      "ModuleName": "其它理工类",
+      "PassFloat": 60.0,
+      "ExamTime": 100.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 20,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 30,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 20,
+        "Score": 1.0
+      }
+    },
+    "2": {
+      "AllowExamTime": 3,
+      "ModuleId": 2,
+      "ModuleName": "化学生物类",
+      "PassFloat": 60.0,
+      "ExamTime": 100.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "3": {
+      "AllowExamTime": 3,
+      "ModuleId": 3,
+      "ModuleName": "文史艺体类",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "4": {
+      "AllowExamTime": 3,
+      "ModuleId": 4,
+      "ModuleName": "物理信息类",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "5": {
+      "AllowExamTime": 3,
+      "ModuleId": 5,
+      "ModuleName": "文史艺体（影传专用课）",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    },
+    "11": {
+      "AllowExamTime": 3,
+      "ModuleId": 11,
+      "ModuleName": "文史艺体（国教必修补充）",
+      "PassFloat": 60.0,
+      "ExamTime": 120.0,
+      "TotalScore": 100.0,
+      "Single": {
+        "Count": 30,
+        "Score": 1.0
+      },
+      "Multiple": {
+        "Count": 20,
+        "Score": 2.0
+      },
+      "Judge": {
+        "Count": 30,
+        "Score": 1.0
+      }
+    }
+  }
+}

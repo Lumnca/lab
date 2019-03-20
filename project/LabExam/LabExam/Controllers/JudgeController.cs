@@ -131,7 +131,7 @@ namespace LabExam.Controllers
                 }
 
                 LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.AddJudge,
-                    "查询Id:无", $"增加判断题 题目内容{judge.Content}");
+                    "查询编码:无", $"增加判断题 题目内容{judge.Content}");
 
                 #region 功能实现区域
                 LoginUserModel user = _analysis.GetLoginUserModel(HttpContext);
@@ -159,7 +159,7 @@ namespace LabExam.Controllers
                 _context.JudgeChoices.Add(judge);
                 _context.SaveChanges();
 
-                log.PrincpalOperationName = $"查询Id:{judge.JudgeId}";
+                log.PrincpalOperationName = $"查询编码:{judge.JudgeId}";
                 _logger.Logger(log);
                 return Json(new
                 {
@@ -253,6 +253,13 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="judgeId"></param>
+        /// <param name="content"></param>
+        /// <param name="answer"></param>
+        /// <returns></returns>
         public IActionResult Update([Required] int judgeId,[Required] String content,[Required] String answer )
         {
             if (ModelState.IsValid)
@@ -270,6 +277,8 @@ namespace LabExam.Controllers
                 JudgeChoices judge = _context.JudgeChoices.Find(judgeId);
                 if (judge != null)
                 {
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.JudgeUpdate,
+                        $"查询编码:{judge.JudgeId}", $"修改判断题题目内容！");
                     String Key = _encryption.EncodeByMd5(content.Trim());
 
                     //如果题干已经被改变了 那么重新编码
@@ -291,7 +300,8 @@ namespace LabExam.Controllers
                     judge.Key = Key;
                     judge.Answer = answer.ToUpper().Trim(); //答案全部大写
                     judge.DegreeOfDifficulty = 1; //重置题目难度
-
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -333,6 +343,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="judgeId"></param>
+        /// <returns></returns>
         public IActionResult Delete([Required] int judgeId)
         {
             if (ModelState.IsValid)
@@ -351,6 +366,7 @@ namespace LabExam.Controllers
                 JudgeChoices judge = _context.JudgeChoices.Find(judgeId);
                 if (judge != null)
                 {
+                    /* 在考试期间是无法删除题目的 */
                     SystemSetting setting = _config.LoadSystemSetting();
                     if (setting.LoginSetting.StudentLogin)
                     {
@@ -361,7 +377,11 @@ namespace LabExam.Controllers
                             message = "无法删除,当前系统打开了学生学习通道,在实验室安全考试期间无法删除任何考题！以免引起数据不正常！"
                         });
                     }
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.JudgeDelete,
+                        $"查询编码:{judge.JudgeId}", $"删除判断题:{judge.Content}！");
 
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
                     _context.JudgeChoices.Remove(judge);
                     _context.SaveChanges();
                     return Json(new

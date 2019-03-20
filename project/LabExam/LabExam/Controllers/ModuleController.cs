@@ -17,6 +17,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LabExam.Controllers
 {
+    /// <summary>
+    /// 管理模块信息
+    /// ----- 完成日志记录 -----
+    /// </summary>
     [Authorize(Roles = "Principal")]
     public class ModuleController : Controller
     {
@@ -122,6 +126,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="moduleId"></param>
+        /// <returns></returns>
         public IActionResult Delete([Required] int moduleId)
         {
             if (ModelState.IsValid)
@@ -198,6 +207,15 @@ namespace LabExam.Controllers
 
 
                         _context.Remove(module); //删除这个模块
+                        LogPricipalOperation log =
+                            _logger.GetDefaultLogPricipalOperation(
+                                PrincpalOperationCode.ModuleDelete,
+                                $"查询编码:{moduleId} ",
+                                $"删除模块：{module.Name}");
+
+                        log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                        _context.LogPricipalOperations.Add(log);
+
                         _context.SaveChanges();
                         return Json(new
                         {
@@ -232,6 +250,12 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录方法
+        /// </summary>
+        /// <param name="moduleId"></param>
+        /// <param name="newName"></param>
+        /// <returns></returns>
         public IActionResult ReName([Required] int moduleId, [Required] String newName)
         {
             if (ModelState.IsValid)
@@ -248,7 +272,15 @@ namespace LabExam.Controllers
                 Module module = _context.Modules.Find(moduleId);
                 if (module != null)
                 {
+                    LogPricipalOperation log =
+                        _logger.GetDefaultLogPricipalOperation(
+                            PrincpalOperationCode.ModuleReName,
+                            $"查询编码:{moduleId} ",
+                            $"重命名模块 {module.Name} 名称为 {newName}");
+
                     module.Name = newName;
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
                     _context.SaveChanges();
 
                     return Json(new
@@ -319,6 +351,12 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        ///  完成日志记录方法 DeleteInstitute
+        /// </summary>
+        /// <param name="moduleId"></param>
+        /// <param name="instituteId"></param>
+        /// <returns></returns>
         public IActionResult DeleteInstitute([Required] int moduleId, [Required] int instituteId)
         {
             if (ModelState.IsValid)
@@ -331,13 +369,16 @@ namespace LabExam.Controllers
                         error = "你并无信息管理操作权限"
                     });
                 }
-
+                LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.DeleteInstituteFromModule, " 学院id: {instituteId} 模块id {moduleId}", $"将一个学院从此模块中排除出去 学院id: {instituteId} 模块id {moduleId}");
+                
                 InstituteToModule im = _context.InstituteToModules.FirstOrDefault(val =>
                     val.InstituteId == instituteId && val.ModuleId == moduleId);
 
                 if (im != null)
                 {
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
                     _context.InstituteToModules.Remove(im);
+                    _context.LogPricipalOperations.Add(log);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -346,6 +387,7 @@ namespace LabExam.Controllers
                 }
                 else
                 {
+                    _logger.Logger(log);
                     return Json(new
                     {
                         isOk = false,
@@ -364,6 +406,12 @@ namespace LabExam.Controllers
             
         }
 
+        /// <summary>
+        ///  完成日志记录此方法: AddInstitute
+        /// </summary>
+        /// <param name="moduleId"></param>
+        /// <param name="instituteId"></param>
+        /// <returns></returns>
         public IActionResult AddInstitute([Required] int moduleId,[Required] int instituteId)
         {
             if (ModelState.IsValid)
@@ -379,9 +427,12 @@ namespace LabExam.Controllers
 
                 if (_context.Modules.Any(val => val.ModuleId == moduleId) && _context.Institute.Any(ins => ins.InstituteId == instituteId))
                 {
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.ChangeInstituteToModule, " 学院id: {instituteId} 模块id {moduleId}", $"将一个学院归属要这个模块 学院id: {instituteId} 模块id {moduleId}");
+                    
                     if (_context.InstituteToModules.Any(one =>
                         one.InstituteId == instituteId))
                     {
+                        _logger.Logger(log);
                         return Json(new
                         {
                             isOk = false,
@@ -391,7 +442,9 @@ namespace LabExam.Controllers
                     else
                     {
                         InstituteToModule im = new InstituteToModule {InstituteId = instituteId, ModuleId = moduleId};
+                        log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
                         _context.InstituteToModules.Add(im);
+                        _context.LogPricipalOperations.Add(log);
                         _context.SaveChanges();
                         return Json(new
                         {

@@ -307,7 +307,9 @@ namespace LabExam.Controllers
                     });
                 }
 
-                LogPricipalOperation operation = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.StopUseResource, $"停用课程资源 编号{rId}", "停用课程资源");
+                LogPricipalOperation operation = _logger.
+                    GetDefaultLogPricipalOperation(PrincpalOperationCode.StopUseResource, $"停用课程资源 编号{rId}", "停用课程资源");
+
                 Resource resource = _context.Resources.Find(rId);
                 if (resource != null)
                 {

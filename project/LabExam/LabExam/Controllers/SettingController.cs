@@ -287,11 +287,6 @@ namespace LabExam.Controllers
                 _config.ReWriteModuleExamOpenSetting(examOpenSettings);
                 _config.ReWriteSystemSetting(systemSetting);
                
-
-
-
-
-
                 return Json(new
                 {
                     isOk = true,

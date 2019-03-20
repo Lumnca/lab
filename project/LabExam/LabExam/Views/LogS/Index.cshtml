@@ -24,9 +24,9 @@
                 }
             </select>
             <span for="TimeLeft" class="margin-left-10px font-size-14 text-muted">时间范围:</span>
-            <input type="datetime-local" value="2000-01-01 00:00:00" id="TimeLeft" name="TimeLeft" data-height="25" data-width="150" class="font-size-12 padding-left-5px ">
+            <input type="text"  id="TimeLeft" name="TimeLeft" data-height="25" data-width="150" class="font-size-12 padding-left-5px ">
             <span for="TimeRight" class="font-size-14 text-muted">~</span>
-            <input type="datetime-local" value="9999-01-01 10:55:55" id="TimeRight" name="TimeRight" data-height="25" data-width="150" class="font-size-12 padding-left-5px ">
+            <input type="text"  id="TimeRight" name="TimeRight" data-height="25" data-width="150" class="font-size-12 padding-left-5px ">
             <span for="KeyName" class="margin-left-10px font-size-14 text-muted">学生学号:</span>
             <input type="text" placeholder="学生学号" id="KeyName" name="KeyName" data-height="25" data-width="150" class="font-size-12 padding-left-5px ">
 
@@ -183,16 +183,18 @@
 </script>
 
 @section Scripts
-    {
+{
     <script>
         laydate.render({
-            elem: '#TimeLeft'
-            ,type: 'datetime'
+            elem: '#TimeLeft',
+            type: 'datetime',
+            value: '1900-01-01 00:00:00'
         });
 
         laydate.render({
-            elem: '#TimeRight'
-            ,type: 'datetime'
+            elem: '#TimeRight',
+            type: 'datetime',
+            value: '2100-01-01 00:00:00'
         });
 
         function stateManager() {

@@ -142,6 +142,11 @@ namespace LabExam.Controllers
         
         public IActionResult Login(string returnUrl = null)
         {
+            Random rand = new Random();
+            int index = rand.Next(0, 2);
+            ViewBag.StaffName = _config.LoadSystemSetting().Staffs[index].Name;
+            ViewBag.StaffPhone = _config.LoadSystemSetting().Staffs[index].Phone;
+            ViewBag.StaffQQ = _config.LoadSystemSetting().Staffs[index].QQ;            
             TempData["returnUrl"] = returnUrl;
             return View();
         }

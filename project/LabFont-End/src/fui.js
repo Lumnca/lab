@@ -25,3 +25,41 @@ fui.IsEmail = function(email) {
 }
 
 window.f = fui;
+
+/**
+ * @param { Date } date
+ */
+function Format(date) {
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+
+    return `${year}/${month}/${day} 00:00`
+}
+/**
+* @param { Date } date
+* @param { Number } last
+* @return { Date }
+*/
+function getLastDay(date ,last) {
+    var $date = new Date(date.getTime());
+    $date.setDate($date.getDate() - last);
+    return $date;
+}
+
+
+/**
+* @param { Date } date
+* @param {Number} length
+*/
+function getLastMonth(date,length) {
+    for(let i = 0; i<length; i++){
+        var $date =  getLastDay(date,i);
+        var format = Format($date);
+        console.log(format);
+    }
+}
+
+fui.Format = Format;
+fui.getLastDay = getLastDay;
+fui.getLastMonth = getLastMonth;

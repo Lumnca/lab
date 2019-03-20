@@ -50,13 +50,13 @@
             <div class="form-group ">
                 <label for="Validation" class="col-sm-2 control-label">验证码</label>
                 <div class="col-sm-10">
-                    <input id="num1" type="text" value="5" class="border-radius-14 text-center" data-max-width="40" disabled
+                    <input id="num1" type="text" value="5" class="border-radius-14 text-center" data-max-width="35" disabled
                            data-height="25">
                     <span class=" font-weight-700 "> + </span>
-                    <input id="num2" type="text" value="5" class=" border-radius-14 text-center" data-max-width="40" disabled
+                    <input id="num2" type="text" value="5" class=" border-radius-14 text-center" data-max-width="35" disabled
                            data-height="25">
                     <span class=" font-weight-700 padding-left-10px "> = </span>
-                    <input id="num3" type="number" value="" name="yzm" class="text-center border-radius-6 " data-min-width="195"
+                    <input id="num3" type="number" value="" name="yzm" class="text-center border-radius-6 " data-width="80"
                            data-height="28">
                     <button type="button" id="ApplyNew" class="margin-left-10px btn btn-primary btn-sm "> <span class="
                             glyphicon glyphicon-hand-down"></span> 刷新</button>
@@ -70,6 +70,16 @@
                 </div>
             </div>
         </form>
+        
+        <div class=" margin-top-60px padding-10px">
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong><span class="glyphicon glyphicon-user"></span> 技术支持人员：</strong>
+                <b>@ViewBag.StaffName</b>   
+                联系电话:@ViewBag.StaffPhone
+                QQ:@ViewBag.StaffQQ
+            </div>
+        </div>
     </div>
 </div>
 

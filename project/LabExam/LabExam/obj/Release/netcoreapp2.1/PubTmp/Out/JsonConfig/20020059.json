@@ -1,0 +1,13 @@
+{
+  "PrincipalId": "20020059",
+  "Power": {
+    "StudentManager": true,
+    "ExamManager": true,
+    "CourcesManager": true,
+    "QuestionBankManager": true,
+    "SystemSettingManager": true,
+    "SystemInfoManager": true,
+    "SystemManager": true
+  },
+  "SettingTime": "2019-02-15T10:21:06.2500492+08:00"
+}

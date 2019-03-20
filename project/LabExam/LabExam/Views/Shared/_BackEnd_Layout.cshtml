@@ -17,11 +17,11 @@
 </head>
 <body class=" bc-clr-grey-little">
     <div class="flex-layout">
-        <div class=" flex-item-3 layout-height-100 bc-clr-black-web" data-max-width="200" data-min-width="200" style=" position: relative;">
+        <div class=" flex-item-3  bc-clr-black-web layout-height-100"  data-max-width="200" data-min-width="200" style=" position: relative;">
             <div class="font-color-black-153 font-size-12 padding-left-40px margin-bottom-10px " data-margin-top="150">
                 SICNUIE
             </div>
-            <ul class="admin-navbar ">
+            <ul class="admin-navbar  ">
                 <li>
                     <a href="javascript:;">
                         <img src="~/Resources/Admin/login/exam4.svg" width="20" />
@@ -42,7 +42,7 @@
                         <li><a asp-controller="Manager" asp-action="Create">1.添加学生</a></li>
                         <li><a asp-controller="Excel" asp-action="Insert">2.导入学生</a></li>
                         <li><a asp-controller="Manager" asp-action="List">3.学生列表</a></li>
-                        <li><a href="#">4.统计情况</a></li>
+                        <li><a asp-controller="Manager" asp-action="Report">4.统计报表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -68,6 +68,7 @@
                         <li><a asp-controller="Statistics" asp-action="Institute">3.学院统计</a></li>
                         <li><a asp-controller="Statistics" asp-action="Grade">4.年度统计</a></li>
                         <li><a asp-controller="Excel" asp-action="Report">5.学生成绩</a></li>
+                        <li><a asp-controller="Statistics" asp-action="Report">6.统计报表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -100,8 +101,6 @@
                     <ul>
                         <li><a asp-controller="Principal" asp-action="Admin">1.系统管理员</a></li>
                         <li><a asp-controller="Setting" asp-action="Sys">2.系统配置</a></li>
-                        <li><a href="#">3.系统运行</a></li>
-
                     </ul>
                 </li>
                 <li>
@@ -141,7 +140,7 @@
                     </a>
                     <a  asp-controller="Account" asp-action="LoginOut"  title="你要退出登录吗？" >
                         <img src="~/Resources/Admin/close.svg"
-                             width="22">
+                             width="20">
                     </a>
 
                 </div>
@@ -176,42 +175,7 @@
         </div>
     </div>
     <div class="modal fade" id="User-danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生申请</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="list-group">
-                        <ul class="list-group">
-                            <li class="list-group-item float-layout">
-                                <div class=" float-left">
-                                    当前有 <b class=" text-warning">3</b> 同学申请重新考试,请求老师批准
-                                </div>
-                                <div class=" float-right">
-                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">
-                                        立即查看
-                                    </a>
-                                </div>
-
-                            </li>
-                            <li class="list-group-item float-layout ">
-                                <div class=" float-left">
-                                    新增尚未浏览的建议或投诉信息 <b class=" text-warning">3</b> 条
-                                </div>
-                                <div class=" float-right">
-                                    <a href="/Home/Index" class=" btn btn-sm btn-info float-right">立即查看 </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <partial name="~/Views/Manager/Warning.cshtml" />
     </div>
     <div class="modal fade mask" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog">

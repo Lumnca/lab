@@ -15,5 +15,9 @@ namespace LabExam.IServices
         void FinishPaper(ExaminationPaper paper, LabContext context);
 
         Boolean DeletePaper(ExaminationPaper ePaper, LabContext context);
+
+        int NotLearningCount(LabContext context);
+
+        int NotJoinSystemStudentCount(LabContext context);
     }
 }

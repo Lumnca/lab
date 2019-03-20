@@ -83,6 +83,19 @@ namespace LabExam.DataSource
             modelBuilder.Query<vStatisticMultipleMap>().ToView("StatisticMultipleView", "dbo");
 
             modelBuilder.Query<vStatisticSingleMap>().ToView("StatisticSingleView", "dbo");
+
+            modelBuilder.Query<vUserLoginStatisticMap>().ToView("UserLoginStatisticView", "dbo");
+
+            modelBuilder.Query<vStudentDistributionMap>().ToView("StudentDistributionView", "dbo");
+
+            modelBuilder.Query<vUserLoginTerminalMap>().ToView("UserLoginTerminalView", "dbo");
+
+            modelBuilder.Query<vInstituteStatisticMap>().ToView("InstituteStatisticView", "dbo");
+
+            modelBuilder.Query<vExamAllStatisticMap>().ToView("ExamAllStatisticView", "dbo");
+
+            modelBuilder.Query<vExamGradeStatisticMap>().ToView("ExamGradeStatisticView", "dbo");
+            
         }
         /* 视图 View */
         public virtual DbQuery<vInstituteToModuleMap> VInstituteToModuleMaps { get; set; }
@@ -125,6 +138,18 @@ namespace LabExam.DataSource
 
         public virtual DbQuery<vStatisticSingleMap> VStatisticSingleMaps { get; set; }
 
+        public virtual DbQuery<vUserLoginStatisticMap> VUserLoginStatisticMaps { get; set; }
+
+        public virtual DbQuery<vStudentDistributionMap> VStudentDistributionMaps { get; set; }
+
+        public virtual DbQuery<vUserLoginTerminalMap> VUserLoginTerminalMaps { get; set; }
+
+        public virtual DbQuery<vInstituteStatisticMap> VInstituteStatisticMaps { get; set; }
+
+        public virtual DbQuery<vExamAllStatisticMap> VExamAllStatisticMaps { get; set; }
+
+        public virtual DbQuery<vExamGradeStatisticMap> VExamGradeStatisticMaps { get; set; }
+        
         /* 表 Table */
         public virtual DbSet<Module> Modules { get; set; }
 

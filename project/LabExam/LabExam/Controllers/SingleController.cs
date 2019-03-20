@@ -9,6 +9,7 @@ using LabExam.Migrations;
 using LabExam.Models;
 using LabExam.Models.Entities;
 using LabExam.Models.JsonModel;
+using LabExam.Models.Map;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,17 +23,17 @@ namespace LabExam.Controllers
     {
         private readonly LabContext _context;
         private readonly IEncryptionDataService _encryption;
-        private readonly IHostingEnvironment _hosting;
+        private readonly ILoggerService _logger;
         private readonly IHttpContextAnalysisService _analysis;
         private readonly ILoadConfigFileService _config;
 
-        public SingleController(LabContext context, IEncryptionDataService encryption, IHostingEnvironment hosting, IHttpContextAnalysisService analysis, ILoadConfigFileService config)
+        public SingleController(LabContext context, IEncryptionDataService encryption, IHttpContextAnalysisService analysis, ILoadConfigFileService config, ILoggerService logger)
         {
             _context = context;
             _encryption = encryption;
-            _hosting = hosting;
             _analysis = analysis;
             _config = config;
+            _logger = logger;
         }
 
         // GET: Single
@@ -113,6 +114,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public IActionResult Create([Bind(include: "ModuleId,Content,Answer,Count,A,B,C,D,E,F")] SingleChoices item)
         {
             if (ModelState.IsValid)
@@ -154,7 +160,11 @@ namespace LabExam.Controllers
                 item.Count = item.Count;
                 item.PrincipalId = user.UserId;
                 item.DegreeOfDifficulty = 1;
+                LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.SingleAdd,
+                    $"查询编码:{item.SingleId}", $"添加单择题:{item.Content}！");
 
+                log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                _context.LogPricipalOperations.Add(log);
                 _context.SingleChoices.Add(item);
                 _context.SaveChanges();
                 return Json(new
@@ -249,6 +259,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public IActionResult Update([Bind(include: "SingleId,ModuleId,Content,Answer,A,B,C,D,E,F")] SingleChoices item)
         {
             if (ModelState.IsValid)
@@ -296,6 +311,12 @@ namespace LabExam.Controllers
                     single.D = item.D?.Trim();
                     single.E = item.E?.Trim();
                     single.F = item.F?.Trim();
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.SingleUpdate,
+                        $"查询编码:{item.SingleId}", $"修改单择题:{item.Content}！");
+
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
+
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -337,6 +358,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="singleId"></param>
+        /// <returns></returns>
         public IActionResult Delete([Required] int singleId)
         {
             if (ModelState.IsValid)
@@ -365,6 +391,12 @@ namespace LabExam.Controllers
                             message = "无法删除,当前系统打开了学生学习通道,在实验室安全考试期间无法删除任何考题！以免引起数据不正常！"
                         });
                     }
+
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.SingleDelete,
+                        $"查询编码:{item.SingleId}", $"删除单择题:{item.Content}！");
+
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
 
                     _context.SingleChoices.Remove(item);
                     _context.SaveChanges();

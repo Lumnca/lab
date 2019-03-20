@@ -304,5 +304,10 @@ namespace LabExam.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Report()
+        {
+            return View();
+        }
     }
 }

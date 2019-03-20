@@ -17,11 +17,13 @@ namespace LabExam.Controllers
 
         private readonly LabContext _context;
         private readonly IHttpContextAnalysisService _analysis;
+        private readonly ILoggerService _logger;
 
-        public ProfessionController(LabContext context, IHttpContextAnalysisService analysis)
+        public ProfessionController(LabContext context, IHttpContextAnalysisService analysis, ILoggerService logger)
         {
             _context = context;
             _analysis = analysis;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -131,6 +133,14 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="professionId"></param>
+        /// <param name="newName"></param>
+        /// <param name="instituteId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public IActionResult Update([Required] Int32 professionId, [Required] String newName, [Required] Int32 instituteId,[Required] ProfessionType type)
         {
             if (ModelState.IsValid)
@@ -155,9 +165,15 @@ namespace LabExam.Controllers
                 Profession pro = _context.Professions.FirstOrDefault(p => p.ProfessionId == professionId);
                 if (pro != null)
                 {
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(
+                        PrincpalOperationCode.ProfessionUpdate, $"查询编号:{pro.InstituteId}",
+                        $"修改专业信息被修改后的专业名{newName} 修改前{pro.Name} 或修改专业类型");
+
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
                     pro.InstituteId = instituteId;
                     pro.Name = newName;
                     pro.ProfessionType = type;
+                    _context.LogPricipalOperations.Add(log);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -251,7 +267,12 @@ namespace LabExam.Controllers
                 });
             }
         }
-
+       
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="professionId"></param>
+        /// <returns></returns>
         public IActionResult Delete([Required] int professionId)
         {
             if (ModelState.IsValid)
@@ -276,7 +297,13 @@ namespace LabExam.Controllers
                 Profession pro = _context.Professions.FirstOrDefault(p => p.ProfessionId == professionId);
                 if (pro != null)
                 {
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(
+                        PrincpalOperationCode.ProfessionDelete, $"查询编号:{pro.InstituteId}",
+                        $"删除专业{pro.Name}");
+
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
                     _context.Professions.Remove(pro);
+                    _context.LogPricipalOperations.Add(log);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -303,6 +330,13 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="instituteId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public IActionResult Create([Required] String name,[Required] int instituteId,ProfessionType type) 
         {
             if (ModelState.IsValid)
@@ -327,6 +361,14 @@ namespace LabExam.Controllers
                     }
                     else
                     {
+                        LogPricipalOperation log =
+                            _logger.GetDefaultLogPricipalOperation(
+                                PrincpalOperationCode.ProfessionAdd,
+                                $"添加一个新的专业",
+                                $"新专业名称: {name}");
+                        log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                        _context.LogPricipalOperations.Add(log);
+
                         Profession profession = new Profession();
                         profession.Name = name;
                         profession.InstituteId = instituteId;

@@ -4723,6 +4723,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "DevTool/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/DevTool.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DevTool.dll": {}
+        }
       }
     }
   },
@@ -12829,10 +12839,16 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "DevTool/1.0.0": {
+      "type": "project",
+      "path": "../DevTool/DevTool.csproj",
+      "msbuildProject": "../DevTool/DevTool.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "DevTool >= 1.0.0",
       "EPPlus.Core >= 1.5.4",
       "LitJson >= 0.13.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
@@ -12850,11 +12866,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\四川师范大学实验室安全考试项目\\lab\\project\\LabExam\\LabExam\\LabExam.csproj",
+      "projectUniqueName": "F:\\四川师范大学实验室安全考试项目\\yun\\lab\\project\\LabExam\\LabExam\\LabExam.csproj",
       "projectName": "LabExam",
-      "projectPath": "F:\\四川师范大学实验室安全考试项目\\lab\\project\\LabExam\\LabExam\\LabExam.csproj",
+      "projectPath": "F:\\四川师范大学实验室安全考试项目\\yun\\lab\\project\\LabExam\\LabExam\\LabExam.csproj",
       "packagesPath": "C:\\Users\\Kick\\.nuget\\packages\\",
-      "outputPath": "F:\\四川师范大学实验室安全考试项目\\lab\\project\\LabExam\\LabExam\\obj\\",
+      "outputPath": "F:\\四川师范大学实验室安全考试项目\\yun\\lab\\project\\LabExam\\LabExam\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12872,7 +12888,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "F:\\四川师范大学实验室安全考试项目\\yun\\lab\\project\\LabExam\\DevTool\\DevTool.csproj": {
+              "projectPath": "F:\\四川师范大学实验室安全考试项目\\yun\\lab\\project\\LabExam\\DevTool\\DevTool.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

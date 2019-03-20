@@ -60,7 +60,7 @@ namespace LabExam
                 options.LogoutPath = "/Account/LoginOut";
             });
             
-            services.AddDistributedMemoryCache();
+            services.AddMemoryCache();
             services.AddSession(opts =>
             {
                 opts.IdleTimeout = TimeSpan.FromHours(3); //Session 三个小时后自动失效
@@ -95,7 +95,9 @@ namespace LabExam
             app.UseCookiePolicy();
             app.UseAuthentication();
 
+            
             app.UseSession();
+            
             app.UseStatusCodePagesWithReExecute("/error/{0}"); //用于状态错误的中间件
 
             app.UseMvc(routes =>

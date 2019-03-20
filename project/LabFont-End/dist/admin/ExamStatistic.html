@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/jquery/dist/jquery.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" />
+    <script src="../js/app.min.js"></script>
+    <link rel="stylesheet" href="../css/AdminEntry.min.css" />
+    <link rel="icon" href="../Resources/system/icon/PageIconOnline.png" />
+    <script src="../lib/echarts/echarts.min.js"></script>
+    <script src="../lib/echarts/walden.js"></script>
+    <title>安全教育在线-学生统计</title>
+    <script>
+
+
+
+
+    </script>
+</head>
+
+<body class=" bc-clr-grey-little">
+    <div class="flex-layout">
+        <div class=" flex-item-2  bc-clr-black-web" data-max-width="220" data-min-width="220" style=" position: relative;">
+            <div class="font-color-black-153 font-size-12 padding-left-45px margin-bottom-10px " data-margin-top="150">
+                SICNUIE
+            </div>
+            <ul class="admin-navbar layout-height-100">
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/student2016110418.svg" width="20" />
+                        <span>学生管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学生信息</a></li>
+                        <li><a href="#">2.学生列表</a></li>
+                        <li><a href="#">3.管理学生</a></li>
+                        <li><a href="#">4.总体情况</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam3.svg" width="20" />
+                        <span>题库管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加题目</a></li>
+                        <li><a href="#">2.题目列表</a></li>
+                        <li><a href="#">3.修改题目</a></li>
+                        <li><a href="#">4.题库使用分析</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam4.svg" width="20" />
+                        <span>模块管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.学院列表</a></li>
+                        <li><a href="#">2.专业列表</a></li>
+                        <li><a href="#">3.模块信息</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/exam5.svg" width="20" />
+                        <span>申请事务</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.处理学生申请</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/question2016110418.svg" width="20" />
+                        <span>课程管理</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.添加课程</a></li>
+                        <li><a href="#">2.课程详情</a></li>
+                        <li><a href="#">3.课程资料</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/system2016110418.svg" width="20" />
+                        <span>系统配置</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.系统运行</a></li>
+                        <li><a href="#">2.系统配置</a></li>
+                        <li><a href="#">3.系统管理员</a></li>
+                        <li><a href="#">4.添加管理员</a></li>
+                        <li><a href="#">4.修改个人密码</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <img src="../Resources/Admin/login/message.svg" width="20" />
+                        <span>系统日志</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">1.管理员操作日志</a></li>
+                        <li><a href="#">2.学生操作日志</a></li>
+                        <li><a href="#">3.用户登陆日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="admin-navbar-down font-color-white">
+                <img src="../Resources/Admin/login/mainPage.svg" width="14" title="返回系统主页" />
+                <img src="../Resources/Admin/login/tianqi.svg" width="16" class=" margin-left-10px" title="消息条数" />
+                <img src="../Resources/Admin/login/time.svg" width="18" class=" margin-left-10px" title="现在时间" />
+            </div>
+        </div>
+        <div class=" flex-item-12">
+            <div class="admin-narbar-top bc-clr-white border-light-down float-layout ">
+                <ul class="list-unstyled float-left  float-layout">
+                    <li>
+                        <a href="javascript:;" class="ban-bootsrap-a-style" id="admin-only-show-505">
+                            <img src="../Resources/Admin/login/list.svg" width="20" class="icon-vertical" />
+                            <span class=" font-color-grey padding-left-25px">
+                                管理员： 蒋廖周
+                            </span>
+                        </a>
+                        <ul class="z-index-top" id="admin-only-show-505-content">
+                            <li class="bc-clr-white border-thumali" data-height="310" data-width="300">
+                                <div class=" border-light-down">
+                                    <h4 class=" text-danger font-size-15 font-weight-600 text-center">
+                                        <img src="../Resources/Admin/login/admin1.svg" width="20" class="icon-vertical" />
+                                        管理员信息
+                                        <a href="#" class="close padding-bottom-15px" id="admin-only-show-505-content-cancel">
+                                            &times;
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">姓名</span>
+                                    <span class="admin-user-content margin-left-15px">酱料周 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">工号</span>
+                                    <span class="admin-user-content margin-left-15px">2016110418 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">用户状态</span>
+                                    <span class="admin-user-content margin-left-15px">正常使用 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">登陆时间</span>
+                                    <span class="admin-user-content margin-left-15px">2018/10/27 17:59 </span>
+                                </p>
+                                <p class=" margin-top-10px">
+                                    <span class="admin-user-title">操作总数</span>
+                                    <span class="admin-user-content margin-left-15px"> <span>50</span> 项操作 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">权限拥有</span>
+                                    <span class="admin-user-content margin-left-15px"> 部分权限 </span>
+                                </p>
+                                <p>
+                                    <span class="admin-user-title">登陆选项</span>
+                                    <button class="margin-left-15px btn btn-sm btn-danger">退出登录</button>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class=" float-right padding-15px">
+                    <a href="#" data-toggle="modal" data-target="#User-warning"><img src="../Resources/Admin/login/message2.svg"
+                            width="25">
+                        <span class="info-warning">1</span> </a>
+                    <a href="#" data-toggle="modal" data-target="#User-danger" class=" margin-left-20px margin-right-10px ">
+                        <img src="../Resources/Admin/login/message.svg" width="22">
+                        <span class="info-warning-green">2</span></a>
+                </div>
+            </div>
+            <div class="margin-10px bc-clr-defalut">
+
+
+
+                <div class=" margin-5px bc-clr-white  padding-10px border-little-grey-all " >
+                    <div id="tablist-hover">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#InstituteList" aria-controls="home" role="tab" data-toggle="tab">
+                                    院校学生统计结果
+                                </a>
+                            </li>
+                            <li role="presentation"><a href="#addInstitute" aria-controls="profile" role="tab"
+                                    data-toggle="tab">添加单选题</a>
+                            </li>
+                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+                                    选择题题库统计</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content margin-top-10px">
+                            <div role="tabpanel" class="tab-pane active" id="InstituteList">
+                                <div class=" flex-layout">
+                                    <div class=" flex-item-8 bc-clr-white  margin-5px">
+                                        <div style="width:100%; height:320px;" id="LoginStatus">
+                
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class=" flex-layout">
+                                        <div class=" flex-item-4 bc-clr-white  " id="ChartExamInfo">
+                                            <div id="Chart-Exam-info" style="width:100%; height:320px;">
+                    
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class=" flex-layout">
+
+                                        <div class="flex-item-3  bc-clr-white margin-5px padding-10px">
+                                            <div id="WebSiteCalloption" style=" width:100%; height:300px" >
+                    
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="addInstitute">
+                                <div class="flex-item-5  bc-clr-white margin-5px padding-10px">
+                                    <div id="ModelStatus" style=" width:500px; height:300px">
+            
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="messages">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+
+</script>
+
+<script>
+
+</script>
+</html>

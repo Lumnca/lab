@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.1": {
       "LabExam/1.0.0": {
         "dependencies": {
+          "DevTool": "1.0.0",
           "EPPlus.Core": "1.5.4",
           "LitJson": "0.13.0",
           "Microsoft.AspNetCore.App": "2.1.1",
@@ -622,6 +623,14 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
+        }
+      },
+      "DevTool/1.0.0": {
+        "runtime": {
+          "DevTool.dll": {}
+        },
+        "compile": {
+          "DevTool.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3801,6 +3810,11 @@
       "sha512": "sha512-91tvfHWHSrYFPolCwWYqbpo1YaoBUCQ3uNZ/O/zr0ev5BnkoATJoie16ywlMVUaXZtfSfNELxhtG3aqpTfwR4w==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "DevTool/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "type": "package",

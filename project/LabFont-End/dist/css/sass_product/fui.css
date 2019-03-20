@@ -1687,8 +1687,6 @@
 
 @media screen and (max-width: 500px) {
   #ApplyNew {
-    display: block;
-    margin-top: 10px;
     margin-left: 0px;
   }
 }
@@ -1857,6 +1855,14 @@
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.box-sizing-content {
+  box-sizing: content-box;
+}
+
+.box-sizing-border {
+  box-sizing: border-box;
 }
 
 /* 重写 checkbox 样式 */

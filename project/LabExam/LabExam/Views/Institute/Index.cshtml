@@ -45,7 +45,7 @@
                         <thead>
                             <tr>
                             <tr>
-                                <th>编号</th>
+                                <th class="text-left">编号</th>
                                 <th>学院名称</th>
                                 <th>学院ID</th>
                                 <th>所属模块</th>
@@ -63,7 +63,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td ><label class="label label-primary">@(++index)</label></td>
+                                    <td class="text-left"><label class="label label-primary">@(++index)</label></td>
                                     <td>@item.Name </td>
                                     <td>@item.InstituteId</td>
                                     <td><label class="label label-primary">@item.ModuleName</label></td>
@@ -234,7 +234,7 @@
 <script id="fuiInstituteListTemplate" type="x-tmpl-mustache">
     {{#institutes}}
     <tr>
-        <td class=" text-center"><label class="label label-primary">{{index}}</label></td>
+        <td class="text-left"><label class="label label-primary">{{index}}</label></td>
         <td>{{name}} </td>
         <td>{{instituteId}}</td>
         <td><label class="label label-primary">{{moduleName}}</label></td>

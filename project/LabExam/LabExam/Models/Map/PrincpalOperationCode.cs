@@ -27,5 +27,25 @@ namespace LabExam.Models.Map
         UploadInsertStudent = 17,//导入学生信息
         ExportExamData = 18,//导出学生考试信息
         SystemRuntimeError = 19,
+        ChangeInstituteToModule = 20,// 将一个学院归属要这个模块
+        DeleteInstituteFromModule = 21,// 将一个学院从此模块中排除出去
+        ModuleReName = 22, //模块重命名
+        ModuleDelete = 23, //删除模块
+        InstituteDelete = 24,//删除学院
+        InstituteAdd= 25, //添加学院
+        InstituteUpdate = 26,//修改学院名称
+        ProfessionAdd = 27,//添加专业
+        ProfessionUpdate = 28,//修改专业
+        ProfessionDelete = 29,//删除专业
+        ApplicationForReExaminationsDelete = 30,//删除重考申请
+        JudgeDelete = 31, //删除判断题
+        JudgeUpdate = 32, //更新判断题
+        MultipleAdd= 33,//添加多选题
+        MultipleDelete = 34,//删除多选题
+        MultipleUpdate = 35, //修改多选题
+        SingleAdd = 36,//添加单选题
+        SingleDelete = 37,//删除单选题
+        SingleUpdate = 39, //修改单选题
+
     }
 }

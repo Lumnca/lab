@@ -1,0 +1,35 @@
+﻿<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title font-weight-600 padding-top-10px text-info" id="myModalLabel">学生申请</h4>
+        </div>
+        <div class="modal-body">
+            <div class="list-group">
+                <ul class="list-group">
+                    <li class="list-group-item float-layout">
+                        <div class=" float-left">
+                            当前有 <b class=" text-warning">@ViewBag.reExam</b> 同学申请重新考试,请求老师批准
+                        </div>
+                        <div class=" float-right">
+                            <a asp-controller="ReExam" asp-action="Index" class=" btn btn-sm btn-info float-right">
+                                立即查看
+                            </a>
+                        </div>
+                    </li>
+                    <li class="list-group-item float-layout ">
+                        <div class=" float-left">
+                            新增加入考试计划的申请 <b class=" text-warning">@ViewBag.join</b> 条
+                        </div>
+                        <div class=" float-right">
+                            <a asp-controller="Application" asp-action="Index" class=" btn btn-sm btn-info float-right">立即查看 </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">稍后处理</button>
+            </div>
+        </div>
+    </div>
+</div>

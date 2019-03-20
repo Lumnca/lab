@@ -23,16 +23,16 @@ namespace LabExam.Controllers
     {
         private readonly LabContext _context;
         private readonly IEncryptionDataService _encryption;
-        private readonly IHostingEnvironment _hosting;
         private readonly IHttpContextAnalysisService _analysis;
         private readonly ILoadConfigFileService _config;
-        public MultipleController(LabContext context, IEncryptionDataService encryption, IHostingEnvironment hosting, IHttpContextAnalysisService analysis, ILoadConfigFileService config)
+        private readonly ILoggerService _logger;
+        public MultipleController(LabContext context, IEncryptionDataService encryption, IHttpContextAnalysisService analysis, ILoadConfigFileService config, ILoggerService logger)
         {
             _context = context;
             _encryption = encryption;
-            _hosting = hosting;
             _analysis = analysis;
             _config = config;
+            _logger = logger;
         }
 
         // GET: /<controller>/
@@ -112,6 +112,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public IActionResult Create([Bind(include: "ModuleId,Content,Answer,Count,A,B,C,D,E,F")] MultipleChoices item)
         {
             if (ModelState.IsValid)
@@ -154,6 +159,11 @@ namespace LabExam.Controllers
                 item.PrincipalId = user.UserId;
                 item.DegreeOfDifficulty = 1;
 
+                LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.MultipleAdd,
+                    $"查询编码:{item.MultipleId}", $"添加多选题:{item.Content}！");
+
+                log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                _context.LogPricipalOperations.Add(log);
                 _context.MultipleChoices.Add(item);
                 _context.SaveChanges();
                 return Json(new
@@ -247,6 +257,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public IActionResult Update([Bind(include: "MultipleId,ModuleId,Content,Answer,A,B,C,D,E,F")] MultipleChoices item)
         {
             if (ModelState.IsValid)
@@ -294,6 +309,13 @@ namespace LabExam.Controllers
                     multiple.D = item.D?.Trim();
                     multiple.E = item.E?.Trim();
                     multiple.F = item.F?.Trim();
+
+
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.MultipleUpdate,
+                        $"查询编码:{item.MultipleId}", $"修改多择题:{item.Content}！");
+
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
                     _context.SaveChanges();
                     return Json(new
                     {
@@ -335,6 +357,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="singleId"></param>
+        /// <returns></returns>
         public IActionResult Delete([Required] int singleId)
         {
             if (ModelState.IsValid)
@@ -363,7 +390,11 @@ namespace LabExam.Controllers
                             message = "无法删除,当前系统打开了学生学习通道,在实验室安全考试期间无法删除任何考题！以免引起数据不正常！"
                         });
                     }
+                    LogPricipalOperation log = _logger.GetDefaultLogPricipalOperation(PrincpalOperationCode.MultipleDelete,
+                        $"查询编码:{item.MultipleId}", $"删除多择题:{item.Content}！");
 
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
                     _context.MultipleChoices.Remove(item);
                     _context.SaveChanges();
                     return Json(new

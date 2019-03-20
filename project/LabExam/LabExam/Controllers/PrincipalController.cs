@@ -67,7 +67,6 @@ namespace LabExam.Controllers
             return View();
         }
 
-
         public IActionResult Admin()
         {
             List<Principal> principals = _context.Principals.OrderBy(item => item.PrincipalId).Take(10).ToList();
@@ -370,18 +369,6 @@ namespace LabExam.Controllers
         {
             if (ModelState.IsValid)
             {
-                PrincipalConfig principalConfig = _analysis.GetLoginUserConfig(HttpContext);
-                if (!principalConfig.Power.SystemManager)
-                {
-                    if (!_context.Principals.Any(p => p.PrincipalId == principalConfig.PrincipalId && p.PrincipalStatus == PrincipalStatus.Super))
-                    {
-                        return Json(new
-                        {
-                            isOk = false,
-                            message = "你并无系统管理操作权限"
-                        });
-                    }
-                }
                 Principal principal = _context.Principals.Find(pId);
                 if (principal != null)
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -135,6 +136,42 @@ namespace LabExam.Services
             {
                 return false;
             }
+        }
+
+        public int NotLearningCount(LabContext context)
+        {
+            String sql ="Select count(*) from student where Student.StudentId not in (select StudentId from Learings)";
+            if (context.Database.GetDbConnection().State == ConnectionState.Open)
+            {
+
+            }
+            else
+            {
+                context.Database.GetDbConnection().Open();
+            }
+            DbCommand cmd = context.Database.GetDbConnection().CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = sql;
+            int result =Convert.ToInt32(cmd.ExecuteScalar());
+            return result;
+        }
+
+        public int NotJoinSystemStudentCount(LabContext context)
+        {
+            String sql = "select count(*) from Student where StudentId not in(select StudentId from LogStudentOperations  )";
+            if (context.Database.GetDbConnection().State == ConnectionState.Open)
+            {
+
+            }
+            else
+            {
+                context.Database.GetDbConnection().Open();
+            }
+            DbCommand cmd = context.Database.GetDbConnection().CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = sql;
+            int result = Convert.ToInt32(cmd.ExecuteScalar());
+            return result;
         }
     }
 }

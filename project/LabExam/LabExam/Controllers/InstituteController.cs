@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using LabExam.IServices;
 using LabExam.Models.Entities;
 using LabExam.Models.EntitiyViews;
+using LabExam.Models.Map;
 using Microsoft.EntityFrameworkCore;
 
 namespace LabExam.Controllers
@@ -20,10 +21,13 @@ namespace LabExam.Controllers
     {
         private readonly LabContext _context;
         private readonly IHttpContextAnalysisService _analysis;
-        public InstituteController(LabContext context, IHttpContextAnalysisService analysis)
+        private readonly ILoggerService _logger;
+
+        public InstituteController(LabContext context, IHttpContextAnalysisService analysis, ILoggerService logger)
         {
             _context = context;
             _analysis = analysis;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -65,7 +69,13 @@ namespace LabExam.Controllers
             }
         }
 
-        public async Task<IActionResult> Create([Required] String Name,[Required] int ModuleId)
+        /// <summary>
+        /// 创建一个新的学院
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="moduleId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Create([Required] String name,[Required] int moduleId)
         {
             if (ModelState.IsValid)
             {
@@ -78,9 +88,9 @@ namespace LabExam.Controllers
                     });
                 }
 
-                if (_context.Modules.Any(m => m.ModuleId == ModuleId))
+                if (_context.Modules.Any(m => m.ModuleId == moduleId))
                 {
-                    if (_context.Institute.Any(ins => ins.Name == Name))
+                    if (_context.Institute.Any(ins => ins.Name == name))
                     {
                         return Json(new
                         {
@@ -90,8 +100,15 @@ namespace LabExam.Controllers
                     }
                     else
                     {
-                        Institute institute = new Institute();
-                        institute.Name = Name;
+                        LogPricipalOperation log =
+                            _logger.GetDefaultLogPricipalOperation(
+                                PrincpalOperationCode.InstituteAdd,
+                                $"添加新的学院",
+                                $"添加新的学院名称 {name}");
+
+                        log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                        _context.LogPricipalOperations.Add(log);
+                        Institute institute = new Institute {Name = name};
                         _context.Institute.Add(institute);
                         await _context.SaveChangesAsync().ContinueWith(t =>
                         {
@@ -99,7 +116,7 @@ namespace LabExam.Controllers
                             if (result == 1)
                             {
                                 InstituteToModule instituteToModule = new InstituteToModule();
-                                instituteToModule.ModuleId = ModuleId;
+                                instituteToModule.ModuleId = moduleId;
                                 instituteToModule.InstituteId = institute.InstituteId;
                                 _context.Add(instituteToModule);
                                 _context.SaveChangesAsync();
@@ -190,6 +207,12 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        /// 完成日志记录
+        /// </summary>
+        /// <param name="newName">模块新名称</param>
+        /// <param name="instituteId">修改的模块的编码</param>
+        /// <returns></returns>
         public async Task<IActionResult> Update([Required] String newName, [Required] int instituteId)
         {
             if (ModelState.IsValid && instituteId > 0)
@@ -205,7 +228,15 @@ namespace LabExam.Controllers
                 Institute ins = _context.Institute.FirstOrDefault(one => one.InstituteId == instituteId);
                 if (ins != null)
                 {
+                    LogPricipalOperation log =
+                        _logger.GetDefaultLogPricipalOperation(
+                            PrincpalOperationCode.InstituteUpdate,
+                            $"查询编码:{ins.InstituteId} ",
+                            $"修改学院信息：{ins.Name} 名称改为 {newName}");
+
                     ins.Name = newName;
+                    log.PrincpalOperationStatus = PrincpalOperationStatus.Success;
+                    _context.LogPricipalOperations.Add(log);
                     await _context.SaveChangesAsync();
                     return Json(new
                     {
@@ -232,6 +263,11 @@ namespace LabExam.Controllers
             }
         }
 
+        /// <summary>
+        ///  完成日志记录
+        /// </summary>
+        /// <param name="instituteId"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Delete([Required] int instituteId)
         {
@@ -247,10 +283,20 @@ namespace LabExam.Controllers
                 }
 
                 Institute ins = _context.Institute.FirstOrDefault(one => one.InstituteId == instituteId);
+
+                LogPricipalOperation log =
+                    _logger.GetDefaultLogPricipalOperation(
+                        PrincpalOperationCode.ModuleDelete,
+                        $"查询编码:{ins.InstituteId} ",
+                        $"删除学院：{ins.Name}");
+
+
                 if (ins != null)
                 {
                     if (_context.Professions.Any(pro => pro.InstituteId == instituteId))
                     {
+                        _context.LogPricipalOperations.Add(log); //删除失败
+                        _context.SaveChanges();
                         return Json(new
                         {
                             isOk = false,
@@ -259,6 +305,8 @@ namespace LabExam.Controllers
                     }
                     else
                     {
+                        log.PrincpalOperationStatus = PrincpalOperationStatus.Success; //删除成功
+                        _context.LogPricipalOperations.Add(log);
                         _context.Institute.Remove(ins);
                         await _context.SaveChangesAsync();
                         return Json(new

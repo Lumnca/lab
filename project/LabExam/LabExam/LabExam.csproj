@@ -29,6 +29,10 @@
     <None Include="wwwroot\css\font\iconfont.svg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DevTool\DevTool.csproj" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1Development_1json__JSONSchema="http://json.schemastore.org/appsscript" /></VisualStudio></ProjectExtensions>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

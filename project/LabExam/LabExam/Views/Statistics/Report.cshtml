@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewData["Title"] = "实验室安全教育在线-考试统计报表";
+    Layout = "~/Views/Shared/_BackEnd_Layout.cshtml";
+}
+
+<script src="~/lib/echarts/echarts.min.js"></script>
+<script src="~/lib/echarts/walden.js"></script>
+
+<div class=" margin-5px bc-clr-white  padding-10px border-little-grey-all ">
+    <div id="tablist-hover">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#firstView" aria-controls="home" role="tab" data-toggle="tab">
+                    统计视图
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content margin-top-10px">
+            <div role="tabpanel" class="tab-pane active" id="firstView">
+                <div style="width: 100%; height:450px;" id="InstituteExamStatistic">
+
+                </div>
+                <div class=" padding-10px ">
+                    <span class=" font-size-15 font-weight-600">
+                        查询年级:
+                    </span>
+                    <select name="studentGrade" id="studentGrade" data-height="24" data-width="150" class="font-size-14 font-weight-400 padding-left-5px ">
+
+                    </select><button class=" btn btn-primary btn-sm margin-left-15px" data-height="15">重新加载</button>
+                </div>
+                <div class=" flex-layout">
+                    <div class=" flex-item-4 bc-clr-white  ">
+                        <div id="chart-student-info" style=" height:320px;">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class=" flex-layout">
+
+                    <div class="flex-item-3  bc-clr-white margin-5px padding-10px">
+                        <div id="WebSiteCallOption" style=" width:100%; height:400px">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script>
+        var theme = "walden";
+
+        function LoadYear() {
+            var yearNow = new Date().getFullYear();
+
+            $("#studentGrade").append('<option value="-1">所有年级</option>');
+            for (var index = yearNow; index > 2016; index--) {
+                $("#studentGrade")
+                    .append(`<option value="${index}">${index}</option>`);
+            }
+        }
+
+        LoadYear();
+
+        function loadView(){
+            var instituteExamStatistic = echarts.init(document.getElementById('InstituteExamStatistic'), theme);
+            instituteExamStatistic.showLoading();
+
+            $.ajax({
+                url: "/EChart/Pass",
+                type: "get",
+                dataType: "json",
+                data: {
+                    grade: $('#studentGrade').val()
+                },
+                success: function (json, textStatus, jqXhr) {
+                    console.log(json);
+
+                    var instituteOption = {
+                        title: {
+                            text: '四川师范大学各学院考试情况',
+                            subtext: '各学院统计报表'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['已通过', '未通过']
+                        },
+                        grid: {
+                            top: 80,
+                            left: 40,
+                            right: 10
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                dataView: { show: true, readOnly: false },
+                                magicType: { show: true, type: ['line', 'bar'] },
+                                restore: { show: true },
+                                saveAsImage: { show: true }
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                name: "各学院名称",
+                                nameRotate: 10,
+                                type: 'category',
+                                axisLabel: {
+                                    rotate: 28
+                                },
+                                data: json.names
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                name: "人数",
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '已通过',
+                                type: 'bar',
+                                data: json.va1Pass,
+                                markLine: {
+                                    data: [
+                                        { type: 'average', name: '平均值' }
+                                    ]
+                                },
+                                label: {
+                                    show: true,
+                                    verticalAlign: "top",
+                                    position: [0, -20],
+                                    formatter: "{c}人"
+                                }
+                            },
+                            {
+                                name: '未通过',
+                                type: 'bar',
+                                data: json.va1NotPass,
+                                markLine: {
+                                    data: [
+                                        { type: 'average', name: '平均值' }
+                                    ]
+                                },
+                                label: {
+                                    show: true,
+                                    verticalAlign: "top",
+                                    position: [0, -20],
+                                    formatter: "{c}人"
+                                }
+                            }
+                        ]
+                    };
+
+                    instituteExamStatistic.hideLoading();
+                    instituteExamStatistic.setOption(instituteOption, true);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    onMask("错误", errorThrown);
+                }
+            });
+
+        }
+
+        loadView();
+
+        $("#studentGrade").change(function() {
+            loadView();
+        });
+
+        var myChart = echarts.init(document.getElementById('chart-student-info'), theme);
+        var myScoreChart = echarts.init(document.getElementById('WebSiteCallOption'), theme);
+        myChart.showLoading();
+        myScoreChart.showLoading();
+        $.ajax({
+            url: "/EChart/Exam",
+            type: "get",
+            dataType: "json",
+            success: function (json, textStatus, jqXhr) {
+                console.log(json);
+
+                var optionExam = {
+                    title: {
+                        text: '安全考试进行情况',
+                        subtext: "Safety test situation display",
+                        x: 'center',
+                        textStyle: {
+                            fontSize: 16
+                        }
+                    },
+                    toolbox: {
+                        orient: "horizontal",
+                        itemSize: "16",
+                        itemGap: 20,
+                        feature: {
+                            saveAsImage: {
+                                name: "安全考试进行情况"
+                            },
+                            restore: {},
+
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        top: 40,
+                        left: 'right',
+                        data: ['通过考试', '已经完成的学习任务', '尚未完成的学习任务', '尚未学习', '从未进入系统']
+                    },
+                    series: [
+                        {
+                            name: '情况',
+                            type: 'pie',
+                            radius: '55%',
+                            center: ['50%', '60%'],
+                            data: [
+                                { value: json.pass, name: '通过考试' },
+                                { value: json.learningFinish, name: '已经完成的学习任务' },
+                                { value: json.learningNotFinish, name: '尚未完成的学习任务' },
+                                { value: json.notLearning, name: '尚未学习' },
+                                { value: json.notJoinSystemLearning, name: '从未进入系统' }
+                            ],
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                var app = {}
+                app.currentIndex = -1;
+
+                setInterval(function () {
+                    var dataLen = option_exam.series[0].data.length;
+                    // 取消之前高亮的图形
+                    myChart.dispatchAction({
+                        type: 'downplay',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    app.currentIndex = (app.currentIndex + 1) % dataLen;
+                    // 高亮当前图形
+                    myChart.dispatchAction({
+                        type: 'highlight',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    // 显示 tooltip
+                    myChart.dispatchAction({
+                        type: 'showTip',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                }, 2500);
+
+                var optionScore = {
+                    title: {
+                        text: "考试成绩分布",
+                        subtext: "Exam Score Distribution",
+                        textStyle: {
+                            fontSize: 16
+                        }
+
+                    },
+                    toolbox: {
+                        orient: "horizontal",
+                        itemSize: "16",
+                        itemGap: 20,
+                        feature: {
+                            saveAsImage: {
+                                name: "学生考试成绩分布"
+                            },
+                            restore: {}
+                        }
+                    },
+                    grid: {
+                        top: 85,
+                        left: 30,
+                        right: 10
+                    },
+                    xAxis: {
+                        name: "分数",
+                        minInterval: 1,
+                        maxInterval:5
+                    },
+                    yAxis: {
+                        name: "人数"
+                    },
+                    tooltip: {
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+                    series: [{
+                        symbolSize: 15,
+                        data: json.pairs,
+                        type: 'scatter',
+                        tooltip: {
+                            padding: 10,
+                            formatter: function (param) {
+                                console.log(param);
+                                return `成绩情况<br/>分数:${param.data[0]} <br/> 人数:${param.data[1]}`
+                            },
+                            textStyle: {
+                                fontSize: 12
+                            }
+                        }
+                    }]
+                };
+
+                myChart.hideLoading();
+                myScoreChart.hideLoading();
+
+                myChart.setOption(optionExam);
+                myScoreChart.setOption(optionScore);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                onMask("错误", errorThrown);
+            }
+        });
+    </script>
+}
